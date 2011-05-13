@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Course Manager</title>
+        <!-- import BluePrint CSS framework -->
+        <link rel="stylesheet" media="screen,projection,tv" href="css/blueprint/screen.css" type="text/css" />
+        <link rel="stylesheet" media="print" href="css/blueprint/print.css" type="text/css" />
+        <!--[if IE]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <!-- import custom CSS styles -->
+        <link rel="stylesheet" media="screen,projection,tv" href="css/screen.css" type="text/css" />
+        <link rel="stylesheet" media="print" href="css/print.css" type="text/css" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+
+    <body>
+
+        <div class="container ">
+            <div  id="header" class="span-24 last">
+                <div id="logo">
+                    <h1>Course Manager</h1>
+                </div>
+                <div id="mainmenu">
+                    <ul>
+                        <li><a class="demo-active" href="index.xhtml">My Courses</a></li>
+                        <li><a class="demo-active" href="messages.xhtml"><b>Messages(2)</b></a></li>
+                        <li><a href="">Settings</a></li>
+                        <li><a href="">Help</a></li>
+                        <li><a class="demo-active" target="demo-iframe" href="profile.xhtml">Sheldon Cooper</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span-5" id="sidebar">
+                <div id="messages-folders" class="border">
+                    <div><b><a target="demo-iframe" class="demo-active" href="messages-compose.xhtml">Compose message</a></b></div>
+                    <hr />
+                    <div><b><a target="demo-iframe" class="demo-active" href="messages-inbox.xhtml">Inbox(1)</a></b></div>
+                    <div><a href="">Sent</a></div>
+                    <div><a href="">Trash</a></div>
+                </div>
+            </div>
+            <div class="span-19 last" id="main">
+                <div id="content" class="border">
+
+                    <!-- content -->
+                    <iframe id="demo-iframe" src="messages-inbox.xhtml" />
+                    <!-- /content -->
+                </div>
+            </div>
+
+
+        </div>
+        <div id="footer" class="border">
+            Course Manager Mockup by Jakub Kinst
+        </div>
+    </body>
+</html>

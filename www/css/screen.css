@@ -1,0 +1,61 @@
+body {
+    font-family: "Trebuchet MS", "Tahoma","Verdana";
+    font-size: 12px;
+    color: #333;
+    background-color: #fff;
+}
+.italic{font-style: italic;}
+#header{
+    margin-bottom: 15px;
+    background:gray;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+}
+#header h1 {
+    font-size: 23px;
+    color: white;
+    padding:8px;
+}
+
+#content h3{
+    background:lightblue;
+    padding:6px;
+    padding-left: 10px;
+    color:white;
+}
+.div-course{
+    padding: 5px;
+    margin-bottom: 7px;
+    background:lightblue;
+    -moz-border-radius: 2px 10px 2px 10px;
+    border-radius: 2px 10px 2px 10px;
+
+}
+.flaground{-moz-border-radius: 2px 12px 2px 12px; border-radius: 2px 12px 2px 12px;}
+.shadow-rb {-moz-box-shadow: 2px 2px 4px #888;-webkit-box-shadow: 2px 2px 4px #888;box-shadow: 2px 2px 4px #888;}
+.shadow-pull {-moz-box-shadow: 0 2px 4px #888;-webkit-box-shadow: 2px 2px 4px #888;box-shadow: 0 0 3px #888;}
+
+.div-course a{
+    color:black;    
+}
+.div-course div{
+    font-size: 11px;
+    padding-left:5px;
+}
+
+#content .lesson {
+    border:1px solid gray;
+    padding:6px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+.div-course ul{list-style: none;}
+.div-course ul li a{text-decoration: none;}
+.div-course ul li a:hover{background:gray;color:white;-moz-border-radius:4px; border-radius: 4px;}
+
+.lesson h4 {
+    background:none;
+    color:black;
+    font-size: 18px;
+
+}
