@@ -19,6 +19,19 @@ class CourseModel extends Object{
         
         dibi::query('INSERT INTO teacher',$values2);
     }
+    
+    public static function getCourseByID($id){
+        return dibi::fetch('SELECT * FROM course WHERE id=%i',$id);
+    }
+    public static function approvedUser($user,$courseid){
+        $approved = false;
+        foreach (CourseListModel::getCourses($user) as $course){
+            if ($course['id'] == $courseid)
+                $approved=true;
+        }
+        return $approved;
+            
+    }
 }
 
 ?>

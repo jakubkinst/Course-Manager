@@ -12,9 +12,18 @@
  *
  */
 class CoursePresenter extends BasePresenter {
+    
+    public function actionHomepage(){
+    }
+
 
     public function renderHomepage() {
-        
+       $courseid = $this->getParam('id');
+        if (CourseModel::approvedUser(Environment::getUser()->getIdentity(),$courseid)){
+            $this->template->approved = true;
+            $this->template->course = CourseModel::getCourseByID($courseid);
+        }
+        else $this->template->approved = false;
     }
 
     public function actionAdd() {

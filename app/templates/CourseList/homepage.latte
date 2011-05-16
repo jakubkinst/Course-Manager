@@ -1,0 +1,17 @@
+
+{block content}
+{if $logged}
+    {foreach $courses as $course}
+        <div class="course">
+            <h3><a href="{link course:homepage, 'id' => $course['id']}">{$course['name']}</a></h3>
+            {$course['description']}
+        </div>
+    {/foreach}
+    <a href="{link course:add}">+ Add Course</a>
+{else}
+    <h2></h2>
+    <p>
+        Welcome to Course Manager. Please sign in.<br/>
+        You can register <a href="{link user:register}">here</a>
+    </p>
+{/if}

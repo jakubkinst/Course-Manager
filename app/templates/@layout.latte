@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Course Manager</title>
+        <!-- import BluePrint CSS framework -->
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/blueprint/screen.css" type="text/css" />
+        <link rel="stylesheet" media="print" href="{$basePath}/css/blueprint/print.css" type="text/css" />
+        <!--[if IE]><link rel="stylesheet" href="{$basePath}/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <!-- import custom CSS styles -->
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css" />
+        <link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css" />
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+    </head>
+
+    <body>
+
+        <div class="container ">
+            <div  id="header" class="span-24 last">
+                <div id="logo">
+                    <h1>Course Manager</h1>
+                </div>
+                <div id="mainmenu">
+                    <ul>
+                        <li><a href="{link courselist:homepage}">My Courses</a></li>
+                        <li><a href="{link messages:inbox}"><b>Messages(2)</b></a></li>
+                        <li><a href="{link settings:homepage}">Settings</a></li>
+                        <li><a href="{link help:homepage}">Help</a></li>
+                        <li>{if $logged}
+                            <a href="{link user:homepage, 'id' => $userid}">                        
+                            {$user->email}
+                            </a>
+                        {/if}</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="span-19" id="main">
+                <div id="content" class="border">
+
+                    <!-- content -->
+                    {include #content}
+                    <!-- /content -->
+                </div>
+            </div>
+
+            <div class="span-5 last" id="sidebar">
+                <div id="loginpart" class="border">
+                    {if $logged}
+                    Logged as {$user->email} <br/>
+                    <a href="{link user:logout}">logout</a>
+                    {else}
+                    {widget signInForm} <br />
+                    <a href="{link user:register}">register</a>
+                    {/if}   
+
+                </div>
+                <div id="courselist" class="border">
+                    {if $logged}
+                    <h3 class="caps">My courses</h3>
+                    {foreach $courses as $course}
+                    <div class="div-course border">
+                        <a href="{link course:homepage, 'id' => $course['id']}">{$course['name']}</a>
+                        <div class="italic">Lector Name</div>
+                        <div class="time">date/time</div>
+                        <ul>
+                            <li><a class="demo-active" target="demo-iframe" href="lessons.xhtml">Lessons</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="results.xhtml">Results</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="assignments.xhtml"><b>Assignments(1)</b></a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="resources.xhtml">Resources</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="forum.xhtml">Forum</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="events.xhtml">Events</a></li>
+                        </ul>
+                    </div>
+                    {/foreach}
+                    <div id="add-course"><a href="{link course:add}">+ Add Course</a></div>
+                    {/if}
+
+                </div>
+                <div id="events" class="border">
+                    <h3 class="caps">Upcoming events</h3>
+                    <div class="event border">
+                        <div class="date">Friday 21.3.2010 12:00</div>
+                        <div class="name"><b>Test 4</b></div>
+                        <div class="description">
+                            Nam pellentesque luctus sadsag lewilksl akjdhweu...
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="event border">
+                        <div class="date">Monday 24.3.2010 12:00</div>
+                        <div class="name"><b>Test 5</b></div>
+                        <div class="description">
+                            Aliquam erat volutpat. Integer nec tincidunt felis...</div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div id="footer" class="border">
+            Course Manager by Jakub Kinst
+        </div>
+    </body>
+</html>

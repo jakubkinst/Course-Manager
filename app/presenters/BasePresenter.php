@@ -21,6 +21,7 @@ abstract class BasePresenter extends Presenter {
             $this->template->courses = CourseListModel::getCourses(Environment::getUser()->getIdentity());
             $this->template->logged = true;
             $this->template->user = $user->getIdentity();
+            $this->template->userid = UserModel::getUserID($user->getIdentity());
         }
         else
             $this->template->logged = false;
@@ -35,7 +36,7 @@ abstract class BasePresenter extends Presenter {
         $form->addPassword('password', 'Password:')
                 ->setRequired('Please provide a password.');
 
-        $form->addCheckbox('remember', 'Remember me on this computer');
+        $form->addCheckbox('remember', 'Remember');
 
         $form->addSubmit('send', 'Sign in');
 

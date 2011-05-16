@@ -4,76 +4,66 @@ body {
     color: #333;
     background-color: #fff;
 }
-.italic{font-style: italic;}
-#header{
-    margin-bottom: 15px;
-    background:gray;
-    -moz-border-radius: 0px 0px 10px 10px;
-    border-radius: 0px 0px 10px 10px;
-}
-#header h1 {
-    font-size: 23px;
-    color: white;
-    padding:8px;
-    float:left;
-    width:300px;
-}
-#loginpart {
-float:right;
-width:300px;
-}
-#loginpart td{
-  margin:0;
-  padding:0;
-}
-#loginpart .text {
-font-size:10px;
-width:80px;
-height:15px;
-padding:2px;
+.border{
+    border:1px solid black;
 }
 tbody tr:nth-child(even) td, tbody tr.even td {
 background-color:transparent;
 } 
-#content h3{
-    background:lightblue;
-    padding:6px;
-    padding-left: 10px;
-    color:white;
+#header {
+    width:100%;
+    height:50px;
 }
-.div-course{
-    padding: 5px;
-    margin-bottom: 7px;
-    background:lightblue;
-    -moz-border-radius: 2px 10px 2px 10px;
-    border-radius: 2px 10px 2px 10px;
-
+#footer {
+    width:100%;
+    height:30px;
 }
-.flaground{-moz-border-radius: 2px 12px 2px 12px; border-radius: 2px 12px 2px 12px;}
-.shadow-rb {-moz-box-shadow: 2px 2px 4px #888;-webkit-box-shadow: 2px 2px 4px #888;box-shadow: 2px 2px 4px #888;}
-.shadow-pull {-moz-box-shadow: 0 2px 4px #888;-webkit-box-shadow: 2px 2px 4px #888;box-shadow: 0 0 3px #888;}
-
-.div-course a{
-    color:black;    
+#logo{
+    width:30%;
+    float:left;
 }
-.div-course div{
-    font-size: 11px;
-    padding-left:5px;
+#loginpart .text{
+    width:80px;
+    padding:2px;
+    margin:0px;
 }
-
-#content .lesson {
-    border:1px solid gray;
-    padding:6px;
-    padding-left: 10px;
+#mainmenu{
+    float:right;
+}
+#mainmenu ul{
+    margin:12px;
+    list-style-type: none;
+}
+#mainmenu ul li{
+    float:left;
+    padding: 3px;
+    border: 1px solid black;
+}
+.lesson{
+    background: #E5ECF9;
+    padding:8px;
     margin-bottom: 10px;
 }
-.div-course ul{list-style: none;}
-.div-course ul li a{text-decoration: none;}
-.div-course ul li a:hover{background:gray;color:white;-moz-border-radius:4px; border-radius: 4px;}
-
-.lesson h4 {
-    background:none;
-    color:black;
-    font-size: 18px;
-
+.lesson h4{
+    font: bold;
+}
+#content{
+    padding:5px;
+}
+#content iframe {
+    width:100%;
+    height:1800px;
+}
+.demo-active{
+    color:#D32B2B;
+}
+td sub{
+    color:gray;
+}
+#courselist{
+    padding:5px;
+}
+.profilephoto{
+    float:left;
+    margin:8px;
 }

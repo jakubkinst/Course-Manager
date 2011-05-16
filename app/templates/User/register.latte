@@ -1,3 +1,7 @@
 
 {block content}
-{control registerForm}
+{if !$logged}
+    {control registerForm}
+{else}
+    <span class="error"> You are signed in.</span>
+{/if}

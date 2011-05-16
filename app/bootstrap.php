@@ -43,9 +43,9 @@ $application->errorPresenter = 'Error';
 {
 	$router = $application->getRouter();
 
-	$router[] = new Route('index.php', 'Course:homepage', Route::ONE_WAY);
+	$router[] = new Route('index.php', 'Courselist:homepage', Route::ONE_WAY);
 
-	$router[] = new Route('<presenter>/<action>[/<id>]', 'Course:homepage');
+	$router[] = new Route('<presenter>/<action>[/<id>]', 'Courselist:homepage');
 };
 
 
