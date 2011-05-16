@@ -18,7 +18,7 @@ class UserPresenter extends BasePresenter {
 
     public function actionLogout() {
         Environment::getUser()->logout();
-        $this->redirect('Course:homepage');
+        $this->redirect('Courselist:homepage');
     }
 
     protected function createComponentRegisterForm() {

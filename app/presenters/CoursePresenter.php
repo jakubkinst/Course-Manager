@@ -17,20 +17,17 @@ class CoursePresenter extends BasePresenter {
         
     }
 
-    public function renderAdd() {
-        
-    }
-
-    private function getCourses() {
-        
+    public function actionAdd() {
+        if (!Environment::getUser()->isLoggedIn()){
+            $this->redirect('CourseList:homepage');            
+        }
     }
 
     protected function createComponentAddForm() {
         $form = new AppForm;
         $form->addText('name', 'Course name:*')
                 ->addRule(Form::FILLED, 'Set course name.');
-        $form->addTextArea('description', 'Course description:*')
-                ->addRule(Form::FILLED, 'Fill in the password');
+        $form->addTextArea('description', 'Course description:');
 
         $form->addSubmit('send', 'Create course');
         $form->onSubmit[] = callback($this, 'addFormSubmitted');
@@ -39,8 +36,9 @@ class CoursePresenter extends BasePresenter {
     }
     public function addFormSubmitted($form){
         $values = $form->getValues();
-        CourseModel::addCourse($values);
-        $this->redirect('courselist:default');
+        $user = Environment::getUser()->getIdentity();
+        CourseModel::addCourse($user,$values);
+        $this->redirect('courselist:homepage');
         
     }
 

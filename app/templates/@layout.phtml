@@ -41,14 +41,14 @@
             <div id="header" class="span-24 last shadow-pull">
                 <h1>Course Manager</h1>
                 <div id="loginpart">
-                    {if isset($user)}
-                        Logged as {$user->email} <br/>
-                        <a href="{link user:logout}">logout</a>
+                    {if $logged}
+                    Logged as {$user->email} <br/>
+                    <a href="{link user:logout}">logout</a>
                     {else}
-                        {widget signInForm} <br />
-                        <a href="{link user:register}">register</a>
+                    {widget signInForm} <br />
+                    <a href="{link user:register}">register</a>
                     {/if}   
-                    
+
                 </div>
             </div>
             <div class="span-19 colborder" id="content">
@@ -56,23 +56,23 @@
             </div>
 
             <div class="span-4 last" id="sidebar">
-                <div id="courselist">
-                    <h3 class="caps">My courses</h3>
-                    <div class="div-course shadow-rb">
-                        <a href="">Course Label</a>
-                        <div class="italic">Lector Name</div>
-                        <div class="time">Course Time</div>
-                        <ul>
-                            <li><a href="">Classes</a></li>
-                            <li><a href="">Statistics</a></li>
-                            <li><a href="">Assignments</a></li>
-                            <li><a href="">Calendar</a></li>
-                        </ul>
+                {if $logged}
+                    <div id="courselist">
+                        <h3 class="caps">My courses</h3>
+                        {foreach $courses as $course}
+                            <div class="div-course shadow-rb">
+                                <a href="">{$course['name']}</a>
+                                <div class="italic">{$course['description']}</div>
+                                <ul>
+                                    <li><a href="">Classes</a></li>
+                                    <li><a href="">Statistics</a></li>
+                                    <li><a href="">Assignments</a></li>
+                                    <li><a href="">Calendar</a></li>
+                                </ul>
+                            </div>
+                        {/foreach}
                     </div>
-
-
-
-                </div>
+                {/if}
             </div>
         </div>
     </body>

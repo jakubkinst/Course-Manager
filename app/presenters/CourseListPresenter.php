@@ -16,12 +16,12 @@ class CourseListPresenter extends BasePresenter {
         parent::startup();
     }
 
-    public function actionDefault() {
+    public function actionHomepage() {
         
     }
 
-    public function renderDefault() {
-        $this->template->courses = CourseListModel::getCourses();
+    public function renderHomepage() {
+        
     }
 
 }

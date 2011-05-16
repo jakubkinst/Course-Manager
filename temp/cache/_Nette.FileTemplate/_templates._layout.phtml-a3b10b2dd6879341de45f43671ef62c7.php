@@ -1,15 +1,15 @@
-<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.58424800 1305498863";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.phtml";i:2;i:1305498858;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.00505100 1305537347";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.phtml";i:2;i:1305537340;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\@layout.phtml
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, 'h9sq1nrynk'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'ak302hhhyc'); unset($_extends);
 
 
 //
 // block head
 //
-if (!function_exists($_l->blocks['head'][] = '_lb027d8728b9_head')) { function _lb027d8728b9_head($_l, $_args) { extract($_args)
+if (!function_exists($_l->blocks['head'][] = '_lbb4d517a2df_head')) { function _lbb4d517a2df_head($_l, $_args) { extract($_args)
 ;
 }}
 
@@ -58,14 +58,14 @@ if ($_l->extends) {
             <div id="header" class="span-24 last shadow-pull">
                 <h1>Course Manager</h1>
                 <div id="loginpart">
-<?php if (isset($user)): ?>
-                        Logged as <?php echo TemplateHelpers::escapeHtml($user->email) ?> <br />
-                        <a href="<?php echo TemplateHelpers::escapeHtml($control->link("user:logout")) ?>">logout</a>
+<?php if ($logged): ?>
+                    Logged as <?php echo TemplateHelpers::escapeHtml($user->email) ?> <br />
+                    <a href="<?php echo TemplateHelpers::escapeHtml($control->link("user:logout")) ?>">logout</a>
 <?php else: ?>
-                        <?php $_ctrl = $control->getWidget("signInForm"); if ($_ctrl instanceof IPartiallyRenderable) $_ctrl->validateControl(); $_ctrl->render() ?> <br />
-                        <a href="<?php echo TemplateHelpers::escapeHtml($control->link("user:register")) ?>">register</a>
+                    <?php $_ctrl = $control->getWidget("signInForm"); if ($_ctrl instanceof IPartiallyRenderable) $_ctrl->validateControl(); $_ctrl->render() ?> <br />
+                    <a href="<?php echo TemplateHelpers::escapeHtml($control->link("user:register")) ?>">register</a>
 <?php endif ?>
-                    
+
                 </div>
             </div>
             <div class="span-19 colborder" id="content">
@@ -73,23 +73,23 @@ if ($_l->extends) {
             </div>
 
             <div class="span-4 last" id="sidebar">
-                <div id="courselist">
-                    <h3 class="caps">My courses</h3>
-                    <div class="div-course shadow-rb">
-                        <a href="">Course Label</a>
-                        <div class="italic">Lector Name</div>
-                        <div class="time">Course Time</div>
-                        <ul>
-                            <li><a href="">Classes</a></li>
-                            <li><a href="">Statistics</a></li>
-                            <li><a href="">Assignments</a></li>
-                            <li><a href="">Calendar</a></li>
-                        </ul>
+<?php if ($logged): ?>
+                    <div id="courselist">
+                        <h3 class="caps">My courses</h3>
+<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($courses) as $course): ?>
+                            <div class="div-course shadow-rb">
+                                <a href=""><?php echo TemplateHelpers::escapeHtml($course['name']) ?></a>
+                                <div class="italic"><?php echo TemplateHelpers::escapeHtml($course['description']) ?></div>
+                                <ul>
+                                    <li><a href="">Classes</a></li>
+                                    <li><a href="">Statistics</a></li>
+                                    <li><a href="">Assignments</a></li>
+                                    <li><a href="">Calendar</a></li>
+                                </ul>
+                            </div>
+<?php endforeach; array_pop($_l->its); $iterator = end($_l->its) ?>
                     </div>
-
-
-
-                </div>
+<?php endif ?>
             </div>
         </div>
     </body>
