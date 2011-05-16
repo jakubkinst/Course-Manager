@@ -18,7 +18,10 @@
 class SignPresenter extends BasePresenter
 {
 
-
+        public function renderIn()
+	{
+            $this->template->loginForm = $this->createComponentSignInForm();
+	}
 	/**
 	 * Sign in form component factory.
 	 * @return AppForm

@@ -10,6 +10,18 @@
 // this allows load Nette Framework classes automatically so that
 // you don't have to litter your code with 'require' statements
 require LIBS_DIR . '/Nette/loader.php';
+require LIBS_DIR . '/dibi/dibi.php';
+
+// Setup DB Connection
+// DEBUG
+dibi::connect(array(
+	'driver'   => 'mysql',
+	'host'     => 'localhost',
+	'username' => 'root',
+	'database' => 'course-manager',
+	'charset'  => 'utf8',
+));
+
 
 
 // Enable Debug for error visualisation & logging

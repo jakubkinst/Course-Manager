@@ -15,8 +15,26 @@ body {
     font-size: 23px;
     color: white;
     padding:8px;
+    float:left;
+    width:300px;
 }
-
+#loginpart {
+float:right;
+width:300px;
+}
+#loginpart td{
+  margin:0;
+  padding:0;
+}
+#loginpart .text {
+font-size:10px;
+width:80px;
+height:15px;
+padding:2px;
+}
+tbody tr:nth-child(even) td, tbody tr.even td {
+background-color:transparent;
+} 
 #content h3{
     background:lightblue;
     padding:6px;

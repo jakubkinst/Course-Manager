@@ -7,30 +7,41 @@
  * @package    MyApplication
  */
 
-
-
 /**
  * Course presenter.
  *
  */
-class CoursePresenter extends BasePresenter
-{
+class CoursePresenter extends BasePresenter {
 
-	public function renderHomepage()
-	{            
-            $courses = $this->getCourses();
-            $this->template->activeCourse = $courses[$this->getParam('id',0)];
-            $this->template->courses = $courses;
-	}
-        private function getCourses(){
-           $courses = array(
-              array('id'=>0,'label'=>'Linearni algebra II','lector'=>'Jiri Fiala','time'=>'PO 14:00'),
-               array('id'=>1,'label'=>'Matematicka analyza I','lector'=>'Jan Rataj','time'=>'UT 09:00'),
-               array('id'=>2,'label'=>'Uvod do UNIXU','lector'=>'Libor Forst','time'=>'PA 19:20'),
-               array('id'=>3,'label'=>'Vyrokova a predikatova logika','lector'=>'Josef Mlcek','time'=>'ST 11:00')
-           );
-            return $courses;
-        }
+    public function renderHomepage() {
+        
+    }
 
+    public function renderAdd() {
+        
+    }
+
+    private function getCourses() {
+        
+    }
+
+    protected function createComponentAddForm() {
+        $form = new AppForm;
+        $form->addText('name', 'Course name:*')
+                ->addRule(Form::FILLED, 'Set course name.');
+        $form->addTextArea('description', 'Course description:*')
+                ->addRule(Form::FILLED, 'Fill in the password');
+
+        $form->addSubmit('send', 'Create course');
+        $form->onSubmit[] = callback($this, 'addFormSubmitted');
+        
+        return $form;
+    }
+    public function addFormSubmitted($form){
+        $values = $form->getValues();
+        CourseModel::addCourse($values);
+        $this->redirect('courselist:default');
+        
+    }
 
 }
