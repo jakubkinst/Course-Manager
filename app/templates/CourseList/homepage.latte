@@ -3,7 +3,7 @@
 {if $logged}
     {foreach $courses as $course}
         <div class="course">
-            <h3><a href="{link course:homepage, 'id' => $course['id']}">{$course['name']}</a></h3>
+            <h3><a href="{link course:homepage, $course['id']}">{$course['name']}</a></h3>
             {$course['description']}
         </div>
     {/foreach}

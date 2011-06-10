@@ -20,6 +20,13 @@ class CourseModel extends Object{
         dibi::query('INSERT INTO teacher',$values2);
     }
     
+    public static function addLesson($values){
+        dibi::query('INSERT INTO lesson', $values);
+    }
+    public static function addComment($values){
+        dibi::query('INSERT INTO comment', $values);
+    }
+    
     public static function getCourseByID($id){
         return dibi::fetch('SELECT * FROM course WHERE id=%i',$id);
     }
@@ -32,6 +39,20 @@ class CourseModel extends Object{
         return $approved;
             
     }
+
+    public static function getLessons($courseID){
+        return dibi::fetchAll('SELECT * FROM lesson WHERE Course_id=%i ORDER BY date DESC',$courseID);
+    }
+    public static function getCourseIDByLessonID($lid){
+        return dibi::fetchSingle('SELECT Course_id FROM lesson WHERE id=%i',$lid);
+    }
+    public static function getLessonByID($lid){
+        return dibi::fetch('SELECT * FROM lesson WHERE id=%i',$lid);
+    }
+    public static function getComments($lid){
+        return dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i',$lid);
+    }
+    
 }
 
 ?>

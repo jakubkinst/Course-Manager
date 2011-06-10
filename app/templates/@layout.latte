@@ -18,9 +18,11 @@
 
         <div class="container ">
             <div  id="header" class="span-24 last">
-                <div id="logo">
-                    <h1>Course Manager</h1>
-                </div>
+                <a href="{link courselist:homepage}">
+                    <div id="logo">
+                        <h1>Course Manager</h1>
+                    </div>
+                </a>
                 <div id="mainmenu">
                     <ul>
                         <li><a href="{link courselist:homepage}">My Courses</a></li>
@@ -28,7 +30,7 @@
                         <li><a href="{link settings:homepage}">Settings</a></li>
                         <li><a href="{link help:homepage}">Help</a></li>
                         <li>{if $logged}
-                            <a href="{link user:homepage, 'id' => $userid}">                        
+                            <a href="{link user:homepage, $userid}">                        
                             {$user->email}
                             </a>
                         {/if}</li>
@@ -63,7 +65,7 @@
                     <h3 class="caps">My courses</h3>
                     {foreach $courses as $course}
                     <div class="div-course border">
-                        <a href="{link course:homepage, 'id' => $course['id']}">{$course['name']}</a>
+                        <a href="{link course:homepage, $course['id']}">{$course['name']}</a>
                         <div class="italic">Lector Name</div>
                         <div class="time">date/time</div>
                         <ul>
