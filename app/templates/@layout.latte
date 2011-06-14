@@ -62,8 +62,24 @@
                 </div>
                 <div id="courselist" class="border">
                     {if $logged}
-                    <h3 class="caps">My courses</h3>
-                    {foreach $courses as $course}
+                    <h3 class="caps">Teachered courses</h3>
+                    {foreach $tCourses as $course}
+                    <div class="div-course border">
+                        <a href="{link course:homepage, $course['id']}">{$course['name']}</a>
+                        <div class="italic">Lector Name</div>
+                        <div class="time">date/time</div>
+                        <ul>
+                            <li><a class="demo-active" target="demo-iframe" href="lessons.xhtml">Lessons</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="results.xhtml">Results</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="assignments.xhtml"><b>Assignments(1)</b></a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="resources.xhtml">Resources</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="forum.xhtml">Forum</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="events.xhtml">Events</a></li>
+                        </ul>
+                    </div>
+                    {/foreach}
+                    <h3 class="caps">Student courses</h3>
+                    {foreach $sCourses as $course}
                     <div class="div-course border">
                         <a href="{link course:homepage, $course['id']}">{$course['name']}</a>
                         <div class="italic">Lector Name</div>

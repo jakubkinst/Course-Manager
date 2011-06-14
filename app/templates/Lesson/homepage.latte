@@ -1,6 +1,6 @@
 
 {block content}
-{if $approved}
+{if $isTeacher || $isStudent}
 <h2>{$lesson['topic']}</h2>
 <div>{$lesson['date']}</div>
 <p>{$lesson['description']}</p>

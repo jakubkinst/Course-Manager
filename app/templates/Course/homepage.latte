@@ -1,9 +1,11 @@
 {block content}
-{if $approved}
+{if $isTeacher || $isStudent}
     <div class="span-19">
         <h3 class="flaground shadow-rb">{$course['name']}</h3>
     </div>
-<a href="{link course:addLesson, $course['id']}">Add lesson</a>
+{if $isTeacher}
+    <a href="{link course:addLesson, $course['id']}">Add lesson</a>
+{/if}
        
     {foreach $lessons as $lesson}
         <!-- Lesson -->
@@ -15,6 +17,11 @@
             </div>
         </div>
     {/foreach}
+{if $isTeacher}
+    <div id="inviteUser">
+        <a href="{link Course:inviteStudent}">Invite Student</a>
+    </div>
+{/if}
 {else}
     <span class="error">
         Unauthorized access !

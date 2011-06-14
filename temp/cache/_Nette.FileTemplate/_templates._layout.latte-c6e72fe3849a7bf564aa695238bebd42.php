@@ -1,9 +1,9 @@
-<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.97417600 1307696125";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte";i:2;i:1307696111;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.83718100 1308072988";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte";i:2;i:1308072969;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, 'e0heiykdt3'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'is2g0l5rb0'); unset($_extends);
 
 if (isset($presenter, $control) && $presenter->isAjax() && $control->isControlInvalid()) {
 	return LatteMacros::renderSnippets($control, $_l, get_defined_vars());
@@ -75,8 +75,24 @@ if (isset($presenter, $control) && $presenter->isAjax() && $control->isControlIn
                 </div>
                 <div id="courselist" class="border">
 <?php if ($logged): ?>
-                    <h3 class="caps">My courses</h3>
-<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($courses) as $course): ?>
+                    <h3 class="caps">Teachered courses</h3>
+<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($tCourses) as $course): ?>
+                    <div class="div-course border">
+                        <a href="<?php echo TemplateHelpers::escapeHtml($control->link("course:homepage", array($course['id']))) ?>"><?php echo TemplateHelpers::escapeHtml($course['name']) ?></a>
+                        <div class="italic">Lector Name</div>
+                        <div class="time">date/time</div>
+                        <ul>
+                            <li><a class="demo-active" target="demo-iframe" href="lessons.xhtml">Lessons</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="results.xhtml">Results</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="assignments.xhtml"><b>Assignments(1)</b></a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="resources.xhtml">Resources</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="forum.xhtml">Forum</a></li>
+                            <li><a class="demo-active" target="demo-iframe" href="events.xhtml">Events</a></li>
+                        </ul>
+                    </div>
+<?php endforeach; array_pop($_l->its); $iterator = end($_l->its) ?>
+                    <h3 class="caps">Student courses</h3>
+<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($sCourses) as $course): ?>
                     <div class="div-course border">
                         <a href="<?php echo TemplateHelpers::escapeHtml($control->link("course:homepage", array($course['id']))) ?>"><?php echo TemplateHelpers::escapeHtml($course['name']) ?></a>
                         <div class="italic">Lector Name</div>

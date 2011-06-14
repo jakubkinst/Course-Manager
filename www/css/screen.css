@@ -75,3 +75,7 @@ td sub{
     border: 1px solid black;
     margin:5px;
 }
+.course {
+    border: 1px solid blue;
+    margin-bottom: 10px;
+}

@@ -1,16 +1,16 @@
-<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.07256300 1307708875";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte";i:2;i:1307708872;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.77496000 1308073600";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte";i:2;i:1308073547;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, 'm8qp4ewc9r'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'zlwri1esxp'); unset($_extends);
 
 
 //
 // block content
 //
-if (!function_exists($_l->blocks['content'][] = '_lb2cfbe18fc0_content')) { function _lb2cfbe18fc0_content($_l, $_args) { extract($_args)
-;if ($approved): ?>
+if (!function_exists($_l->blocks['content'][] = '_lb272dd66bc1_content')) { function _lb272dd66bc1_content($_l, $_args) { extract($_args)
+;if ($isTeacher || $isStudent): ?>
 <h2><?php echo TemplateHelpers::escapeHtml($lesson['topic']) ?></h2>
 <div><?php echo TemplateHelpers::escapeHtml($lesson['date']) ?></div>
 <p><?php echo TemplateHelpers::escapeHtml($lesson['description']) ?></p>

@@ -52,6 +52,9 @@ class UserModel extends Object implements IAuthenticator {
     public static function getUserID($user){
        return dibi::fetchSingle('SELECT id FROM user WHERE email=%s',$user->email);
     }
+    public static function getUserIDByEmail($email){
+       return dibi::fetchSingle('SELECT id FROM user WHERE email=%s',$email);
+    }
     public static function getUser($uid){
        return dibi::fetch('SELECT * FROM user WHERE id=%i',$uid);
     }

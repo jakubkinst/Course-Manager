@@ -14,11 +14,16 @@
  * @package    MyApplication
  */
 abstract class BasePresenter extends Presenter {
-
+    public $tCourses,$sCourses;
+            
     protected function beforeRender() {
         $user = Environment::getUser();        
         if ($user->isLoggedIn()) {
-            $this->template->courses = CourseListModel::getCourses(Environment::getUser()->getIdentity());
+            $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
+            $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
+            $this->template->tCourses = $this->tCourses;
+            $this->template->sCourses = $this->sCourses;
+            
             $this->template->logged = true;
             $this->template->user = $user->getIdentity();
             $this->template->userid = UserModel::getUserID($user->getIdentity());

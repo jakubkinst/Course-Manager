@@ -30,14 +30,21 @@ class CourseModel extends Object{
     public static function getCourseByID($id){
         return dibi::fetch('SELECT * FROM course WHERE id=%i',$id);
     }
-    public static function approvedUser($user,$courseid){
+    public static function isTeacher($user,$courseid){
         $approved = false;
-        foreach (CourseListModel::getCourses($user) as $course){
+        foreach (CourseListModel::getTeacherCourses($user) as $course){
             if ($course['id'] == $courseid)
                 $approved=true;
         }
-        return $approved;
-            
+        return $approved;            
+    }
+    public static function isStudent($user,$courseid){
+        $approved = false;
+        foreach (CourseListModel::getStudentCourses($user) as $course){
+            if ($course['id'] == $courseid)
+                $approved=true;
+        }
+        return $approved;            
     }
 
     public static function getLessons($courseID){
@@ -52,7 +59,12 @@ class CourseModel extends Object{
     public static function getComments($lid){
         return dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i',$lid);
     }
-    
+    public static function addStudent($values){
+        $values2['User_id'] = UserModel::getUserIDByEmail($values['email']);
+        $values2['Course_id'] = $values['Course_id'];
+        
+        dibi::query('INSERT INTO student',$values2);
+    }
 }
 
 ?>

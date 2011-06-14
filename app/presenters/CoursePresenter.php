@@ -13,28 +13,30 @@
  */
 class CoursePresenter extends BasePresenter {
     
-    public $courseid;
-    public $approved;
-    public function actionHomepage($cid){
-        $this->courseid = $cid;
-        $this->approved = CourseModel::approvedUser(Environment::getUser()->getIdentity(),$cid);
+    /** @persistent */ public $courseid;
+    public $isTeacher;
+    public $isStudent;
+    public function actionHomepage($courseid){
+        $this->courseid = $courseid;
+        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(),$this->courseid);
+        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(),$this->courseid);
            
+        $this->template->isStudent = $this->isStudent;
+        $this->template->isTeacher = $this->isTeacher;
         
-        $this->template->approved = $this->approved;
-        if ($this->approved){
-            $this->template->course = CourseModel::getCourseByID($cid);
-            $this->template->lessons = CourseModel::getLessons($cid);            
+        if ($this->isTeacher || $this->isStudent){
+            $this->template->course = CourseModel::getCourseByID($this->courseid);
+            $this->template->lessons = CourseModel::getLessons($this->courseid);            
         }
     }
-    public function actionAddLesson($cid){
-        $this->approved = CourseModel::approvedUser(Environment::getUser()->getIdentity(),$cid);
-        if (!$this->approved)
+    public function actionAddLesson(){
+        $this->isTeacher = CourseModel::approvedUser(Environment::getUser()->getIdentity(),$this->courseid);
+        if (!$this->isTeacher)
                 $this->redirect('CourseList:homepage');
-        $this->courseid = $cid;
     }
 
 
-    public function renderHomepage($cid) {
+    public function renderHomepage() {
        
        
     }
@@ -83,5 +85,21 @@ class CoursePresenter extends BasePresenter {
         $this->redirect('course:homepage',$values['Course_id'] );        
     }
     
+    protected function createComponentInviteStudentForm() {
+        $form = new AppForm;
+        $form->addText('email', 'E-mail:*')
+                ->addRule(Form::FILLED, 'Fill email.')
+                ->addRule(Form::EMAIL,'Wrong e-mail format');
+
+        $form->addSubmit('invite', 'Invite to'.$this->courseid);
+        $form->onSubmit[] = callback($this, 'inviteStudentFormSubmitted');
+        $form->addHidden('Course_id',$this->courseid);
+        return $form;
+    }
+    public function inviteStudentFormSubmitted($form){
+        $values = $form->getValues();
+        $values['date'] = new DateTime;
+        CourseModel::addStudent($values);       
+    }
 
 }

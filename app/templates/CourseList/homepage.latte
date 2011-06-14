@@ -1,13 +1,21 @@
 
 {block content}
 {if $logged}
-    {foreach $courses as $course}
+<h3>Teachered Courses</h3>
+    {foreach $tCourses as $course}
         <div class="course">
             <h3><a href="{link course:homepage, $course['id']}">{$course['name']}</a></h3>
             {$course['description']}
         </div>
     {/foreach}
     <a href="{link course:add}">+ Add Course</a>
+<h3>Student Courses</h3>
+    {foreach $sCourses as $course}
+        <div class="course">
+            <h3><a href="{link course:homepage, $course['id']}">{$course['name']}</a></h3>
+            {$course['description']}
+        </div>
+    {/foreach}
 {else}
     <h2></h2>
     <p>

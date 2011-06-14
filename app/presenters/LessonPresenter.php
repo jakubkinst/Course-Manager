@@ -8,16 +8,19 @@
 class LessonPresenter extends BasePresenter {
 
    
-    public $lessonid;
-    public $approved;
-    public function actionHomepage($lid){
-        $this->lessonid = $lid;
-        $this->approved = CourseModel::approvedUser(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($lid));
-           
-        $this->template->approved = $this->approved;
-        if ($this->approved){
-            $this->template->lesson = CourseModel::getLessonByID($lid);
-            $this->template->comments = CourseModel::getComments($lid);
+    /** @persistent */ public $lessonid;
+    public $isTeacher;
+    public $isStudent;
+    public function actionHomepage($lessonid){
+        $this->lessonid = $lessonid;
+        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lessonid));
+        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lessonid));
+        
+        $this->template->isStudent = $this->isStudent;
+        $this->template->isTeacher = $this->isTeacher;
+        if ($this->isTeacher || $this->isStudent){
+            $this->template->lesson = CourseModel::getLessonByID($this->lessonid);
+            $this->template->comments = CourseModel::getComments($this->lessonid);
             foreach ($this->template->comments as $comment){
                 $comment['user'] = UserModel::getUser($comment['User_id']);
             }
