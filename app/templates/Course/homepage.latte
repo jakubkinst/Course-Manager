@@ -4,7 +4,7 @@
         <h3 class="flaground shadow-rb">{$course['name']}</h3>
     </div>
 {if $isTeacher}
-    <a href="{link course:addLesson, $course['id']}">Add lesson</a>
+    <a href="{link course:addLesson}">Add lesson</a>
 {/if}
        
     {foreach $lessons as $lesson}

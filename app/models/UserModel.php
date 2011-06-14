@@ -47,7 +47,7 @@ class UserModel extends Object implements IAuthenticator {
         $values['password'] = UserModel::calculateHash($values['password']);
         $values['seclink'] = sha1($values['email'] . time() . 'yjtbvb678b987n5c4');
         dibi::query('INSERT INTO user', $values);
-        MailModel::sendMail($values['email'],'Welcome to Course Manager','Regisration almost complete follow '.$values['seclink']);
+        //MailModel::sendMail($values['email'],'Welcome to Course Manager','Regisration almost complete follow '.$values['seclink']);
     }
     public static function getUserID($user){
        return dibi::fetchSingle('SELECT id FROM user WHERE email=%s',$user->email);

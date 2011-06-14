@@ -16,7 +16,7 @@ class CoursePresenter extends BasePresenter {
     /** @persistent */ public $courseid;
     public $isTeacher;
     public $isStudent;
-    public function actionHomepage($courseid){
+    public function init($courseid){
         $this->courseid = $courseid;
         $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(),$this->courseid);
         $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(),$this->courseid);
@@ -29,8 +29,11 @@ class CoursePresenter extends BasePresenter {
             $this->template->lessons = CourseModel::getLessons($this->courseid);            
         }
     }
-    public function actionAddLesson(){
-        $this->isTeacher = CourseModel::approvedUser(Environment::getUser()->getIdentity(),$this->courseid);
+    public function actionHomepage($courseid){
+        $this->init($courseid);
+    }
+    public function actionAddLesson($courseid){
+        $this->init($courseid);
         if (!$this->isTeacher)
                 $this->redirect('CourseList:homepage');
     }
