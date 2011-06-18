@@ -4,12 +4,46 @@ body {
     color: #333;
     background-color: #fff;
 }
-.border{
-    border:1px solid black;
-}
 tbody tr:nth-child(even) td, tbody tr.even td {
 background-color:transparent;
 } 
+a {
+    text-decoration: none;
+}
+.border{
+    border:1px solid black;
+}
+#content{
+    padding:5px;
+}
+#content iframe {
+    width:100%;
+    height:1800px;
+}
+.buttonLine a {
+    padding:2px;
+    margin:5px;
+    text-align: center;
+    background: lightskyblue;
+    border: 2px solid #3484d2;
+    font-size: small;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.buttonLine a:hover{
+    background: #3484d2;
+    color:white;
+}
+.buttonLine {
+    width:100%;
+    text-align: right;
+}
+.notActive {
+    color:red;
+    text-decoration: line-through;
+}
+/* @layout */
+
 #header {
     width:100%;
     height:50px;
@@ -21,11 +55,6 @@ background-color:transparent;
 #logo{
     width:30%;
     float:left;
-}
-#loginpart .text{
-    width:80px;
-    padding:2px;
-    margin:0px;
 }
 #mainmenu{
     float:right;
@@ -39,43 +68,150 @@ background-color:transparent;
     padding: 3px;
     border: 1px solid black;
 }
-.lesson{
-    background: #E5ECF9;
-    padding:8px;
-    margin-bottom: 10px;
-}
-.lesson h4{
-    font: bold;
-}
-#content{
+#loginBox {
     padding:5px;
+    background: #ED8383;
+    border: 1px solid #C22;    
 }
-#content iframe {
-    width:100%;
-    height:1800px;
+
+#loginBox .text {
+    width:80px;
+    font-size:x-small;
+    padding:2px;    
 }
-.demo-active{
-    color:#D32B2B;
-}
-td sub{
-    color:gray;
-}
-#courselist{
-    padding:5px;
-}
-.profilephoto{
-    float:left;
-    margin:8px;
-}
-.lesson textarea {
-    width:200px;
-    height:50px;
-}
-#comments .comment {
-    border: 1px solid black;
+#loginBox .loggedUser {
+    text-align: center;
+    font-style: italic;
     margin:5px;
+    font-size: large;
 }
-.course {
-    border: 1px solid blue;
-    margin-bottom: 10px;
+#courseBox .course .lectors{
+    margin-left:5px;
+    font-size: xx-small;
+}
+#courseBox .course .lectors .lector {   
+    color:black;
+    padding:2px;
+}
+#courseBox .course .lectors .lector:hover {   
+    color:#085AA3;
+}
+#courseBox .course ul {  
+    padding:0;
+    margin:0;
+   list-style-type: none;
+   margin-top:5px;
+   padding-left:10px;
+}
+#courseBox .course ul li {   
+   font-weight: bolder;
+   text-transform: uppercase;
+}
+#courseBox .course {
+    margin:10px;
+    padding:5px;
+}
+#courseBox .course .title{
+    color:black;
+    font-size: larger;
+    font-weight: bold;
+}
+#courseBox .asTeacher {    
+    background-color: #89dcec;
+    border: 1px solid #24c8e8;
+}
+#courseBox .asStudent {    
+    background-color: #c7cdcf;
+    border: 1px solid #7d888b;
+}
+
+/* CourseList Presenter */
+#courseList_homepage .course {
+    margin:10px;
+    padding:5px;
+}
+#courseList_homepage .asTeacher {    
+    background-color: #89dcec;
+    border: 1px solid #24c8e8;
+}
+#courseList_homepage .asStudent {    
+    background-color: #c7cdcf;
+    border: 1px solid #7d888b;
+}
+#courseList_homepage .course .title{
+    font-size: large;
+    color: black;   
+}
+#courseList_homepage .course .description{
+    font-size: small;
+    color: black;  
+    margin-left: 20px;
+    font-style: italic;
+}
+
+/* Course Presenter */
+#course_homepage .lesson {
+    margin:10px;
+    padding:5px;
+    background: #e5ecf9;
+    border: 1px solid #7d888b;
+}
+#course_homepage .lesson .title {
+    font-size: large;
+    color: black;
+}
+#course_homepage .lesson .date {
+    font-size: larger;
+    color: #333;
+}
+#course_homepage .lesson .description{
+    font-size: small;
+    color: black;  
+    margin-left: 20px;
+    font-style: italic;
+}
+
+/* Lesson Presenter */
+#lesson_homepage #date {
+    margin-left: 10px;    
+    font-style: italic; 
+}
+#lesson_homepage #description {
+    margin-left: 10px;   
+}
+#lesson_homepage #comments {
+    margin-left: 40px;    
+}
+#lesson_homepage #comments .comment {
+    border:1px solid #7d888b;
+    background: #c7cdcf;
+    padding:5px;
+    width:60%;
+    margin-top: 10px;
+}
+#lesson_homepage #comments .comment .author {
+    font-weight:bold;
+    color:black;
+}
+#lesson_homepage #comments .comment .time {
+    font-style: italic;
+    color:#333;
+}
+#lesson_homepage #comments .comment .content {
+    border-top:1px solid black;
+    padding:3px;
+    padding-left: 5px;
+    color:black;
+}
+#lesson_homepage #commentForm {
+    border:1px solid #c7cdcf;
+    padding:5px;
+    text-align: center;
+}
+#lesson_homepage #commentForm textarea{
+    border:1px solid #c7cdcf;
+    background: #e5ecf9;
+    padding:5px;
+    width:300px;
+    height:80px;
 }

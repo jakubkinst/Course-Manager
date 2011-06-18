@@ -47,6 +47,9 @@ class CourseModel extends Object{
         return $approved;            
     }
 
+    public static function getLectors($cid){        
+        return dibi::fetchAll('SELECT * FROM user WHERE id=(SELECT User_id FROM (course JOIN teacher ON Course_id=id) WHERE Course_id=%i)',$cid);
+    }
     public static function getLessons($courseID){
         return dibi::fetchAll('SELECT * FROM lesson WHERE Course_id=%i ORDER BY date DESC',$courseID);
     }

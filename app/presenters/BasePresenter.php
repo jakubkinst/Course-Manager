@@ -21,6 +21,12 @@ abstract class BasePresenter extends Presenter {
         if ($user->isLoggedIn()) {
             $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
             $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
+            foreach ($this->tCourses as $course) {
+                $course['lectors'] = CourseModel::getLectors($course['id']);
+            }
+            foreach ($this->sCourses as $course) {
+                $course['lectors'] = CourseModel::getLectors($course['id']);
+            }
             $this->template->tCourses = $this->tCourses;
             $this->template->sCourses = $this->sCourses;
             

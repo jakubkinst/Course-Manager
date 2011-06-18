@@ -1,26 +1,27 @@
 
 {block content}
-{if $isTeacher || $isStudent}
-<h2>{$lesson['topic']}</h2>
-<div>{$lesson['date']}</div>
-<p>{$lesson['description']}</p>
-<div id="comments">
-    <h4>Comments</h4>
-    {foreach $comments as $comment}
-    <div class="comment">
-        <div class="author">
-            {$comment['user']['email']} ({$comment['added']})
-        </div>
-        <div class="content">
-            {$comment['content']}
-        </div>
+    <div id="lesson_homepage">
+        {if $isTeacher || $isStudent}
+            <h3>{$lesson['topic']}</h3>
+            <div id="date">{$lesson['date']}</div>
+            <p id="description">{$lesson['description']}</p>
+            <div id="comments">
+                <h4>Comments</h4>
+                {foreach $comments as $comment}
+                    <div class="comment">
+                        <div class="author">{$comment['user']['email']}</div>
+                        <div class="time">({$comment['added']})</div>                        
+                        <div class="content">{$comment['content']}</div>
+                    </div>
+                {/foreach}                    
+            </div>
+            <div id="commentForm">
+                {widget commentForm}
+            </div>
+        {else}
+            <div class="error">
+                Unauthorized access !
+            </div>
+        {/if}
     </div>
-        
-    {/foreach}
-        {widget commentForm}
-</div>
-{else}
-    <span class="error">
-        Unauthorized access !
-    </span>
-{/if}
+{/block}
