@@ -15,8 +15,7 @@
     </head>
 
     <body>
-
-        <div class="container ">
+        <div class="container">
             <div  id="header" class="span-24 last">
                 <a href="{link courselist:homepage}">
                     <div id="logo">
@@ -26,14 +25,16 @@
                 <div id="mainmenu">
                     <ul>
                         <li><a href="{link courselist:homepage}">My Courses</a></li>
-                        <li><a href="{link messages:inbox}"><b>Messages(2)</b></a></li>
-                        <li><a href="{link settings:homepage}">Settings</a></li>
-                        <li><a href="{link help:homepage}">Help</a></li>
-                        <li>{if $logged}
-                            <a href="{link user:homepage, $userid}">                        
-                            {$user->email}
-                            </a>
-                        {/if}</li>
+                        <li><a class="notActive" href="{link messages:inbox}"><b>Messages(2)</b></a></li>
+                        <li><a class="notActive" href="{link settings:homepage}">Settings</a></li>
+                        <li><a class="notActive" href="{link help:homepage}">Help</a></li>
+                        <li>
+                            {if $logged}
+                                <a class="notActive" href="{link user:homepage, $userid}">                        
+                                    {$user->email}
+                                </a>
+                            {/if}
+                        </li>
                     </ul>
                 </div>
 
@@ -42,7 +43,6 @@
 
             <div class="span-19" id="main">
                 <div id="content" class="border">
-
                     <!-- content -->
                     {include #content}
                     <!-- /content -->
@@ -50,72 +50,68 @@
             </div>
 
             <div class="span-5 last" id="sidebar">
-                <div id="loginpart" class="border">
+                <div id="loginBox" class="border">
                     {if $logged}
-                    Logged as {$user->email} <br/>
-                    <a href="{link user:logout}">logout</a>
+                        <div class="loggedUser">{$user->email}</div>
+                        <div class="buttonLine">
+                            <a href="{link user:logout}">LOG OUT</a>
+                        </div>
                     {else}
-                    {widget signInForm} <br />
-                    <a href="{link user:register}">register</a>
+                        {widget signInForm}                      
+                        <div class="buttonLine">
+                            <a href="{link user:register}">REGISTER</a>
+                        </div>
                     {/if}   
 
                 </div>
-                <div id="courselist" class="border">
-                    {if $logged}
-                    <h3 class="caps">Teachered courses</h3>
-                    {foreach $tCourses as $course}
-                    <div class="div-course border">
-                        <a href="{link course:homepage, $course['id']}">{$course['name']}</a>
-                        <div class="italic">Lector Name</div>
-                        <div class="time">date/time</div>
-                        <ul>
-                            <li><a class="demo-active" target="demo-iframe" href="lessons.xhtml">Lessons</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="results.xhtml">Results</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="assignments.xhtml"><b>Assignments(1)</b></a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="resources.xhtml">Resources</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="forum.xhtml">Forum</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="events.xhtml">Events</a></li>
-                        </ul>
+                {if $logged}
+                    <div id="courseBox" class="border">                    
+                        <h3 class="caps">Teachered courses</h3>
+                        {foreach $tCourses as $course}
+                            <div class="course asTeacher">
+                                <a href="{link course:homepage, $course['id']}">
+                                    <div class="title">{$course['name']}</div>
+                                </a>
+                                <div class="lectors">
+                                     {foreach $course['lectors'] as $lector}
+                                        <a href="{link user:homepage, $userid}" class="lector">{$lector['email']}</a>
+                                     {/foreach}
+                                </div>
+                                <ul>
+                                    <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
+                                    <li><a class="notActive" href="results.xhtml">Results</a></li>
+                                    <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
+                                    <li><a class="notActive" href="resources.xhtml">Resources</a></li>
+                                    <li><a class="notActive" href="forum.xhtml">Forum</a></li>
+                                    <li><a class="notActive" href="events.xhtml">Events</a></li>
+                                </ul>
+                            </div>
+                        {/foreach}
+                        <h3 class="caps">Student courses</h3>
+                        {foreach $sCourses as $course}
+                            <div class="course asStudent">
+                                <a href="{link course:homepage, $course['id']}">
+                                    <div class="title">{$course['name']}</div>
+                                </a>
+                                <div class="lectors">
+                                     {foreach $course['lectors'] as $lector}
+                                        <a href="{link user:homepage, $userid}" class="lector">{$lector['email']}</a>
+                                     {/foreach}
+                                </div>
+                                <ul>
+                                    <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
+                                    <li><a class="notActive" href="results.xhtml">Results</a></li>
+                                    <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
+                                    <li><a class="notActive" href="resources.xhtml">Resources</a></li>
+                                    <li><a class="notActive" href="forum.xhtml">Forum</a></li>
+                                    <li><a class="notActive" href="events.xhtml">Events</a></li>
+                                </ul>
+                            </div>
+                        {/foreach}
                     </div>
-                    {/foreach}
-                    <h3 class="caps">Student courses</h3>
-                    {foreach $sCourses as $course}
-                    <div class="div-course border">
-                        <a href="{link course:homepage, $course['id']}">{$course['name']}</a>
-                        <div class="italic">Lector Name</div>
-                        <div class="time">date/time</div>
-                        <ul>
-                            <li><a class="demo-active" target="demo-iframe" href="lessons.xhtml">Lessons</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="results.xhtml">Results</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="assignments.xhtml"><b>Assignments(1)</b></a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="resources.xhtml">Resources</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="forum.xhtml">Forum</a></li>
-                            <li><a class="demo-active" target="demo-iframe" href="events.xhtml">Events</a></li>
-                        </ul>
-                    </div>
-                    {/foreach}
-                    <div id="add-course"><a href="{link course:add}">+ Add Course</a></div>
-                    {/if}
+                {/if}
 
-                </div>
-                <div id="events" class="border">
-                    <h3 class="caps">Upcoming events</h3>
-                    <div class="event border">
-                        <div class="date">Friday 21.3.2010 12:00</div>
-                        <div class="name"><b>Test 4</b></div>
-                        <div class="description">
-                            Nam pellentesque luctus sadsag lewilksl akjdhweu...
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="event border">
-                        <div class="date">Monday 24.3.2010 12:00</div>
-                        <div class="name"><b>Test 5</b></div>
-                        <div class="description">
-                            Aliquam erat volutpat. Integer nec tincidunt felis...</div>
-                    </div>
-                    <hr />
-                </div>
+                               
             </div>
         </div>
         <div id="footer" class="border">

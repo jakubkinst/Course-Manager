@@ -1,31 +1,31 @@
 {block content}
-{if $isTeacher || $isStudent}
-    <div class="span-19">
-        <h3 class="flaground shadow-rb">{$course['name']}</h3>
-    </div>
-{if $isTeacher}
-    <a href="{link course:addLesson}">Add lesson</a>
-{/if}
-       
-    {foreach $lessons as $lesson}
-        <!-- Lesson -->
-        <div class="span-19">
-            <div class="lesson flaground shadow-rb">
-                <a href="{link lesson:homepage,$lesson['id']}"><h4>{$lesson['topic']}</h4></a>
-                <div class="date">{$lesson['date']}</div>
-                <div class="summary">{$lesson['description']}</div>
+    <div id="course_homepage">
+        {if $isTeacher || $isStudent}
+            <h3 class="flaground shadow-rb">{$course['name']}</h3>            
+                   
+            {foreach $lessons as $lesson}
+                <!-- Lesson -->
+            <a href="{link lesson:homepage,$lesson['id']}">
+                <div class="lesson">
+                    <div class="title">{$lesson['topic']}</div>
+                    <div class="date">{$lesson['date']}</div>
+                    <p class="dexcription">{$lesson['description']}</p>
+                </div>
+            </a>
+            {/foreach}
+            
+            {if $isTeacher}
+                <div class="buttonLine">
+                    <a href="{link course:addLesson}">Add lesson</a>
+                    <a href="{link Course:inviteStudent}">Invite Student</a>
+                </div>
+            {/if}
+
+        {else}
+            <div class="error">
+                Unauthorized access !
             </div>
-        </div>
-    {/foreach}
-{if $isTeacher}
-    <div id="inviteUser">
-        <a href="{link Course:inviteStudent}">Invite Student</a>
+        {/if}
     </div>
-{/if}
-{else}
-    <span class="error">
-        Unauthorized access !
-    </span>
-{/if}
 {/block}
 

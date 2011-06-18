@@ -19,6 +19,7 @@ class CourseListModel extends Object {
         $id = UserModel::getUserID($user);
         return dibi::fetchAll('SELECT * FROM (course JOIN student ON Course_id=id) WHERE User_id=%i',$id);
     }
+    
 }
 
 ?>
