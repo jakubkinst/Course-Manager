@@ -15,10 +15,13 @@
  */
 abstract class BasePresenter extends Presenter {
     public $tCourses,$sCourses;
+    public $logged = false;
             
     protected function beforeRender() {
-        $user = Environment::getUser();        
-        if ($user->isLoggedIn()) {
+        $user = Environment::getUser();
+        $this->logged = $user->isLoggedIn();
+        $this->template->logged = $this->logged;
+        if ($this->logged) {
             $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
             $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
             foreach ($this->tCourses as $course) {
@@ -30,18 +33,15 @@ abstract class BasePresenter extends Presenter {
             $this->template->tCourses = $this->tCourses;
             $this->template->sCourses = $this->sCourses;
             
-            $this->template->logged = true;
             $this->template->user = $user->getIdentity();
             $this->template->userid = UserModel::getUserID($user->getIdentity());
         }
-        else
-            $this->template->logged = false;
     }
 
     protected function createComponentSignInForm() {
 
         $form = new AppForm;
-        $form->addText('username', 'E-Mail:')
+        $form->addText('email', 'E-Mail:')
                 ->setRequired('Please provide an e-mail.');
 
         $form->addPassword('password', 'Password:')
@@ -63,7 +63,7 @@ abstract class BasePresenter extends Presenter {
             } else {
                 $this->getUser()->setExpiration('+ 20 minutes', TRUE);
             }
-            $this->getUser()->login($values->username, $values->password);
+            $this->getUser()->login($values->email, $values->password);
             $this->redirect('Courselist:homepage');
         } catch (AuthenticationException $e) {
             $form->addError($e->getMessage());

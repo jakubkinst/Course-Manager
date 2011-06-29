@@ -4,7 +4,7 @@ body {
     color: #333;
     background-color: #fff;
 }
-tbody tr:nth-child(even) td, tbody tr.even td {
+form tbody tr:nth-child(even) td, form tbody tr.even td {
 background-color:transparent;
 } 
 a {
@@ -124,6 +124,29 @@ a {
     background-color: #c7cdcf;
     border: 1px solid #7d888b;
 }
+#flashMessages {
+    position:absolute;
+    top:50%;
+    left:35%;
+    width:350px;
+}
+.flash{
+    font-weight:bold;
+    font-style: italic;
+    color:black;
+    padding:10px;
+    width:100%;
+}
+.unauthorized {
+    background:#ffcc33;
+    color:#ff6600;
+    border:2px solid #ff6600;
+}
+.success {
+    background:#66cc00;
+    color:#339900;
+    border:2px solid #339900;
+}
 
 /* CourseList Presenter */
 #courseList_homepage .course {
@@ -169,6 +192,14 @@ a {
     color: black;  
     margin-left: 20px;
     font-style: italic;
+}
+#studentList, #lectorList{
+    border: 1px solid #085AA3;
+    margin-top:10px;
+    padding:10px;
+}
+#studentList th, #lectorList th{
+    background:#c7cdcf;
 }
 
 /* Lesson Presenter */

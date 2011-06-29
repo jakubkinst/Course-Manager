@@ -8,23 +8,30 @@
 class LessonPresenter extends BasePresenter {
 
    
-    /** @persistent */ public $lessonid;
+    /** @persistent Lesson ID */ 
+    public $lid;
+    
     public $isTeacher;
     public $isStudent;
-    public function actionHomepage($lessonid){
-        $this->lessonid = $lessonid;
-        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lessonid));
-        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lessonid));
+    
+    public function init($lid){
+        $this->lid = $lid;
+        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lid));
+        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(),CourseModel::getCourseIDByLessonID($this->lid));
         
         $this->template->isStudent = $this->isStudent;
         $this->template->isTeacher = $this->isTeacher;
         if ($this->isTeacher || $this->isStudent){
-            $this->template->lesson = CourseModel::getLessonByID($this->lessonid);
-            $this->template->comments = CourseModel::getComments($this->lessonid);
+            $this->template->lesson = CourseModel::getLessonByID($this->lid);
+            $this->template->comments = CourseModel::getComments($this->lid);
             foreach ($this->template->comments as $comment){
                 $comment['user'] = UserModel::getUser($comment['User_id']);
             }
         }
+    }
+    
+    public function renderHomepage($lid){
+        $this->init($lid);
     }
     
      protected function createComponentCommentForm() {
@@ -32,7 +39,7 @@ class LessonPresenter extends BasePresenter {
         $form->addTextArea('content', 'Comment:')
                 ->addRule(Form::FILLED, 'Fill comment.');
         $form->addSubmit('send', 'Post');
-        $form->addHidden('lesson_id', $this->lessonid);
+        $form->addHidden('lesson_id', $this->lid);
         $form->onSubmit[] = callback($this, 'commentFormSubmitted');
         
         return $form;
@@ -41,8 +48,8 @@ class LessonPresenter extends BasePresenter {
         $values['added'] = new DateTime;
         $values['user_id'] = UserModel::getUserID(Environment::getUser()->getIdentity());
         CourseModel::addComment($values);
-        $this->redirect('lesson:homepage',$values['lesson_id'] );        
-        
+        $this->flashMessage('Comment added.', $type = 'success');
+        $this->redirect('lesson:homepage');              
     }
 
 }

@@ -12,13 +12,17 @@ class UserPresenter extends BasePresenter {
      *
      * @see Nette\Application\Presenter#startup()
      */
-    protected function startup() {
-        parent::startup();
-    }
 
     public function actionLogout() {
         Environment::getUser()->logout();
         $this->redirect('Courselist:homepage');
+    }
+    
+    public function renderRegister() {
+        if ($this->logged){
+            $this->flashMessage('Please logout first.', $type = 'unauthorized');
+            $this->redirect('courselist:homepage');
+        }
     }
 
     protected function createComponentRegisterForm() {
@@ -29,6 +33,10 @@ class UserPresenter extends BasePresenter {
         }
 
         $form = new AppForm;
+        $form->addText('firstname', 'First name:*')
+                ->addRule(Form::FILLED, 'Fill the firstname.');
+        $form->addText('lastname', 'Last name:*')
+                ->addRule(Form::FILLED, 'Fill the lastname.');
         $form->addText('email', 'E-mail:*')
                 ->setEmptyValue('@')
                 ->addRule(Form::EMAIL, 'Enter valid e-mail')
@@ -49,6 +57,8 @@ class UserPresenter extends BasePresenter {
         $values = $form->getValues();
         unset($values['password2']);
         UserModel::addUser($values);
+        $this->flashMessage('User '.$values['email'].' registered. Please login.', $type = 'success');
+        $this->redirect('courselist:homepage');
     }
 
 }

@@ -1,20 +1,54 @@
-<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.82478400 1308392616";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Course\homepage.latte";i:2;i:1308391559;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.36592600 1309265841";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Course\homepage.latte";i:2;i:1309265838;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\Course\homepage.latte
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, 'gmvd7m3zwp'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'j9dgqp5sis'); unset($_extends);
 
 
 //
 // block content
 //
-if (!function_exists($_l->blocks['content'][] = '_lbed10694611_content')) { function _lbed10694611_content($_l, $_args) { extract($_args)
+if (!function_exists($_l->blocks['content'][] = '_lb68c4b6f594_content')) { function _lb68c4b6f594_content($_l, $_args) { extract($_args)
 ?>
     <div id="course_homepage">
-<?php if ($isTeacher || $isStudent): ?>
             <h3 class="flaground shadow-rb"><?php echo TemplateHelpers::escapeHtml($course['name']) ?></h3>            
-                   
+            <div id="lectorList">
+                <h4>Lectors</h4>
+                <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>E-Mail</th>
+                            <th>Message</th>
+                        </tr>
+<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($lectors) as $lector): ?>
+                            <tr>
+                                <td><?php echo TemplateHelpers::escapeHtml($lector['firstname']) ?> <?php echo TemplateHelpers::escapeHtml($lector['lastname']) ?></td>
+                                <td><?php echo TemplateHelpers::escapeHtml($lector['email']) ?></td>
+                                <td><a href="<?php echo TemplateHelpers::escapeHtml($control->link("messages:new", array($lector['email']))) ?>">Send Message</a></td>
+                            </tr>
+<?php endforeach; array_pop($_l->its); $iterator = end($_l->its) ?>
+                </table>
+            </div>
+            <div id="studentList">
+                <h4>Students</h4>
+                <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>E-Mail</th>
+                            <th>Message</th>
+                        </tr>
+<?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($students) as $student): ?>
+                            <tr>
+                                <td><?php echo TemplateHelpers::escapeHtml($student['firstname']) ?> <?php echo TemplateHelpers::escapeHtml($student['lastname']) ?></td>
+                                <td><?php echo TemplateHelpers::escapeHtml($student['email']) ?></td>
+                                <td><a href="<?php echo TemplateHelpers::escapeHtml($control->link("messages:new", array($student['email']))) ?>">Send Message</a></td>
+                            </tr>
+<?php endforeach; array_pop($_l->its); $iterator = end($_l->its) ?>
+                </table>
+            </div>
+    
+    
 <?php foreach ($iterator = $_l->its[] = new SmartCachingIterator($lessons) as $lesson): ?>
                 <!-- Lesson -->
             <a href="<?php echo TemplateHelpers::escapeHtml($control->link("lesson:homepage", array($lesson['id']))) ?>">
@@ -33,11 +67,7 @@ if (!function_exists($_l->blocks['content'][] = '_lbed10694611_content')) { func
                 </div>
 <?php endif ?>
 
-<?php else: ?>
-            <div class="error">
-                Unauthorized access !
-            </div>
-<?php endif ?>
+        
     </div>
 <?php
 }}

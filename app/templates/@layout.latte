@@ -12,6 +12,10 @@
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css" />
         <link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css" />
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+        
+        <!-- jQuery load -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        
     </head>
 
     <body>
@@ -22,28 +26,29 @@
                         <h1>Course Manager</h1>
                     </div>
                 </a>
+                {if $logged}
                 <div id="mainmenu">
                     <ul>
                         <li><a href="{link courselist:homepage}">My Courses</a></li>
+                        <li><a class="notActive" href="{link notification:homepage}">Notifications</a></li>
                         <li><a class="notActive" href="{link messages:inbox}"><b>Messages(2)</b></a></li>
                         <li><a class="notActive" href="{link settings:homepage}">Settings</a></li>
                         <li><a class="notActive" href="{link help:homepage}">Help</a></li>
                         <li>
-                            {if $logged}
-                                <a class="notActive" href="{link user:homepage, $userid}">                        
-                                    {$user->email}
-                                </a>
-                            {/if}
+                            <a class="notActive" href="{link user:homepage, $userid}">                        
+                                {$user->email}
+                            </a>                           
                         </li>
                     </ul>
                 </div>
+                {/if}
 
             </div>
 
 
             <div class="span-19" id="main">
                 <div id="content" class="border">
-                    <!-- content -->
+                    <!-- content -->                    
                     {include #content}
                     <!-- /content -->
                 </div>
@@ -78,8 +83,8 @@
                                      {/foreach}
                                 </div>
                                 <ul>
-                                    <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
-                                    <li><a class="notActive" href="results.xhtml">Results</a></li>
+                                    <li><a href="{link course:homepage, $course->id}">Lessons</a></li>
+                                    <li><a href="{link result:homepage, $course->id}">Results</a></li>
                                     <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
                                     <li><a class="notActive" href="resources.xhtml">Resources</a></li>
                                     <li><a class="notActive" href="forum.xhtml">Forum</a></li>
@@ -100,7 +105,7 @@
                                 </div>
                                 <ul>
                                     <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
-                                    <li><a class="notActive" href="results.xhtml">Results</a></li>
+                                    <li><a href="{link result:homepage, $course->id}">Results</a></li>
                                     <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
                                     <li><a class="notActive" href="resources.xhtml">Resources</a></li>
                                     <li><a class="notActive" href="forum.xhtml">Forum</a></li>
@@ -117,5 +122,17 @@
         <div id="footer" class="border">
             Course Manager by Jakub Kinst
         </div>
+        
+        <!-- Flash messages -->
+        <div id="flashMessages">
+            {foreach $flashes as $flash}            
+                <div class="flash {$flash->type}">
+                    {$flash->message}
+                </div>            
+            {/foreach}
+        </div>
+        
+        <!-- Load Visual JavaScript functions -->
+        <script src="{$basePath}/js/visual.js" />
     </body>
 </html>

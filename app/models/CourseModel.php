@@ -48,7 +48,10 @@ class CourseModel extends Object{
     }
 
     public static function getLectors($cid){        
-        return dibi::fetchAll('SELECT * FROM user WHERE id=(SELECT User_id FROM (course JOIN teacher ON Course_id=id) WHERE Course_id=%i)',$cid);
+        return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN teacher ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id',$cid);
+    }
+    public static function getStudents($cid){        
+        return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN student ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id',$cid);
     }
     public static function getLessons($courseID){
         return dibi::fetchAll('SELECT * FROM lesson WHERE Course_id=%i ORDER BY date DESC',$courseID);
@@ -63,11 +66,17 @@ class CourseModel extends Object{
         return dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i',$lid);
     }
     public static function addStudent($values){
+        
         $values2['User_id'] = UserModel::getUserIDByEmail($values['email']);
         $values2['Course_id'] = $values['Course_id'];
-        
-        dibi::query('INSERT INTO student',$values2);
+        try {
+            dibi::query('INSERT INTO student',$values2);
+        } 
+        catch (Exception $e) {
+            
+        }
     }
+    
 }
 
 ?>
