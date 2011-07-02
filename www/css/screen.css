@@ -5,7 +5,7 @@ body {
     background-color: #fff;
 }
 form tbody tr:nth-child(even) td, form tbody tr.even td {
-background-color:transparent;
+    background-color:transparent;
 } 
 a {
     text-decoration: none;
@@ -99,13 +99,13 @@ a {
 #courseBox .course ul {  
     padding:0;
     margin:0;
-   list-style-type: none;
-   margin-top:5px;
-   padding-left:10px;
+    list-style-type: none;
+    margin-top:5px;
+    padding-left:10px;
 }
 #courseBox .course ul li {   
-   font-weight: bolder;
-   text-transform: uppercase;
+    font-weight: bolder;
+    text-transform: uppercase;
 }
 #courseBox .course {
     margin:10px;

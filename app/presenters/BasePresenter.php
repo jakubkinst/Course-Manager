@@ -1,22 +1,24 @@
 <?php
 
 /**
- * My Application
- *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
- */
-
-/**
  * Base class for all application presenters.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author     Jakub Kinst
+ * @package    Course-Manager
  */
 abstract class BasePresenter extends Presenter {
-    public $tCourses,$sCourses;
+
+    /** Teachered courses */
+    public $tCourses;
+    /** Courses where acting as student */
+    public $sCourses;
+    /** Logical value indicating state of user */
     public $logged = false;
-            
+
+    /**
+     * Initialization before rendering every presenter
+     * Sends essential variables which are needed in every presenter to a template
+     */
     protected function beforeRender() {
         $user = Environment::getUser();
         $this->logged = $user->isLoggedIn();
@@ -24,20 +26,29 @@ abstract class BasePresenter extends Presenter {
         if ($this->logged) {
             $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
             $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
+
+            // adds list of teachers to course objects
             foreach ($this->tCourses as $course) {
                 $course['lectors'] = CourseModel::getLectors($course['id']);
             }
+
+            // adds list of teachers to course objects
             foreach ($this->sCourses as $course) {
                 $course['lectors'] = CourseModel::getLectors($course['id']);
             }
+
             $this->template->tCourses = $this->tCourses;
             $this->template->sCourses = $this->sCourses;
-            
+
             $this->template->user = $user->getIdentity();
             $this->template->userid = UserModel::getUserID($user->getIdentity());
         }
     }
 
+    /**
+     * Form Factory - Sign In Form
+     * @return AppForm 
+     */
     protected function createComponentSignInForm() {
 
         $form = new AppForm;
@@ -55,6 +66,10 @@ abstract class BasePresenter extends Presenter {
         return $form;
     }
 
+    /**
+     * Sign In Form Handler
+     * @param type $form 
+     */
     public function signInFormSubmitted($form) {
         try {
             $values = $form->getValues();

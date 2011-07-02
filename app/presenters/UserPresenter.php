@@ -1,30 +1,34 @@
 <?php
 
 /**
- * Description of UserPresenter
+ * UserPresenter
  *
- * @author JerRy
+ * @author Jakub Kinst
  */
 class UserPresenter extends BasePresenter {
 
     /**
-     * (non-phpDoc)
-     *
-     * @see Nette\Application\Presenter#startup()
+     * Logout action
      */
-
     public function actionLogout() {
         Environment::getUser()->logout();
         $this->redirect('Courselist:homepage');
     }
-    
+
+    /**
+     * Register template render
+     */
     public function renderRegister() {
-        if ($this->logged){
+        if ($this->logged) {
             $this->flashMessage('Please logout first.', $type = 'unauthorized');
             $this->redirect('courselist:homepage');
         }
     }
 
+    /**
+     * Form factory - Register user
+     * @return AppForm 
+     */
     protected function createComponentRegisterForm() {
 
         function myValidator($item) {
@@ -53,11 +57,15 @@ class UserPresenter extends BasePresenter {
         return $form;
     }
 
+    /**
+     * Register user form handler
+     * @param type $form 
+     */
     public function registerFormSubmitted($form) {
         $values = $form->getValues();
         unset($values['password2']);
         UserModel::addUser($values);
-        $this->flashMessage('User '.$values['email'].' registered. Please login.', $type = 'success');
+        $this->flashMessage('User ' . $values['email'] . ' registered. Please login.', $type = 'success');
         $this->redirect('courselist:homepage');
     }
 

@@ -1,20 +1,22 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of MailModel
+ * MailModel
  *
- * @author JerRy
+ * @author Jakub Kinst
  */
 class MailModel extends Object {
-    public static function sendMail($to,$subject,$msg) {
-        // not working in debug
+    
+    /**
+     * Sends E-Mail
+     * @param type $to
+     * @param type $subject
+     * @param type $msg 
+     */
+    public static function sendMail($to, $subject, $msg) {
         $mail = new Mail;
-        $mail->setFrom('Franta <info@cm.kinst.cz>');
+        $mail->setFrom('Course-Manager <info@cm.kinst.cz>');
         $mail->addTo($to);
         $mail->setSubject($subject);
         $mail->setBody($msg);

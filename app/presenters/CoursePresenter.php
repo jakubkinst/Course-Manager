@@ -8,7 +8,10 @@ class CoursePresenter extends BasePresenter {
 
     /** @persistent Course ID */
     public $cid;
+    /** Boolean indicating user privileges */
     public $isTeacher;
+    
+    /** Boolean indicating user privileges */
     public $isStudent;
 
     /**
@@ -30,7 +33,11 @@ class CoursePresenter extends BasePresenter {
             $this->template->students = CourseModel::getStudents($this->cid);
         }
     }
-    public function beforeRender(){
+
+    /**
+     * Before Render security check
+     */
+    public function beforeRender() {
         parent::beforeRender();
         if (!$this->logged) {
             $this->flashMessage('Please login.', $type = 'unauthorized');
@@ -38,7 +45,11 @@ class CoursePresenter extends BasePresenter {
         }
     }
 
-    public function renderHomepage($cid) {        
+    /**
+     * Homepage template render
+     * @param type $cid 
+     */
+    public function renderHomepage($cid) {
         $this->init($cid);
         if (!($this->isTeacher || $this->isStudent)) {
             $this->flashMessage('Unauthorized access.', $type = 'unauthorized');
@@ -46,6 +57,10 @@ class CoursePresenter extends BasePresenter {
         }
     }
 
+    /**
+     * Add lesson temlate render
+     * @param type $cid 
+     */
     public function renderAddLesson($cid) {
         $this->init($cid);
         // if not teacher, redirect to homepage
@@ -56,7 +71,7 @@ class CoursePresenter extends BasePresenter {
     }
 
     /**
-     * Adding course
+     * Adding course template render
      */
     public function renderAdd() {
 
@@ -66,6 +81,10 @@ class CoursePresenter extends BasePresenter {
         }
     }
 
+    /**
+     * Form Factory - Add Course Form
+     * @return AppForm 
+     */
     protected function createComponentAddForm() {
         $form = new AppForm;
         $form->addText('name', 'Course name:*')
@@ -78,14 +97,22 @@ class CoursePresenter extends BasePresenter {
         return $form;
     }
 
+    /**
+     * Add Course Form Handler
+     * @param type $form 
+     */
     public function addFormSubmitted($form) {
         $values = $form->getValues();
         $user = Environment::getUser()->getIdentity();
         CourseModel::addCourse($user, $values);
-        $this->flashMessage('Course created', $type = 'success');            
+        $this->flashMessage('Course created', $type = 'success');
         $this->redirect('courselist:homepage');
     }
 
+    /**
+     * Form factory - Add lesson form
+     * @return AppForm 
+     */
     protected function createComponentAddLessonForm() {
         $form = new AppForm;
         $form->addText('topic', 'Topic:*')
@@ -94,19 +121,27 @@ class CoursePresenter extends BasePresenter {
 
         $form->addSubmit('send', 'Add lesson');
         $form->onSubmit[] = callback($this, 'addLessonFormSubmitted');
-        $form->addHidden('Course_id', $this->cid);
         return $form;
     }
 
+    /**
+     * Add Lesson Form Handler
+     * @param type $form 
+     */
     public function addLessonFormSubmitted($form) {
         $values = $form->getValues();
         $values['date'] = new DateTime;
+        $values['Course_id'] = $this->cid;
         CourseModel::addLesson($values);
-        
-        $this->flashMessage('Lesson added', $type = 'success');  
+
+        $this->flashMessage('Lesson added', $type = 'success');
         $this->redirect('course:homepage', $values['Course_id']);
     }
 
+    /**
+     * Form factory - Invite student Form
+     * @return AppForm 
+     */
     protected function createComponentInviteStudentForm() {
         $form = new AppForm;
         $form->addText('email', 'E-mail:*')
@@ -119,11 +154,15 @@ class CoursePresenter extends BasePresenter {
         return $form;
     }
 
+    /**
+     * Invite Student form handler
+     * @param type $form 
+     */
     public function inviteStudentFormSubmitted($form) {
         $values = $form->getValues();
         $values['date'] = new DateTime;
-        CourseModel::addStudent($values);        
-        $this->flashMessage('Student invited', $type = 'success');  
+        CourseModel::addStudent($values);
+        $this->flashMessage('Student invited', $type = 'success');
     }
 
 }

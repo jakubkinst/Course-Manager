@@ -1,15 +1,15 @@
-<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.27812900 1308392330";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte";i:2;i:1308392300;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000352a:2:{s:4:"time";s:21:"0.74386500 1309596133";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:66:"C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte";i:2;i:1309596076;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\Lesson\homepage.latte
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, '244o33ok6o'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'js75psmy29'); unset($_extends);
 
 
 //
 // block content
 //
-if (!function_exists($_l->blocks['content'][] = '_lbae41ddec96_content')) { function _lbae41ddec96_content($_l, $_args) { extract($_args)
+if (!function_exists($_l->blocks['content'][] = '_lb39129bf1e1_content')) { function _lb39129bf1e1_content($_l, $_args) { extract($_args)
 ?>
     <div id="lesson_homepage">
 <?php if ($isTeacher || $isStudent): ?>
@@ -47,9 +47,7 @@ if ($_l->extends) {
 } elseif (isset($presenter, $control) && $presenter->isAjax() && $control->isControlInvalid()) {
 	return LatteMacros::renderSnippets($control, $_l, get_defined_vars());
 }
-?>
-
-<?php if (!$_l->extends) { call_user_func(reset($_l->blocks['content']), $_l, get_defined_vars()); }  
+if (!$_l->extends) { call_user_func(reset($_l->blocks['content']), $_l, get_defined_vars()); }  
 if ($_l->extends) {
 	ob_end_clean();
 	LatteMacros::includeTemplate($_l->extends, get_defined_vars(), $template)->render();
