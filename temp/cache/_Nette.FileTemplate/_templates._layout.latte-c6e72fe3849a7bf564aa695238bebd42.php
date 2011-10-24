@@ -1,9 +1,9 @@
-<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.09340600 1309268680";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte";i:2;i:1309268675;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
+<?php //netteCache[01]000344a:2:{s:4:"time";s:21:"0.56531000 1319445548";s:9:"callbacks";a:2:{i:0;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:9:"checkFile";}i:1;s:58:"C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte";i:2;i:1319445543;}i:1;a:3:{i:0;a:2:{i:0;s:5:"Cache";i:1;s:10:"checkConst";}i:1;s:19:"Framework::REVISION";i:2;s:30:"7616569 released on 2011-03-10";}}}?><?php
 
 // source file: C:\xampp\htdocs\Course-Manager\app\templates\@layout.latte
 
 ?><?php
-$_l = LatteMacros::initRuntime($template, NULL, '7n7inyzimv'); unset($_extends);
+$_l = LatteMacros::initRuntime($template, NULL, 'ilz95fb2vf'); unset($_extends);
 
 if (isset($presenter, $control) && $presenter->isAjax() && $control->isControlInvalid()) {
 	return LatteMacros::renderSnippets($control, $_l, get_defined_vars());
@@ -97,7 +97,7 @@ if (isset($presenter, $control) && $presenter->isAjax() && $control->isControlIn
                                     <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("course:homepage", array($course->id))) ?>">Lessons</a></li>
                                     <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("result:homepage", array($course->id))) ?>">Results</a></li>
                                     <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
-                                    <li><a class="notActive" href="resources.xhtml">Resources</a></li>
+                                    <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("resource:homepage", array($course->id))) ?>">Resources</a></li>
                                     <li><a class="notActive" href="forum.xhtml">Forum</a></li>
                                     <li><a class="notActive" href="events.xhtml">Events</a></li>
                                 </ul>
@@ -118,7 +118,7 @@ if (isset($presenter, $control) && $presenter->isAjax() && $control->isControlIn
                                     <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("course:homepage", array($course['id']))) ?>">Lessons</a></li>
                                     <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("result:homepage", array($course->id))) ?>">Results</a></li>
                                     <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
-                                    <li><a class="notActive" href="resources.xhtml">Resources</a></li>
+                                    <li><a href="<?php echo TemplateHelpers::escapeHtml($control->link("resource:homepage", array($course->id))) ?>">Resources</a></li>
                                     <li><a class="notActive" href="forum.xhtml">Forum</a></li>
                                     <li><a class="notActive" href="events.xhtml">Events</a></li>
                                 </ul>
