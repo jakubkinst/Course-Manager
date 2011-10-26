@@ -6,55 +6,14 @@
  */
 class CoursePresenter extends BasePresenter {
 
-    /** @persistent Course ID */
-    public $cid;
-    /** Boolean indicating user privileges */
-    public $isTeacher;
     
-    /** Boolean indicating user privileges */
-    public $isStudent;
-
-    /**
-     * Initialize variables for template
-     * @param type $cid 
-     */
-    public function init($cid) {
-        $this->cid = $cid;
-        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(), $this->cid);
-        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(), $this->cid);
-
-        $this->template->isStudent = $this->isStudent;
-        $this->template->isTeacher = $this->isTeacher;
-
-        if ($this->isTeacher || $this->isStudent) {
-            $this->template->course = CourseModel::getCourseByID($this->cid);
-            $this->template->lessons = CourseModel::getLessons($this->cid);
-            $this->template->lectors = CourseModel::getLectors($this->cid);
-            $this->template->students = CourseModel::getStudents($this->cid);
-        }
-    }
-
-    /**
-     * Before Render security check
-     */
-    public function beforeRender() {
-        parent::beforeRender();
-        if (!$this->logged) {
-            $this->flashMessage('Please login.', $type = 'unauthorized');
-            $this->redirect('courselist:homepage');
-        }
-    }
-
     /**
      * Homepage template render
      * @param type $cid 
      */
     public function renderHomepage($cid) {
         $this->init($cid);
-        if (!($this->isTeacher || $this->isStudent)) {
-            $this->flashMessage('Unauthorized access.', $type = 'unauthorized');
-            $this->redirect('courselist:homepage');
-        }
+        $this->checkAuthorization();
     }
 
     /**
@@ -63,22 +22,16 @@ class CoursePresenter extends BasePresenter {
      */
     public function renderAddLesson($cid) {
         $this->init($cid);
+        
         // if not teacher, redirect to homepage
-        if (!$this->isTeacher) {
-            $this->flashMessage('You must be a lector to add lesson.', $type = 'unauthorized');
-            $this->redirect('course:homepage');
-        }
+        $this->checkTeacherAuthority();
     }
 
     /**
      * Adding course template render
      */
     public function renderAdd() {
-
-        if (!$this->logged) {
-            $this->flashMessage('Please login.', $type = 'unauthorized');
-            $this->redirect('CourseList:homepage');
-        }
+        $this->checkLogged();
     }
 
     /**

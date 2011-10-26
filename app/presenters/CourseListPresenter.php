@@ -7,6 +7,12 @@
  */
 class CourseListPresenter extends BasePresenter {
 
+    
+    public function beforeRender() {
+        $this->canbesignedout = true;
+        parent::beforeRender();
+    }
+    
     public function actionHomepage() {
         
     }

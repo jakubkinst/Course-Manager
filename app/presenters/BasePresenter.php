@@ -8,12 +8,26 @@
  */
 abstract class BasePresenter extends Presenter {
 
+    
+    /** @persistent Course ID */
+    public $cid;
+    
     /** Teachered courses */
     public $tCourses;
     /** Courses where acting as student */
     public $sCourses;
+    
+    /** Boolean indicating user privileges */
+    public $isTeacher;
+    
+    /** Boolean indicating user privileges */
+    public $isStudent;
+    
     /** Logical value indicating state of user */
     public $logged = false;
+    
+    /** Is this presenter for unauthorised users too ? */
+    public $canbesignedout = false;
 
     /**
      * Initialization before rendering every presenter
@@ -42,6 +56,51 @@ abstract class BasePresenter extends Presenter {
 
             $this->template->user = $user->getIdentity();
             $this->template->userid = UserModel::getUserID($user->getIdentity());
+        }
+        if (!$this->logged && !$this->canbesignedout) {
+            $this->flashMessage('Please login.', $type = 'unauthorized');
+            $this->redirect('courselist:homepage');
+        }
+    }
+    
+    /**
+     * Initialize variables for template
+     * @param type $cid 
+     */
+    public function init($cid) {
+        $this->cid = $cid;
+        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(), $this->cid);
+        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(), $this->cid);
+
+        $this->template->isStudent = $this->isStudent;
+        $this->template->isTeacher = $this->isTeacher;
+
+        if ($this->isTeacher || $this->isStudent) {
+            $this->template->course = CourseModel::getCourseByID($this->cid);
+            $this->template->lessons = CourseModel::getLessons($this->cid);
+            $this->template->lectors = CourseModel::getLectors($this->cid);
+            $this->template->students = CourseModel::getStudents($this->cid);
+        }
+    }
+    
+    public function checkAuthorization(){
+        if (!($this->isTeacher || $this->isStudent)) {
+            $this->flashMessage('Unauthorized access.', $type = 'unauthorized');
+            $this->redirect('courselist:homepage');
+        }
+    }
+    
+    public function checkTeacherAuthority(){
+        if (!$this->isTeacher) {
+            $this->flashMessage('You must be a lector to add lesson.', $type = 'unauthorized');
+            $this->redirect('course:homepage');
+        }
+    }
+    
+    public function checkLogged(){
+        if (!$this->logged) {
+            $this->flashMessage('Please login.', $type = 'unauthorized');
+            $this->redirect('CourseList:homepage');
         }
     }
 

@@ -9,48 +9,24 @@ class LessonPresenter extends BasePresenter {
 
     /** @persistent Lesson ID */
     public $lid;
-    /** Boolean indicating user privileges */
-    public $isTeacher;
-    /** Boolean indicating user privileges */
-    public $isStudent;
-
-    /**
-     * Initialize variables for template
-     * @param type $cid 
-     */
-    public function init($lid) {
-        $this->lid = $lid;
-        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(), CourseModel::getCourseIDByLessonID($this->lid));
-        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(), CourseModel::getCourseIDByLessonID($this->lid));
-
-        $this->template->isStudent = $this->isStudent;
-        $this->template->isTeacher = $this->isTeacher;
-        if ($this->isTeacher || $this->isStudent) {
-            $this->template->lesson = CourseModel::getLessonByID($this->lid);
-            $this->template->comments = CourseModel::getComments($this->lid);
-            foreach ($this->template->comments as $comment) {
-                $comment['user'] = UserModel::getUser($comment['User_id']);
-            }
-        }
-    }
-
-    /**
-     * Before Render security check
-     */
-    public function beforeRender() {
-        parent::beforeRender();
-        if (!$this->logged) {
-            $this->flashMessage('Please login.', $type = 'unauthorized');
-            $this->redirect('courselist:homepage');
-        }
-    }
 
     /**
      * Homepage template render
      * @param type $lid 
      */
-    public function renderHomepage($lid) {
-        $this->init($lid);
+    public function renderHomepage($lid, $cid) {
+        
+        // check if lesson id corresponds to course id
+        if (CourseModel::getCourseIDByLessonID($lid) != $cid) {
+            throw new BadRequestException;
+        }
+        $this->init($cid);
+        $this->lid = $lid;
+        $this->template->lesson = CourseModel::getLessonByID($this->lid);
+        $this->template->comments = CourseModel::getComments($this->lid);
+        foreach ($this->template->comments as $comment) {
+            $comment['user'] = UserModel::getUser($comment['User_id']);
+        }
     }
 
     /**

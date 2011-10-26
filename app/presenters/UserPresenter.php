@@ -19,10 +19,7 @@ class UserPresenter extends BasePresenter {
      * Register template render
      */
     public function renderRegister() {
-        if ($this->logged) {
-            $this->flashMessage('Please logout first.', $type = 'unauthorized');
-            $this->redirect('courselist:homepage');
-        }
+        $this->checkLogged();
     }
 
     /**
