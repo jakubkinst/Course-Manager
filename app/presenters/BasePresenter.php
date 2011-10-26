@@ -8,24 +8,18 @@
  */
 abstract class BasePresenter extends Presenter {
 
-    
     /** @persistent Course ID */
     public $cid;
-    
     /** Teachered courses */
     public $tCourses;
     /** Courses where acting as student */
     public $sCourses;
-    
     /** Boolean indicating user privileges */
     public $isTeacher;
-    
     /** Boolean indicating user privileges */
     public $isStudent;
-    
     /** Logical value indicating state of user */
     public $logged = false;
-    
     /** Is this presenter for unauthorised users too ? */
     public $canbesignedout = false;
 
@@ -33,6 +27,12 @@ abstract class BasePresenter extends Presenter {
      * Initialization before rendering every presenter
      * Sends essential variables which are needed in every presenter to a template
      */
+    protected function startup() {
+        parent::startup();
+        if ($this->getParam('cid') != null)
+            $this->init($this->getParam('cid'));
+    }
+
     protected function beforeRender() {
         $user = Environment::getUser();
         $this->logged = $user->isLoggedIn();
@@ -62,7 +62,7 @@ abstract class BasePresenter extends Presenter {
             $this->redirect('courselist:homepage');
         }
     }
-    
+
     /**
      * Initialize variables for template
      * @param type $cid 
@@ -82,22 +82,22 @@ abstract class BasePresenter extends Presenter {
             $this->template->students = CourseModel::getStudents($this->cid);
         }
     }
-    
-    public function checkAuthorization(){
+
+    public function checkAuthorization() {
         if (!($this->isTeacher || $this->isStudent)) {
             $this->flashMessage('Unauthorized access.', $type = 'unauthorized');
             $this->redirect('courselist:homepage');
         }
     }
-    
-    public function checkTeacherAuthority(){
+
+    public function checkTeacherAuthority() {
         if (!$this->isTeacher) {
             $this->flashMessage('You must be a lector to add lesson.', $type = 'unauthorized');
             $this->redirect('course:homepage');
         }
     }
-    
-    public function checkLogged(){
+
+    public function checkLogged() {
         if (!$this->logged) {
             $this->flashMessage('Please login.', $type = 'unauthorized');
             $this->redirect('CourseList:homepage');

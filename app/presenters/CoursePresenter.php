@@ -12,7 +12,6 @@ class CoursePresenter extends BasePresenter {
      * @param type $cid 
      */
     public function renderHomepage($cid) {
-        $this->init($cid);
         $this->checkAuthorization();
     }
 
@@ -20,9 +19,7 @@ class CoursePresenter extends BasePresenter {
      * Add lesson temlate render
      * @param type $cid 
      */
-    public function renderAddLesson($cid) {
-        $this->init($cid);
-        
+    public function renderAddLesson($cid) {        
         // if not teacher, redirect to homepage
         $this->checkTeacherAuthority();
     }

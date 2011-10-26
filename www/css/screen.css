@@ -246,3 +246,26 @@ a {
     width:300px;
     height:80px;
 }
+
+/* Forum presenter */
+#forum_showTopic h4{
+    font-size: 20px;
+    font-weight: bold;
+    margin:0px;
+    padding:4px;
+    
+}
+.forum_thread_head{
+    border:1px solid gray;
+    margin:auto;
+    background-color: #89dcec;
+    padding:20px;
+}
+.forum_thread_reply{
+    border:1px solid gray;
+    margin:auto;
+    margin-left:20px;
+    background-color: #c7cdcf;
+    padding:20px;
+}
+

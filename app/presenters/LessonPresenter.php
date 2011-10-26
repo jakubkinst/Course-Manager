@@ -14,13 +14,12 @@ class LessonPresenter extends BasePresenter {
      * Homepage template render
      * @param type $lid 
      */
-    public function renderHomepage($lid, $cid) {
+    public function renderHomepage($lid) {
         
         // check if lesson id corresponds to course id
-        if (CourseModel::getCourseIDByLessonID($lid) != $cid) {
+        if (CourseModel::getCourseIDByLessonID($lid) != $this->cid) {
             throw new BadRequestException;
         }
-        $this->init($cid);
         $this->lid = $lid;
         $this->template->lesson = CourseModel::getLessonByID($this->lid);
         $this->template->comments = CourseModel::getComments($this->lid);
