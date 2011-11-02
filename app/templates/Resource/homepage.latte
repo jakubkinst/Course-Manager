@@ -1,0 +1,28 @@
+{block head}{/block}
+{block content}
+    <div id="resource_homepage">
+        {if $logged}
+            <h3>Course Resources</h3>
+            {if $isTeacher}
+                {widget uploadResource}
+            {/if}
+            <table>
+                <thead>
+                    <td>Resource Name</td>
+                    <td>Resource Description</td>
+                    <td>Resource Size</td>                
+                    <td>Resource Link</td>
+                </thead>
+                {foreach $resources as $resource}
+                
+                <tr>
+                    <td>{$resource['name']}</td>
+                    <td>{$resource['description']}</td>                     
+                    <td><?php echo round($resource['size']/1024,2); ?> kB</td>
+                    <td><a href="{$resource['filename']}">Download</a></td>
+                </tr>
+                {/foreach}
+            </table>    
+        {/if}
+    </div>
+{/block}

@@ -1,0 +1,62 @@
+{block head}{/block}
+
+{block content}
+<h4>Offline tasks - Points</h4>
+    <table>
+            <tr>
+                <th>Name</th>
+                {foreach $offlinePoints as $oA}
+                <th>{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
+                {/foreach}
+                <th>SUM</th>
+            </tr>
+            {foreach $students as $student}
+                <tr>
+                    <td>
+                    {if $user->id==$student->id}<b>{/if}
+                        {$student['firstname']} {$student['lastname']}
+                    {if $user->id==$student->id}</b>{/if}
+                    </td>
+                    {foreach $offlinePoints as $oA}
+                        <td>{$oA[$student->id]}</td>
+                    {/foreach}
+                        <td>
+                            {if array_key_exists(strval($student->id),$sums)} <?php echo round($sums[$student->id],2) ?> {/if}
+                        </td>
+                            
+                </tr>
+            {/foreach}
+    </table>
+<h4>Offline tasks - Grades</h4>
+    <table>
+            <tr>
+                <th>Name</th>
+                {foreach $offlineGrades as $oA}
+                <th>{$oA->name}</th>
+                {/foreach}
+                <th>AVG</th>
+            </tr>
+            {foreach $students as $student}
+                <tr>
+                    <td>
+                        {if $user->id==$student->id}<b>{/if}
+                            {$student['firstname']} {$student['lastname']}
+                        {if $user->id==$student->id}</b>{/if}
+                    </td>
+                    {foreach $offlineGrades as $oA}
+                        <td>{$oA[$student->id]}</td>
+                    {/foreach}
+                        <td>
+                            {if array_key_exists(strval($student->id),$avgs)} <?php echo round($avgs[$student->id],2) ?> {/if}
+                        </td>
+                            
+                </tr>
+            {/foreach}
+    </table>
+
+    {if $isTeacher}
+                <div class="buttonLine">
+                    <a href="{link result:add}">Add Results</a>
+                </div>
+    {/if}
+{/block}

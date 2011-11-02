@@ -1,0 +1,30 @@
+{block head}{/block}
+{block content}
+    <div id="forum_homepage">
+        {if $logged}
+            <h3>Course Forum</h3>
+            {control pages}
+            <table>
+                <thead>
+                    <td>Topic Name</td>
+                    <td>Author</td>               
+                    <td>Replies</td>
+                    <td>Last reply</td> 
+                </thead>
+                {foreach $topics as $topic}    
+                    <tr>
+                        <td><a href="{link forum:showTopic, $topic['id']}">{$topic['label']}</a></td>
+                        <td>{$topic['author']['email']}</td>                     
+                        <td>{$topic['replies']}</td>
+                        <td>{$topic['lastreply']['created']}</td>
+                    
+                    </tr></a>
+                {/foreach}
+            </table>  
+            {control pages}
+            {if $isTeacher}
+                {widget addTopic}
+            {/if}
+        {/if}
+    </div>
+{/block}

@@ -1,0 +1,15 @@
+{block head}
+    
+{/block}
+
+{block content}
+    <div id="event_homepage">
+        {if $logged}
+            <h3>Course Event Detail</h3>
+            <h4>{$event->name}</h4>
+            <span>on {$event->date}</span>
+            <div>Description: {$event->description}</div> 
+        {/if}
+    </div>
+    
+{/block}

@@ -1,0 +1,26 @@
+{block head}{/block}
+{block content}
+    <div id="forum_showTopic">
+        {if $logged}
+            <h3>Course Forum</h3>
+            
+            <h4>{$topic['label']}</h4>
+            <span>by {$topic['author']['email']}</span>
+            <div class="forum_thread_head">
+                {$topic['content']}
+            </div>
+            {control pages}
+            {foreach $replies as $reply}
+                <div class="forum_thread_reply">
+                    <div>Author: {$reply['author']['email']}</div>
+                    <div>Posted: {$reply['created']}</div>
+                    <div>{$reply['content']}</div>
+                </div>
+            {/foreach}
+            {control pages}
+            {if $isTeacher}
+                {widget addReply}
+            {/if}
+        {/if}
+    </div>
+{/block}

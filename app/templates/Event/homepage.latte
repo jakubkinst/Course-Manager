@@ -1,0 +1,28 @@
+{block head}
+    <script>
+	$(function() {
+		$( "#frmaddEvent-date" ).datepicker();
+	});
+    </script>
+{/block}
+
+{block content}
+    <div id="event_homepage">
+        {if $logged}
+            <h3>Course Event Calendar</h3>
+            <h4>Event list</h4>
+                {foreach $events as $event}
+                    <div class="event_event">
+                        <a href="{link Event:showEvent, $event->id}"><h5><span class="event_date">{$event->date}</span>: {$event->name}</h5></a>                        
+                        <div class="event_description">{$event->description}</div>
+                    </div>
+                {/foreach}
+            
+            {if $isTeacher}
+            <h4>ADD EVENT</h4>
+                {widget addEvent}
+            {/if}
+        {/if}
+    </div>
+    
+{/block}
