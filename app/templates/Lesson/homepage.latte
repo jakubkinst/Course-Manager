@@ -9,7 +9,7 @@
                 <h4>Comments</h4>
                 {foreach $comments as $comment}
                     <div class="comment">
-                        <div class="author">{$comment['user']['email']}</div>
+                        <div class="author"><a href="{link user:homepage, $comment->user->id}">{$comment->user->firstname} {$comment->user->lastname}</a></div>
                         <div class="time">({$comment['added']})</div>                        
                         <div class="content">{$comment['content']}</div>
                     </div>

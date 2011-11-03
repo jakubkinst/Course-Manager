@@ -127,7 +127,11 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getComments($lid) {
-        return dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i', $lid);
+        $comments = dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i', $lid);
+        foreach ($comments as $comment) {
+            $comment['user'] = UserModel::getUser($comment['User_id']);
+        }
+        return $comments;
     }
 
     /**

@@ -14,7 +14,7 @@
                 {foreach $topics as $topic}    
                     <tr>
                         <td><a href="{link forum:showTopic, $topic['id']}">{$topic['label']}</a></td>
-                        <td>{$topic['author']['email']}</td>                     
+                        <td>{$topic->author->firstname} {$topic->author->lastname}</td>                     
                         <td>{$topic['replies']}</td>
                         <td>{$topic['lastreply']['created']}</td>
                     

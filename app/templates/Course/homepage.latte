@@ -12,9 +12,9 @@
                         </tr>
                         {foreach $lectors as $lector}
                             <tr>
-                                <td>{$lector['firstname']} {$lector['lastname']}</td>
+                                <td><a href="{link user:homepage, $lector->id}">{$lector['firstname']} {$lector['lastname']}</a></td>
                                 <td>{$lector['email']}</td>
-                                <td><a href="{link messages:new, $lector['email']}">Send Message</a></td>
+                                <td><a href="{link message:new, $lector['email']}">Send Message</a></td>
                             </tr>
                         {/foreach}
                 </table>
@@ -29,9 +29,9 @@
                         </tr>
                         {foreach $students as $student}
                             <tr>
-                                <td>{$student['firstname']} {$student['lastname']}</td>
+                                <td><a href="{link user:homepage, $student->id}">{$student['firstname']} {$student['lastname']}</a></td>
                                 <td>{$student['email']}</td>
-                                <td><a href="{link messages:new, $student['email']}">Send Message</a></td>
+                                <td><a href="{link message:new, $student['email']}">Send Message</a></td>
                             </tr>
                         {/foreach}
                 </table>

@@ -14,7 +14,7 @@
                 <tr>
                     <td>
                     {if $user->id==$student->id}<b>{/if}
-                        {$student['firstname']} {$student['lastname']}
+                        <a href="{link user:homepage, $student->id}">{$student->firstname} {$student->lastname}</a>
                     {if $user->id==$student->id}</b>{/if}
                     </td>
                     {foreach $offlinePoints as $oA}
@@ -40,7 +40,7 @@
                 <tr>
                     <td>
                         {if $user->id==$student->id}<b>{/if}
-                            {$student['firstname']} {$student['lastname']}
+                            <a href="{link user:homepage, $student->id}">{$student->firstname} {$student->lastname}</a>
                         {if $user->id==$student->id}</b>{/if}
                     </td>
                     {foreach $offlineGrades as $oA}

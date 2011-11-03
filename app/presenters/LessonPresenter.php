@@ -23,9 +23,7 @@ class LessonPresenter extends BasePresenter {
         $this->lid = $lid;
         $this->template->lesson = CourseModel::getLessonByID($this->lid);
         $this->template->comments = CourseModel::getComments($this->lid);
-        foreach ($this->template->comments as $comment) {
-            $comment['user'] = UserModel::getUser($comment['User_id']);
-        }
+        
     }
 
     /**

@@ -26,15 +26,6 @@ abstract class MasterPresenter extends Presenter {
             $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
             $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
 
-            // adds list of teachers to course objects
-            foreach ($this->tCourses as $course) {
-                $course['lectors'] = CourseModel::getLectors($course['id']);
-            }
-
-            // adds list of teachers to course objects
-            foreach ($this->sCourses as $course) {
-                $course['lectors'] = CourseModel::getLectors($course['id']);
-            }
 
             $this->template->tCourses = $this->tCourses;
             $this->template->sCourses = $this->sCourses;

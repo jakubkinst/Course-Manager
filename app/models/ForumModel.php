@@ -27,9 +27,21 @@ class ForumModel extends Object {
             $topic['author'] = UserModel::getUser($topic['User_id']);
             $topic['replies'] = ForumModel::countReplies($topic['id']);
             $topic['lastreply'] = ForumModel::getLastReply($topic['id']);
-            if ($topic['lastreply']==null)
+            if ($topic['lastreply'] == null)
                 $topic['lastreply'] = $topic;
         }
+
+        // sort topics by last reply or created date
+        function cmp($a, $b) {
+            if ($a->lastreply->created == $b->lastreply->created) {
+                return 0;
+            }
+            return ($a->lastreply->created < $b->lastreply->created) ? 1 : -1;
+        }
+
+
+        usort($topics, "cmp");
+
         return $topics;
     }
 
@@ -42,13 +54,13 @@ class ForumModel extends Object {
     public static function countReplies($tid) {
         return dibi::fetchSingle('SELECT COUNT(*) FROM reply WHERE Topic_id=%i', $tid);
     }
-    
+
     public static function countTopics($cid) {
         return dibi::fetchSingle('SELECT COUNT(*) FROM topic WHERE Course_id=%i', $cid);
     }
 
     public static function getReplies($tid, $offset, $limit) {
-        $replies = dibi::fetchAll('SELECT * FROM reply WHERE Topic_id=%i LIMIT %i OFFSET %i', $tid, $limit, $offset);
+        $replies = dibi::fetchAll('SELECT * FROM reply WHERE Topic_id=%i ORDER BY created ASC LIMIT %i OFFSET %i ', $tid, $limit, $offset);
         foreach ($replies as $reply) {
             $reply['author'] = UserModel::getUser($reply['User_id']);
         }
@@ -59,9 +71,10 @@ class ForumModel extends Object {
         return dibi::fetch('SELECT * FROM reply WHERE Topic_id=%i ORDER BY created DESC LIMIT 1', $tid);
     }
 
-    public static function getCourseIDByTopicID($tid){
-        return dibi::fetchSingle('SELECT Course_id FROM topic WHERE id=%i',$tid);
+    public static function getCourseIDByTopicID($tid) {
+        return dibi::fetchSingle('SELECT Course_id FROM topic WHERE id=%i', $tid);
     }
+
 }
 
 ?>

@@ -7,6 +7,11 @@
  */
 class UserPresenter extends BasePresenter {
 
+    public function renderHomepage($uid){
+        $this->template->showuser = UserModel::getUser($uid);
+    }
+    
+    
     /**
      * Logout action
      */

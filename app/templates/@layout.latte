@@ -39,8 +39,8 @@
                         <li><a class="notActive" href="{link settings:homepage}">Settings</a></li>
                         <li><a class="notActive" href="{link help:homepage}">Help</a></li>
                         <li>
-                            <a class="notActive" href="{link user:homepage, $userid}">                        
-                                {$user->email}
+                            <a href="{link user:homepage, $userid}">                        
+                                {$user->firstname} {$user->lastname}
                             </a>                           
                         </li>
                     </ul>
@@ -81,11 +81,6 @@
                                 <a href="{link course:homepage, $course['id']}">
                                     <div class="title">{$course['name']}</div>
                                 </a>
-                                <div class="lectors">
-                                     {foreach $course['lectors'] as $lector}
-                                        <a href="{link user:homepage, $userid}" class="lector">{$lector['email']}</a>
-                                     {/foreach}
-                                </div>
                                 <ul>
                                     <li><a href="{link course:homepage, $course->id}">Lessons</a></li>
                                     <li><a href="{link result:homepage, $course->id}">Results</a></li>
@@ -102,11 +97,6 @@
                                 <a href="{link course:homepage, $course['id']}">
                                     <div class="title">{$course['name']}</div>
                                 </a>
-                                <div class="lectors">
-                                     {foreach $course['lectors'] as $lector}
-                                        <a href="{link user:homepage, $userid}" class="lector">{$lector['email']}</a>
-                                     {/foreach}
-                                </div>
                                 <ul>
                                     <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
                                     <li><a href="{link result:homepage, $course->id}">Results</a></li>

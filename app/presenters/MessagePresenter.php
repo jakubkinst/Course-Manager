@@ -13,6 +13,12 @@ class MessagePresenter extends MasterPresenter {
         // redirect to inbox
         $this->redirect('inbox');
     }
+    public function actionNew($email){
+        $form = $this->getComponent('newMessage');
+        $form->setDefaults(array(
+           'to' => $email,
+        ));
+    }
     
     public function renderInbox($cid) {     
         $this->template->inbox = MessageModel::getInbox();  
