@@ -1,0 +1,17 @@
+{block head}
+    
+{/block}
+
+{block content}
+    <div id="message_showMessage">
+        {if $logged}
+            <h3>Message</h3>
+            <h4>from {$message->from->email}</h4>
+            <span>on {$message->sent}</span>
+            <div>Subject: {$message->subject}</div> 
+            
+            <div>Content: {$message->content}</div>
+        {/if}
+    </div>
+    
+{/block}

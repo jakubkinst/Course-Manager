@@ -1,0 +1,27 @@
+{block head}{/block}
+{block content}
+    <div id="message_outbox">
+        {if $logged}
+            <h3>My Outbox</h3>
+            <a href="{link new}">New Message</a>
+            <a href="{link inbox}">Inbox</a>
+            <table>
+                <thead>
+                    <td>Subject</td> 
+                    <td>To</td>              
+                    <td>Sent</td>
+                </thead>
+                {foreach $outbox as $message}    
+                    
+                        <tr> 
+                            
+                        <td><a href="{link showMessage, $message['id']}">{$message['subject']}</a></td>  
+                        <td>{$message['to']['email']}</td>                                          
+                        <td>{$message['sent']}</td>
+                    
+                    </tr>
+                {/foreach}
+            </table>  
+        {/if}
+    </div>
+{/block}

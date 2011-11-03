@@ -274,3 +274,8 @@ a {
     margin:10px;
     background: peachpuff;
 }
+
+/* Message presenter */
+#message_inbox tr.notRead td{
+    font-weight: bold;
+}

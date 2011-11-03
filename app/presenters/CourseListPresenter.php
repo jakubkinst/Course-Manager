@@ -5,7 +5,7 @@
  *
  * @author Jakub Kinst
  */
-class CourseListPresenter extends BasePresenter {
+class CourseListPresenter extends MasterPresenter {
 
     
     public function beforeRender() {

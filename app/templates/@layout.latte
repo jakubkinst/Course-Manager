@@ -35,8 +35,7 @@
                 <div id="mainmenu">
                     <ul>
                         <li><a href="{link courselist:homepage}">My Courses</a></li>
-                        <li><a class="notActive" href="{link notification:homepage}">Notifications</a></li>
-                        <li><a class="notActive" href="{link messages:inbox}"><b>Messages(2)</b></a></li>
+                        <li><a href="{link message:homepage}">{if $countUnread>0}<b>{/if}Messages{if $countUnread>0}({$countUnread})</b>{/if}</a></li>
                         <li><a class="notActive" href="{link settings:homepage}">Settings</a></li>
                         <li><a class="notActive" href="{link help:homepage}">Help</a></li>
                         <li>
