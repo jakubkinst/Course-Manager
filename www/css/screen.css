@@ -1,7 +1,10 @@
+*{
+    margin:0;padding:0;
+}
 body {
-    font-family: "Trebuchet MS", "Tahoma","Verdana";
-    font-size: 12px;
-    color: #333;
+    font-family: "Trebuchet MS",Verdana,Arial,sans-serif; 
+    font-size: 11px;
+    color: #222222;
     background-color: #fff;
 }
 form tbody tr:nth-child(even) td, form tbody tr.even td {
@@ -9,34 +12,17 @@ form tbody tr:nth-child(even) td, form tbody tr.even td {
 } 
 a {
     text-decoration: none;
+    color:#333333;
+}
+a:hover {
+    text-decoration: none;
+    color:#111111;
 }
 .border{
-    border:1px solid black;
+    border:1px solid red;
 }
 #content{
     padding:5px;
-}
-#content iframe {
-    width:100%;
-    height:1800px;
-}
-.buttonLine a {
-    padding:2px;
-    margin:5px;
-    text-align: center;
-    background: lightskyblue;
-    border: 2px solid #3484d2;
-    font-size: small;
-    font-weight: bold;
-    text-transform: capitalize;
-}
-.buttonLine a:hover{
-    background: #3484d2;
-    color:white;
-}
-.buttonLine {
-    width:100%;
-    text-align: right;
 }
 .notActive {
     color:red;
@@ -53,25 +39,43 @@ a {
     height:30px;
 }
 #logo{
-    width:30%;
+    width:498px;
+    height:39px;
     float:left;
+    margin-top:3px;
+    background: url('../images/logo.png');
+}
+#logo h1{
+    display:none;
 }
 #mainmenu{
     float:right;
 }
 #mainmenu ul{
-    margin:12px;
+    margin-top:6px;
     list-style-type: none;
 }
 #mainmenu ul li{
-    float:left;
-    padding: 3px;
-    border: 1px solid black;
+    float:left;    
+}
+#mainmenu ul li a{
+    padding:8px;
+    font-size:12px;
+    background: #c8fe53;
+    border: 1px solid #aaaaaa;
+    cursor:pointer;
+}
+#mainmenu ul li a:hover{
+    background: #c7cdcf;
+    color: black;
 }
 #loginBox {
+    position:absolute;
+    display:none;
+    top:34px;
     padding:5px;
-    background: #ED8383;
-    border: 1px solid #C22;    
+    background: #b1eb34;
+    border: 1px solid #aaaaaa;
 }
 
 #loginBox .text {
@@ -89,14 +93,8 @@ a {
     margin-left:5px;
     font-size: xx-small;
 }
-#courseBox .course .lectors .lector {   
-    color:black;
-    padding:2px;
-}
-#courseBox .course .lectors .lector:hover {   
-    color:#085AA3;
-}
 #courseBox .course ul {  
+    display:none;
     padding:0;
     margin:0;
     list-style-type: none;
@@ -115,9 +113,10 @@ a {
     color:black;
     font-size: larger;
     font-weight: bold;
+    cursor:pointer;
 }
 #courseBox .asTeacher {    
-    background-color: #89dcec;
+    background-color: #c8fe53;
     border: 1px solid #24c8e8;
 }
 #courseBox .asStudent {    
@@ -154,12 +153,12 @@ a {
     padding:5px;
 }
 #courseList_homepage .asTeacher {    
-    background-color: #89dcec;
-    border: 1px solid #24c8e8;
+    background-color: #c8fe53;
+    border: 1px solid #aaaaaa;
 }
 #courseList_homepage .asStudent {    
     background-color: #c7cdcf;
-    border: 1px solid #7d888b;
+    border: 1px solid #aaaaaa;
 }
 #courseList_homepage .course .title{
     font-size: large;
@@ -171,6 +170,7 @@ a {
     margin-left: 20px;
     font-style: italic;
 }
+
 
 /* Course Presenter */
 #course_homepage .lesson {

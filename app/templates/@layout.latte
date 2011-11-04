@@ -9,18 +9,61 @@
         <!--[if IE]><link rel="stylesheet" href="{$basePath}/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
 
         <!-- import jQuery CSS & JS -->
-        <link type="text/css" href="{$basePath}/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="{$basePath}/css/theme0/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
         <script type="text/javascript" src="{$basePath}/js/jquery-1.6.2.min.js"></script>
         <script type="text/javascript" src="{$basePath}/js/jquery-ui-1.8.16.custom.min.js"></script>
-        
-        <!-- import custom CSS styles -->
+
+<!-- import custom CSS styles -->
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css" />
         <link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css" />
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
-        
-        <!-- content -->                    
+
+        <script type="text/javascript">
+            var userMenuDown = false;
+            $(document).ready(function(){
+              $("#userButton").click(function(){
+                if (userMenuDown){
+                 $("#loginBox").slideUp();
+                userMenuDown = false;
+                } else {
+                $("#loginBox").slideDown();
+                userMenuDown = true;
+                }                
+              });
+              
+              {foreach $tCourses as $course}
+                    var t<? echo $course->id; ?>Down = false;
+                    $("#t<? echo $course->id; ?>_toggle").click(function(){
+                        if (t<? echo $course->id; ?>Down){
+                         $("#t<? echo $course->id; ?>").slideUp();
+                        t<? echo $course->id; ?>Down = false;
+                        } else {
+                        $("#t<? echo $course->id; ?>").slideDown();
+                        t<? echo $course->id; ?>Down = true;
+                        } 
+                  });
+              {/foreach}
+              {foreach $sCourses as $course}
+                    var s<? echo $course->id; ?>Down = false;
+                    $("#s<? echo $course->id; ?>_toggle").click(function(){
+                        if (s<? echo $course->id; ?>Down){
+                         $("#s<? echo $course->id; ?>").slideUp();
+                        s<? echo $course->id; ?>Down = false;
+                        } else {
+                        $("#s<? echo $course->id; ?>").slideDown();
+                        s<? echo $course->id; ?>Down = true;
+                        } 
+                  });
+              {/foreach}
+              
+              
+            });
+        </script>
+
+<!-- content -->                    
             {include #head}
-        <!-- /content -->
+<!-- /content -->
+
     </head>
 
     <body>
@@ -31,27 +74,40 @@
                         <h1>Course Manager</h1>
                     </div>
                 </a>
-                {if $logged}
+
                 <div id="mainmenu">
                     <ul>
-                        <li><a href="{link courselist:homepage}">My Courses</a></li>
-                        <li><a href="{link message:homepage}">{if $countUnread>0}<b>{/if}Messages{if $countUnread>0}({$countUnread})</b>{/if}</a></li>
-                        <li><a class="notActive" href="{link settings:homepage}">Settings</a></li>
+                        {if $logged}<li><a  href="{link courselist:homepage}">My Courses</a></li>{/if}
+                        {if $logged}<li><a href="{link message:homepage}">Settings</a></li>{/if}
+                        {if $logged}<li><a class="notActive" href="{link settings:homepage}">Settings</a></li>{/if}
                         <li><a class="notActive" href="{link help:homepage}">Help</a></li>
-                        <li>
-                            <a href="{link user:homepage, $userid}">                        
-                                {$user->firstname} {$user->lastname}
-                            </a>                           
+                        <li><a id="userButton">                        
+                            {if !$logged}Login{else}{$user->firstname} {$user->lastname}{/if}
+                            </a>
+                            <div id="loginBox" >
+                                {if $logged}
+                                <div class="loggedUser">{$user->email}</div>
+                                <div class="buttonLine">
+                                    <a href="{link user:logout}">LOG OUT</a>
+                                </div>
+                                {else}
+                                    {widget signInForm}                      
+                                <div class="buttonLine">
+                                    <a href="{link user:register}">REGISTER</a>
+                                </div>
+                                {/if}   
+
+                            </div>
                         </li>
+
                     </ul>
                 </div>
-                {/if}
 
             </div>
 
 
             <div class="span-19" id="main">
-                <div id="content" class="border">
+                <div id="content" class="ui-widget-content">
                     <!-- content -->                    
                     {include #content}
                     <!-- /content -->
@@ -59,74 +115,57 @@
             </div>
 
             <div class="span-5 last" id="sidebar">
-                <div id="loginBox" class="border">
-                    {if $logged}
-                        <div class="loggedUser">{$user->email}</div>
-                        <div class="buttonLine">
-                            <a href="{link user:logout}">LOG OUT</a>
-                        </div>
-                    {else}
-                        {widget signInForm}                      
-                        <div class="buttonLine">
-                            <a href="{link user:register}">REGISTER</a>
-                        </div>
-                    {/if}   
 
-                </div>
                 {if $logged}
-                    <div id="courseBox" class="border">                    
-                        <h3 class="caps">Teachered courses</h3>
+                <div id="courseBox" class="ui-widget-content">                    
+                    <div>Teachered courses</div>
                         {foreach $tCourses as $course}
-                            <div class="course asTeacher">
-                                <a href="{link course:homepage, $course['id']}">
-                                    <div class="title">{$course['name']}</div>
-                                </a>
-                                <ul>
-                                    <li><a href="{link course:homepage, $course->id}">Lessons</a></li>
-                                    <li><a href="{link result:homepage, $course->id}">Results</a></li>
-                                    <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
-                                    <li><a href="{link resource:homepage, $course->id}">Resources</a></li>
-                                    <li><a href="{link forum:homepage, $course->id}">Forum</a></li>
-                                    <li><a href="{link event:homepage, $course->id}">Events</a></li>
-                                </ul>
-                            </div>
-                        {/foreach}
-                        <h3 class="caps">Student courses</h3>
-                        {foreach $sCourses as $course}
-                            <div class="course asStudent">
-                                <a href="{link course:homepage, $course['id']}">
-                                    <div class="title">{$course['name']}</div>
-                                </a>
-                                <ul>
-                                    <li><a href="{link course:homepage, $course['id']}">Lessons</a></li>
-                                    <li><a href="{link result:homepage, $course->id}">Results</a></li>
-                                    <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
-                                    <li><a href="{link resource:homepage, $course->id}">Resources</a></li>
-                                    <li><a href="{link forum:homepage, $course->id}">Forum</a></li>
-                                    <li><a href="{link event:homepage, $course->id}">Events</a></li>
-                                </ul>
-                            </div>
-                        {/foreach}
+                    <div class="course asTeacher">
+                            <div id="t{$course->id}_toggle" class="title">{$course['name']}</div>
+                        <ul id="t{$course->id}">
+                            <li><a href="{link course:homepage, $course->id}">Lessons</a></li>
+                            <li><a href="{link result:homepage, $course->id}">Results</a></li>
+                            <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
+                            <li><a href="{link resource:homepage, $course->id}">Resources</a></li>
+                            <li><a href="{link forum:homepage, $course->id}">Forum</a></li>
+                            <li><a href="{link event:homepage, $course->id}">Events</a></li>
+                        </ul>
                     </div>
+                        {/foreach}
+                    <h3 class="caps">Student courses</h3>
+                        {foreach $sCourses as $course}
+                    <div class="course asStudent">
+                            <div id="s{$course->id}_toggle" class="title">{$course['name']}</div>
+                        <ul id="s{$course->id}">
+                            <li><a href="{link course:homepage, $course->id}">Lessons</a></li>
+                            <li><a href="{link result:homepage, $course->id}">Results</a></li>
+                            <li><a class="notActive" href="assignments.xhtml"><b>Assignments</b></a></li>
+                            <li><a href="{link resource:homepage, $course->id}">Resources</a></li>
+                            <li><a href="{link forum:homepage, $course->id}">Forum</a></li>
+                            <li><a href="{link event:homepage, $course->id}">Events</a></li>
+                        </ul>
+                    </div>
+                        {/foreach}
+                </div>
                 {/if}
 
-                               
+
             </div>
         </div>
         <div id="footer" class="border">
             Course Manager by Jakub Kinst
         </div>
-        
-        <!-- Flash messages -->
+
+<!-- Flash messages -->
         <div id="flashMessages">
             {foreach $flashes as $flash}            
-                <div class="flash {$flash->type}">
+            <div class="flash {$flash->type}">
                     {$flash->message}
-                </div>            
+            </div>            
             {/foreach}
         </div>
-        
-        <!-- Load Visual JavaScript functions -->
+
+<!-- Load Visual JavaScript functions -->
         <script src="{$basePath}/js/visual.js" />
     </body>
 </html>
