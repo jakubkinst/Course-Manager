@@ -1,36 +1,45 @@
+{block title}Course Home{/block}
 {block head}{/block}
 {block content}
-    <div id="course_homepage">
-            <h3 class="flaground shadow-rb">{$course['name']}</h3>            
+    <div id="course_homepage">     
+            
+                <div class="buttonline">
+                    {if $isTeacher}
+                        <a class="adminbutton abutton" href="{link course:addLesson}"><span class="ui-icon ui-icon-circle-plus"></span>Add Lesson</a>
+                        <a class="adminbutton abutton" href="{link Course:inviteStudent}"><span class="ui-icon ui-icon-person"></span>Invite Student</a>
+                        <a class="redbutton abutton" href="{link Course:delete}"><span class="ui-icon ui-icon-trash"></span>Delete Course</a>
+                    {else}
+                      <a class="redbutton abutton" href="{link Course:leave}"><span class="ui-icon ui-icon-circle-close"></span>Leave Course</a>
+                    {/if} 
+                </div>
+            
             <div id="lectorList">
                 <h4>Lectors</h4>
                 <table>
                         <tr>
                             <th>Name</th>
-                            <th>E-Mail</th>
                             <th>Message</th>
                         </tr>
                         {foreach $lectors as $lector}
                             <tr>
                                 <td><a href="{link user:homepage, $lector->id}">{$lector['firstname']} {$lector['lastname']}</a></td>
-                                <td>{$lector['email']}</td>
                                 <td><a href="{link message:new, $lector['email']}">Send Message</a></td>
                             </tr>
                         {/foreach}
                 </table>
             </div>
+        
+            <div class="separator"><!----></div>
             <div id="studentList">
                 <h4>Students</h4>
                 <table>
                         <tr>
                             <th>Name</th>
-                            <th>E-Mail</th>
                             <th>Message</th>
                         </tr>
                         {foreach $students as $student}
                             <tr>
                                 <td><a href="{link user:homepage, $student->id}">{$student['firstname']} {$student['lastname']}</a></td>
-                                <td>{$student['email']}</td>
                                 <td><a href="{link message:new, $student['email']}">Send Message</a></td>
                             </tr>
                         {/foreach}
@@ -38,6 +47,8 @@
             </div>
     
     
+            <div class="separator"><!----></div>
+            
             {foreach $lessons as $lesson}
                 <!-- Lesson -->
             <a href="{link lesson:homepage,$lesson['id']}">
@@ -49,12 +60,7 @@
             </a>
             {/foreach}
             
-            {if $isTeacher}
-                <div class="buttonLine">
-                    <a href="{link course:addLesson}">Add lesson</a>
-                    <a href="{link Course:inviteStudent}">Invite Student</a>
-                </div>
-            {/if}
+            
 
         
     </div>

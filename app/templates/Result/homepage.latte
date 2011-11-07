@@ -1,6 +1,10 @@
+{block title}Results{/block}
 {block head}{/block}
 
 {block content}
+<div id="results_homepage">
+    <h3>Results</h3>
+            <div class="separator"><!----></div>
 <h4>Offline tasks - Points</h4>
     <table>
             <tr>
@@ -55,8 +59,10 @@
     </table>
 
     {if $isTeacher}
+            <div class="separator"><!----></div>
                 <div class="buttonLine">
                     <a href="{link result:add}">Add Results</a>
                 </div>
     {/if}
+</div>
 {/block}

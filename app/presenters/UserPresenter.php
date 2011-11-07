@@ -5,9 +5,15 @@
  *
  * @author Jakub Kinst
  */
-class UserPresenter extends BasePresenter {
+class UserPresenter extends MasterPresenter {
 
+    public function beforeRender() {
+        $this->canbesignedout = true;
+        parent::beforeRender();
+    }
+    
     public function renderHomepage($uid){
+        $this->template->settings = SettingsModel::getSettings($uid);
         $this->template->showuser = UserModel::getUser($uid);
     }
     
@@ -24,7 +30,6 @@ class UserPresenter extends BasePresenter {
      * Register template render
      */
     public function renderRegister() {
-        $this->checkLogged();
     }
 
     /**
@@ -52,7 +57,9 @@ class UserPresenter extends BasePresenter {
                 ->addRule(Form::MIN_LENGTH, 'Minimal password length is %d.', 5);
         $form->addPassword('password2', 'Verify password:*')
                 ->addRule(Form::FILLED, 'Fill in the password again.')
-                ->addRule(Form::EQUAL, 'Passwords don\'t match.', $form['password']);
+                ->addRule(Form::EQUAL, 'Passwords don\'t match.', $form['password']);        
+        $form->addText('web', 'Webpage:');
+        
 
         $form->addSubmit('send', 'Registrovat');
         $form->onSubmit[] = callback($this, 'registerFormSubmitted');

@@ -1,8 +1,10 @@
+{block title}{$lesson->topic} - Lesson{/block}
 {block head}{/block}
 {block content}
     <div id="lesson_homepage">
         {if $isTeacher || $isStudent}
             <h3>{$lesson['topic']}</h3>
+            <div class="separator"><!----></div>
             <div id="date">{$lesson['date']}</div>
             <p id="description">{$lesson['description']}</p>
             <div id="comments">

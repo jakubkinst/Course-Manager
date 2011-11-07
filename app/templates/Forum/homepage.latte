@@ -1,8 +1,10 @@
+{block title}Forum{/block}
 {block head}{/block}
 {block content}
     <div id="forum_homepage">
         {if $logged}
             <h3>Course Forum</h3>
+            <div class="separator"><!----></div>
             {control pages}
             <table>
                 <thead>
@@ -23,6 +25,8 @@
             </table>  
             {control pages}
             {if $isTeacher}
+            
+            <div class="separator"><!----></div>
                 {widget addTopic}
             {/if}
         {/if}

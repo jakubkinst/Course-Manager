@@ -1,10 +1,14 @@
+{block title}Outbox{/block}
 {block head}{/block}
 {block content}
     <div id="message_outbox">
         {if $logged}
             <h3>My Outbox</h3>
-            <a href="{link new}">New Message</a>
-            <a href="{link inbox}">Inbox</a>
+            <div class="separator"><!----></div>
+            <div class="buttonline">
+                <a class="abutton" href="{link inbox}">Inbox</a>
+                <a class="abutton" href="{link new}">New Message</a>
+            </div>
             <table>
                 <thead>
                     <td>Subject</td> 

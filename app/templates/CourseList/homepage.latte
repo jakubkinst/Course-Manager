@@ -1,28 +1,49 @@
+{block title}My Courses{/block}
 {block head}{/block}
 {block content}
     <div id="courseList_homepage">
         {if $logged}
-        <h3>Teachered Courses</h3>
-            {foreach $tCourses as $course}
-                <a href="{link course:homepage, $course['id']}">
-                    <div class="course asTeacher">
-                        <span class="title">{$course['name']}</span>
-                        <p class="description">{$course['description']}</span>
-                    </div>
-                </a>
-            {/foreach}
-        <div class="buttonLine">
-            <a href="{link course:add}">+ Add Course</a>
+        <h3>My Courses</h3>
+            <div class="separator"><!----></div>
+        <div class="buttonline">
+            <a class="adminbutton abutton" href="{link course:add}"><span class="ui-icon ui-icon-circle-plus"></span>Add Course</a>
         </div>
-        <h3>Student Courses</h3>
-            {foreach $sCourses as $course}
-                <a href="{link course:homepage, $course['id']}">
-                    <div class="course asStudent">
-                        <span class="title">{$course['name']}</span>
-                        <p class="description">{$course['description']}</span>
-                    </div>
-                </a>
-            {/foreach}
+        <div class="floatcontainer">
+            {if sizeof($tCourses)>0}
+                <div class="teachercourses">
+                    <h4>Teaching courses</h4>
+                {foreach $tCourses as $course}
+                    <a href="{link course:homepage, $course['id']}">
+                        <div class="course asTeacher">
+                            <span class="head">
+                                <span class="title">{$course['name']}</span>
+                            </span>
+                            <p class="description">{$course['description']}</span>
+                        </div>
+                    </a>
+                {/foreach}
+                </div>
+            {/if}
+            
+            {if sizeof($sCourses)>0}
+                <div class="studentcourses">
+                    <h4>Student courses</h4>
+                {foreach $sCourses as $course}
+                    <a href="{link course:homepage, $course['id']}">
+                        <div class="course asStudent">
+                            <span class="head">
+                                <span class="title">{$course['name']}</span>
+                            </span>
+                            <p class="description">{$course['description']}</span>
+                        </div>
+                    </a>
+                {/foreach}
+                </div>
+            {/if}
+            {if (sizeof($tCourses)==0) && (sizeof($sCourses)==0)}
+            <h5>No courses</h5>
+            {/if}
+        </div>
         {else}
         <p id="welcome">
             Welcome to Course Manager. Please sign in.<br/>

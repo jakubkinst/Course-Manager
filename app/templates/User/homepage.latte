@@ -1,13 +1,17 @@
+{block title}{$showuser->firstname} {$showuser->lastname}{/block}
 {block head}
     
 {/block}
 
 {block content}
     <div id="user_homepage">
+        
         {if $logged}
             <h3>{$showuser->firstname} {$showuser->lastname}</h3>
-            <h4>E-mail: <a href="{link message:new, $user->email}">{$showuser->email}</a></h4>
-            
+            <div class="separator"><!----></div>
+            {if $settings->showEmail}
+                <h4>E-mail: <a href="{link message:new, $user->email}">{$showuser->email}</a></h4>
+            {/if}
         {/if}
     </div>
     

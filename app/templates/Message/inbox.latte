@@ -1,10 +1,15 @@
+{block title}Inbox{if $countUnread>0}({$countUnread}){/if}{/block}
 {block head}{/block}
 {block content}
     <div id="message_inbox">
         {if $logged}
             <h3>My Inbox</h3>
-            <a href="{link new}">New Message</a>
-            <a href="{link outbox}">Outbox</a>
+            <div class="separator"><!----></div>
+            <div class="buttonline">
+                <a class="abutton" href="{link outbox}">Outbox</a>
+                <a class="abutton" href="{link new}">New Message</a>
+            </div>
+            
             <table>
                 <thead>
                     <td>Subject</td> 

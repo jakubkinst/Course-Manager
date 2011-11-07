@@ -1,3 +1,4 @@
+{block title}Events{/block}
 {block head}
     <script>
 	$(function() {
@@ -9,7 +10,9 @@
 {block content}
     <div id="event_homepage">
         {if $logged}
-            <h3>Course Event Calendar</h3>
+            <h3>Events</h3>
+            <div class="separator"><!----></div>
+
             <h4>Event list</h4>
                 {foreach $events as $event}
                     <div class="event_event">
@@ -19,6 +22,9 @@
                 {/foreach}
             
             {if $isTeacher}
+            
+            <div class="separator"><!----></div>
+
             <h4>ADD EVENT</h4>
                 {widget addEvent}
             {/if}

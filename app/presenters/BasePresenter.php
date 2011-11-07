@@ -20,8 +20,8 @@ abstract class BasePresenter extends MasterPresenter {
      * Initialization before rendering every presenter
      * Sends essential variables which are needed in every presenter to a template
      */
-    protected function startup() {
-        parent::startup();
+    protected function beforeRender() {
+        parent::beforeRender();
         if ($this->getParam('cid') != null)
             $this->init($this->getParam('cid'));
     }
@@ -39,7 +39,7 @@ abstract class BasePresenter extends MasterPresenter {
         $this->template->isTeacher = $this->isTeacher;
 
         if ($this->isTeacher || $this->isStudent) {
-            $this->template->course = CourseModel::getCourseByID($this->cid);
+            $this->template->activeCourse = CourseModel::getCourseByID($this->cid);
             $this->template->lessons = CourseModel::getLessons($this->cid);
             $this->template->lectors = CourseModel::getLectors($this->cid);
             $this->template->students = CourseModel::getStudents($this->cid);
