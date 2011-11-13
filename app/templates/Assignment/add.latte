@@ -1,0 +1,14 @@
+{block title}Add Assignment - Assignments{/block}
+{block head}
+    <script>
+	$(function() {
+		$( "#frmaddAssignmentForm-assigndate" ).datepicker();
+		$( "#frmaddAssignmentForm-duedate" ).datepicker();
+	});
+    </script>
+{/block}
+{block content}
+    <div id="assignment_add">
+	{widget addAssignmentForm}
+    </div>
+{/block}

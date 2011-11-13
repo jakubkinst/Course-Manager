@@ -38,6 +38,13 @@ $application = Environment::getApplication();
 $application->errorPresenter = 'Error';
 //$application->catchExceptions = TRUE;
 
+Environment::setVariable('mailer', new SmtpMailer(array(
+	    'host' => 'smtp.gmail.com',
+	    'username' => 'cm@kinst.cz',
+	    'password' => 'Ug6}\17MH<0_X:c',
+	    'secure' => 'ssl',
+	)));
+
 
 // Setup router
 {

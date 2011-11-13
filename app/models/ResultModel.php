@@ -12,8 +12,19 @@ class ResultModel extends Object {
      * @param type $cid
      * @return type 
      */
-    public static function getOfflineAssignments($cid) {
-        $tasks = dibi::fetchAll('SELECT * FROM offlinetask WHERE Course_id=%i', $cid);
+    public static function getOfflineGradeAssignmentsResults($cid) {
+        $tasks = dibi::fetchAll('SELECT * FROM offlinetask WHERE Course_id=%i AND grade=1', $cid);
+        foreach ($tasks as $task) {
+            $results = dibi::fetchAll('SELECT user.id AS User_id,points FROM user LEFT JOIN (SELECT * FROM result WHERE OfflineTask_id=%i) as result ON user.id=result.User_id', $task->id);
+            foreach ($results as $result) {
+                $task[$result->User_id] = $result->points;
+            }
+        }
+        return $tasks;
+    }
+    
+    public static function getOfflinePointAssignmentsResults($cid) {
+        $tasks = dibi::fetchAll('SELECT * FROM offlinetask WHERE Course_id=%i AND grade=0', $cid);
         foreach ($tasks as $task) {
             $results = dibi::fetchAll('SELECT user.id AS User_id,points FROM user LEFT JOIN (SELECT * FROM result WHERE OfflineTask_id=%i) as result ON user.id=result.User_id', $task->id);
             foreach ($results as $result) {

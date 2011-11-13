@@ -13,23 +13,8 @@ class ResultPresenter extends BasePresenter {
      * @param type $cid 
      */
     public function renderHomepage($cid) {
-        // get all offline assignments
-        $oAs = ResultModel::getOfflineAssignments($cid);
-
-        // filter point assignments and grade assignments
-        $offlineGrades = array();
-        $offlinePoints = array();
-        foreach ($oAs as $oA) {
-            if ($oA->grade == 1)
-                array_push($offlineGrades, $oA);
-            else
-                array_push($offlinePoints, $oA);
-        }
-
-
-        $this->template->offlinePoints = $offlinePoints;
-        $this->template->offlineGrades = $offlineGrades;
-
+        $this->template->offlinePoints = ResultModel::getOfflinePointAssignmentsResults($cid);
+        $this->template->offlineGrades = ResultModel::getOfflineGradeAssignmentsResults($cid);
         $this->template->sums = ResultModel::getOfflinePointsSums($cid);
         $this->template->avgs = ResultModel::getOfflineGradesAvgs($cid);
     }

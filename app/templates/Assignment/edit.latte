@@ -1,0 +1,52 @@
+{block title}Edit Assignment{/block}
+{block head}
+<script>
+$(function () {
+    
+	// ajax form sending
+        $("form").submit(function () {
+                $(this).ajaxSubmit();
+                return false;
+        });
+	// ajax form sending
+        $("form :submit").click(function () {
+                $(this).ajaxSubmit();
+                return false;
+        });
+	// ajax snipped graphical update
+	jQuery.nette.updateSnippet = function (id, html) {
+	    $("#" + id).fadeTo("fast", 0.01, function () {
+		$(this).html(html).fadeTo("fast", 1);
+	    });
+	};
+});
+    
+</script>
+{/block}
+{block content}
+<h3>Edit Assignment</h3>
+            <div class="separator"><!----></div>
+    <div id="assignment_edit">
+	<div id="formcreator">
+	    <div class="scroll">
+		<div id="addtext">Text input{widget addTextForm}</div>
+		<div id="addtextarea">Text area{widget addTextAreaForm}</div>
+		<div id="addradio">Radio choices{widget addRadioForm}</div>
+		<div id="addmultiselect">Multi choices{widget addMultiSelectForm}</div>
+		<div id="addcheckbox">Checkbox{widget addCheckboxForm}</div>
+	    </div>
+	</div>	
+	<h3>Review</h3>
+        <div class="separator"><!----></div>
+	<h4>{$assignment->name}</h4>
+	<span>{$assignment->description}</span>
+	
+	{snippet virtualFormSnippet}
+	    {widget virtualForm}
+	
+	<div class="buttonline">
+		<a class="abutton" href="{link homepage}">Done</a>
+	</div>
+	{/snippet}
+    </div>
+{/block}

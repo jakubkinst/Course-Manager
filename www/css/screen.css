@@ -460,3 +460,30 @@ input.button{
 #message_inbox tr.notRead td{
     font-weight: bold;
 }
+/* Assignment presenter */
+#assignment_edit #formcreator{
+    overflow: auto;    
+}
+#assignment_edit #formcreator div.scroll{    
+    width:3000px;
+}
+
+#assignment_edit #formcreator div div{    
+    float:left;
+    width:260px;
+    margin:5px;
+}
+#assignment_edit #formcreator input[type=text]{
+    width:150px;
+    margin:0;
+}
+#assignment_edit #formcreator textarea{
+    width:150px;
+    height:80px;
+}
+#assignment_homepage .assignment{
+    background: #c8fe53;
+    margin:5px;
+    border:1px solid #aaaaaa;
+    padding:5px;
+}

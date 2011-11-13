@@ -12,7 +12,6 @@ class ResourcePresenter extends BasePresenter {
      * @param type $cid 
      */
     public function renderHomepage($cid) {
-        $this->checkAuthorization();
         $this->template->resources = ResourceModel::getFiles($cid);
         
     }

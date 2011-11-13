@@ -24,6 +24,8 @@ abstract class BasePresenter extends MasterPresenter {
         parent::beforeRender();
         if ($this->getParam('cid') != null)
             $this->init($this->getParam('cid'));
+	
+        $this->checkAuthorization();
     }
 
     /**

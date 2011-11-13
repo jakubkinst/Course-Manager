@@ -10,8 +10,7 @@ class EventModel extends Object {
     public static function addEvent($values, $cid) {
         $values['added'] = new DateTime;
         $values['Course_id'] = $cid;
-        $phpdate = strtotime( $values['date'] );
-        $values['date'] = date( 'Y-m-d', $phpdate );
+        $values['date'] = CommonModel::convertFormDate($values['date']);
         return dibi::query('INSERT INTO event', $values);
     }
 
