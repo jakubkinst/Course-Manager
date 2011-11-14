@@ -6,28 +6,124 @@
  * @author JerRy
  */
 class AssignmentPresenter extends BasePresenter {
+
     var $aid = 0;
 
     public function renderHomepage($cid) {
 	$this->template->assignments = AssignmentModel::getAssignments($this->cid);
     }
-    
-    public function renderAdd($cid){
-	$this->checkTeacherAuthority();
-	
+
+    public function renderShow($aid) {
+	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
+	    throw new BadRequestException;
+	}
+	$assignment = AssignmentModel::getAssignment($aid);
+	$this->template->assignment = $assignment;
+	$this->template->isSolved = AssignmentModel::isSolved($aid);
+	$this->template->canSolve = AssignmentModel::canSolve($aid);
     }
-    
-     protected function createComponentAddAssignmentForm() {
+
+    public function actionSolve($aid) {
+	if (!AssignmentModel::canSolve($aid))
+		throw new BadRequestException;
+	$this->aid = $aid;
+    }
+
+    public function renderSolve($aid) {
+	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
+	    throw new BadRequestException;
+	}
+	$assignment = AssignmentModel::getAssignment($aid);
+	$this->template->assignment = $assignment;
+	$this->template->questions = AssignmentModel::getQuestions($aid);
+	if (AssignmentModel::isSolved($aid)) {	    
+	    $form = $this->getComponent('solveForm');
+	    $anwsers = AssignmentModel::getAnwsers($aid);
+	    $form->setDefaults($anwsers);
+	}
+	else
+	    AssignmentModel::startSolving($aid);
+	
+	
+	// set real endtime for template
+	// (time when the form will be submitted automatically)
+	$realEndTime = AssignmentModel::getRealEndTime($aid);	
+	if (date_sub($realEndTime,date_interval_create_from_date_string('1 day'))>new DateTime)
+	    $this->template->realEndTime = date_add(new DateTime,date_interval_create_from_date_string('1 day'))->format('Y-m-d H:i:s');
+	else
+	    $this->template->realEndTime = AssignmentModel::getRealEndTime($aid)->format('Y-m-d H:i:s');
+    }
+
+    public function renderAdd($cid) {
+	$this->checkTeacherAuthority();
+    }
+
+    public function actionEdit($aid) {
+	// check if assignment id corresponds to course id
+	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
+	    throw new BadRequestException;
+	}
+	$this->aid = $aid;
+    }
+
+    public function renderEdit($aid) {
+	$this->checkTeacherAuthority();
+	// TODO: check aid and cid
+	$this->template->questions = AssignmentModel::getQuestions($aid);
+	$this->template->assignment = AssignmentModel::getAssignment($aid);
+	if ($this->isAjax()) {
+	    $this->invalidateControl('virtualFormSnippet');
+	    $this->invalidateControl('virtualFormSnippet');
+	}
+    }
+
+    protected function createComponentSolveForm() {
+	$form = new AppForm;
+	foreach (AssignmentModel::getQuestions($this->aid) as $value) {
+	    $label = $value->label;
+	    if ($value->type == 'text')
+		$form->addText($value->id, $label);
+	    if ($value->type == 'textarea')
+		$form->addTextArea($value->id, $label);
+	    if ($value->type == 'radio')
+		$form->addRadioList($value->id, $label, AssignmentModel::parseChoices($value->choices));
+	    if ($value->type == 'multi')
+		$form->addMultiSelect($value->id, $label, AssignmentModel::parseChoices($value->choices));
+	}
+	$form->addSubmit('submit', 'Submit');
+	$form->onSubmit[] = callback($this, 'submitSubmission');
+
+	return $form;
+    }
+
+    public function submitSubmission($form) {
+	$values = $form->getValues();
+
+	$now = new DateTime;
+	$assignment = AssignmentModel::getAssignment($this->aid);
+	//accept two seconds after deadline
+	if (AssignmentModel::canSolve($this->aid,2))
+	    if (AssignmentModel::submitSubmission($values, $this->aid)) {
+		$this->flashMessage('Submission submitted successfully.', $type = 'success');
+		$this->redirect('homepage');
+	    }
+	    else
+		$this->flashMessage('There was an error submitting your submission', $type = 'error');
+	else
+	    $this->flashMessage('It is too late or too early to submit for this assignment', $type = 'error');
+    }
+
+    protected function createComponentAddAssignmentForm() {
 	$form = new AppForm;
 	$form->addText('name', 'Name*')
 		->setRequired();
 	$form->addTextArea('description', 'Description:');
-	$form->addText('assigndate','Open Date:');
+	$form->addText('assigndate', 'Open Date:');
 	$form->addText('duedate', 'Close Date:');
-	$form->addText('maxpoints','Max. Points (0=no max points):')
+	$form->addText('maxpoints', 'Max. Points (0=no max points):')
 		->setDefaultValue('0')
-		->addRule(Form::INTEGER, 'Max. points must be a number');	
-	$form->addText('timelimit','Time limit in minutes (0=no limit):')
+		->addRule(Form::INTEGER, 'Max. points must be a number');
+	$form->addText('timelimit', 'Time limit in minutes (0=no limit):')
 		->addRule(Form::INTEGER, 'Time limit must be a number')
 		->setDefaultValue('0')
 		->addRule(Form::INTEGER, 'Max. points must be a number');
@@ -39,31 +135,11 @@ class AssignmentPresenter extends BasePresenter {
     public function addAssignment($form) {
 	$values = $form->getValues();
 	$newaid = AssignmentModel::addNormalAssignment($values, $this->cid);
-	if ($newaid != -1){        
-            $this->redirect('edit',$newaid);
-        }
-        else 
-            $this->flashMessage('There was an error adding the Assignment.', $type = 'error');
-        
-    }
-
-    public function renderEdit($aid){
-	$this->checkTeacherAuthority();
-	// TODO: check aid and cid
-	$this->template->questions = AssignmentModel::getQuestions($aid);	
-	$this->template->assignment = AssignmentModel::getAssignment($aid);
-	if ($this->isAjax()) {
-	    $this->invalidateControl('virtualFormSnippet');
-	    $this->invalidateControl('virtualFormSnippet');
+	if ($newaid != -1) {
+	    $this->redirect('edit', $newaid);
 	}
-    }
-
-    public function actionEdit($aid) {		
-	// check if assignment id corresponds to course id
-        if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
-            throw new BadRequestException;
-        }
-	$this->aid = $aid;
+	else
+	    $this->flashMessage('There was an error adding the Assignment.', $type = 'error');
     }
 
     protected function createComponentVirtualForm() {
@@ -77,8 +153,6 @@ class AssignmentPresenter extends BasePresenter {
 		$form->addTextArea('input' . $value->id, $label);
 	    if ($value->type == 'radio')
 		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices));
-	    if ($value->type == 'checkbox')
-		$form->addCheckbox('input' . $value->id, $label);
 	    if ($value->type == 'multi')
 		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices));
 	}
@@ -86,18 +160,18 @@ class AssignmentPresenter extends BasePresenter {
 	return $form;
     }
 
-    public function handleRemove($qid) { 
+    public function handleRemove($qid) {
 	// check if question id corresponds to course id
-        if (AssignmentModel::getCourseIDByQuestionID($qid) != $this->cid) {
-            throw new BadRequestException;
-        }
+	if (AssignmentModel::getCourseIDByQuestionID($qid) != $this->cid) {
+	    throw new BadRequestException;
+	}
 	AssignmentModel::removeQuestion($qid);
     }
 
     protected function createComponentAddTextForm() {
 	$form = new AppForm;
 	$form->addGroup('Example');
-	$form->addText('example', "My Label")->setDisabled();	
+	$form->addText('example', "My Label")->setDisabled();
 	$form->addGroup('Set Label');
 	$form->addTextArea('label');
 	$form->addSubmit('add', 'Add');
@@ -113,7 +187,7 @@ class AssignmentPresenter extends BasePresenter {
     protected function createComponentAddTextAreaForm() {
 	$form = new AppForm;
 	$form->addGroup('Example');
-	$form->addTextArea('example', "My Label")->setDisabled();	
+	$form->addTextArea('example', "My Label")->setDisabled();
 	$form->addGroup('Set Label');
 	$form->addTextArea('label');
 	$form->addSubmit('add', 'Add');
@@ -129,7 +203,7 @@ class AssignmentPresenter extends BasePresenter {
     protected function createComponentAddRadioForm() {
 	$form = new AppForm;
 	$form->addGroup('Example');
-	$form->addRadioList('example', "My Label",array('option 1','option 2','option 3'))->setDisabled();	
+	$form->addRadioList('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled();
 	$form->addGroup('Set Label and choices');
 	$form->addTextArea('label');
 	$form->addText('val1');
@@ -160,26 +234,11 @@ class AssignmentPresenter extends BasePresenter {
 	AssignmentModel::addRadio($values['label'], $choices, $this->aid);
     }
 
-    protected function createComponentAddCheckboxForm() {
-	$form = new AppForm;
-	$form->addGroup('Example');
-	$form->addCheckbox('example', "My Label")->setDisabled()->setValue(true);	
-	$form->addGroup('Set Label');
-	$form->addTextArea('label');
-	$form->addSubmit('add', 'Add');
-	$form->onSubmit[] = callback($this, 'addCheckbox');
-	return $form;
-    }
-
-    public function addCheckbox($form) {
-	$values = $form->getValues();
-	AssignmentModel::addCheckbox($values['label'], $this->aid);
-    }
 
     protected function createComponentAddMultiSelectForm() {
 	$form = new AppForm;
 	$form->addGroup('Example');
-	$form->addMultiSelect('example', "My Label",array('option 1','option 2','option 3'))->setDisabled()->setDefaultValue(array(1,2));	
+	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2));
 	$form->addGroup('Set Label and choices');
 	$form->addTextArea('label');
 	$form->addText('val1');

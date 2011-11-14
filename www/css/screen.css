@@ -487,3 +487,34 @@ input.button{
     border:1px solid #aaaaaa;
     padding:5px;
 }
+#assignment_show .description{
+    
+    background: #c8fe53;
+    margin:5px;
+    border:1px solid #aaaaaa;
+    padding:5px;
+}
+#assignment_show .generalinfo{
+    margin:5px;
+    border:1px solid #aaaaaa;
+    padding:5px;
+}
+#assignment_show .timelimitinfo{        
+    background:#fe896e;
+    margin:5px;
+    border:1px solid #aaaaaa;
+    padding:5px;
+}
+#assignment_show .timelimitinfo strong{
+color:black;
+}
+#assignment_solve h4#remainingtime{
+    font-size:20px;
+    color:red;
+    font-weight:bold;
+    display:block;
+    padding:5px;
+    margin:5px;
+    visibility: hidden;
+    border:1px solid #aaaaaa;
+}

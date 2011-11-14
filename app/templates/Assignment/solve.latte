@@ -1,3 +1,41 @@
-{block title}{/block}
-{block head}{/block}
+{block title}Solving {$assignment->name} - Assignments{/block}
+{block head}
+<script>
+    // set autosubmit on duedate
+    var now = new Date();    
+    var millisTill = new Date('<? echo $realEndTime ?>') - now;
+    setTimeout(function(){ $('form#frm-solveForm').submit(); }, millisTill);
+    
+    // show time remaining
+    setInterval("settime()", 1000);
+    settime();
+function settime () {
+    var now = new Date();    
+    var millisTill = new Date('<? echo $realEndTime ?>') - now;
+  var hour = Math.floor(millisTill/1000/60/60);
+  var min = Math.floor(millisTill/1000/60%60);
+  var sec = Math.floor(millisTill/1000%60%60);
+  var time = "";
+  time = "Remaining time: " + hour + ":" +
+         (min < 10 ? "0" : "") + min + ":" +
+         (sec < 10 ? "0" : "") + sec;
+ // show only if less than one hour is remaining
+  if (hour<1){
+      document.getElementById("remainingtime").style.visibility = 'visible';
+      document.getElementById("remainingtime").innerHTML = time;
+    }
+    else
+	document.getElementById("remainingtime").style.visibility = 'hidden';
+}
+
+</script>
+{/block}
 {block content}
+
+<h3>Solving {$assignment->name}</h3>
+            <div class="separator"><!----></div>
+<div id="assignment_solve">
+    <h4 id="remainingtime"></h4>
+	{widget solveForm}
+</div>
+{/block}

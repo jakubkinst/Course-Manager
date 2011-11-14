@@ -10,11 +10,18 @@
  *
  * @author JerRy
  */
-class CommonModel extends Object{
-    public static function convertFormDate($formDate) {	
-        $phpdate = strtotime( $formDate );
-        return date( 'Y-m-d', $phpdate );
+class CommonModel extends Object {
+
+    public static function convertFormDate($formDate) {
+	$phpdate = strtotime($formDate);
+	return date('Y-m-d H:i:s', $phpdate);
     }
+
+    public static function array_push_assoc($array, $key, $value) {
+	$array[$key] = $value;
+	return $array;
+    }
+
 }
 
 ?>

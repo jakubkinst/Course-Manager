@@ -1,0 +1,19 @@
+{block title}{$assignment->name} - Assignments{/block}
+{block head}
+{/block}
+{block content}
+<h3>{$assignment->name} ({$assignment->assigndate} - {$assignment->duedate})</h3>
+            <div class="separator"><!----></div>
+    <div id="assignment_show">
+	<div class="description">{$assignment->description}</div>
+	
+	<p class="generalinfo">You can start solving this assignment by clicking the Solve Now button.</p>	
+	{if $assignment->timelimit>0}
+	    <p class="timelimitinfo">This assignment is time limited. You have <strong>{$assignment->timelimit} minutes</strong> to solve it once you click the Solve Now button.</p>
+	{/if}
+	<div class="buttonline">
+	    {if $canSolve}<a class="abutton" href="{link solve,$assignment->id}">{if $isSolved}Edit Submission{else}Solve Now{/if}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link edit,$assignment->id}">Edit</a>{/if}
+	</div>
+    </div>
+{/block}

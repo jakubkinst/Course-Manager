@@ -10,7 +10,7 @@
 	</div>
     {foreach $assignments as $assignment}
 	<div class="assignment">
-	    <a href="{link solve, $assignment->id}"><h5>{$assignment->name}</h5></a>                        
+	    <a href="{link show, $assignment->id}"><h5>{$assignment->name}</h5></a>                        
 	    <div class="assignment_description">{$assignment->description}</div>
 	    <div>Open: {$assignment->assigndate} - {$assignment->duedate}</div>
 	    <div>Max points: {$assignment->maxpoints}</div>

@@ -2,12 +2,14 @@
 {block head}
     <script>
 	$(function() {
-		$( "#frmaddAssignmentForm-assigndate" ).datepicker();
-		$( "#frmaddAssignmentForm-duedate" ).datepicker();
+		$( "#frmaddAssignmentForm-assigndate" ).datetimepicker();
+		$( "#frmaddAssignmentForm-duedate" ).datetimepicker();
 	});
     </script>
 {/block}
 {block content}
+<h3>Add Assignment</h3>
+            <div class="separator"><!----></div>
     <div id="assignment_add">
 	{widget addAssignmentForm}
     </div>
