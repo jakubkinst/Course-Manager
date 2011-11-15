@@ -18,7 +18,8 @@ abstract class MasterPresenter extends Presenter {
     /** Logical value indicating state of user */
     public $logged = false;  
 
-    protected function beforeRender() {
+    protected function startup() {
+        parent::startup();
         $user = Environment::getUser();
         $this->logged = $user->isLoggedIn();
         $this->template->logged = $this->logged;

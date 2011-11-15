@@ -64,7 +64,9 @@ class AssignmentModel extends Object {
     }
 
     public static function removeQuestion($qid) {
-	return dibi::query('DELETE FROM question WHERE id=%i', $qid);
+	return dibi::query('DELETE FROM question WHERE id=%i', $qid) &&
+	    dibi::query('DELETE FROM anwser WHERE Question_id=%i', $qid);
+	
     }
 
     public static function getCourseIDByAssignmentID($aid) {

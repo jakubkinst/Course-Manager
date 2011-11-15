@@ -7,9 +7,9 @@
  */
 class HelpPresenter extends MasterPresenter {
 
-    public function beforeRender() {
+    public function startup() {
         $this->canbesignedout = true;
-        parent::beforeRender();
+        parent::startup();
     }
     
 

@@ -1,7 +1,18 @@
 {block title}Edit Assignment{/block}
 {block head}
+
+ <script type="text/javascript" src="{$basePath}/js/jquery.multiselect.min.js"></script>
+ <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery.multiselect.css" type="text/css" />
+  
 <script>
 $(function () {
+    
+    //set jquery multiselect
+    $(document).ready(function(){
+	$("select").multiselect({
+	    header: "Choose Anwsers !"
+	});
+    });
     
 	// ajax form sending
         $("form").submit(function () {

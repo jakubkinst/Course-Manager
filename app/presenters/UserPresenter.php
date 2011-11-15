@@ -7,9 +7,9 @@
  */
 class UserPresenter extends MasterPresenter {
 
-    public function beforeRender() {
+    public function startup() {
         $this->canbesignedout = true;
-        parent::beforeRender();
+        parent::startup();
     }
     
     public function renderHomepage($uid){

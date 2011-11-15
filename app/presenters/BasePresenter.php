@@ -16,12 +16,13 @@ abstract class BasePresenter extends MasterPresenter {
     /** Logical value indicating state of user */
     public $logged = false;
 
+    
     /**
      * Initialization before rendering every presenter
      * Sends essential variables which are needed in every presenter to a template
      */
-    protected function beforeRender() {
-        parent::beforeRender();
+    protected function startup() {
+        parent::startup();
         if ($this->getParam('cid') != null)
             $this->init($this->getParam('cid'));
 	
