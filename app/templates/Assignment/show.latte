@@ -2,7 +2,7 @@
 {block head}
 {/block}
 {block content}
-<h3>{$assignment->name} ({$assignment->assigndate} - {$assignment->duedate})</h3>
+<h3>{$assignment->name} ({$assignment->assigndate} - {$assignment->duedate}) {if $assignment->autocorrect} (Auto-Correct){/if}</h3>
             <div class="separator"><!----></div>
     <div id="assignment_show">
 	<div class="description">{$assignment->description}</div>

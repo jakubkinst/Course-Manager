@@ -8,6 +8,7 @@
 class AssignmentPresenter extends BasePresenter {
 
     var $aid = 0;
+    var $autocorrect = false;
 
     public function renderHomepage($cid) {
 	$this->template->assignments = AssignmentModel::getAssignments($this->cid);
@@ -59,7 +60,11 @@ class AssignmentPresenter extends BasePresenter {
 	    $this->template->realEndTime = AssignmentModel::getRealEndTime($aid)->format('Y-m-d H:i:s');
     }
 
-    public function renderAdd($cid) {
+    public function actionAdd($ac) {
+	$this->autocorrect = $ac;
+    }
+
+    public function renderAdd($ac) {
 	$this->checkTeacherAuthority();
     }
 
@@ -68,14 +73,15 @@ class AssignmentPresenter extends BasePresenter {
 	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
 	    throw new BadRequestException;
 	}
+
+	$this->template->assignment = AssignmentModel::getAssignment($aid);
 	$this->aid = $aid;
     }
 
     public function renderEdit($aid) {
 	$this->checkTeacherAuthority();
-	// TODO: check aid and cid
+
 	$this->template->questions = AssignmentModel::getQuestions($aid);
-	$this->template->assignment = AssignmentModel::getAssignment($aid);
 	if ($this->isAjax()) {
 	    $this->invalidateControl('virtualFormSnippet');
 	    $this->invalidateControl('virtualFormSnippet');
@@ -89,14 +95,11 @@ class AssignmentPresenter extends BasePresenter {
 	}
 	$this->checkTeacherAuthority();
 	$this->aid = $aid;
-	
+
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
 	$this->template->questions = AssignmentModel::getQuestions($aid);
 	$this->template->submissions = AssignmentModel::getSubmissions($aid);
-    }
-
-    public function renderCorrect($aid) {
     }
 
     protected function createComponentCorrectForm() {
@@ -115,9 +118,9 @@ class AssignmentPresenter extends BasePresenter {
 
     public function submitCorrectForm($form) {
 	$values = $form->getValues();
-	if (AssignmentModel::saveResult($this->aid,$values)) {
+	if (AssignmentModel::saveResult($this->aid, $values)) {
 	    $this->flashMessage('Correction successfully saved.', $type = 'success');
-	    $this->redirect('show',$this->aid);
+	    $this->redirect('show', $this->aid);
 	}
 	else
 	    $this->flashMessage('There was an error saving the correction.', $type = 'error');
@@ -149,12 +152,22 @@ class AssignmentPresenter extends BasePresenter {
 	$assignment = AssignmentModel::getAssignment($this->aid);
 	//accept two seconds after deadline
 	if (AssignmentModel::canSolve($this->aid, 2))
-	    if (AssignmentModel::submitSubmission($values, $this->aid)) {
-		$this->flashMessage('Submission submitted successfully.', $type = 'success');
-		$this->redirect('homepage');
+	    if ($assignment->autocorrect) {
+		$result = AssignmentModel::getCorrected($values, $this->aid);
+		if ($result>=0) {
+		    $this->flashMessage('Submission submitted successfully. You have scored '.$result.' points !', $type = 'success');
+		    $this->redirect('result:homepage');
+		}
+		else
+		    $this->flashMessage('There was an error submitting your submission', $type = 'error');
+	    } else {
+		if (AssignmentModel::submitSubmission($values, $this->aid)) {
+		    $this->flashMessage('Submission submitted successfully.', $type = 'success');
+		    $this->redirect('homepage');
+		}
+		else
+		    $this->flashMessage('There was an error submitting your submission', $type = 'error');
 	    }
-	    else
-		$this->flashMessage('There was an error submitting your submission', $type = 'error');
 	else
 	    $this->flashMessage('It is too late or too early to submit for this assignment', $type = 'error');
     }
@@ -174,13 +187,14 @@ class AssignmentPresenter extends BasePresenter {
 		->setDefaultValue('0')
 		->addRule(Form::INTEGER, 'Max. points must be a number');
 	$form->addSubmit('submit', 'Add');
+	$form->addHidden('autocorrect', $this->autocorrect);
 	$form->onSubmit[] = callback($this, 'addAssignment');
 	return $form;
     }
 
     public function addAssignment($form) {
 	$values = $form->getValues();
-	$newaid = AssignmentModel::addNormalAssignment($values, $this->cid);
+	$newaid = AssignmentModel::addAssignment($values, $this->cid);
 	if ($newaid != -1) {
 	    $this->redirect('edit', $newaid);
 	}
@@ -194,13 +208,13 @@ class AssignmentPresenter extends BasePresenter {
 	    $label = Html::el()->setHtml(htmlspecialchars($value->label) .
 			    '<a class="ajax" href="' . $this->link('remove!', $value->id) . '"><span class="ui-icon ui-icon-trash"></span></a>');
 	    if ($value->type == 'text')
-		$form->addText('input' . $value->id, $label);
+		$form->addText('input' . $value->id, $label)->setDefaultValue($value->rightanwser);
 	    if ($value->type == 'textarea')
 		$form->addTextArea('input' . $value->id, $label);
 	    if ($value->type == 'radio')
-		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices));
+		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getRadioAnwserPos($value, $value->rightanwser));
 	    if ($value->type == 'multi')
-		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices));
+		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getMultiAnwserArray($value, $value->rightanwser));
 	}
 
 	return $form;
@@ -220,6 +234,9 @@ class AssignmentPresenter extends BasePresenter {
 	$form->addText('example', "My Label")->setDisabled();
 	$form->addGroup('Set Label');
 	$form->addTextArea('label');
+	if ($this->template->assignment->autocorrect)
+	    $form->addText('ranwser', 'Right Anwser:*')
+		    ->addRule(Form::FILLED, 'Right anwser must be filled');
 	$form->addSubmit('add', 'Add');
 	$form->onSubmit[] = callback($this, 'addText');
 	return $form;
@@ -227,7 +244,9 @@ class AssignmentPresenter extends BasePresenter {
 
     public function addText($form) {
 	$values = $form->getValues();
-	AssignmentModel::addText($values['label'], $this->aid);
+	if (!isset($values['ranwser']))
+	    $values['ranwser'] = null;
+	AssignmentModel::addText($values['label'], $this->aid, $values['ranwser']);
     }
 
     protected function createComponentAddTextAreaForm() {
@@ -260,6 +279,9 @@ class AssignmentPresenter extends BasePresenter {
 	$form->addText('val6');
 	$form->addText('val7');
 	$form->addText('val8');
+	if ($this->template->assignment->autocorrect)
+	    $form->addText('ranwser', 'Right Anwser:*')
+		    ->addRule(Form::FILLED, 'Right anwser must be filled');
 	$form->addSubmit('add', 'Add');
 	$form->onSubmit[] = callback($this, 'addRadio');
 	return $form;
@@ -277,7 +299,9 @@ class AssignmentPresenter extends BasePresenter {
 	    $values['val7'],
 	    $values['val8']
 	);
-	AssignmentModel::addRadio($values['label'], $choices, $this->aid);
+	if (!isset($values['ranwser']))
+	    $values['ranwser'] = null;
+	AssignmentModel::addRadio($values['label'], $choices, $this->aid, $values['ranwser']);
     }
 
     protected function createComponentAddMultiSelectForm() {
@@ -294,6 +318,9 @@ class AssignmentPresenter extends BasePresenter {
 	$form->addText('val6');
 	$form->addText('val7');
 	$form->addText('val8');
+	if ($this->template->assignment->autocorrect)
+	    $form->addText('ranwser', 'Right Anwsers delim. by ";" :*')
+		    ->addRule(Form::FILLED, 'Right anwser must be filled');
 	$form->addSubmit('add', 'Add');
 	$form->onSubmit[] = callback($this, 'addMultiSelect');
 	return $form;
@@ -311,7 +338,9 @@ class AssignmentPresenter extends BasePresenter {
 	    $values['val7'],
 	    $values['val8']
 	);
-	AssignmentModel::addMultiSelect($values['label'], $choices, $this->aid);
+	if (!isset($values['ranwser']))
+	    $values['ranwser'] = null;
+	AssignmentModel::addMultiSelect($values['label'], $choices, $this->aid, str_replace(';', '#', $values['ranwser']));
     }
 
 }

@@ -41,7 +41,7 @@ $(function () {
 	<div id="formcreator">
 	    <div class="scroll">
 		<div id="addtext">Text input{widget addTextForm}</div>
-		<div id="addtextarea">Text area{widget addTextAreaForm}</div>
+		{if !$assignment->autocorrect}<div id="addtextarea">Text area{widget addTextAreaForm}</div>{/if}
 		<div id="addradio">Radio choices{widget addRadioForm}</div>
 		<div id="addmultiselect">Multi choices{widget addMultiSelectForm}</div>
 	    </div>
