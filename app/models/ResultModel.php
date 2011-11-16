@@ -33,6 +33,17 @@ class ResultModel extends Object {
         }
         return $tasks;
     }
+    
+    public static function getOnlinePointAssignmentsResults($cid) {
+        $tasks = dibi::fetchAll('SELECT * FROM assignment WHERE Course_id=%i', $cid);
+        foreach ($tasks as $task) {
+            $results = dibi::fetchAll('SELECT User_id,points FROM onlinesubmission WHERE Assignment_id=%i', $task->id);
+            foreach ($results as $result) {
+                $task[$result->User_id] = $result->points;
+            }
+        }
+        return $tasks;
+    }
 
     /**
      * Returns the average of all offline assignment results (only grades) for each student

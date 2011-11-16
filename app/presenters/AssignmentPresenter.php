@@ -13,10 +13,15 @@ class AssignmentPresenter extends BasePresenter {
 	$this->template->assignments = AssignmentModel::getAssignments($this->cid);
     }
 
-    public function renderShow($aid) {
+    public function actionShow($aid) {
+	$this->aid = $aid;
+	// check if assignment id corresponds to course id
 	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
 	    throw new BadRequestException;
 	}
+    }
+
+    public function renderShow($aid) {
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
 	$this->template->isSolved = AssignmentModel::isSolved($aid);
@@ -24,8 +29,8 @@ class AssignmentPresenter extends BasePresenter {
     }
 
     public function actionSolve($aid) {
-	if (!AssignmentModel::canSolve($aid))
-		throw new BadRequestException;
+	if (!AssignmentModel::canSolve($aid, 2))
+	    throw new BadRequestException;
 	$this->aid = $aid;
     }
 
@@ -36,20 +41,20 @@ class AssignmentPresenter extends BasePresenter {
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
 	$this->template->questions = AssignmentModel::getQuestions($aid);
-	if (AssignmentModel::isSolved($aid)) {	    
+	if (AssignmentModel::isSolved($aid)) {
 	    $form = $this->getComponent('solveForm');
 	    $anwsers = AssignmentModel::getAnwsers($aid);
 	    $form->setDefaults($anwsers);
 	}
 	else
 	    AssignmentModel::startSolving($aid);
-	
-	
+
+
 	// set real endtime for template
 	// (time when the form will be submitted automatically)
-	$realEndTime = AssignmentModel::getRealEndTime($aid);	
-	if (date_sub($realEndTime,date_interval_create_from_date_string('1 day'))>new DateTime)
-	    $this->template->realEndTime = date_add(new DateTime,date_interval_create_from_date_string('1 day'))->format('Y-m-d H:i:s');
+	$realEndTime = AssignmentModel::getRealEndTime($aid);
+	if (date_sub($realEndTime, date_interval_create_from_date_string('1 day')) > new DateTime)
+	    $this->template->realEndTime = date_add(new DateTime, date_interval_create_from_date_string('1 day'))->format('Y-m-d H:i:s');
 	else
 	    $this->template->realEndTime = AssignmentModel::getRealEndTime($aid)->format('Y-m-d H:i:s');
     }
@@ -77,6 +82,47 @@ class AssignmentPresenter extends BasePresenter {
 	}
     }
 
+    public function actionCorrect($aid) {
+	//// check if assignment id corresponds to course id
+	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
+	    throw new BadRequestException;
+	}
+	$this->checkTeacherAuthority();
+	$this->aid = $aid;
+	
+	$assignment = AssignmentModel::getAssignment($aid);
+	$this->template->assignment = $assignment;
+	$this->template->questions = AssignmentModel::getQuestions($aid);
+	$this->template->submissions = AssignmentModel::getSubmissions($aid);
+    }
+
+    public function renderCorrect($aid) {
+    }
+
+    protected function createComponentCorrectForm() {
+	$form = new AppForm;
+	foreach ($this->template->submissions as $submission) {
+	    $uid = $submission['user']->id;
+	    $form->addText($uid)
+		    ->addRule(Form::INTEGER, 'Point value must be a number')
+		    ->addRule(Form::RANGE, 'Points must be between 0 and max. points', array(0, $this->template->assignment->maxpoints));
+	}
+	$form->addSubmit('submit', 'Save');
+	$form->onSubmit[] = callback($this, 'submitCorrectForm');
+
+	return $form;
+    }
+
+    public function submitCorrectForm($form) {
+	$values = $form->getValues();
+	if (AssignmentModel::saveResult($this->aid,$values)) {
+	    $this->flashMessage('Correction successfully saved.', $type = 'success');
+	    $this->redirect('show',$this->aid);
+	}
+	else
+	    $this->flashMessage('There was an error saving the correction.', $type = 'error');
+    }
+
     protected function createComponentSolveForm() {
 	$form = new AppForm;
 	foreach (AssignmentModel::getQuestions($this->aid) as $value) {
@@ -102,7 +148,7 @@ class AssignmentPresenter extends BasePresenter {
 	$now = new DateTime;
 	$assignment = AssignmentModel::getAssignment($this->aid);
 	//accept two seconds after deadline
-	if (AssignmentModel::canSolve($this->aid,2))
+	if (AssignmentModel::canSolve($this->aid, 2))
 	    if (AssignmentModel::submitSubmission($values, $this->aid)) {
 		$this->flashMessage('Submission submitted successfully.', $type = 'success');
 		$this->redirect('homepage');
@@ -233,7 +279,6 @@ class AssignmentPresenter extends BasePresenter {
 	);
 	AssignmentModel::addRadio($values['label'], $choices, $this->aid);
     }
-
 
     protected function createComponentAddMultiSelectForm() {
 	$form = new AppForm;

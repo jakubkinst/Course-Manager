@@ -1,0 +1,32 @@
+{block title}Correcting {$assignment->name} - Assignments{/block}
+{block head}
+{/block}
+{block content}
+<h3>Correcting {$assignment->name}</h3>
+            <div class="separator"><!----></div>
+    <div id="assignment_correct">
+	{control correctForm begin}
+	{control correctForm errors}
+	{var correctForm => $control['correctForm']}
+	 <table>
+	    <thead>	
+		    <td>Student Name</td>
+		    {foreach $questions as $question}
+			<td>{$question->label}</td>
+		    {/foreach}			
+		    <td>Points{if $assignment->maxpoints>0} (Max:{$assignment->maxpoints}){/if}</td>
+	    </thead>
+	    {foreach $submissions as $submission}    
+		<tr>
+		    <td>{$submission['user']->firstname} {$submission['user']->lastname}</td>
+		    {foreach $questions as $question}
+			<td>{if isset($submission[$question->id])}<? echo str_replace('#','<br>',$submission[$question->id]) ?>{/if}</td>
+		    {/foreach}
+			<td>{$correctForm[$submission['user']->id]->control}</td>
+		</tr>
+	    {/foreach}
+	</table>  
+	{$correctForm['submit']->control}
+	{control correctForm end}
+    </div>
+{/block}

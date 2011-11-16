@@ -56,5 +56,7 @@ Environment::setVariable('mailer', new SmtpMailer(array(
 };
 
 
+
+
 // Run the application!
 $application->run();

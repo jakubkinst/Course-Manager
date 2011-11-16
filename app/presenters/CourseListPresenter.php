@@ -13,8 +13,9 @@ class CourseListPresenter extends MasterPresenter {
         parent::startup();
     }
     
-    public function actionHomepage() {
-        
+    public function actionHomepage() {      
+	//CommonModel::getTextExtract();
+
     }
 
     public function renderHomepage() {

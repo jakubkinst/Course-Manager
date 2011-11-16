@@ -5,12 +5,16 @@
 <div id="results_homepage">
     <h3>Results</h3>
             <div class="separator"><!----></div>
-<h4>Offline tasks - Points</h4>
-    <table>
+<h4>Offline and Online tasks - Points</h4>
+<div class="floatcontainer">    
+<table>
             <tr>
                 <th>Name</th>
                 {foreach $offlinePoints as $oA}
                 <th>{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
+                {/foreach}
+		{foreach $onlinePoints as $oA}
+                <th class="online">{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
                 {/foreach}
                 <th>SUM</th>
             </tr>
@@ -24,6 +28,9 @@
                     {foreach $offlinePoints as $oA}
                         <td>{$oA[$student->id]}</td>
                     {/foreach}
+		    {foreach $onlinePoints as $oA}
+                        <td class="online">{if isset($oA[$student->id]) && $oA[$student->id]!=NULL}{$oA[$student->id]}{/if}</td>
+                    {/foreach}
                         <td>
                             {if array_key_exists(strval($student->id),$sums)} <?php echo round($sums[$student->id],2) ?> {/if}
                         </td>
@@ -31,7 +38,9 @@
                 </tr>
             {/foreach}
     </table>
+</div>
 <h4>Offline tasks - Grades</h4>
+<div class="floatcontainer"> 
     <table>
             <tr>
                 <th>Name</th>
@@ -57,11 +66,11 @@
                 </tr>
             {/foreach}
     </table>
-
+</div>
     {if $isTeacher}
             <div class="separator"><!----></div>
-                <div class="buttonLine">
-                    <a href="{link result:add}">Add Results</a>
+                <div class="buttonline">
+                    <a class="adminbutton abutton" href="{link result:add}">Add Results</a>
                 </div>
     {/if}
 </div>

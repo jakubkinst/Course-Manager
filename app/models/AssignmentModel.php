@@ -48,9 +48,42 @@ class AssignmentModel extends Object {
 	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'multi', 'label' => $label, 'choices' => $choices2));
     }
 
+    public static function getUserSubmission($aid,$uid){
+	$submission = dibi::fetchPairs(
+		'SELECT Question_id,anwser.anwser FROM anwser 
+		    JOIN question ON Question_id = question.id
+		    JOIN assignment ON Assignment_id = assignment.id
+			WHERE assignment.id=%i AND User_id=%i
+			ORDER BY question.id ASC'
+		,$aid,$uid);
 
+	return $submission;
+    }
+    
+    public static function saveResult($aid,$values) {
+	foreach($values as $uid=>$pts)
+	    dibi::query('UPDATE onlinesubmission SET points=%i',$pts, 'WHERE User_id=%i AND Assignment_id=%i',$uid,$aid);
+	return true;
+	
+    }
+    
+    public static function getStudentsWithSubmissionWithoutResult($aid){
+	return dibi::fetchAll('SELECT User_id FROM onlinesubmission WHERE Assignment_id=%i AND points IS NULL',$aid);
+    }
+    
+    public static function getSubmissions($aid){
+	$students = self::getStudentsWithSubmissionWithoutResult($aid);
+	$submissions = array();
+	foreach($students as $student){
+	    $userSubmission = self::getUserSubmission($aid, $student);
+	    $userSubmission['user'] = UserModel::getUser($student);
+	    array_push($submissions,$userSubmission);
+	}
+	return $submissions;
+    }
+    
     public static function getQuestions($aid) {
-	$q = dibi::fetchAll('SELECT * FROM question WHERE Assignment_id=%i', $aid);
+	$q = dibi::fetchAll('SELECT * FROM question WHERE Assignment_id=%i ORDER BY id ASC', $aid);
 	return $q;
     }
 

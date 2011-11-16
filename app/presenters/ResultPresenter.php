@@ -14,6 +14,7 @@ class ResultPresenter extends BasePresenter {
      */
     public function renderHomepage($cid) {
         $this->template->offlinePoints = ResultModel::getOfflinePointAssignmentsResults($cid);
+	$this->template->onlinePoints = ResultModel::getOnlinePointAssignmentsResults($cid);
         $this->template->offlineGrades = ResultModel::getOfflineGradeAssignmentsResults($cid);
         $this->template->sums = ResultModel::getOfflinePointsSums($cid);
         $this->template->avgs = ResultModel::getOfflineGradesAvgs($cid);

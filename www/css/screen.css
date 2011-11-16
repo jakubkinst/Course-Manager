@@ -518,3 +518,7 @@ color:black;
     visibility: hidden;
     border:1px solid #aaaaaa;
 }
+
+.online{
+    font-weight:bold;
+}
