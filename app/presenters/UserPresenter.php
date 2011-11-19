@@ -28,6 +28,8 @@ class UserPresenter extends MasterPresenter {
     public function actionCheck($hash) {
 	if (!UserModel::checkUser($hash))
 	    throw new BadRequestException;
+	else
+	    $this->redirect('Courselist:homepage');
     }
 
     /**
@@ -91,23 +93,11 @@ class UserPresenter extends MasterPresenter {
     }
 
     protected function createComponentEditForm() {
-
-	function myValidator($item) {
-	    $uid = Environment::getUser()->getIdentity()->id;
-	    $result = dibi::query('SELECT id FROM user WHERE email=%s AND id!=%i', $item->getValue(), $uid);
-	    return (count($result) === 0);
-	}
-
 	$form = new AppForm;
 	$form->addText('firstname', 'First name:*')
 		->addRule(Form::FILLED, 'Fill the firstname.');
 	$form->addText('lastname', 'Last name:*')
 		->addRule(Form::FILLED, 'Fill the lastname.');
-	$form->addText('email', 'E-mail:*')
-		->setRequired()
-		->setEmptyValue('@')
-		->addRule(Form::EMAIL, 'Enter valid e-mail')
-		->addRule('myValidator', 'E-mail is already registered.');
 	$form->addText('web', 'Webpage:');
 
 	$form->addSubmit('send', 'Register');

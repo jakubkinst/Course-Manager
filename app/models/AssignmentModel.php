@@ -105,7 +105,7 @@ class AssignmentModel extends Object {
     }
 
     public static function getCourseIDByQuestionID($qid) {
-	return dibi::fetchSingle('SELECT Course_id FROM question WHERE id=%i', $qid);
+	return dibi::fetchSingle('SELECT Course_id FROM question JOIN assignment ON Assignment_id=assignment.id WHERE question.id=%i', $qid);
     }
 
     public static function getAssignment($aid) {

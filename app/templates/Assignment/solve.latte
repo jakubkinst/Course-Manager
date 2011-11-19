@@ -1,19 +1,6 @@
 {block title}Solving {$assignment->name} - Assignments{/block}
 {block head}
- <script type="text/javascript" src="{$basePath}/js/jquery.multiselect.min.js"></script>
- <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery.multiselect.css" type="text/css" />
-        
-
-<script>
-    
-    
-    //set jquery multiselect
-    $(document).ready(function(){
-	$("select").multiselect({
-	    header: "Choose Anwsers !"
-	});
-    });
-    
+<script>    
     
     // set autosubmit on duedate
     var now = new Date();    

@@ -230,6 +230,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddTextForm() {
 	$form = new AppForm;
+	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addText('example', "My Label")->setDisabled();
 	$form->addGroup('Set Label');
@@ -251,6 +252,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddTextAreaForm() {
 	$form = new AppForm;
+	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addTextArea('example', "My Label")->setDisabled();
 	$form->addGroup('Set Label');
@@ -267,6 +269,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddRadioForm() {
 	$form = new AppForm;
+	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addRadioList('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled();
 	$form->addGroup('Set Label and choices');
@@ -306,6 +309,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddMultiSelectForm() {
 	$form = new AppForm;
+	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2));
 	$form->addGroup('Set Label and choices');

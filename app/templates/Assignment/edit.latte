@@ -1,38 +1,5 @@
 {block title}Edit Assignment{/block}
 {block head}
-
- <script type="text/javascript" src="{$basePath}/js/jquery.multiselect.min.js"></script>
- <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery.multiselect.css" type="text/css" />
-  
-<script>
-$(function () {
-    
-    //set jquery multiselect
-    $(document).ready(function(){
-	$("select").multiselect({
-	    header: "Choose Anwsers !"
-	});
-    });
-    
-	// ajax form sending
-        $("form").submit(function () {
-                $(this).ajaxSubmit();
-                return false;
-        });
-	// ajax form sending
-        $("form :submit").click(function () {
-                $(this).ajaxSubmit();
-                return false;
-        });
-	// ajax snipped graphical update
-	jQuery.nette.updateSnippet = function (id, html) {
-	    $("#" + id).fadeTo("fast", 0.01, function () {
-		$(this).html(html).fadeTo("fast", 1);
-	    });
-	};
-});
-    
-</script>
 {/block}
 {block content}
 <h3>Edit Assignment</h3>

@@ -52,9 +52,9 @@ class CourseModel extends Object {
      * @param type $courseid
      * @return boolean 
      */
-    public static function isTeacher($user, $courseid) {
+    public static function isTeacher($uid, $courseid) {
         $approved = false;
-        foreach (CourseListModel::getTeacherCourses($user) as $course) {
+        foreach (CourseListModel::getTeacherCourses($uid) as $course) {
             if ($course['id'] == $courseid)
                 $approved = true;
         }
@@ -67,9 +67,9 @@ class CourseModel extends Object {
      * @param type $courseid
      * @return boolean 
      */
-    public static function isStudent($user, $courseid) {
+    public static function isStudent($uid, $courseid) {
         $approved = false;
-        foreach (CourseListModel::getStudentCourses($user) as $course) {
+        foreach (CourseListModel::getStudentCourses($uid) as $course) {
             if ($course['id'] == $courseid)
                 $approved = true;
         }
@@ -138,15 +138,18 @@ class CourseModel extends Object {
      * Adds student to a course
      * @param type $values 
      */
-    public static function addStudent($values) {
-
-        $values2['User_id'] = UserModel::getUserIDByEmail($values['email']);
+    public static function inviteStudent($values) {
+	$values2['email'] = $values['email'];
         $values2['Course_id'] = $values['Course_id'];
-        try {
-            dibi::query('INSERT INTO student', $values2);
-        } catch (Exception $e) {
-            
-        }
+	$values2['invitedBy'] = UserModel::getLoggedUser()->id;
+	$uid = UserModel::getUserIDByEmail($values2['email']);	
+	if (self::isStudent($uid, $values2['Course_id']) || self::isTeacher($uid, $values2['Course_id']) || CourseListModel::isInvited($values2['email'],$values2['Course_id']))
+		return false;
+	dibi::begin();
+        $result = dibi::query('INSERT INTO invite', $values2);
+	MailModel::sendInvite($values2['email'],$values2['Course_id'],$values2['invitedBy']);
+	dibi::commit();
+        return $result;
     }
 
 }

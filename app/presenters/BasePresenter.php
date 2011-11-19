@@ -35,8 +35,9 @@ abstract class BasePresenter extends MasterPresenter {
      */
     public function init($cid) {
         $this->cid = $cid;
-        $this->isTeacher = CourseModel::isTeacher(Environment::getUser()->getIdentity(), $this->cid);
-        $this->isStudent = CourseModel::isStudent(Environment::getUser()->getIdentity(), $this->cid);
+	$uid = UserModel::getLoggedUser()->id;
+        $this->isTeacher = CourseModel::isTeacher($uid, $this->cid);
+        $this->isStudent = CourseModel::isStudent($uid, $this->cid);
 
         $this->template->isStudent = $this->isStudent;
         $this->template->isTeacher = $this->isTeacher;

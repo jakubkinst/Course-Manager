@@ -1,7 +1,19 @@
 {block title}Invite Student{/block}
 {block head}{/block}
 {block content}
-    <h3>Invite Student</h3>
-    <div class="separator"><!----></div>
-    {widget inviteStudentForm}
+    <div id="course_inviteStudent">
+	<h3>Invite Student</h3>
+	<div class="separator"><!----></div>
+	{widget inviteStudentForm}
+	{snippet invited}	
+	    <h4>Invited students</h4>
+	    {foreach $invites as $invite}
+		<div class="student">{$invite->email}</div>
+	    {/foreach}
+	    <h4>Confirmed students</h4>
+	    {foreach $students as $student}
+		<div class="student">{$student->email} ({$student->firstname} {$student->lastname})</div>
+	    {/foreach}
+	{/snippet}
+    </div>
 {/block}

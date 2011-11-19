@@ -8,6 +8,14 @@
         <div class="buttonline">
             <a class="adminbutton abutton" href="{link course:add}"><span class="ui-icon ui-icon-circle-plus"></span>Add Course</a>
         </div>
+	<div id="invites">
+	    {foreach $invites as $invite}
+	    <div class="invite"><span class="ui-icon ui-icon-info"></span>
+		You have been invited to <b>{$invite->course->name}</b> by <b>{$invite->invitedBy->firstname} {$invite->invitedBy->lastname}</b> <a href="{link acceptInvite!,$invite->id}">Accept</a><a href="{link declineInvite!,$invite->id}">Decline</a>
+	    </div>
+	    {/foreach}
+	</div>
+	
         <div class="floatcontainer">
             {if sizeof($tCourses)>0}
                 <div class="teachercourses">

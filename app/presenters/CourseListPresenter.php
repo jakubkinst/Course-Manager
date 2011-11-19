@@ -13,13 +13,16 @@ class CourseListPresenter extends MasterPresenter {
         parent::startup();
     }
     
-    public function actionHomepage() {      
-	//CommonModel::getTextExtract();
+    public function renderHomepage() {      
+	if ($this->logged)
+		$this->template->invites = CourseListModel::getMyInvites();
 
     }
-
-    public function renderHomepage() {
-        
+    
+    public function handleAcceptInvite($iid){
+	CourseListModel::acceptInvite($iid);
     }
-
+    public function handleDeclineInvite($iid){
+	CourseListModel::declineInvite($iid);
+    }
 }

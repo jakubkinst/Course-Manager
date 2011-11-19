@@ -29,15 +29,15 @@ abstract class MasterPresenter extends Presenter {
 	$this->logged = $user->isLoggedIn();
 	$this->template->logged = $this->logged;
 	if ($this->logged) {
-	    $this->tCourses = CourseListModel::getTeacherCourses(Environment::getUser()->getIdentity());
-	    $this->sCourses = CourseListModel::getStudentCourses(Environment::getUser()->getIdentity());
+	    $this->tCourses = CourseListModel::getTeacherCourses(UserModel::getLoggedUser()->id);
+	    $this->sCourses = CourseListModel::getStudentCourses(UserModel::getLoggedUser()->id);
 
 
 	    $this->template->tCourses = $this->tCourses;
 	    $this->template->sCourses = $this->sCourses;
 
 	    $this->template->user = UserModel::getLoggedUser();
-	    $this->template->userid = UserModel::getUserID($user->getIdentity());
+	    $this->template->userid = $this->template->user->id;
 
 	    $this->template->countUnread = MessageModel::countUnread();
 	}

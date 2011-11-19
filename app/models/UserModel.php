@@ -97,6 +97,10 @@ class UserModel extends Object implements IAuthenticator {
 	$uid = Environment::getUser()->getIdentity()->id;
 	return dibi::fetch('SELECT * FROM user WHERE id=%i',$uid);
     }
+    
+    public static function userExists($email){
+	return dibi::fetch('SELECT * FROM user WHERE email=%s',$email);
+    }
 
 }
 

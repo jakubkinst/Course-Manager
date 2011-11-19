@@ -47,6 +47,20 @@ class MailModel extends Object {
 	self::sendMailToUser($uid, 'Complete your registration at CourseManager', $msg);
     }
 
+    public static function sendInvite($email,$cid,$invitedBy){
+	$course = CourseModel::getCourseByID($cid);
+	$invitedBy = UserModel::getUser($invitedBy);	
+	if (UserModel::userExists($email))
+	    $msg = 'Hi, you have been invited to course <b>'.$course->name.'</b> at 
+		CourseManager by '.$invitedBy->firstname.' '.$invitedBy->lastname.
+		'. To accept invitation register at <a href="'.self::$hostUrl.'">'.self::$hostUrl.'</a> with this e-mail address.';
+	else
+	    $msg = 'Hi, you have been invited to course <b>'.$course->name.'</b> at 
+		CourseManager by '.$invitedBy->firstname.' '.$invitedBy->lastname.
+		'. To accept invitation login at <a href="'.self::$hostUrl.'">'.self::$hostUrl.'</a> with this e-mail address.';
+	
+	self::sendMail($email, 'You have been invited to '.$course->name, $msg);
+    }
 }
 
 ?>

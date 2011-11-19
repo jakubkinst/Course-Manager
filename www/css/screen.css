@@ -185,7 +185,7 @@ input.button{
     float:left;
 }
 #mainmenu ul li a.mainMenuButton{
-    
+
     height:18px;
     padding:4px;
     padding-left: 6px;
@@ -198,7 +198,7 @@ input.button{
     border-top:none;
     display:block;    
     overflow: auto;
-    
+
     -moz-border-radius-topright: 0px;
     -webkit-border-top-right-radius: 0px;
     -khtml-border-top-right-radius: 0px;
@@ -207,7 +207,7 @@ input.button{
     -webkit-border-top-left-radius: 0px;
     -khtml-border-top-left-radius: 0px;
     border-top-left-radius: 0px;
-    
+
 }
 #mainmenu ul li a.leftborder{
     border-left:1px solid #aaaaaa;
@@ -310,6 +310,23 @@ input.button{
 
 /* CourseList Presenter */
 
+#courseList_homepage .invite{
+    border:1px solid #aaaaaa;
+    background: wheat;
+    padding:5px;
+}
+#courseList_homepage .invite a{
+    float:right;
+    margin-left:3px;
+    margin-right:3px;
+    background:#e5ecf9;
+    padding-left:2px;
+    padding-right:2px;
+    border:1px solid #aaaaaa;
+}
+#courseList_homepage .invite a:hover{
+    background:#aaaaaa;
+}
 #courseList_homepage h4{
     font-size:16px;
     font-weight: bold;
@@ -472,7 +489,7 @@ input.button{
     padding:5px;
 }
 #assignment_show .description{
-    
+
     background: #c8fe53;
     margin:5px;
     border:1px solid #aaaaaa;
@@ -490,7 +507,7 @@ input.button{
     padding:5px;
 }
 #assignment_show .timelimitinfo strong{
-color:black;
+    color:black;
 }
 #assignment_solve h4#remainingtime{
     font-size:20px;
@@ -505,4 +522,10 @@ color:black;
 
 .online{
     font-weight:bold;
+}
+
+/* User presenter */
+#user_homepage span{
+    display:block;
+    font-size:13px;
 }

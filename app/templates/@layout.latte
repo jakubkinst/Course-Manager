@@ -15,17 +15,17 @@
         <script type="text/javascript" src="{$basePath}/js/jquery.nette.js"></script>
         <script type="text/javascript" src="{$basePath}/js/jquery.ajaxform.js"></script>
         <script type="text/javascript" src="{$basePath}/js/jquery-ui-timepicker-addon.js"></script>
+	
 <!-- import custom CSS styles -->
         <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css" />
         <link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css" />
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
 
+	
+<!-- Load Visual JavaScript functions -->
+        <script src="{$basePath}/js/CourseManager.js"></script>
+	
         <script type="text/javascript">
-	    // make ajax links
-	    $("a.ajax").live("click", function (event) {
-		event.preventDefault();
-		$.get(this.href);
-	    });
 	    
 	    
             var userMenuDown = false;
@@ -193,7 +193,5 @@
             {/foreach}
         </div>
 
-<!-- Load Visual JavaScript functions -->
-        <script src="{$basePath}/js/visual.js"></script>
     </body>
 </html>
