@@ -31,7 +31,7 @@ abstract class MasterPresenter extends Presenter {
             $this->template->tCourses = $this->tCourses;
             $this->template->sCourses = $this->sCourses;
 
-            $this->template->user = $user->getIdentity();
+            $this->template->user = UserModel::getLoggedUser();
             $this->template->userid = UserModel::getUserID($user->getIdentity());
             
             $this->template->countUnread = MessageModel::countUnread();

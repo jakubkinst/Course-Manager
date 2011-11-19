@@ -14,19 +14,19 @@ class UserModel extends Object implements IAuthenticator {
      * @throws AuthenticationException
      */
     public function authenticate(array $credentials) {
-        list($username, $password) = $credentials;
-        $row = dibi::fetch('SELECT * FROM user WHERE email=%s', $username);
+	list($username, $password) = $credentials;
+	$row = dibi::fetch('SELECT * FROM user WHERE email=%s', $username);
 
-        if (!$row) {
-            throw new AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
-        }
+	if ((!$row) || (!$row->checked)) {
+	    throw new AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
+	}
 
-        if ($row->password !== self::calculateHash($password)) {
-            throw new AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
-        }
+	if ($row->password !== self::calculateHash($password)) {
+	    throw new AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
+	}
 
-        unset($row->password);
-        return new Identity($row->id, $row->email, $row);
+	unset($row->password);
+	return new Identity($row->id, $row->email, $row);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserModel extends Object implements IAuthenticator {
      * @return string
      */
     static public function calculateHash($password) {
-        return md5($password . str_repeat('hbguyti76bv56c764vb98n', 10));
+	return md5($password . str_repeat('hbguyti76bv56c764vb98n', 10));
     }
 
     /**
@@ -43,10 +43,27 @@ class UserModel extends Object implements IAuthenticator {
      * @param type $values 
      */
     static public function addUser($values) {
-        $values['password'] = UserModel::calculateHash($values['password']);
-        $values['seclink'] = sha1($values['email'] . time() . 'yjtbvb678b987n5c4');
-        dibi::query('INSERT INTO user', $values);
-        //MailModel::sendMail($values['email'],'Welcome to Course Manager','Regisration almost complete follow '.$values['seclink']);
+	dibi::begin();
+	$values['password'] = UserModel::calculateHash($values['password']);
+	$values['seclink'] = sha1($values['email'] . time() . 'yjtbvb678b987n5c4');
+	$result = dibi::query('INSERT INTO user', $values);
+	$id = dibi::getInsertId();
+	MailModel::sendRegisterHash($id);
+	dibi::commit();
+	return $result;
+    }
+    
+     static public function editUser($values) {
+	$uid = Environment::getUser()->getIdentity()->id;
+	$result = dibi::query('UPDATE user SET', $values,'WHERE id=%i',$uid);
+	return $result;
+    }
+
+    public static function checkUser($hash) {
+	dibi::begin();
+	$result = dibi::query('UPDATE user SET checked=1 WHERE seclink=%s', $hash);
+	dibi::commit();
+	return $result;
     }
 
     /**
@@ -55,7 +72,7 @@ class UserModel extends Object implements IAuthenticator {
      * @return type 
      */
     public static function getUserID($user) {
-        return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $user->email);
+	return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $user->email);
     }
 
     /**
@@ -64,7 +81,7 @@ class UserModel extends Object implements IAuthenticator {
      * @return type 
      */
     public static function getUserIDByEmail($email) {
-        return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $email);
+	return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $email);
     }
 
     /**
@@ -73,7 +90,12 @@ class UserModel extends Object implements IAuthenticator {
      * @return type 
      */
     public static function getUser($uid) {
-        return dibi::fetch('SELECT * FROM user WHERE id=%i', $uid);
+	return dibi::fetch('SELECT * FROM user WHERE id=%i', $uid);
+    }
+    
+    public static function getLoggedUser(){
+	$uid = Environment::getUser()->getIdentity()->id;
+	return dibi::fetch('SELECT * FROM user WHERE id=%i',$uid);
     }
 
 }

@@ -41,7 +41,7 @@ $application->errorPresenter = 'Error';
 Environment::setVariable('mailer', new SmtpMailer(array(
 	    'host' => 'smtp.gmail.com',
 	    'username' => 'cm@kinst.cz',
-	    'password' => 'Ug6}\17MH<0_X:c',
+	    'password' => '-me5N6&D/V2sieB',
 	    'secure' => 'ssl',
 	)));
 
