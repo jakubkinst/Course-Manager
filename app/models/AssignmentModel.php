@@ -151,7 +151,7 @@ class AssignmentModel extends Object {
 		}
 		// $key ... Question id;
 		// $value ...Anwser
-		if ($q->rightanwser == $value)
+		if (trim($q->rightanwser) == trim($value))
 		    $cor++;
 	    }
 	}

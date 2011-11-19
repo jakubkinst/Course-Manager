@@ -12,7 +12,7 @@
 	    <p class="timelimitinfo">This assignment is time limited. You have <strong>{$assignment->timelimit} minutes</strong> to solve it once you click the Solve Now button.</p>
 	{/if}
 	<div class="buttonline">
-	    {if $canSolve}<a class="abutton" href="{link solve,$assignment->id}">{if $isSolved}Edit Submission{else}Solve Now{/if}</a>{/if}
+	    {if $canSolve && !$isTeacher}<a class="abutton" href="{link solve,$assignment->id}">{if $isSolved}Edit Submission{else}Solve Now{/if}</a>{/if}
 	    {if $isTeacher}<a class="adminbutton abutton" href="{link edit,$assignment->id}">Edit</a>{/if}
 	    {if $isTeacher}<a class="adminbutton abutton" href="{link correct,$assignment->id}">Correct</a>{/if}
 	</div>

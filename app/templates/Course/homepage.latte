@@ -1,5 +1,11 @@
 {block title}Course Home{/block}
-{block head}{/block}
+{block head}
+<script>
+	$(function() {
+		$( "#accordion" ).accordion();
+	});
+	</script>
+{/block}
 {block content}
     <div id="course_homepage">     
             
@@ -48,17 +54,16 @@
     
     
             <div class="separator"><!----></div>
-            
-            {foreach $lessons as $lesson}
-                <!-- Lesson -->
-            <a href="{link lesson:homepage,$lesson['id']}">
-                <div class="lesson">
-                    <div class="title">{$lesson['topic']}</div>
-                    <div class="date">{$lesson['date']}</div>
-                    <p class="dexcription">{$lesson['description']}</p>
-                </div>
-            </a>
-            {/foreach}
+            <div id="accordion">
+		{foreach $lessons as $lesson}
+		    <!-- Lesson -->
+			<h5>{$lesson['topic']}</h5>
+			<div class="lesson">
+			    <div class="date">{$lesson['date']|mydate:'%d.%m.%Y'}</div>
+			    <p class="dexcription">{$lesson['description']}</p>
+			</div>
+		{/foreach}
+	    </div>
             
             
 
