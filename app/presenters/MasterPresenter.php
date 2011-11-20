@@ -20,11 +20,19 @@ abstract class MasterPresenter extends Presenter {
 
     protected function startup() {
 	parent::startup();
-	
+
+	// Relative Date helper
 	function myDateHelper($value) {
 	    return CommonModel::relative_date(strtotime($value));
 	}
+
 	$this->template->registerHelper('mydate', 'myDateHelper');
+
+	// Texy helper
+	$texy = new Texy;
+	$this->template->registerHelper("texy", array($texy, "process"));
+
+
 	$user = Environment::getUser();
 	$this->logged = $user->isLoggedIn();
 	$this->template->logged = $this->logged;
@@ -45,7 +53,6 @@ abstract class MasterPresenter extends Presenter {
 	    $this->flashMessage('Please login.', $type = 'unauthorized');
 	    $this->redirect('courselist:homepage');
 	}
-	
     }
 
     /**
@@ -88,6 +95,34 @@ abstract class MasterPresenter extends Presenter {
 	}
     }
 
-    
+    //WebLoader CSS
+    protected function createComponentCss() {
+	$css = new CssLoader;
+
+	// cesta na disku ke zdroji
+	$css->sourcePath = WWW_DIR . "/css";
+
+	// cesta na webu ke zdroji (kvůli absolutizaci cest v css souboru)
+	$css->sourceUri = Environment::getVariable("baseUri") . "css";
+
+	// cesta na webu k cílovému adresáři
+	$css->tempUri = Environment::getVariable("baseUri") . "webtemp";
+
+	// cesta na disku k cílovému adresáři
+	$css->tempPath = WWW_DIR . "/webtemp";
+
+	return $css;
+    }
+
+// WebLoader JS
+    protected function createComponentJs() {
+	$js = new JavaScriptLoader;
+
+	$js->tempUri = Environment::getVariable("baseUri") . "webtemp";
+	$js->tempPath = WWW_DIR . "/webtemp";
+	$js->sourcePath = WWW_DIR . "/js";
+
+	return $js;
+    }
 
 }

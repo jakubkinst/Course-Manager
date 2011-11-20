@@ -1,4 +1,8 @@
+
 $(document).ready(function(){
+    // Texyla textareas
+    $('.texyla').texyla();
+    
     // Flash messages fade out
     setTimeout(function() {
 	$('#flashMessages').fadeOut();

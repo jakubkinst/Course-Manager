@@ -23,10 +23,10 @@ abstract class BasePresenter extends MasterPresenter {
      */
     protected function startup() {
         parent::startup();
-        if ($this->getParam('cid') != null)
+        if ($this->getParam('cid') != null){
             $this->init($this->getParam('cid'));
-	
-        $this->checkAuthorization();
+	    $this->checkAuthorization();
+	}
     }
 
     /**

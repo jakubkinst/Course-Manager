@@ -6,7 +6,7 @@
             <h3>{$lesson['topic']}</h3>
             <div class="separator"><!----></div>
             <div id="date">{$lesson['date']}</div>
-            <p id="description">{$lesson['description']}</p>
+            <p id="description">{!$lesson['description']|texy}</p>
             <div id="comments">
                 <h4>Comments</h4>
                 {foreach $comments as $comment}

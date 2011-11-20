@@ -70,7 +70,7 @@ class CoursePresenter extends BasePresenter {
 	$form = new AppForm;
 	$form->addText('topic', 'Topic:*')
 		->addRule(Form::FILLED, 'Set lesson topic.');
-	$form->addTextArea('description', 'Lesson description:');
+	$form->addTextArea('description', 'Lesson description:')->getControlPrototype()->class("texyla");
 
 	$form->addSubmit('send', 'Add lesson');
 	$form->onSubmit[] = callback($this, 'addLessonFormSubmitted');

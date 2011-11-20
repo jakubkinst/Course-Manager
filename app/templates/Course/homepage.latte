@@ -61,6 +61,7 @@
 			<div class="lesson">
 			    <div class="date">{$lesson['date']|mydate:'%d.%m.%Y'}</div>
 			    <p class="dexcription">{$lesson['description']}</p>
+			    <a href="{link lesson:homepage,$lesson->id}">More >></a>
 			</div>
 		{/foreach}
 	    </div>
