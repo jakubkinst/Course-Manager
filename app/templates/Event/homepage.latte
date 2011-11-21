@@ -1,8 +1,34 @@
 {block title}Events{/block}
 {block head}
     <script>
+	$(document).ready(function() {
+    $('#calendar').fullCalendar({
+	header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+        events: [
+	    {foreach $events as $event}
+				{ title: '{!$event->name}',
+				  start: new Date('{!$event->date}'),
+				  allDay: false,
+				  url: '<? echo $presenter->link('event:showEvent',$event->id); ?>'
+				},
+	    {/foreach}
+		],
+	eventClick: function(event) {
+	    if (event.url) {
+		window.location(event.url);
+		return false;
+	    }
+	}
+    })
+
+});
+	
 	$(function() {
-		$( "#frmaddEvent-date" ).datepicker();
+		$( "#frmaddEvent-date" ).datetimepicker();
 	});
     </script>
 {/block}
@@ -12,17 +38,9 @@
         {if $logged}
             <h3>Events</h3>
             <div class="separator"><!----></div>
-
-            <h4>Event list</h4>
-                {foreach $events as $event}
-                    <div class="event_event">
-                        <a href="{link Event:showEvent, $event->id}"><h5><span class="event_date">{$event->date}</span>: {$event->name}</h5></a>                        
-                        <div class="event_description">{$event->description}</div>
-                    </div>
-                {/foreach}
-            
+              
+		<div id="calendar"></div>            
             {if $isTeacher}
-            
             <div class="separator"><!----></div>
 
             <h4>ADD EVENT</h4>
