@@ -21,9 +21,17 @@ class LessonPresenter extends BasePresenter {
             throw new BadRequestException;
         }
         $this->lid = $lid;
+	
         $this->template->lesson = CourseModel::getLessonByID($this->lid);
+	$this->template->resources = ResourceModel::getLessonFiles($this->lid);
         $this->template->comments = CourseModel::getComments($this->lid);
         
+    }
+    public function actionAddResource($lid){
+	$this->checkTeacherAuthority();
+	$uploader  = new Uploader($this, 'uploader');
+	$uploader->cid = $this->cid;
+	$uploader->lid = $lid;
     }
 
     /**

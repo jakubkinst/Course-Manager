@@ -6,26 +6,16 @@
             <h3>Course Resources</h3>
             <div class="separator"><!----></div>
             <table>
-                <thead>
-                    <td>Resource Name</td>
-                    <td>Resource Description</td>
-                    <td>Resource Size</td>                
-                    <td>Resource Link</td>
-                </thead>
                 {foreach $resources as $resource}
-                
                 <tr>
-                    <td>{$resource['name']}</td>
-                    <td>{$resource['description']}</td>                     
-                    <td><?php echo round($resource['size']/1024,2); ?> kB</td>
-                    <td><a href="{$resource['filename']}">Download</a></td>
+                    <td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
                 </tr>
                 {/foreach}
             </table> 
             <div class="separator"><!----></div>
             {if $isTeacher}
             <h4>Upload Resource</h4>
-                {widget uploadResource}
+                {control uploader}
             {/if}   
         {/if}
     </div>

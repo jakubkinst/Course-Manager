@@ -6,46 +6,26 @@
  */
 class ResourcePresenter extends BasePresenter {
 
-
+    public function actionHomepage($cid){	
+        $uploader  = new Uploader($this, 'uploader');
+	$uploader->cid = $cid;
+    }
     /**
      * Homepage template render
      * @param type $cid 
      */
     public function renderHomepage($cid) {
         $this->template->resources = ResourceModel::getFiles($cid);
-        
     }
     
-     /**
-     * Form factory - Upload resource Form
-     * @return AppForm 
-     */
-    protected function createComponentUploadResource() {
-        $form = new AppForm;
-        $form->addFile('file', 'File:*')
-                ->addRule(Form::FILLED, 'Select file.');
-        $form->addText('name', 'Name:*')        
-                ->addRule(Form::FILLED, 'Fill filename.');
-        $form->addText('description', 'Description:');
-
-        $form->addSubmit('upload', 'Upload');
-        $form->onSubmit[] = callback($this, 'uploadResourceFormSubmitted');
-        $form->addHidden('Course_id', $this->cid);
-        return $form;
+    public function actionDownload($rid){	
+        // check if resource id corresponds to course id
+        if (ResourceModel::getCourseIDByResourceID($rid) != $this->cid)
+            throw new BadRequestException;
+	$file = ResourceModel::getResource($rid);
+	$this->sendResponse(new DownloadResponse(WWW_DIR.'/../uploads/'.$file->filename,$file->name));
     }
-
-    /**
-     * Upload resource form handler
-     * @param type $form 
-     */
-    public function uploadResourceFormSubmitted($form) {
-        $values = $form->getValues();
-        $values['added'] = new DateTime;
-        if (ResourceModel::uploadFile($values))
-            $this->flashMessage('File successfully uploaded', $type = 'success');
-        else
-            $this->flashMessage('File upload error', $type = 'error');
-    }
+    
 
    
 }

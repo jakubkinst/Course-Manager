@@ -2,12 +2,28 @@
 {block head}{/block}
 {block content}
     <div id="lesson_homepage">
+	<div class="buttonline">
+                    {if $isTeacher}
+                        <a class="adminbutton abutton" href="{link lesson:addResource}"><span class="ui-icon ui-icon-circle-plus"></span>Add Resource</a>
+                    {/if} 
+                </div>
         {if $isTeacher || $isStudent}
             <h3>{$lesson['topic']}</h3>
             <div class="separator"><!----></div>
             <div id="date">{$lesson['date']}</div>
             <p id="description">{!$lesson['description']|texy}</p>
+	    
+	    <div class="resources">
+            <div class="separator"><!----></div>
+                <h4>Resources</h4>
+	     {foreach $resources as $resource}
+                <tr>
+                    <td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
+                </tr>
+                {/foreach}
+	    </div>
             <div id="comments">
+            <div class="separator"><!----></div>
                 <h4>Comments</h4>
                 {foreach $comments as $comment}
                     <div class="comment">

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="robots" content="noindex,noarchive">
+	<meta name="generator" content="Nette Framework">
+
+	<title>InvalidStateException</title><!-- Method TexylaFilesPresenter::startup() or its descendant doesn't call parent::startup(). -->
+
+	<style type="text/css" class="nette">html{overflow-y:scroll}body{margin:0 0 2em;padding:0}#netteBluescreen{font:9pt/1.5 Verdana,sans-serif;background:white;color:#333;position:absolute;left:0;top:0;width:100%;z-index:23178;text-align:left}#netteBluescreen *{font:inherit;color:inherit;background:transparent;border:none;margin:0;padding:0;text-align:inherit;text-indent:0}#netteBluescreen b{font-weight:bold}#netteBluescreen i{font-style:italic}#netteBluescreen a{text-decoration:none;color:#328ADC;padding:2px 4px;margin:-2px -4px}#netteBluescreen a:hover,#netteBluescreen a:active,#netteBluescreen a:focus{color:#085AA3}#netteBluescreen a abbr{font-family:sans-serif;color:#BBB}#netteBluescreenIcon{position:absolute;right:.5em;top:.5em;z-index:23179;text-decoration:none;background:#CD1818;padding:3px}#netteBluescreenError{background:#CD1818;color:white;font:13pt/1.5 Verdana,sans-serif!important;display:block}#netteBluescreenError #netteBsSearch{color:#CD1818;font-size:.7em}#netteBluescreenError:hover #netteBsSearch{color:#ED8383}#netteBluescreen h1{font-size:18pt;font-weight:normal;text-shadow:1px 1px 0 rgba(0,0,0,.4);margin:.7em 0}#netteBluescreen h2{font:14pt/1.5 sans-serif!important;color:#888;margin:.6em 0}#netteBluescreen h3{font:bold 10pt/1.5 Verdana,sans-serif!important;margin:1em 0;padding:0}#netteBluescreen p,#netteBluescreen pre{margin:.8em 0}#netteBluescreen pre,#netteBluescreen code,#netteBluescreen table{font:9pt/1.5 Consolas,monospace!important}#netteBluescreen pre,#netteBluescreen table{background:#FDF5CE;padding:.4em .7em;border:1px dotted silver;overflow:auto}#netteBluescreen table pre{padding:0;margin:0;border:none}#netteBluescreen pre.nette-dump span{color:#C22}#netteBluescreen pre.nette-dump a{color:#333}#netteBluescreen div.panel{padding:1px 25px}#netteBluescreen div.inner{background:#F4F3F1;padding:.1em 1em 1em;border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px}#netteBluescreen table{border-collapse:collapse;width:100%}#netteBluescreen .outer{overflow:auto}#netteBluescreen td,#netteBluescreen th{vertical-align:top;text-align:left;padding:2px 6px;border:1px solid #e6dfbf}#netteBluescreen th{width:10%;font-weight:bold}#netteBluescreen tr:nth-child(2n),#netteBluescreen tr:nth-child(2n) pre{background-color:#F7F0CB}#netteBluescreen ol{margin:1em 0;padding-left:2.5em}#netteBluescreen ul{font:7pt/1.5 Verdana,sans-serif!important;padding:2em 4em;margin:1em 0 0;color:#777;background:#F6F5F3 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAAAjCAMAAADbuxbOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADBQTFRF/fz24d7Y7Onj5uLd9vPu3drUzMvG09LN39zW8e7o2NbQ3NnT29jS0M7J1tXQAAAApvmsFgAAABB0Uk5T////////////////////AOAjXRkAAAKlSURBVHja7FbbsqQgDAwENEgc//9vN+SCWDtbtXPmZR/Wc6o02mlC58LA9ckFAOszvMV8xNgyUjyXhojfMVKvRL0ZHavxXYy5JrmchMdzou8YlTClxajtK8ZGGpWRoBr1+gFjKfHkJPbizabLgzE3pH7Iu4K980xgFvlrVzMZoVBWhtvouCDdcTDmTgMCJdVxJ9MKO6XxnliM7hxi5lbj2ZVM4l8DqYyKoNLYcfqBB1/LpHYxEcfVG6ZpMDgyFUVWY/Q1sSYPpIdSAKWqLWL0XqWiMWc4hpH0OQOMOAgdycY4N9Sb7wWANQs3rsDSdLAYiuxi5siVfOhBWIrtH0G3kNaF/8Q4kCPE1kMucG/ZMUBUCOgiKJkPuWWTLGVgLGpwns1DraUayCtoBqERyaYtVsm85NActRooezvSLO/sKZP/nq8n4+xcyjNsRu8zW6KWpdb7wjiQd4WrtFZYFiKHENSmWp6xshh96c2RQ+c7Lt+qbijyEjHWUJ/pZsy8MGIUuzNiPySK2Gqoh6ZTRF6ko6q3nVTkaA//itIrDpW6l3SLo8juOmqMXkYknu5FdQxWbhCfKHEGDhxxyTVaXJF3ZjSl3jMksjSOOKmne9pI+mcG5QvaUJhI9HpkmRo2NpCrDJvsktRhRE2MM6F2n7dt4OaMUq8bCctk0+PoMRzL+1l5PZ2eyM/Owr86gf8z/tOM53lom5+nVcFuB+eJVzlXwAYy9TZ9s537tfqcsJWbEU4nBngZo6FfO9T9CdhfBtmk2dLiAy8uS4zwOpMx2HqYbTC+amNeAYTpsP4SIgvWfUBWXxn3CMHW3ffd7k3+YIkx7w0t/CVGvcPejoeOlzOWzeGbawOHqXQGUTMZRcfj4XPCgW9y/fuvVn8zD9P1QHzv80uAAQA0i3Jer7Jr7gAAAABJRU5ErkJggg==') 99% 10px no-repeat;border-top:1px solid #DDD}#netteBluescreen .highlight{background:#CD1818;color:white;font-weight:bold;font-style:normal;display:block;padding:0 .4em;margin:0 -.4em}#netteBluescreen .line{color:#9F9C7F;font-weight:normal;font-style:normal}#netteBluescreen a[href^=editor\:]{color:inherit;border-bottom:1px dotted #C1D2E1}</style>
+</head>
+
+
+
+<body>
+<div id="netteBluescreen">
+	<a id="netteBluescreenIcon" href="#" rel="next"><abbr>&#x25bc;</abbr></a
+
+	><div>
+		<div id="netteBluescreenError" class="panel">
+			<h1>InvalidStateException</h1>
+
+			<p>Method TexylaFilesPresenter::startup() or its descendant doesn't call parent::startup(). <a href="http://www.google.cz/search?sourceid=nette&amp;q=InvalidStateException+Method+TexylaFilesPresenter%3A%3Astartup%28%29+or+its+descendant+doesn%27t+call+parent%3A%3Astartup%28%29." id="netteBsSearch">search&#x25ba;</a></p>
+		</div>
+
+
+
+				
+			
+
+
+			
+
+
+												<div class="panel">
+			<h2><a href="#" rel="netteBsPnl1">Source file <abbr>&#x25ba;</abbr></a></h2>
+
+			<div id="netteBsPnl1" class="nette-collapsed inner">
+				<p><b>File:</b> <a href="editor://open/?file=C%3A%5CUsers%5CJerRy%5CDropbox%5CSkola%5CMFF%5CRP%5CCourse-Manager%5Clibs%5CNette%5CApplication%5CPresenter.php&amp;line=157">				C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Presenter.php</a> &nbsp; <b>Line:</b> 157</p>
+				<pre><code><span style="color: #06B"><span style="color: #D24; font-weight: bold"><span class='line'>150:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">payload&nbsp;</span><span style="color: #D24; font-weight: bold">=&nbsp;(object)&nbsp;</span><span style="color: #000">NULL</span><span style="color: #D24; font-weight: bold">;
+<span class='line'>151:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">setParent</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getParent</span><span style="color: #D24; font-weight: bold">(),&nbsp;</span><span style="color: #000">$request</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getPresenterName</span><span style="color: #D24; font-weight: bold">());
+<span class='line'>152:</span>    
+<span class='line'>153:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">initGlobalParams</span><span style="color: #D24; font-weight: bold">();
+<span class='line'>154:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">startup</span><span style="color: #D24; font-weight: bold">();
+<span class='line'>155:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">startupCheck</span><span style="color: #D24; font-weight: bold">)&nbsp;{
+<span class='line'>156:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$class&nbsp;</span><span style="color: #D24; font-weight: bold">=&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">reflection</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getMethod</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #080">'startup'</span><span style="color: #D24; font-weight: bold">)-&gt;</span><span style="color: #000">getDeclaringClass</span><span style="color: #D24; font-weight: bold">()-&gt;</span><span style="color: #000">getName</span><span style="color: #D24; font-weight: bold">();
+<span class='highlight'>157:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;InvalidStateException("Method&nbsp;$class::startup()&nbsp;or&nbsp;its&nbsp;descendant&nbsp;doesn't&nbsp;call&nbsp;parent::startup().");
+</span></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #080"></span><span style="color: #000"></span><span style="color: #080"></span><span style="color: #D24; font-weight: bold"><span class='line'>158:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class='line'>159:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #999; font-style: italic">//&nbsp;calls&nbsp;$this-&gt;action&lt;Action&gt;()
+<span class='line'>160:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">tryCall</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">formatActionMethod</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getAction</span><span style="color: #D24; font-weight: bold">()),&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">params</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>161:</span>    
+<span class='line'>162:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">autoCanonicalize</span><span style="color: #D24; font-weight: bold">)&nbsp;{
+<span class='line'>163:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">canonicalize</span><span style="color: #D24; font-weight: bold">();
+<span class='line'>164:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+</span></span></code></pre>
+			</div></div>
+			
+
+
+									<div class="panel">
+				<h2><a href="#" rel="netteBsPnl2">Call stack <abbr>&#x25bc;</abbr></a></h2>
+
+				<div id="netteBsPnl2" class="inner">
+				<ol>
+										<li><p>
+
+											<a href="editor://open/?file=C%3A%5CUsers%5CJerRy%5CDropbox%5CSkola%5CMFF%5CRP%5CCourse-Manager%5Clibs%5CNette%5CApplication%5CApplication.php&amp;line=131" title="C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Application.php">
+						Application/<b>Application.php</b></a> (131)					
+					<a href="#" rel="netteBsSrc1-0">source <abbr>&#x25ba;</abbr></a>&nbsp; 
+					Presenter->					run
+					(<a href="#" rel="netteBsArgs1-0">arguments <abbr>&#x25ba;</abbr></a>)
+					</p>
+
+											<div class="nette-collapsed outer" id="netteBsArgs1-0">
+						<table>
+						<tr><th>$request</th><td><pre class="nette-dump"><a href='#' rel='next'><span>PresenterRequest</span>(7) <abbr>&#x25ba;</abbr> </a><code class="nette-collapsed">{
+   "method" <span>private</span> => "GET" (3)
+   <a href='#' rel='next'>"flags" <span>private</span> => <span>array</span>(1) <abbr>&#x25bc;</abbr> </a><code>{
+      "secured" => FALSE
+   }</code>
+   "name" <span>private</span> => "TexylaFiles" (11)
+   <a href='#' rel='next'>"params" <span>private</span> => <span>array</span>(5) <abbr>&#x25bc;</abbr> </a><code>{
+      "action" => "listFiles" (9)
+      "id" => NULL
+      "cid" => "1"
+      "folder" => ""
+      "_" => "1321804642535" (13)
+   }</code>
+   "post" <span>private</span> => <span>array</span>(0) 
+   "files" <span>private</span> => <span>array</span>(0) 
+   "frozen" <span>private</span> => TRUE
+}</code>
+</pre></td></tr>
+						</table>
+						</div>
+					
+
+											<pre class="nette-collapsed" id="netteBsSrc1-0"><code><span style="color: #06B"><span style="color: #D24; font-weight: bold"><span class='line'>124:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class='line'>125:</span>    
+<span class='line'>126:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getPresenterFactory</span><span style="color: #D24; font-weight: bold">()-&gt;</span><span style="color: #000">getPresenterClass</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$presenterName</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>127:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$request</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">setPresenterName</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$presenterName</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>128:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$request</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">freeze</span><span style="color: #D24; font-weight: bold">();
+<span class='line'>129:</span>    
+<span class='line'>130:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #999; font-style: italic">//&nbsp;Execute&nbsp;presenter
+<span class='highlight'>131:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$response&nbsp;=&nbsp;$this-&gt;presenter-&gt;run($request);
+</span></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"><span class='line'>132:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">onResponse</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #000">$this</span><span style="color: #D24; font-weight: bold">,&nbsp;</span><span style="color: #000">$response</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>133:</span>    
+<span class='line'>134:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #999; font-style: italic">//&nbsp;Send&nbsp;response
+<span class='line'>135:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #D24; font-weight: bold">if&nbsp;(</span><span style="color: #000">$response&nbsp;</span><span style="color: #D24; font-weight: bold">instanceof&nbsp;</span><span style="color: #000">ForwardingResponse</span><span style="color: #D24; font-weight: bold">)&nbsp;{
+<span class='line'>136:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$request&nbsp;</span><span style="color: #D24; font-weight: bold">=&nbsp;</span><span style="color: #000">$response</span><span style="color: #D24; font-weight: bold">-&gt;</span><span style="color: #000">getRequest</span><span style="color: #D24; font-weight: bold">();
+<span class='line'>137:</span>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue;
+<span class='line'>138:</span>    
+</span></span></code></pre>
+					
+					</li>
+										<li><p>
+
+											<a href="editor://open/?file=C%3A%5CUsers%5CJerRy%5CDropbox%5CSkola%5CMFF%5CRP%5CCourse-Manager%5Capp%5Cbootstrap.php&amp;line=62" title="C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\bootstrap.php">
+						app/<b>bootstrap.php</b></a> (62)					
+					<a href="#" rel="netteBsSrc1-1">source <abbr>&#x25ba;</abbr></a>&nbsp; 
+					Application->					run
+					()
+					</p>
+
+					
+
+											<pre  id="netteBsSrc1-1"><code><span style="color: #06B"><span style="color: #D24; font-weight: bold"><span class='line'>55:</span>    &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #000">$router</span><span style="color: #D24; font-weight: bold">[]&nbsp;=&nbsp;new&nbsp;</span><span style="color: #000">Route</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #080">'&lt;presenter&gt;/&lt;action&gt;[/&lt;id&gt;]'</span><span style="color: #D24; font-weight: bold">,&nbsp;</span><span style="color: #080">'Courselist:homepage'</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>56:</span>    };
+<span class='line'>57:</span>    
+<span class='line'>58:</span>    
+<span class='line'>59:</span>    
+<span class='line'>60:</span>    
+<span class='line'>61:</span>    </span><span style="color: #999; font-style: italic">//&nbsp;Run&nbsp;the&nbsp;application!
+<span class='highlight'>62:    $application-&gt;run();
+</span></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"><span class='line'>63:</span>    </span>
+</span></code></pre>
+					
+					</li>
+										<li><p>
+
+											<a href="editor://open/?file=C%3A%5CUsers%5CJerRy%5CDropbox%5CSkola%5CMFF%5CRP%5CCourse-Manager%5Cwww%5Cindex.php&amp;line=25" title="C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www\index.php">
+						www/<b>index.php</b></a> (25)					
+					<a href="#" rel="netteBsSrc1-2">source <abbr>&#x25ba;</abbr></a>&nbsp; 
+										require
+					(<a href="#" rel="netteBsArgs1-2">arguments <abbr>&#x25ba;</abbr></a>)
+					</p>
+
+											<div class="nette-collapsed outer" id="netteBsArgs1-2">
+						<table>
+						<tr><th>#0</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\bootstrap.php" (68)
+</pre></td></tr>
+						</table>
+						</div>
+					
+
+											<pre class="nette-collapsed" id="netteBsSrc1-2"><code><span style="color: #06B"><span style="color: #D24; font-weight: bold"><span class='line'>18:</span>    </span><span style="color: #999; font-style: italic">//&nbsp;absolute&nbsp;filesystem&nbsp;path&nbsp;to&nbsp;the&nbsp;libraries
+<span class='line'>19:</span>    </span><span style="color: #000">define</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #080">'LIBS_DIR'</span><span style="color: #D24; font-weight: bold">,&nbsp;</span><span style="color: #000">WWW_DIR&nbsp;</span><span style="color: #D24; font-weight: bold">.&nbsp;</span><span style="color: #080">'/../libs'</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>20:</span>    
+<span class='line'>21:</span>    </span><span style="color: #999; font-style: italic">//&nbsp;absolute&nbsp;filesystem&nbsp;path&nbsp;to&nbsp;the&nbsp;temporary&nbsp;files
+<span class='line'>22:</span>    </span><span style="color: #000">define</span><span style="color: #D24; font-weight: bold">(</span><span style="color: #080">'TEMP_DIR'</span><span style="color: #D24; font-weight: bold">,&nbsp;</span><span style="color: #000">WWW_DIR&nbsp;</span><span style="color: #D24; font-weight: bold">.&nbsp;</span><span style="color: #080">'/../temp'</span><span style="color: #D24; font-weight: bold">);
+<span class='line'>23:</span>    
+<span class='line'>24:</span>    </span><span style="color: #999; font-style: italic">//&nbsp;load&nbsp;bootstrap&nbsp;file
+<span class='highlight'>25:    require&nbsp;APP_DIR&nbsp;.&nbsp;'/bootstrap.php';
+</span></span><span style="color: #D24; font-weight: bold"></span><span style="color: #000"></span><span style="color: #D24; font-weight: bold"></span><span style="color: #080"></span><span style="color: #D24; font-weight: bold"><span class='line'>26:</span>    </span>
+</span></code></pre>
+					
+					</li>
+									</ol>
+			</div></div>
+			
+
+
+			
+				
+
+
+				<div class="panel">
+		<h2><a href="#" rel="netteBsPnl3">Nette Application <abbr>&#x25ba;</abbr></a></h2>
+
+		<div id="netteBsPnl3" class="nette-collapsed inner">
+			<h3>Requests</h3>
+			<pre class="nette-dump"><a href='#' rel='next'><span>array</span>(1) <abbr>&#x25bc;</abbr> </a><code>[
+   <a href='#' rel='next'>0 => <span>PresenterRequest</span>(7) <abbr>&#x25ba;</abbr> </a><code class="nette-collapsed">{
+      "method" <span>private</span> => "GET" (3)
+      <a href='#' rel='next'>"flags" <span>private</span> => <span>array</span>(1) <abbr>&#x25bc;</abbr> </a><code>{
+         "secured" => FALSE
+      }</code>
+      "name" <span>private</span> => "TexylaFiles" (11)
+      <a href='#' rel='next'>"params" <span>private</span> => <span>array</span>(5) <abbr>&#x25bc;</abbr> </a><code>{
+         "action" => "listFiles" (9)
+         "id" => NULL
+         "cid" => "1"
+         "folder" => ""
+         "_" => "1321804642535" (13)
+      }</code>
+      "post" <span>private</span> => <span>array</span>(0) 
+      "files" <span>private</span> => <span>array</span>(0) 
+      "frozen" <span>private</span> => TRUE
+   }</code>
+]</code>
+</pre>
+			<h3>Presenter</h3>
+			<pre class="nette-dump"><a href='#' rel='next'><span>TexylaFilesPresenter</span>(36) <abbr>&#x25ba;</abbr> </a><code class="nette-collapsed">{
+   "baseFolderPath" <span>protected</span> => FALSE
+   "baseFolderUri" <span>protected</span> => "http://localhost/CourseMan/www/files" (36)
+   "cid" => "1"
+   "isTeacher" => NULL
+   "isStudent" => NULL
+   <a href='#' rel='next'>"logged" => FALSE
+   "tCourses" => NULL
+   "sCourses" => NULL
+   "canbesignedout" => FALSE
+   "onShutdown" => NULL
+   "request" <span>private</span> => <span>PresenterRequest</span>(7) <abbr>&#x25ba;</abbr> </a><code class="nette-collapsed">{
+      "method" <span>private</span> => "GET" (3)
+      <a href='#' rel='next'>"flags" <span>private</span> => <span>array</span>(1) <abbr>&#x25bc;</abbr> </a><code>{
+         "secured" => FALSE
+      }</code>
+      "name" <span>private</span> => "TexylaFiles" (11)
+      <a href='#' rel='next'>"params" <span>private</span> => <span>array</span>(5) <abbr>&#x25bc;</abbr> </a><code>{
+         "action" => "listFiles" (9)
+         "id" => NULL
+         "cid" => "1"
+         "folder" => ""
+         "_" => "1321804642535" (13)
+      }</code>
+      "post" <span>private</span> => <span>array</span>(0) 
+      "files" <span>private</span> => <span>array</span>(0) 
+      "frozen" <span>private</span> => TRUE
+   }</code>
+   "response" <span>private</span> => NULL
+   "autoCanonicalize" => TRUE
+   "absoluteUrls" => FALSE
+   "globalParams" <span>private</span> => <span>array</span>(0) 
+   "globalState" <span>private</span> => NULL
+   "globalStateSinces" <span>private</span> => NULL
+   "action" <span>private</span> => "listFiles" (9)
+   "view" <span>private</span> => "listFiles" (9)
+   "layout" <span>private</span> => NULL
+   "payload" <span>private</span> => <span>stdClass</span>(0) 
+   "signalReceiver" <span>private</span> => ""
+   "signal" <span>private</span> => NULL
+   "ajaxMode" <span>private</span> => NULL
+   "startupCheck" <span>private</span> => NULL
+   <a href='#' rel='next'>"lastCreatedRequest" <span>private</span> => NULL
+   "lastCreatedRequestFlag" <span>private</span> => NULL
+   "context" <span>private</span> => <span>Context</span>(3) <abbr>&#x25bc;</abbr> </a><code>{
+      <a href='#' rel='next'>"registry" <span>private</span> => <span>array</span>(13) <abbr>&#x25ba;</abbr> </a><code class="nette-collapsed">{
+         "nette\application\application" => <span>Application</span>(11) { ... }
+         "nette\web\httpcontext" => NULL
+         "nette\web\ihttprequest" => <span>HttpRequest</span>(9) { ... }
+         "nette\web\ihttpresponse" => <span>HttpResponse</span>(5) { ... }
+         "nette\web\iuser" => NULL
+         "nette\caching\icachestorage" => <span>FileStorage</span>(3) { ... }
+         "nette\caching\icachejournal" => <span>FileJournal</span>(9) { ... }
+         "nette\mail\imailer" => NULL
+         "nette\web\session" => <span>Session</span>(2) { ... }
+         "nette\security\iauthenticator" => NULL
+         "nette\loaders\robotloader" => <span>RobotLoader</span>(8) { ... }
+         "nette\application\irouter" => <span>MultiRouter</span>(3) { ... }
+         "nette\application\ipresenterfactory" => <span>PresenterFactory</span>(4) { ... }
+      <a href='#' rel='next'>}</code>
+      "factories" <span>private</span> => <span>array</span>(5) <abbr>&#x25bc;</abbr> </a><code>{
+         "nette\application\application" => <span>array</span>(4) [ ... ]
+         "nette\web\httpcontext" => <span>array</span>(4) [ ... ]
+         "nette\web\iuser" => <span>array</span>(4) [ ... ]
+         "nette\mail\imailer" => <span>array</span>(4) [ ... ]
+         "nette\security\iauthenticator" => <span>array</span>(4) [ ... ]
+      }</code>
+      "frozen" <span>private</span> => FALSE
+   }</code>
+   "template" <span>private</span> => NULL
+   "invalidSnippets" <span>private</span> => <span>array</span>(0) 
+   <a href='#' rel='next'>"params" <span>protected</span> => <span>array</span>(5) <abbr>&#x25bc;</abbr> </a><code>{
+      "action" => "listFiles" (9)
+      "id" => NULL
+      "cid" => "1"
+      "folder" => ""
+      "_" => "1321804642535" (13)
+   }</code>
+   "components" <span>private</span> => <span>array</span>(0) 
+   "cloning" <span>private</span> => NULL
+   "parent" <span>private</span> => NULL
+   "name" <span>private</span> => "TexylaFiles" (11)
+   <a href='#' rel='next'>"monitors" <span>private</span> => <span>array</span>(1) <abbr>&#x25bc;</abbr> </a><code>{
+      <a href='#' rel='next'>"Presenter" => <span>array</span>(4) <abbr>&#x25bc;</abbr> </a><code>[
+         0 => NULL
+         1 => NULL
+         2 => NULL
+         3 => TRUE
+      ]</code>
+   }</code>
+}</code>
+</pre>		</div></div>
+		
+
+
+		<div class="panel">
+		<h2><a href="#" rel="netteBsPnl4">Environment <abbr>&#x25ba;</abbr></a></h2>
+
+		<div id="netteBsPnl4" class="nette-collapsed inner">
+						<h3><a href="#" rel="netteBsPnl-env-const">Constants <abbr>&#x25bc;</abbr></a></h3>
+			<div class="outer">
+			<table id="netteBsPnl-env-const">
+			<tr><th>SITE</th><td><pre class="nette-dump">""
+</pre></td></tr>
+<tr><th>BASE_DIR</th><td><pre class="nette-dump">"/Course-Manager" (15)
+</pre></td></tr>
+<tr><th>WWW_DIR</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www" (54)
+</pre></td></tr>
+<tr><th>APP_DIR</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www/../app" (61)
+</pre></td></tr>
+<tr><th>LIBS_DIR</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www/../libs" (62)
+</pre></td></tr>
+<tr><th>TEMP_DIR</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www/../temp" (62)
+</pre></td></tr>
+<tr><th>NETTE</th><td><pre class="nette-dump">TRUE
+</pre></td></tr>
+<tr><th>NETTE_DIR</th><td><pre class="nette-dump">"C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette" (61)
+</pre></td></tr>
+<tr><th>NETTE_VERSION_ID</th><td><pre class="nette-dump">20000
+</pre></td></tr>
+<tr><th>NETTE_PACKAGE</th><td><pre class="nette-dump">"PHP 5.2" (7)
+</pre></td></tr>
+			</table>
+			</div>
+			
+
+			<h3><a href="#" rel="netteBsPnl-env-files">Included files <abbr>&#x25ba;</abbr></a> (96)</h3>
+			<div class="outer">
+			<table id="netteBsPnl-env-files" class="nette-collapsed">
+			<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\www\index.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\bootstrap.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\loader.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\shortcuts.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\exceptions.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\Object.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Loaders\LimitedScope.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Loaders\AutoLoader.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Loaders\NetteLoader.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Diagnostics\DebugHelpers.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\SafeStream.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\dibi.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\interfaces.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiDateTime.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiObject.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiHashMap.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiException.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiConnection.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiResult.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiResultIterator.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiRow.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiTranslator.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiDataSource.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiFluent.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiDatabaseInfo.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\libs\DibiProfiler.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\drivers\mysql.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\dibi\drivers\mysql.reflector.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Diagnostics\Debug.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Diagnostics\DebugPanel.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Diagnostics\IDebugPanel.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Environment\Environment.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Environment\Configurator.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\Framework.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Config\Config.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Config\ConfigAdapterNeon.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Config\IConfigAdapter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\Neon.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\Tokenizer.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\String.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\ArrayTools.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\iterators\GenericRecursiveIterator.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Injection\Context.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\FreezableObject.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\IFreezable.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Injection\IContext.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\Callback.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Loaders\RobotLoader.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Caching\FileStorage.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Caching\ICacheStorage.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Caching\FileJournal.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Caching\ICacheJournal.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Caching\Cache.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\HttpRequestFactory.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\UriScript.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\Uri.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\ObjectMixin.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\HttpRequest.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\IHttpRequest.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Application.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Mail\SmtpMailer.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Mail\IMailer.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Routers\MultiRouter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\tools\ArrayList.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IRouter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Routers\Route.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\HttpResponse.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\IHttpResponse.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Reflection\ClassReflection.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Reflection\PropertyReflection.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Http\Session.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Security\Identity.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Security\IIdentity.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Reflection\AnnotationsParser.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Diagnostics\RoutingDebugger.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\PresenterRequest.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\PresenterFactory.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IPresenterFactory.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\presenters\TexylaFilesPresenter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\presenters\BasePresenter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\app\presenters\MasterPresenter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Presenter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\Control.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\PresenterComponent.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\ComponentModel\ComponentContainer.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\ComponentModel\Component.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\ComponentModel\IComponent.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\ComponentModel\IComponentContainer.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\ISignalReceiver.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IStatePersistent.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IPartiallyRenderable.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IRenderable.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\IPresenter.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Application\PresenterComponentReflection.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Reflection\MethodReflection.php</td></tr>
+<tr><td>C:\Users\JerRy\Dropbox\Skola\MFF\RP\Course-Manager\libs\Nette\Diagnostics\templates\bluescreen.phtml</td></tr>
+			</table>
+			</div>
+
+
+			<h3>$_SERVER</h3>
+						<div class="outer">
+			<table>
+			<tr><th>REDIRECT_MIBDIRS</th><td><pre class="nette-dump">"C:/xampp/php/extras/mibs" (24)
+</pre></td></tr>
+<tr><th>REDIRECT_MYSQL_HOME</th><td><pre class="nette-dump">"\\xampp\mysql\bin" (16)
+</pre></td></tr>
+<tr><th>REDIRECT_OPENSSL_CONF</th><td><pre class="nette-dump">"C:/xampp/apache/bin/openssl.cnf" (31)
+</pre></td></tr>
+<tr><th>REDIRECT_PHP_PEAR_SYSCONF_DIR</th><td><pre class="nette-dump">"\\xampp\php" (10)
+</pre></td></tr>
+<tr><th>REDIRECT_PHPRC</th><td><pre class="nette-dump">"\\xampp\php" (10)
+</pre></td></tr>
+<tr><th>REDIRECT_TMP</th><td><pre class="nette-dump">"\\xampp\tmp" (10)
+</pre></td></tr>
+<tr><th>REDIRECT_STATUS</th><td><pre class="nette-dump">"200" (3)
+</pre></td></tr>
+<tr><th>MIBDIRS</th><td><pre class="nette-dump">"C:/xampp/php/extras/mibs" (24)
+</pre></td></tr>
+<tr><th>MYSQL_HOME</th><td><pre class="nette-dump">"\\xampp\mysql\bin" (16)
+</pre></td></tr>
+<tr><th>OPENSSL_CONF</th><td><pre class="nette-dump">"C:/xampp/apache/bin/openssl.cnf" (31)
+</pre></td></tr>
+<tr><th>PHP_PEAR_SYSCONF_DIR</th><td><pre class="nette-dump">"\\xampp\php" (10)
+</pre></td></tr>
+<tr><th>PHPRC</th><td><pre class="nette-dump">"\\xampp\php" (10)
+</pre></td></tr>
+<tr><th>TMP</th><td><pre class="nette-dump">"\\xampp\tmp" (10)
+</pre></td></tr>
+<tr><th>HTTP_HOST</th><td><pre class="nette-dump">"localhost" (9)
+</pre></td></tr>
+<tr><th>HTTP_CONNECTION</th><td><pre class="nette-dump">"keep-alive" (10)
+</pre></td></tr>
+<tr><th>HTTP_X_REQUESTED_WITH</th><td><pre class="nette-dump">"XMLHttpRequest" (14)
+</pre></td></tr>
+<tr><th>HTTP_USER_AGENT</th><td><pre class="nette-dump">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2" (106)
+</pre></td></tr>
+<tr><th>HTTP_ACCEPT</th><td><pre class="nette-dump">"application/json, text/javascript, */*; q=0.01" (46)
+</pre></td></tr>
+<tr><th>HTTP_REFERER</th><td><pre class="nette-dump">"http://localhost/CourseMan/www/lesson/?lid=8&amp;cid=1" (50)
+</pre></td></tr>
+<tr><th>HTTP_ACCEPT_ENCODING</th><td><pre class="nette-dump">"gzip,deflate,sdch" (17)
+</pre></td></tr>
+<tr><th>HTTP_ACCEPT_LANGUAGE</th><td><pre class="nette-dump">"cs-CZ,cs;q=0.8" (14)
+</pre></td></tr>
+<tr><th>HTTP_ACCEPT_CHARSET</th><td><pre class="nette-dump">"windows-1250,utf-8;q=0.7,*;q=0.3" (32)
+</pre></td></tr>
+<tr><th>HTTP_COOKIE</th><td><pre class="nette-dump">"PHPSESSID=5iqg63vq9faal998kvihtnlfb3; nette-browser=mfj1ekpmgb" (62)
+</pre></td></tr>
+<tr><th>PATH</th><td><pre class="nette-dump">"C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseGit\bin;C:\Program Files  ... " (208)
+</pre></td></tr>
+<tr><th>SystemRoot</th><td><pre class="nette-dump">"C:\Windows" (10)
+</pre></td></tr>
+<tr><th>COMSPEC</th><td><pre class="nette-dump">"C:\Windows\system32\cmd.exe" (27)
+</pre></td></tr>
+<tr><th>PATHEXT</th><td><pre class="nette-dump">".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC" (53)
+</pre></td></tr>
+<tr><th>WINDIR</th><td><pre class="nette-dump">"C:\Windows" (10)
+</pre></td></tr>
+<tr><th>SERVER_SIGNATURE</th><td><pre class="nette-dump">"&lt;address&gt;Apache/2.2.17 (Win32) mod_ssl/2.2.17 OpenSSL/0.9.8o PHP/5.3.4 mod_perl/2.0.4 Perl/v5.10.1 Server at localhost Port 80&lt;/address&gt;
+" (137)
+</pre></td></tr>
+<tr><th>SERVER_SOFTWARE</th><td><pre class="nette-dump">"Apache/2.2.17 (Win32) mod_ssl/2.2.17 OpenSSL/0.9.8o PHP/5.3.4 mod_perl/2.0.4 Perl/v5.10.1" (89)
+</pre></td></tr>
+<tr><th>SERVER_NAME</th><td><pre class="nette-dump">"localhost" (9)
+</pre></td></tr>
+<tr><th>SERVER_ADDR</th><td><pre class="nette-dump">"127.0.0.1" (9)
+</pre></td></tr>
+<tr><th>SERVER_PORT</th><td><pre class="nette-dump">"80" (2)
+</pre></td></tr>
+<tr><th>REMOTE_ADDR</th><td><pre class="nette-dump">"127.0.0.1" (9)
+</pre></td></tr>
+<tr><th>DOCUMENT_ROOT</th><td><pre class="nette-dump">"C:/xampp/htdocs" (15)
+</pre></td></tr>
+<tr><th>SERVER_ADMIN</th><td><pre class="nette-dump">"postmaster@localhost" (20)
+</pre></td></tr>
+<tr><th>SCRIPT_FILENAME</th><td><pre class="nette-dump">"C:/xampp/htdocs/CourseMan/www/index.php" (39)
+</pre></td></tr>
+<tr><th>REMOTE_PORT</th><td><pre class="nette-dump">"60061" (5)
+</pre></td></tr>
+<tr><th>REDIRECT_QUERY_STRING</th><td><pre class="nette-dump">"cid=1&amp;folder=&amp;_=1321804642535" (29)
+</pre></td></tr>
+<tr><th>REDIRECT_URL</th><td><pre class="nette-dump">"/CourseMan/www/texyla-files/list-files" (38)
+</pre></td></tr>
+<tr><th>GATEWAY_INTERFACE</th><td><pre class="nette-dump">"CGI/1.1" (7)
+</pre></td></tr>
+<tr><th>SERVER_PROTOCOL</th><td><pre class="nette-dump">"HTTP/1.1" (8)
+</pre></td></tr>
+<tr><th>REQUEST_METHOD</th><td><pre class="nette-dump">"GET" (3)
+</pre></td></tr>
+<tr><th>QUERY_STRING</th><td><pre class="nette-dump">"cid=1&amp;folder=&amp;_=1321804642535" (29)
+</pre></td></tr>
+<tr><th>REQUEST_URI</th><td><pre class="nette-dump">"/CourseMan/www/texyla-files/list-files?cid=1&amp;folder=&amp;_=1321804642535" (68)
+</pre></td></tr>
+<tr><th>SCRIPT_NAME</th><td><pre class="nette-dump">"/CourseMan/www/index.php" (24)
+</pre></td></tr>
+<tr><th>PHP_SELF</th><td><pre class="nette-dump">"/CourseMan/www/index.php" (24)
+</pre></td></tr>
+<tr><th>REQUEST_TIME</th><td><pre class="nette-dump">1321804642
+</pre></td></tr>
+			</table>
+			</div>
+					</div></div>
+
+
+
+		<div class="panel">
+		<h2><a href="#" rel="netteBsPnl5">HTTP request <abbr>&#x25ba;</abbr></a></h2>
+
+		<div id="netteBsPnl5" class="nette-collapsed inner">
+						<h3>Headers</h3>
+			<div class="outer">
+			<table>
+			<tr><th>Host</th><td>localhost</td></tr>
+<tr><th>Connection</th><td>keep-alive</td></tr>
+<tr><th>X-Requested-With</th><td>XMLHttpRequest</td></tr>
+<tr><th>User-Agent</th><td>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2</td></tr>
+<tr><th>Accept</th><td>application/json, text/javascript, */*; q=0.01</td></tr>
+<tr><th>Referer</th><td>http://localhost/CourseMan/www/lesson/?lid=8&amp;cid=1</td></tr>
+<tr><th>Accept-Encoding</th><td>gzip,deflate,sdch</td></tr>
+<tr><th>Accept-Language</th><td>cs-CZ,cs;q=0.8</td></tr>
+<tr><th>Accept-Charset</th><td>windows-1250,utf-8;q=0.7,*;q=0.3</td></tr>
+<tr><th>Cookie</th><td>PHPSESSID=5iqg63vq9faal998kvihtnlfb3; nette-browser=mfj1ekpmgb</td></tr>
+			</table>
+			</div>
+			
+
+						<h3>$_GET</h3>
+						<div class="outer">
+			<table>
+			<tr><th>cid</th><td><pre class="nette-dump">"1"
+</pre></td></tr>
+<tr><th>folder</th><td><pre class="nette-dump">""
+</pre></td></tr>
+<tr><th>_</th><td><pre class="nette-dump">"1321804642535" (13)
+</pre></td></tr>
+			</table>
+			</div>
+									<h3>$_POST</h3>
+						<p><i>empty</i></p>
+									<h3>$_COOKIE</h3>
+						<div class="outer">
+			<table>
+			<tr><th>PHPSESSID</th><td><pre class="nette-dump">"5iqg63vq9faal998kvihtnlfb3" (26)
+</pre></td></tr>
+<tr><th>nette-browser</th><td><pre class="nette-dump">"mfj1ekpmgb" (10)
+</pre></td></tr>
+			</table>
+			</div>
+								</div></div>
+
+
+
+		<div class="panel">
+		<h2><a href="#" rel="netteBsPnl6">HTTP response <abbr>&#x25ba;</abbr></a></h2>
+
+		<div id="netteBsPnl6" class="nette-collapsed inner">
+			<h3>Headers</h3>
+						<pre>X-Powered-By: Nette Framework<br>Expires: Thu, 19 Nov 1981 08:52:00 GMT<br>Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0<br>Pragma: no-cache<br>Set-Cookie: PHPSESSID=5iqg63vq9faal998kvihtnlfb3; path=/; httponly<br>Set-Cookie: nette-browser=mfj1ekpmgb; path=/; httponly<br></pre>
+					</div></div>
+
+
+		<ul>
+			<li>Report generated at 2011/11/20 16:57:22</li>
+							<li><a href="http://localhost/CourseMan/www/texyla-files/list-files?cid=1&amp;folder=&amp;_=1321804642535">http://localhost/CourseMan/www/texyla-files/list-files?cid=1&amp;folder=&amp;_=1321804642535</a></li>
+						<li>PHP 5.3.5</li>
+			<li>Apache/2.2.17 (Win32) mod_ssl/2.2.17 OpenSSL/0.9.8o PHP/5.3.4 mod_perl/2.0.4 Perl/v5.10.1</li>			<li>Nette Framework 2.0-dev <i>(revision 7616569 released on 2011-03-10)</i></li>		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">/*<![CDATA[*/var bs=document.getElementById("netteBluescreen");document.body.appendChild(bs);document.onkeyup=function(b){b=b||window.event;b.keyCode==27&&!b.shiftKey&&!b.altKey&&!b.ctrlKey&&!b.metaKey&&bs.onclick({target:document.getElementById("netteBluescreenIcon")})};
+for(var i=0,styles=document.styleSheets;i<styles.length;i++)if((styles[i].owningElement||styles[i].ownerNode).className!=="nette"){styles[i].oldDisabled=styles[i].disabled;styles[i].disabled=true}else styles[i].addRule?styles[i].addRule(".nette-collapsed","display: none"):styles[i].insertRule(".nette-collapsed { display: none }",0);
+bs.onclick=function(b){b=b||window.event;for(var a=b.target||b.srcElement;a&&a.tagName&&a.tagName.toLowerCase()!=="a";)a=a.parentNode;if(!a||!a.rel)return true;for(var d=a.getElementsByTagName("abbr")[0],c=a.rel==="next"?a.nextSibling:document.getElementById(a.rel);c.nodeType!==1;)c=c.nextSibling;b=c.currentStyle?c.currentStyle.display=="none":getComputedStyle(c,null).display=="none";try{d.innerHTML=String.fromCharCode(b?9660:9658)}catch(e){}c.style.display=b?c.tagName.toLowerCase()==="code"?"inline":
+"block":"none";if(a.id==="netteBluescreenIcon"){a=0;for(d=document.styleSheets;a<d.length;a++)if((d[a].owningElement||d[a].ownerNode).className!=="nette")d[a].disabled=b?true:d[a].oldDisabled}return false};/*]]>*/</script>
+</body>
+</html>

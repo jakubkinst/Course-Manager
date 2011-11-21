@@ -1,0 +1,353 @@
+# Gettext keys exported by GettextExtractor
+# Created: 2011-11-15T22:57:28+01:00
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# MessagePresenter.php:50
+# UserPresenter.php:52
+msgid "@"
+msgstr "@"
+
+# AssignmentPresenter.php:130
+# AssignmentPresenter.php:177
+# AssignmentPresenter.php:193
+# AssignmentPresenter.php:217
+# AssignmentPresenter.php:252
+# EventPresenter.php:39
+msgid "Add"
+msgstr "Add"
+
+# ResultPresenter.php:60
+msgid "Add Assignment"
+msgstr "Add Assignment"
+
+# CoursePresenter.php:72
+msgid "Add lesson"
+msgstr "Add lesson"
+
+# testfile.php:13
+msgid "Cancel"
+msgstr "Cancel"
+
+# AssignmentPresenter.php:122
+msgid "Close Date:"
+msgstr "Close Date:"
+
+# LessonPresenter.php:35
+msgid "Comment:"
+msgstr "Comment:"
+
+# MessagePresenter.php:54
+msgid "Content:"
+msgstr "Content:"
+
+# ForumPresenter.php:53
+msgid "Content:*"
+msgstr "Content:*"
+
+# CoursePresenter.php:42
+msgid "Course description:"
+msgstr "Course description:"
+
+# CoursePresenter.php:40
+msgid "Course name:*"
+msgstr "Course name:*"
+
+# CoursePresenter.php:44
+msgid "Create course"
+msgstr "Create course"
+
+# EventPresenter.php:34
+msgid "Date:*"
+msgstr "Date:*"
+
+# AssignmentPresenter.php:120
+# ResourcePresenter.php:29
+msgid "Description:"
+msgstr "Description:"
+
+# EventPresenter.php:36
+msgid "Description:*"
+msgstr "Description:*"
+
+# MasterPresenter.php:52
+msgid "E-Mail:"
+msgstr "E-Mail:"
+
+# UserPresenter.php:54
+msgid "E-mail is already registered."
+msgstr "E-mail is already registered."
+
+# CoursePresenter.php:97
+# UserPresenter.php:51
+msgid "E-mail:*"
+msgstr "E-mail:*"
+
+# MessagePresenter.php:51
+# UserPresenter.php:53
+msgid "Enter valid e-mail"
+msgstr "Enter valid e-mail"
+
+# testfile.php:5
+msgid "Escaping some \\"fancy\\" text"
+msgstr "Escaping some \\"fancy\\" text"
+
+# AssignmentPresenter.php:173
+# AssignmentPresenter.php:189
+# AssignmentPresenter.php:205
+# AssignmentPresenter.php:240
+msgid "Example"
+msgstr "Example"
+
+# ResourcePresenter.php:25
+msgid "File:*"
+msgstr "File:*"
+
+# LessonPresenter.php:36
+msgid "Fill comment."
+msgstr "Fill comment."
+
+# ForumPresenter.php:54
+# ForumPresenter.php:81
+msgid "Fill content."
+msgstr "Fill content."
+
+# EventPresenter.php:35
+msgid "Fill date."
+msgstr "Fill date."
+
+# EventPresenter.php:37
+msgid "Fill description."
+msgstr "Fill description."
+
+# CoursePresenter.php:98
+msgid "Fill email."
+msgstr "Fill email."
+
+# ResourcePresenter.php:28
+msgid "Fill filename."
+msgstr "Fill filename."
+
+# UserPresenter.php:56
+msgid "Fill in the password"
+msgstr "Fill in the password"
+
+# UserPresenter.php:59
+msgid "Fill in the password again."
+msgstr "Fill in the password again."
+
+# EventPresenter.php:33
+msgid "Fill name."
+msgstr "Fill name."
+
+# UserPresenter.php:48
+msgid "Fill the firstname."
+msgstr "Fill the firstname."
+
+# UserPresenter.php:50
+msgid "Fill the lastname."
+msgstr "Fill the lastname."
+
+# ForumPresenter.php:52
+msgid "Fill topic."
+msgstr "Fill topic."
+
+# UserPresenter.php:47
+msgid "First name:*"
+msgstr "First name:*"
+
+# testfile.php:3
+msgid "I see %d little indians!"
+msgstr "I see %d little indians!"
+
+# CoursePresenter.php:101
+msgid "Invite to"
+msgstr "Invite to"
+
+# UserPresenter.php:49
+msgid "Last name:*"
+msgstr "Last name:*"
+
+# CoursePresenter.php:70
+msgid "Lesson description:"
+msgstr "Lesson description:"
+
+# ResultPresenter.php:46
+msgid "Max points/grade must be a number"
+msgstr "Max points/grade must be a number"
+
+# ResultPresenter.php:45
+msgid "Max points:"
+msgstr "Max points:"
+
+# AssignmentPresenter.php:123
+msgid "Max. Points (0=no max points):"
+msgstr "Max. Points (0=no max points):"
+
+# AssignmentPresenter.php:125
+# AssignmentPresenter.php:129
+msgid "Max. points must be a number"
+msgstr "Max. points must be a number"
+
+# UserPresenter.php:57
+msgid "Minimal password length is %d."
+msgstr "Minimal password length is %d."
+
+# AssignmentPresenter.php:174
+# AssignmentPresenter.php:190
+# AssignmentPresenter.php:206
+msgid "My Label"
+msgstr "My Label"
+
+# AssignmentPresenter.php:118
+msgid "Name*"
+msgstr "Name*"
+
+# EventPresenter.php:32
+# ResourcePresenter.php:27
+msgid "Name:*"
+msgstr "Name:*"
+
+# ResultPresenter.php:43
+msgid "Offline assignment name:*"
+msgstr "Offline assignment name:*"
+
+# AssignmentPresenter.php:121
+msgid "Open Date:"
+msgstr "Open Date:"
+
+# MasterPresenter.php:55
+msgid "Password:"
+msgstr "Password:"
+
+# UserPresenter.php:55
+msgid "Password:*"
+msgstr "Password:*"
+
+# UserPresenter.php:60
+msgid "Passwords don\'t match."
+msgstr "Passwords don\'t match."
+
+# ResultPresenter.php:52
+msgid "Points/Grade:"
+msgstr "Points/Grade:"
+
+# ResultPresenter.php:57
+msgid "Points/grade must be a number"
+msgstr "Points/grade must be a number"
+
+# ForumPresenter.php:56
+# ForumPresenter.php:83
+# LessonPresenter.php:37
+msgid "Post"
+msgstr "Post"
+
+# UserPresenter.php:64
+msgid "Registrovat"
+msgstr "Registrovat"
+
+# MasterPresenter.php:58
+msgid "Remember"
+msgstr "Remember"
+
+# ForumPresenter.php:80
+msgid "Reply:*"
+msgstr "Reply:*"
+
+# SettingsPresenter.php:27
+msgid "Save"
+msgstr "Save"
+
+# ResourcePresenter.php:26
+msgid "Select file."
+msgstr "Select file."
+
+# testfile.php:11
+# MessagePresenter.php:55
+msgid "Send"
+msgstr "Send"
+
+# AssignmentPresenter.php:175
+# AssignmentPresenter.php:191
+msgid "Set Label"
+msgstr "Set Label"
+
+# AssignmentPresenter.php:207
+# AssignmentPresenter.php:242
+msgid "Set Label and choices"
+msgstr "Set Label and choices"
+
+# ResultPresenter.php:44
+msgid "Set assignment name."
+msgstr "Set assignment name."
+
+# CoursePresenter.php:41
+msgid "Set course name."
+msgstr "Set course name."
+
+# CoursePresenter.php:69
+msgid "Set lesson topic."
+msgstr "Set lesson topic."
+
+# SettingsPresenter.php:26
+msgid "Show my e-mail address to my coursemates"
+msgstr "Show my e-mail address to my coursemates"
+
+# MasterPresenter.php:60
+msgid "Sign in"
+msgstr "Sign in"
+
+# MessagePresenter.php:53
+msgid "Subject:"
+msgstr "Subject:"
+
+# AssignmentPresenter.php:93
+msgid "Submit"
+msgstr "Submit"
+
+# AssignmentPresenter.php:111
+msgid "There was an error submitting your submission"
+msgstr "There was an error submitting your submission"
+
+# MessagePresenter.php:52
+msgid "This e-mail address is not registered."
+msgstr "This e-mail address is not registered."
+
+# AssignmentPresenter.php:126
+msgid "Time limit in minutes (0=no limit):"
+msgstr "Time limit in minutes (0=no limit):"
+
+# AssignmentPresenter.php:127
+msgid "Time limit must be a number"
+msgstr "Time limit must be a number"
+
+# MessagePresenter.php:49
+msgid "To:*"
+msgstr "To:*"
+
+# CoursePresenter.php:68
+# ForumPresenter.php:51
+msgid "Topic:*"
+msgstr "Topic:*"
+
+# ResourcePresenter.php:31
+msgid "Upload"
+msgstr "Upload"
+
+# UserPresenter.php:58
+msgid "Verify password:*"
+msgstr "Verify password:*"
+
+# UserPresenter.php:61
+msgid "Webpage:"
+msgstr "Webpage:"
+
+# CoursePresenter.php:99
+msgid "Wrong e-mail format"
+msgstr "Wrong e-mail format"
+
+# testfile.php:10
+msgid "Your name:"
+msgstr "Your name:"
