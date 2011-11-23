@@ -11,16 +11,16 @@ class MailModel extends Object {
    
     public static function sendMailToCurrentUser($subject,$msg) {
 	$user = Environment::getUser()->getIdentity();	
-	return MailModel::sendMail($user->email, $subject, $msg);
+	return MailModel::addMail($user->email, $subject, $msg);
     }
     public static function sendMailToUser($user,$subject,$msg) {
 	$email = UserModel::getUser($user)->email;
-	return MailModel::sendMail($email, $subject, $msg);
+	return MailModel::addMail($email, $subject, $msg);
     }
     
     public static function sendMailToStudents($cid,$subject,$msg){
 	foreach (CourseModel::getStudents($cid) as $student) {
-	    MailModel::sendMail($student->email, $subject, $msg);
+	    MailModel::addMail($student->email, $subject, $msg);
 	}
     }    
     
@@ -30,14 +30,20 @@ class MailModel extends Object {
      * @param type $subject
      * @param type $msg 
      */
-    public static function sendMail($to, $subject, $msg) {
+    public static function addMail($to, $subject, $msg) {
+	
+	return dibi::query('INSERT INTO mail',array('to'=>$to,'subject'=>$subject,'msg'=>$msg));
+    } 
+       public static function sendMail($to, $subject, $msg) {
 	$mail = new Mail;
 	$mail->setFrom('CourseManager <cm@kinst.cz>');
 	$mail->addTo($to);
 	$mail->setSubject($subject);
 	$mail->setHTMLBody($msg);
-	return Environment::getVariable('mailer')->send($mail);
+	Environment::getVariable('mailer')->send($mail);
+	return true;
     } 
+    
      
     public static function sendRegisterHash($uid) {
 	$hash = dibi::fetchSingle('SELECT seclink FROM user WHERE id=%i',$uid);
@@ -59,7 +65,14 @@ class MailModel extends Object {
 		CourseManager by '.$invitedBy->firstname.' '.$invitedBy->lastname.
 		'. To accept invitation login at <a href="'.self::$hostUrl.'">'.self::$hostUrl.'</a> with this e-mail address.';
 	
-	self::sendMail($email, 'You have been invited to '.$course->name, $msg);
+	self::addMail($email, 'You have been invited to '.$course->name, $msg);
+    }
+    public static function sendMailsNow(){
+	$mails = dibi::fetchAll('SELECT * FROM mail WHERE sent IS NULL');
+	foreach ($mails as $mail) {
+	    if (self::sendMail($mail->to, $mail->subject, $mail->msg))
+		dibi::query('UPDATE mail SET sent=NOW() WHERE id=%i',$mail->id);	    
+	}
     }
 }
 
