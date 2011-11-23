@@ -134,6 +134,8 @@ class AssignmentPresenter extends BasePresenter {
 		$form->addText($value->id, $label);
 	    if ($value->type == 'textarea')
 		$form->addTextArea($value->id, $label);
+	     if ($value->type == 'file')
+		$form->addFile($value->id, $label);
 	    if ($value->type == 'radio')
 		$form->addRadioList($value->id, $label, AssignmentModel::parseChoices($value->choices));
 	    if ($value->type == 'multi')
@@ -211,6 +213,8 @@ class AssignmentPresenter extends BasePresenter {
 		$form->addText('input' . $value->id, $label)->setDefaultValue($value->rightanwser);
 	    if ($value->type == 'textarea')
 		$form->addTextArea('input' . $value->id, $label);
+	    if ($value->type == 'file')
+		$form->addFile('input' . $value->id, $label);
 	    if ($value->type == 'radio')
 		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getRadioAnwserPos($value, $value->rightanwser));
 	    if ($value->type == 'multi')
@@ -250,6 +254,23 @@ class AssignmentPresenter extends BasePresenter {
 	AssignmentModel::addText($values['label'], $this->aid, $values['ranwser']);
     }
 
+    protected function createComponentAddFileForm() {
+	$form = new AppForm;
+	$form->getElementPrototype()->class[] = "ajax";
+	$form->addGroup('Example');
+	$form->addFile('example', 'My Label:');
+	$form->addGroup('Set Label');
+	$form->addTextArea('label');
+	$form->addSubmit('add', 'Add');
+	$form->onSubmit[] = callback($this, 'addFile');
+	return $form;
+    }
+
+    public function addFile($form) {
+	$values = $form->getValues();
+	AssignmentModel::addFile($values['label'], $this->aid);
+    }
+    
     protected function createComponentAddTextAreaForm() {
 	$form = new AppForm;
 	$form->getElementPrototype()->class[] = "ajax";
@@ -347,4 +368,13 @@ class AssignmentPresenter extends BasePresenter {
 	AssignmentModel::addMultiSelect($values['label'], $choices, $this->aid, str_replace(';', '#', $values['ranwser']));
     }
 
+    public function actionDownloadFile($afid){	
+        // check if resource id corresponds to course id
+	$file = AssignmentModel::getAnwserFile($afid);
+        if ($file['Course_id'] != $this->cid)
+            throw new BadRequestException;
+	$ext = pathinfo($file->filename, PATHINFO_EXTENSION);
+	$name = $file->firstname.$file->lastname.'_'.$file->label.'.'.$ext;
+	$this->sendResponse(new DownloadResponse(WWW_DIR.'/../uploads/'.$file->filename,$name));
+    }
 }

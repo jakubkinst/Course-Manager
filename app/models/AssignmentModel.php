@@ -26,6 +26,10 @@ class AssignmentModel extends Object {
 	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'textarea', 'label' => $label));
     }
 
+    public static function addFile($label, $aid) {
+	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'file', 'label' => $label));
+    }
+
     public static function addRadio($label, $choices, $aid, $ra) {
 
 	function isEmpty($var) {
@@ -180,6 +184,10 @@ class AssignmentModel extends Object {
 		    $stranwser = $choices[$value];
 		    $value = $stranwser;
 		}
+		if ($q->type == 'file') {
+		    dibi::begin();
+		    $value = self::uploadAnwserFile($value);
+		}
 		$result = true;
 		if (null == dibi::fetch('SELECT * FROM anwser WHERE User_id=%i AND Question_id=%i', $uid, $key))
 		    $result = dibi::query('INSERT INTO anwser', array('User_id' => $uid, 'Question_id' => $key, 'anwser' => $value));
@@ -191,6 +199,23 @@ class AssignmentModel extends Object {
 	}
 
 	return $ok;
+    }
+
+    public static function uploadAnwserFile($file) {
+	$data = array();
+	$data['size'] = $file->getSize();
+	$hashfilename = md5($_SERVER["REMOTE_ADDR"] . time()) . "_" . $file->getName();
+	if ($file->isOK()) {
+	    if ($file->move(WWW_DIR . "/../" . ResourceModel::$UPLOAD_DIR . "/" . $hashfilename)) {
+		$data['filename'] = $hashfilename;
+		dibi::begin();
+		dibi::query('INSERT INTO anwserfile', $data);
+		$id = dibi::getInsertId();
+		dibi::commit();
+		return $id;
+	    }
+	}
+	return false;
     }
 
     public static function getAnwsers($aid) {
@@ -226,10 +251,10 @@ class AssignmentModel extends Object {
     }
 
     // time reserve in seconds
-    public static function canSolve($aid, $reserve = 0) {	
+    public static function canSolve($aid, $reserve = 0) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
-	$pts = dibi::fetchSingle('SELECT points FROM onlinesubmission WHERE User_id=%i AND Assignment_id=%i',$uid,$aid);
-	$hasPoints = (($pts>=0) && ($pts!=FALSE));
+	$pts = dibi::fetchSingle('SELECT points FROM onlinesubmission WHERE User_id=%i AND Assignment_id=%i', $uid, $aid);
+	$hasPoints = (($pts >= 0) && ($pts != FALSE));
 	$assignment = AssignmentModel::getAssignment($aid);
 	$now = new DateTime;
 	$end = self::getRealEndTime($aid);
@@ -256,6 +281,18 @@ class AssignmentModel extends Object {
 	foreach (explode('#', $anwser) as $oneanwser)
 	    array_push($intarr, array_search($oneanwser, explode('#', $question->choices)));
 	return $intarr;
+    }
+
+    public static function getAnwserFile($afid) {
+	$r = dibi::fetch('SELECT * FROM anwser 
+	    JOIN question ON Question_id=question.id 
+	    JOIN assignment ON Assignment_id=assignment.id 
+	    JOIN course ON Course_id=course.id 
+	    JOIN user ON User_id=user.id 
+		WHERE type=\'file\' AND anwser=%s', $afid);
+	$r->filename = dibi::fetchSingle('SELECT filename FROM anwserfile WHERE id=%i', $afid);
+
+	return $r;
     }
 
 }

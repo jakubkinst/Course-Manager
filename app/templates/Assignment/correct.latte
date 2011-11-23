@@ -20,7 +20,16 @@
 		<tr>
 		    <td>{$submission['user']->firstname} {$submission['user']->lastname}</td>
 		    {foreach $questions as $question}
-			<td>{if isset($submission[$question->id])}<? echo str_replace('#','<br>',$submission[$question->id]) ?>{/if}</td>
+			<td>
+			    {if isset($submission[$question->id])}
+				{if $question->type == 'multi'}
+				<? echo str_replace('#','<br>',$submission[$question->id]) ?>
+				{/if}
+				{if $question->type == 'file'}
+				    <a href="{link downloadFile, $submission[$question->id]}">Download</a>
+				{/if}
+			    {/if}
+			</td>
 		    {/foreach}
 			<td>{$correctForm[$submission['user']->id]->control}</td>
 		</tr>
