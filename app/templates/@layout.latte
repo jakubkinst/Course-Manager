@@ -40,6 +40,8 @@
 	    "../texyla/plugins/color/color.js"
 	}
 	{control js 'CourseManager.js'}
+
+	
 	
         <script type="text/javascript">
 	    // Set texyla defaults
@@ -109,103 +111,115 @@
     </head>
 
     <body>        
-	<div class="container">
-            <div  id="header" class="span-24 last">                
-                <a href="{link courselist:homepage}">
-                    <div id="logo">
-                        <h1>Course Manager</h1>
-                    </div>
-                </a>
+	<div id="header" class="span-24 last">   
+	    <div class="container shadow">
+		<div id="innerheader">
+		    <a href="{link courselist:homepage}">
+			<div id="logo">
+			    <h1>Course Manager</h1>
+			</div>
+		    </a>
 
-                <div id="mainmenu">
-                    <ul>
-                        {if $logged}<li><a id="home" class="mainMenuButton leftborder" href="{link courselist:homepage}"><span class="ui-icon ui-icon-home"></span></a></li>{/if}
-                        {if $logged}<li><a class="mainMenuButton" href="{link message:homepage}"> <span class="ui-icon ui-icon-mail-open"></span>{if $countUnread>0}&nbsp;{$countUnread}{/if}</a></li>{/if}
-                        {if $logged}<li><a class="mainMenuButton" href="{link settings:homepage}"> <span class="ui-icon ui-icon-gear"></span></a></li>{/if}
-                        <li><a class="mainMenuButton{if !$logged} leftborder{/if}" href="{link help:homepage}"> <span class="ui-icon ui-icon-help"></span></a></li>
-                        <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;                        
-                            {if !$logged}
-                                Login
-                            {else}
-                                {$user->firstname} {$user->lastname}
-                            {/if}
-                            </a>
-                            <div id="loginBox" >
-                                {if $logged}
-                                <div id="loggedMenu">
-                                    <span class="loggedUser">{$user->firstname} {$user->lastname}</span>
-                                    <a href="{link user:homepage, $user->id}">My profile</a>
-				    <a href="{link user:edit}">Edit profile</a>
-                                    <a href="{link user:logout}">Log out</a>
-                                </div>
-                                {else}
-                                    {widget signInForm} 
-                                    <a class="abutton" href="{link user:register}">REGISTER</a>
-                                {/if}   
+		    <div id="mainmenu">
+			<ul>
+			    {if $logged}<li><a id="home" class="mainMenuButton leftborder" href="{link courselist:homepage}"><span class="ui-icon ui-icon-home"></span></a></li>{/if}
+			    {if $logged}<li><a class="mainMenuButton" href="{link message:homepage}"> <span class="ui-icon ui-icon-mail-open"></span>{if $countUnread>0}&nbsp;{$countUnread}{/if}</a></li>{/if}
+			    {if $logged}<li><a class="mainMenuButton" href="{link settings:homepage}"> <span class="ui-icon ui-icon-gear"></span></a></li>{/if}
+			    <li><a class="mainMenuButton{if !$logged} leftborder{/if}" href="{link help:homepage}"> <span class="ui-icon ui-icon-help"></span></a></li>
+			    <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;                        
+				{if !$logged}
+				    Login
+				{else}
+				    {$user->firstname} {$user->lastname}
+				{/if}
+				</a>
+				<div id="loginBox" >
+				    {if $logged}
+				    <div id="loggedMenu">
+					<span class="loggedUser">{$user->firstname} {$user->lastname}</span>
+					<a href="{link user:homepage, $user->id}">My profile</a>
+					<a href="{link user:edit}">Edit profile</a>
+					<a href="{link user:logout}">Log out</a>
+				    </div>
+				    {else}
+					{widget signInForm} 
+				    <a class="abutton" href="{link user:register}">REGISTER</a>
+				    {/if}   
 
-                            </div>
-                        </li>
+				</div>
+			    </li>
 
-                    </ul>
-                    
-                </div>
+			</ul>
 
-            </div>
-
-
-            <div class="span-19" id="main">
-                {if isset($activeCourse->name)}
-                    <div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
-                {/if}
-                <div id="content">
-                    <!-- content -->                    
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<div id="main">
+	    <div class="container shadow">
+		<div class="span-19" id="leftcontent">
+		    {if isset($activeCourse->name)}
+			<div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
+		    {/if}
+		    <div id="content">
+			<!-- content -->                    
                     {include #content}
-                    <!-- /content -->
-                </div>
-            </div>
+			<!-- /content -->
+		    </div>
+		</div>
+		<div class="span-5 last" id="sidebar">
+		    {if $logged}
+			<div id="courseBox">                    
+			    <h3>Teachered courses</h3>
+			    {foreach $tCourses as $course}
+			    <div class="course asTeacher">
+				<div id="t{$course->id}_toggle" class="title"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</div>
+				<ul id="t{$course->id}">
+				    <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>Lessons</a></li>
+				    <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>Results</a></li>
+				    <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>Assignments</b></a></li>
+				    <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>Resources</a></li>
+				    <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>Forum</a></li>
+				    <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>Events</a></li>
+				</ul>
+			    </div>
+			    {/foreach}
+			    <h3>Student courses</h3>
+			    {foreach $sCourses as $course}
+			    <div class="course asStudent">
+				<div id="s{$course->id}_toggle" class="title"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</div>
+				<ul id="s{$course->id}">
+				    <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>Lessons</a></li>
+				    <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>Results</a></li>
+				    <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>Assignments</b></a></li>
+				    <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>Resources</a></li>
+				    <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>Forum</a></li>
+				    <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>Events</a></li>
+				</ul>
+			    </div>
+			    {/foreach}
+			</div>
+		    {/if}
+		</div>
+	    </div>
+	</div>
 
-            <div class="span-5 last" id="sidebar">
+	<div id="footer">
+	    <div class="container shadow">
+		<div id="poweredlogos">
+		    <a href="http://nette.org"><img src="{$basePath}/images/nette.png" /></a>
+		    <a href="http://jquery.com/"><img src="{$basePath}/images/jquery.png" /></a>
+		</div>
 
-                {if $logged}
-                <div id="courseBox">                    
-                    <h3>Teachered courses</h3>
-                        {foreach $tCourses as $course}
-                    <div class="course asTeacher">
-                            <div id="t{$course->id}_toggle" class="title">{$course['name']}</div>
-                        <ul id="t{$course->id}">
-                            <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>Lessons</a></li>
-                            <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>Results</a></li>
-                            <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>Assignments</b></a></li>
-                            <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>Resources</a></li>
-                            <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>Forum</a></li>
-                            <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>Events</a></li>
-                        </ul>
-                    </div>
-                        {/foreach}
-                    <h3>Student courses</h3>
-                        {foreach $sCourses as $course}
-                    <div class="course asStudent">
-                            <div id="s{$course->id}_toggle" class="title">{$course['name']}</div>
-                        <ul id="s{$course->id}">
-                            <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>Lessons</a></li>
-                            <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>Results</a></li>
-                            <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>Assignments</b></a></li>
-                            <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>Resources</a></li>
-                            <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>Forum</a></li>
-                            <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>Events</a></li>
-                        </ul>
-                    </div>
-                        {/foreach}
-                </div>
-                {/if}
-
-
-            </div>
+		<div id="cminfo">
+		    <span>Course Manager (© 2011)</span>
+		    <br /> by Jakub Kinst
+		    <br /><a href="mailto:jakub@kinst.cz">jakub@kinst.cz</a>
+		    <br /><a href="http://jakub.kinst.cz">http://jakub.kinst.cz</a>
+		</div>
+	    </div>
         </div>
-        <div id="footer" class="border">
-            <div><span>Course Manager (© 2011)</span>
-                <br /> by Jakub Kinst &lt;<a href="mailto:jakub@kinst.cz">jakub@kinst.cz</a>&gt;</div>
-        </div>
+
 
 <!-- Flash messages -->
         <div id="flashMessages">

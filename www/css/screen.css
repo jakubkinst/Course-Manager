@@ -1,11 +1,25 @@
 *{
     margin:0;padding:0;
+    color:#555555;
 }
-div , a{    
+/*div , a{    
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     border-radius: 3px;
+}*/
+
+p a{
+    text-decoration: underline;
+}
+form label{
+    color:#555555;
+}
+
+.shadow {
+  -moz-box-shadow: 0px 0px 8px #ccc;
+  -webkit-box-shadow: 0px 0px 8px #ccc;
+  box-shadow: 0px 0px 8px #ccc;
 }
 
 .floatcontainer{
@@ -15,14 +29,14 @@ div , a{
     float:left;        
 }
 body {
-    font-family: "Trebuchet MS",Verdana,Arial,sans-serif; 
-    font-size: 11px;
+    font-family: "Cambria","Trebuchet MS",Verdana,Arial,sans-serif; 
+    font-size: 12px;
     color: #222222;
     background-color: #fff;
 }
 
 tbody tr:nth-child(even) td, tbody tr.even td {
-    background: #edffc7;
+    background: #dde8ed;
 }
 
 /* Disable even row coloring in forms */
@@ -39,7 +53,9 @@ a:hover {
 }
 #content{
     padding:5px;
-    border:1px solid #aaaaaa;
+   height:100%;
+   min-height:500px;
+    background:#fdfdfd;    
 }
 #content h3{
     color:#555555;
@@ -50,13 +66,13 @@ a:hover {
     height: 1px;
     width: 98%;
     display: block;
-    background-color: #AAAAAA ;
+    background-color: #dddddd ;
     margin:8px;
     margin-left: auto;
     margin-right: auto;
 }
 #content table{    
-    border: 1px solid #aaaaaa;
+    border: 1px solid #dddddd;
 }
 #content table th{
     background:#c7cdcf;
@@ -64,21 +80,31 @@ a:hover {
 #naviHead {
     padding:1px;
     padding-left:10px;
-    background:#c8fe53;
+    background:#f1f1f1;
     font-size: 17px; 
     color:#555555;
     text-transform: uppercase;
-    margin-bottom:4px;
-    border:1px solid #aaaaaa;
+    border-bottom:1px solid #dddddd;
 }
-
+#main .container{
+    border-left:1px solid #dddddd;    
+    border-right:1px solid #dddddd;
+}
+#leftcontent{
+    float:left;
+    border-right:1px solid #dddddd;
+}
+#sidebar{
+    width:189px;
+    float:right;
+}
 .notActive {
     text-decoration: line-through;
 }
 /* Required form input */
 form tr.required {
     font-weight: bold;
-    color:#C00;
+    color:#9e0c0c;
 }
 div.buttonline{
     width:100%;
@@ -95,7 +121,7 @@ a.nbutton {
     padding-left: 6px;
     padding-right:6px;
     background: #c7cdcf;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
 }
 
 
@@ -109,14 +135,14 @@ a.abutton {
     padding-left: 6px;
     padding-right:6px;
     background: #c7cdcf;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
 }
 a.abutton:hover{
-    background:#edffc7;
+    background:#dde8ed;
     color:black;
 }
 a.adminbutton{
-    background:#a8d546;
+    background:#62b1da;
 }
 a.redbutton{
     background:#fe896e;
@@ -141,40 +167,78 @@ input{
 }
 input.text{
     padding:2px;
-    background:#edffc7;
+    background:#dde8ed;
     width:200px;
 }
 input.button{
     padding:2px;
-    background:#edffc7;
+    background:#dde8ed;
 }
 
 
 #header {
     width:100%;
-    height:50px;
+    height:60px;
+    background:#f7f7f7;    
+    border-bottom:1px solid #dddddd;
+}
+#header .container {    
+    height:100%;    
+    border-left:1px solid #dddddd;
+    border-right:1px solid #dddddd;
+}
+#header .container #innerheader{ 
+    overflow: auto;
+    height:100%;
+    background:#f2f2f2;
+}
+#footer .container{
+       
+    border-left:1px solid #dddddd;   
+    border-right:1px solid #dddddd;
 }
 #footer{
-    margin-top:40px;
     width:100%;
-    height:30px;
+    height:102px;
     font-size:11px;
-    text-align: right;
-    color:#aaaaaa;
+    color:#dddddd;
+    border-top:1px solid #dddddd;
+    overflow:auto;    
+    background:#f7f7f7;    
+    border-bottom:1px solid #dddddd;
 }
-#footer div{
-    float:right;
-    margin-right:40px;
-    width:300px;
+#footer #poweredlogos{
+    width:295px;
+    background:#f2f2f2;
     padding:4px;
-    border-top:1px solid #aaaaaa;
+    float:left;
+    border-right:1px solid #dddddd; 
 }
+
+#footer #poweredlogos a{
+    display:block;
+    float:left;
+    margin:20px;
+    margin-top:30px;
+}
+#footer #cminfo{
+    width:620px;
+    background: #f9f9f9;
+    float:left;     
+    text-align: right;
+    padding:12px;    
+    
+}
+
 #footer span {
-    color:#222222;
+    color:#aaaaaa;
+    font-weight:bolder;
+    font-size:16px;
+    
 }
 #logo{
     width:498px;
-    height:39px;
+    height:45px;
     float:left;
     margin-top:3px;
     background: url('../images/logo.png');
@@ -183,7 +247,7 @@ input.button{
     display:none;
 }
 #mainmenu{
-    float:right;
+    float:right;    
 }
 #mainmenu .ui-icon{
     margin-right:0px;
@@ -206,8 +270,8 @@ input.button{
     padding-left: 6px;
     padding-right: 7px;
     font-size:12px;
-    background: #c8fe53;
-    border: 1px solid #aaaaaa;
+    background: #88beda;
+    border: 1px solid #666666;
     cursor:pointer;
     border-left:none;    
     border-top:none;
@@ -225,7 +289,7 @@ input.button{
 
 }
 #mainmenu ul li a.leftborder{
-    border-left:1px solid #aaaaaa;
+    border-left:1px solid #666666;
 }
 #mainmenu ul li a.mainMenuButton:hover{
     background: #c7cdcf;
@@ -236,20 +300,20 @@ input.button{
     display:none;
     top:26px;
     padding:5px;
-    background: #c8fe53;
-    border: 1px solid #aaaaaa;
+    background: #88beda;
+    border: 1px solid #666666;
 }
 #loginBox input.text{
     width:120px;
 }
 #loginBox #loggedMenu{
     width:160px;
-    height:70px;
+    min-height:70px;
 }
 
 #loginBox .loggedUser {
     display:block;
-    color:#C00;
+    color:#9e0c0c;
     text-align: right;
     font-size:20px;
 }
@@ -261,8 +325,9 @@ input.button{
     padding:5px;
 }
 #courseBox h3{
-    font-size:13px;
+    font-size:14px;
     font-weight: bold;
+    color:#555555;
 
 }
 #courseBox .course ul {  
@@ -279,7 +344,7 @@ input.button{
 }
 #courseBox .course {
     margin:10px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     background:white;
 
 }
@@ -289,12 +354,11 @@ input.button{
 #courseBox .course .title{
     color:black;
     padding:4px;
-    font-size:11px;
-    font-weight: bold;
+    font-size:12px;
     cursor:pointer;
 }
 #courseBox .asTeacher .title{    
-    background-color: #c8fe53;
+    background-color: #88beda;
 }
 #courseBox .asStudent .title{    
     background-color: #c7cdcf;
@@ -315,18 +379,18 @@ input.button{
 .unauthorized {
     background:#ffcc33;
     color:#ff6600;
-    border:2px solid #aaaaaa;
+    border:2px solid #dddddd;
 }
 .success {
     background:#66cc00;
     color:#339900;
-    border:2px solid #aaaaaa;
+    border:2px solid #dddddd;
 }
 
 /* CourseList Presenter */
 
 #courseList_homepage .invite{
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     background: wheat;
     padding:5px;
 }
@@ -337,16 +401,16 @@ input.button{
     background:#e5ecf9;
     padding-left:2px;
     padding-right:2px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
 }
 #courseList_homepage .invite a:hover{
-    background:#aaaaaa;
+    background:#dddddd;
 }
 #courseList_homepage h4{
     font-size:16px;
     font-weight: bold;
     color: #555555;
-    border-bottom:1px solid #aaaaaa;
+    border-bottom:1px solid #dddddd;
     padding:4px;
 }
 
@@ -360,18 +424,18 @@ input.button{
 }
 #courseList_homepage .course {
     margin:8px;
-    border: 1px solid #aaaaaa;
+    border: 1px solid #dddddd;
 }
 #courseList_homepage .course:hover {
-    background:#edffc7;  
+    background:#dde8ed;  
 }
 #courseList_homepage .course .head{
     display:block;
     padding:5px;
-    border-bottom:1px solid #aaaaaa;
+    border-bottom:1px solid #dddddd;
 }
 #courseList_homepage .asTeacher .head {    
-    background-color: #c8fe53;
+    background-color: #88beda;
 }
 
 #courseList_homepage .asStudent  .head{    
@@ -410,7 +474,7 @@ input.button{
     margin-left: 40px;    
 }
 #lesson_homepage #comments .comment {
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     background: #c7cdcf;
     padding:5px;
     width:60%;
@@ -425,18 +489,18 @@ input.button{
     color:#333;
 }
 #lesson_homepage #comments .comment .content {
-    border-top:1px solid #aaaaaa;
+    border-top:1px solid #dddddd;
     padding:3px;
     padding-left: 5px;
     color:black;
 }
 #lesson_homepage #commentForm {
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     padding:5px;
     text-align: center;
 }
 #lesson_homepage #commentForm textarea{
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     background: #e5ecf9;
     padding:5px;
     width:300px;
@@ -455,24 +519,24 @@ input.button{
 
 }
 .forum_thread_head{
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     margin:auto;
-    background-color: #c8fe53;
+    background-color: #88beda;
     padding:20px;
 }
 .forum_thread_reply{
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     margin:auto;
     margin-left:20px;
-    background-color: #edffc7;
+    background-color: #dde8ed;
     padding:20px;
 }
 
 /* Event presenter */
 .event_event{
     margin:10px;
-    background: #c8fe53;
-    border:1px solid #aaaaaa;
+    background: #88beda;
+    border:1px solid #dddddd;
 }
 
 /* Message presenter */
@@ -501,27 +565,27 @@ input.button{
     height:80px;
 }
 #assignment_homepage .assignment{
-    background: #c8fe53;
+    background: #88beda;
     margin:5px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     padding:5px;
 }
 #assignment_show .description{
 
-    background: #c8fe53;
+    background: #88beda;
     margin:5px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     padding:5px;
 }
 #assignment_show .generalinfo{
     margin:5px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     padding:5px;
 }
 #assignment_show .timelimitinfo{        
     background:#fe896e;
     margin:5px;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
     padding:5px;
 }
 #assignment_show .timelimitinfo strong{
@@ -535,7 +599,7 @@ input.button{
     padding:5px;
     margin:5px;
     visibility: hidden;
-    border:1px solid #aaaaaa;
+    border:1px solid #dddddd;
 }
 
 .online{
@@ -546,4 +610,23 @@ input.button{
 #user_homepage span{
     display:block;
     font-size:13px;
+}
+#content code{
+    background:#eeeeee;
+    padding:5px;
+    border: 1px solid #dddddd;
+    font-size:11px;
+}
+
+/* Calendar */
+.fc-event-time{
+    color:#eeeeee;
+    font-size:11px;
+}
+.fc-event-title{
+    color:white;
+    font-size:11px;
+}
+#calendar table{
+    border:none;
 }
