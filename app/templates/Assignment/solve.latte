@@ -1,4 +1,4 @@
-{block title}Solving {$assignment->name} - Assignments{/block}
+{block title}{!_'Solving'} {$assignment->name} - {!_'Assignments'}{/block}
 {block head}
 <script>    
     
@@ -17,7 +17,7 @@ function settime () {
   var min = Math.floor(millisTill/1000/60%60);
   var sec = Math.floor(millisTill/1000%60%60);
   var time = "";
-  time = "Remaining time: " + hour + ":" +
+  time = "{!_'Remaining time:'} " + hour + ":" +
          (min < 10 ? "0" : "") + min + ":" +
          (sec < 10 ? "0" : "") + sec;
  // show only if less than one hour is remaining
@@ -33,7 +33,7 @@ function settime () {
 {/block}
 {block content}
 
-<h3>Solving {$assignment->name}</h3>
+<h3>{!_'Solving'} {$assignment->name}</h3>
             <div class="separator"><!----></div>
 <div id="assignment_solve">
     <h4 id="remainingtime"></h4>

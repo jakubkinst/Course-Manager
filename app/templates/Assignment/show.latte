@@ -1,20 +1,20 @@
-{block title}{$assignment->name} - Assignments{/block}
+{block title}{$assignment->name} - {!_'Assignments'}{/block}
 {block head}
 {/block}
 {block content}
-<h3>{$assignment->name} ({$assignment->assigndate} - {$assignment->duedate}) {if $assignment->autocorrect} (Auto-Correct){/if}</h3>
+<h3>{$assignment->name} ({$assignment->assigndate} - {$assignment->duedate}) {if $assignment->autocorrect} ({!_'Auto-Correct'}){/if}</h3>
             <div class="separator"><!----></div>
     <div id="assignment_show">
 	<div class="description">{$assignment->description}</div>
 	
-	<p class="generalinfo">You can start solving this assignment by clicking the Solve Now button.</p>	
+	<p class="generalinfo">{!_'You can start solving this assignment by clicking the Solve Now button.'}</p>	
 	{if $assignment->timelimit>0}
-	    <p class="timelimitinfo">This assignment is time limited. You have <strong>{$assignment->timelimit} minutes</strong> to solve it once you click the Solve Now button.</p>
+	    <p class="timelimitinfo">{!_'This assignment is time limited. You have'} <strong>{$assignment->timelimit} {!_'minutes'}</strong> {!_'to solve it once you click the Solve Now button.'}</p>
 	{/if}
 	<div class="buttonline">
-	    {if $canSolve && !$isTeacher}<a class="abutton" href="{link solve,$assignment->id}">{if $isSolved}Edit Submission{else}Solve Now{/if}</a>{/if}
-	    {if $isTeacher}<a class="adminbutton abutton" href="{link edit,$assignment->id}">Edit</a>{/if}
-	    {if $isTeacher}{if !$assignment->autocorrect}<a class="adminbutton abutton" href="{link correct,$assignment->id}">Correct</a>{/if}{/if}
+	    {if $canSolve && !$isTeacher}<a class="abutton" href="{link solve,$assignment->id}">{if $isSolved}{!_'Edit Submission'}{else}{!_'Solve Now'}{/if}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link edit,$assignment->id}">{!_'Edit'}</a>{/if}
+	    {if $isTeacher}{if !$assignment->autocorrect}<a class="adminbutton abutton" href="{link correct,$assignment->id}">{!_'Correct'}</a>{/if}{/if}
 	</div>
     </div>
 {/block}

@@ -28,7 +28,8 @@ class EventPresenter extends BasePresenter {
      * @return AppForm 
      */
     protected function createComponentAddEvent() {
-        $form = new AppForm;        
+        $form = new AppForm;  
+	$form->setTranslator($this->translator);      
         $form->addText('name', 'Name:*')        
                 ->addRule(Form::FILLED, 'Fill name.');
         $form->addText('date', 'Date:*')        

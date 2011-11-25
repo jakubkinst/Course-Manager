@@ -1,17 +1,17 @@
-{block title}My Courses{/block}
+{block title}{!_'My Courses'}{/block}
 {block head}{/block}
 {block content}
     <div id="courseList_homepage">
         {if $logged}
-        <h3>My Courses</h3>
+        <h3>{!_'My Courses'}</h3>
             <div class="separator"><!----></div>
         <div class="buttonline">
-            <a class="adminbutton abutton" href="{link course:add}"><span class="ui-icon ui-icon-circle-plus"></span>Add Course</a>
+            <a class="adminbutton abutton" href="{link course:add}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Course'}</a>
         </div>
 	<div id="invites">
 	    {foreach $invites as $invite}
 	    <div class="invite"><span class="ui-icon ui-icon-info"></span>
-		You have been invited to <b>{$invite->course->name}</b> by <b>{$invite->invitedBy->firstname} {$invite->invitedBy->lastname}</b> <a href="{link acceptInvite!,$invite->id}">Accept</a><a href="{link declineInvite!,$invite->id}">Decline</a>
+		{!_'You have been invited to'} <b>{$invite->course->name}</b> {!_'by'} <b>{$invite->invitedBy->firstname} {$invite->invitedBy->lastname}</b> <a href="{link acceptInvite!,$invite->id}">{!_'Accept'}</a><a href="{link declineInvite!,$invite->id}">{!_'Decline'}</a>
 	    </div>
 	    {/foreach}
 	</div>
@@ -19,7 +19,7 @@
         <div class="floatcontainer">
             {if sizeof($tCourses)>0}
                 <div class="teachercourses">
-                    <h4>Teaching courses</h4>
+                    <h4>{!_'Teaching courses'}</h4>
                 {foreach $tCourses as $course}
                     <a href="{link course:homepage, $course['id']}">
                         <div class="course asTeacher">
@@ -35,7 +35,7 @@
             
             {if sizeof($sCourses)>0}
                 <div class="studentcourses">
-                    <h4>Student courses</h4>
+                    <h4>{!_'Student courses'}</h4>
                 {foreach $sCourses as $course}
                     <a href="{link course:homepage, $course['id']}">
                         <div class="course asStudent">
@@ -49,13 +49,13 @@
                 </div>
             {/if}
             {if (sizeof($tCourses)==0) && (sizeof($sCourses)==0)}
-            <h5>No courses</h5>
+            <h5>{!_'No courses'}</h5>
             {/if}
         </div>
         {else}
         <p id="welcome">
-            Welcome to Course Manager. Please sign in.<br/>
-            You can register <a href="{link user:register}">here</a>
+            {!_'Welcome to Course Manager. Please sign in.'}<br/>
+            {!_'You can register'} <a href="{link user:register}">{!_'here'}</a>
         </p>
         {/if}
     </div>

@@ -55,7 +55,11 @@ class UserModel extends Object implements IAuthenticator {
     
      static public function editUser($values) {
 	$uid = Environment::getUser()->getIdentity()->id;
+	dibi::begin();	
 	$result = dibi::query('UPDATE user SET', $values,'WHERE id=%i',$uid);
+	//create settings record
+	dibi::query('INSERT INTO settings',array('User_id'=>$id));
+	dibi::commit();
 	return $result;
     }
 

@@ -55,6 +55,7 @@ class UserPresenter extends MasterPresenter {
 	}
 
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('firstname', 'First name:*')
 		->addRule(Form::FILLED, 'Fill the firstname.');
 	$form->addText('lastname', 'Last name:*')
@@ -94,6 +95,7 @@ class UserPresenter extends MasterPresenter {
 
     protected function createComponentEditForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('firstname', 'First name:*')
 		->addRule(Form::FILLED, 'Fill the firstname.');
 	$form->addText('lastname', 'Last name:*')

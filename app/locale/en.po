@@ -1,0 +1,911 @@
+# Gettext keys exported by GettextExtractor
+# Created: 2011-11-25T11:51:56+01:00
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jakub Kinst <jakub@kinst.cz>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# MessagePresenter.php:50
+# UserPresenter.php:64
+msgid "@"
+msgstr "@"
+
+# TexyTableModule.php:283
+msgid "Â "
+msgstr "Â "
+
+# homepage.latte:13
+msgid "Accept"
+msgstr "Accept"
+
+# AssignmentPresenter.php:191
+# AssignmentPresenter.php:245
+# AssignmentPresenter.php:264
+# AssignmentPresenter.php:281
+# AssignmentPresenter.php:309
+# AssignmentPresenter.php:349
+# EventPresenter.php:39
+msgid "Add"
+msgstr "Add"
+
+# ResultPresenter.php:61
+# add.latte:0
+# add.latte:10
+msgid "Add Assignment"
+msgstr "Add Assignment"
+
+# homepage.latte:9
+msgid "Add Auto-Correct"
+msgstr "Add Auto-Correct"
+
+# add.latte:0
+# add.latte:3
+# homepage.latte:8
+msgid "Add Course"
+msgstr "Add Course"
+
+# homepage.latte:45
+msgid "ADD EVENT"
+msgstr "ADD EVENT"
+
+# CoursePresenter.php:75
+msgid "Add lesson"
+msgstr "Add lesson"
+
+# addLesson.latte:0
+# addLesson.latte:4
+# homepage.latte:13
+msgid "Add Lesson"
+msgstr "Add Lesson"
+
+# homepage.latte:8
+msgid "Add Normal"
+msgstr "Add Normal"
+
+# addResource.latte:0
+msgid "Add resource"
+msgstr "Add resource"
+
+# homepage.latte:6
+msgid "Add Resource"
+msgstr "Add Resource"
+
+# add.latte:0
+# add.latte:3
+# homepage.latte:72
+msgid "Add Results"
+msgstr "Add Results"
+
+# @layout.latte:177
+# @layout.latte:191
+# add.latte:0
+# correct.latte:0
+# homepage.latte:0
+# homepage.latte:5
+# show.latte:0
+# solve.latte:0
+msgid "Assignments"
+msgstr "Assignments"
+
+# homepage.latte:11
+# showTopic.latte:15
+msgid "Author"
+msgstr "Author"
+
+# homepage.latte:13
+# show.latte:4
+msgid "Auto-Correct"
+msgstr "Auto-Correct"
+
+# homepage.latte:49
+msgid "AVG"
+msgstr "AVG"
+
+# homepage.latte:13
+# showTopic.latte:6
+msgid "by"
+msgstr "by"
+
+# testfile.php:13
+msgid "Cancel"
+msgstr "Cancel"
+
+# AssignmentPresenter.php:183
+msgid "Close Date:"
+msgstr "Close Date:"
+
+# LessonPresenter.php:43
+msgid "Comment:"
+msgstr "Comment:"
+
+# homepage.latte:26
+msgid "Comments"
+msgstr "Comments"
+
+# inviteStudent.latte:12
+msgid "Confirmed students"
+msgstr "Confirmed students"
+
+# showMessage.latte:12
+msgid "Content"
+msgstr "Content"
+
+# MessagePresenter.php:54
+msgid "Content:"
+msgstr "Content:"
+
+# ForumPresenter.php:53
+msgid "Content:*"
+msgstr "Content:*"
+
+# show.latte:16
+msgid "Correct"
+msgstr "Correct"
+
+# correct.latte:0
+# correct.latte:4
+msgid "Correcting"
+msgstr "Correcting"
+
+# CoursePresenter.php:45
+msgid "Course description:"
+msgstr "Course description:"
+
+# showEvent.latte:8
+msgid "Course Event Detail"
+msgstr "Course Event Detail"
+
+# homepage.latte:5
+msgid "Course Forum"
+msgstr "Course Forum"
+
+# homepage.latte:0
+msgid "Course Home"
+msgstr "Course Home"
+
+# CoursePresenter.php:43
+msgid "Course name:*"
+msgstr "Course name:*"
+
+# homepage.latte:5
+msgid "Course Resources"
+msgstr "Course Resources"
+
+# CoursePresenter.php:47
+msgid "Create course"
+msgstr "Create course"
+
+# EventPresenter.php:34
+msgid "Date:*"
+msgstr "Date:*"
+
+# homepage.latte:13
+msgid "Decline"
+msgstr "Decline"
+
+# homepage.latte:15
+msgid "Delete Course"
+msgstr "Delete Course"
+
+# showEvent.latte:12
+msgid "Description"
+msgstr "Description"
+
+# AssignmentPresenter.php:181
+msgid "Description:"
+msgstr "Description:"
+
+# EventPresenter.php:36
+msgid "Description:*"
+msgstr "Description:*"
+
+# edit.latte:25
+msgid "Done"
+msgstr "Done"
+
+# correct.latte:28
+msgid "Download"
+msgstr "Download"
+
+# show.latte:15
+msgid "Edit"
+msgstr "Edit"
+
+# edit.latte:0
+# edit.latte:4
+msgid "Edit Assignment"
+msgstr "Edit Assignment"
+
+# @layout.latte:138
+msgid "Edit profile"
+msgstr "Edit profile"
+
+# show.latte:14
+msgid "Edit Submission"
+msgstr "Edit Submission"
+
+# edit.latte:0
+# edit.latte:3
+msgid "Edit User"
+msgstr "Edit User"
+
+# homepage.latte:13
+msgid "E-mail"
+msgstr "E-mail"
+
+# UserPresenter.php:66
+msgid "E-mail is already registered."
+msgstr "E-mail is already registered."
+
+# MasterPresenter.php:76
+msgid "E-Mail:"
+msgstr "E-Mail:"
+
+# CoursePresenter.php:100
+# UserPresenter.php:62
+msgid "E-mail:*"
+msgstr "E-mail:*"
+
+# MessagePresenter.php:51
+# UserPresenter.php:65
+msgid "Enter valid e-mail"
+msgstr "Enter valid e-mail"
+
+# testfile.php:5
+msgid "Escaping some \\\"fancy\\\" text"
+msgstr "Escaping some \\\"fancy\\\" text"
+
+# showEvent.latte:0
+msgid "Event"
+msgstr "Event"
+
+# @layout.latte:180
+# @layout.latte:194
+# homepage.latte:0
+# homepage.latte:38
+msgid "Events"
+msgstr "Events"
+
+# AssignmentPresenter.php:238
+# AssignmentPresenter.php:260
+# AssignmentPresenter.php:277
+# AssignmentPresenter.php:294
+# AssignmentPresenter.php:334
+msgid "Example"
+msgstr "Example"
+
+# Uploader.php:32
+msgid "File "
+msgstr "File "
+
+# edit.latte:11
+msgid "File upload"
+msgstr "File upload"
+
+# LessonPresenter.php:44
+msgid "Fill comment."
+msgstr "Fill comment."
+
+# ForumPresenter.php:54
+# ForumPresenter.php:81
+msgid "Fill content."
+msgstr "Fill content."
+
+# EventPresenter.php:35
+msgid "Fill date."
+msgstr "Fill date."
+
+# EventPresenter.php:37
+msgid "Fill description."
+msgstr "Fill description."
+
+# CoursePresenter.php:101
+msgid "Fill email."
+msgstr "Fill email."
+
+# UserPresenter.php:68
+msgid "Fill in the password"
+msgstr "Fill in the password"
+
+# UserPresenter.php:71
+msgid "Fill in the password again."
+msgstr "Fill in the password again."
+
+# EventPresenter.php:33
+msgid "Fill name."
+msgstr "Fill name."
+
+# UserPresenter.php:59
+# UserPresenter.php:98
+msgid "Fill the firstname."
+msgstr "Fill the firstname."
+
+# UserPresenter.php:61
+# UserPresenter.php:100
+msgid "Fill the lastname."
+msgstr "Fill the lastname."
+
+# ForumPresenter.php:52
+msgid "Fill topic."
+msgstr "Fill topic."
+
+# homepage.latte:10
+msgid "First Name"
+msgstr "First Name"
+
+# UserPresenter.php:58
+# UserPresenter.php:97
+msgid "First name:*"
+msgstr "First name:*"
+
+# @layout.latte:179
+# @layout.latte:193
+# homepage.latte:0
+msgid "Forum"
+msgstr "Forum"
+
+# showTopic.latte:0
+msgid "Forum Topic"
+msgstr "Forum Topic"
+
+# showMessage.latte:10
+msgid "from"
+msgstr "from"
+
+# inbox.latte:15
+msgid "From"
+msgstr "From"
+
+# homepage.latte:41
+msgid "Grades"
+msgstr "Grades"
+
+# homepage.latte:0
+msgid "Help"
+msgstr "Help"
+
+# homepage.latte:57
+msgid "here"
+msgstr "here"
+
+# testfile.php:3
+msgid "I see %d little indians!"
+msgstr "I see %d little indians!"
+
+# inbox.latte:0
+# new.latte:7
+# outbox.latte:8
+msgid "Inbox"
+msgstr "Inbox"
+
+# CoursePresenter.php:104
+msgid "Invite"
+msgstr "Invite"
+
+# homepage.latte:14
+# inviteStudent.latte:0
+# inviteStudent.latte:4
+msgid "Invite Student"
+msgstr "Invite Student"
+
+# inviteStudent.latte:8
+msgid "Invited students"
+msgstr "Invited students"
+
+# homepage.latte:11
+msgid "Last Name"
+msgstr "Last Name"
+
+# UserPresenter.php:60
+# UserPresenter.php:99
+msgid "Last name:*"
+msgstr "Last name:*"
+
+# homepage.latte:13
+msgid "Last reply"
+msgstr "Last reply"
+
+# homepage.latte:17
+msgid "Leave Course"
+msgstr "Leave Course"
+
+# homepage.latte:22
+msgid "Lectors"
+msgstr "Lectors"
+
+# addResource.latte:0
+# homepage.latte:0
+msgid "Lesson"
+msgstr "Lesson"
+
+# CoursePresenter.php:73
+msgid "Lesson description:"
+msgstr "Lesson description:"
+
+# @layout.latte:175
+# @layout.latte:189
+msgid "Lessons"
+msgstr "Lessons"
+
+# @layout.latte:139
+msgid "Log out"
+msgstr "Log out"
+
+# @layout.latte:128
+msgid "Login"
+msgstr "Login"
+
+# homepage.latte:16
+msgid "Max points"
+msgstr "Max points"
+
+# ResultPresenter.php:47
+msgid "Max points/grade must be a number"
+msgstr "Max points/grade must be a number"
+
+# ResultPresenter.php:46
+msgid "Max points:"
+msgstr "Max points:"
+
+# AssignmentPresenter.php:184
+msgid "Max. Points (0=no max points):"
+msgstr "Max. Points (0=no max points):"
+
+# AssignmentPresenter.php:186
+# AssignmentPresenter.php:190
+msgid "Max. points must be a number"
+msgstr "Max. points must be a number"
+
+# correct.latte:16
+msgid "Max:"
+msgstr "Max:"
+
+# homepage.latte:26
+# homepage.latte:43
+msgid "Message"
+msgstr "Message"
+
+# showMessage.latte:0
+msgid "Messages"
+msgstr "Messages"
+
+# homepage.latte:17
+msgid "min"
+msgstr "min"
+
+# UserPresenter.php:69
+msgid "Minimal password length is %d."
+msgstr "Minimal password length is %d."
+
+# show.latte:11
+msgid "minutes"
+msgstr "minutes"
+
+# homepage.latte:63
+msgid "More"
+msgstr "More"
+
+# edit.latte:13
+msgid "Multi choices"
+msgstr "Multi choices"
+
+# homepage.latte:0
+# homepage.latte:5
+msgid "My Courses"
+msgstr "My Courses"
+
+# inbox.latte:5
+msgid "My Inbox"
+msgstr "My Inbox"
+
+# AssignmentPresenter.php:239
+# AssignmentPresenter.php:278
+# AssignmentPresenter.php:295
+msgid "My Label"
+msgstr "My Label"
+
+# AssignmentPresenter.php:261
+msgid "My Label:"
+msgstr "My Label:"
+
+# outbox.latte:5
+msgid "My Outbox"
+msgstr "My Outbox"
+
+# @layout.latte:137
+msgid "My profile"
+msgstr "My profile"
+
+# homepage.latte:25
+# homepage.latte:42
+# homepage.latte:11
+# homepage.latte:45
+msgid "Name"
+msgstr "Name"
+
+# AssignmentPresenter.php:179
+msgid "Name*"
+msgstr "Name*"
+
+# EventPresenter.php:32
+msgid "Name:*"
+msgstr "Name:*"
+
+# inbox.latte:9
+# new.latte:0
+# new.latte:3
+# new.latte:8
+# outbox.latte:9
+msgid "New Message"
+msgstr "New Message"
+
+# homepage.latte:51
+msgid "No courses"
+msgstr "No courses"
+
+# homepage.latte:17
+msgid "no limit"
+msgstr "no limit"
+
+# homepage.latte:7
+msgid "Offline and Online tasks"
+msgstr "Offline and Online tasks"
+
+# ResultPresenter.php:44
+msgid "Offline assignment name:*"
+msgstr "Offline assignment name:*"
+
+# homepage.latte:41
+msgid "Offline tasks"
+msgstr "Offline tasks"
+
+# showEvent.latte:11
+# showMessage.latte:11
+msgid "on"
+msgstr "on"
+
+# homepage.latte:15
+msgid "Open"
+msgstr "Open"
+
+# AssignmentPresenter.php:182
+msgid "Open Date:"
+msgstr "Open Date:"
+
+# inbox.latte:8
+# new.latte:6
+# outbox.latte:0
+msgid "Outbox"
+msgstr "Outbox"
+
+# MasterPresenter.php:79
+msgid "Password:"
+msgstr "Password:"
+
+# UserPresenter.php:67
+msgid "Password:*"
+msgstr "Password:*"
+
+# UserPresenter.php:72
+msgid "Passwords don't match."
+msgstr "Passwords don't match."
+
+# AssignmentPresenter.php:110
+msgid "Point value must be a number"
+msgstr "Point value must be a number"
+
+# correct.latte:16
+# homepage.latte:7
+msgid "Points"
+msgstr "Points"
+
+# AssignmentPresenter.php:111
+msgid "Points must be between 0 and max. points"
+msgstr "Points must be between 0 and max. points"
+
+# ResultPresenter.php:58
+msgid "Points/grade must be a number"
+msgstr "Points/grade must be a number"
+
+# ResultPresenter.php:53
+msgid "Points/Grade:"
+msgstr "Points/Grade:"
+
+# ForumPresenter.php:56
+# ForumPresenter.php:83
+# LessonPresenter.php:45
+msgid "Post"
+msgstr "Post"
+
+# showTopic.latte:16
+msgid "Posted"
+msgstr "Posted"
+
+# edit.latte:16
+msgid "Preview"
+msgstr "Preview"
+
+# edit.latte:12
+msgid "Radio choices"
+msgstr "Radio choices"
+
+# inbox.latte:16
+msgid "Recieved"
+msgstr "Recieved"
+
+# UserPresenter.php:75
+# UserPresenter.php:103
+msgid "Register"
+msgstr "Register"
+
+# @layout.latte:143
+msgid "REGISTER"
+msgstr "REGISTER"
+
+# register.latte:0
+# register.latte:3
+msgid "Register User"
+msgstr "Register User"
+
+# solve.latte:19
+msgid "Remaining time:"
+msgstr "Remaining time:"
+
+# MasterPresenter.php:82
+msgid "Remember"
+msgstr "Remember"
+
+# homepage.latte:12
+msgid "Replies"
+msgstr "Replies"
+
+# ForumPresenter.php:80
+msgid "Reply:*"
+msgstr "Reply:*"
+
+# @layout.latte:178
+# @layout.latte:192
+# homepage.latte:17
+# homepage.latte:0
+msgid "Resources"
+msgstr "Resources"
+
+# @layout.latte:176
+# @layout.latte:190
+# homepage.latte:0
+# homepage.latte:5
+msgid "Results"
+msgstr "Results"
+
+# AssignmentPresenter.php:244
+# AssignmentPresenter.php:308
+# AssignmentPresenter.php:348
+msgid "Right anwser must be filled"
+msgstr "Right anwser must be filled"
+
+# AssignmentPresenter.php:243
+# AssignmentPresenter.php:307
+msgid "Right Anwser:*"
+msgstr "Right Anwser:*"
+
+# AssignmentPresenter.php:347
+msgid "Right Anwsers delim. by \";\" :*"
+msgstr "Right Anwsers delim. by \";\" :*"
+
+# AssignmentPresenter.php:113
+# SettingsPresenter.php:27
+msgid "Save"
+msgstr "Save"
+
+# Uploader.php:33
+msgid "Select file."
+msgstr "Select file."
+
+# testfile.php:11
+# MessagePresenter.php:55
+msgid "Send"
+msgstr "Send"
+
+# homepage.latte:31
+# homepage.latte:48
+# homepage.latte:15
+msgid "Send Message"
+msgstr "Send Message"
+
+# outbox.latte:15
+msgid "Sent"
+msgstr "Sent"
+
+# ResultPresenter.php:45
+msgid "Set assignment name."
+msgstr "Set assignment name."
+
+# CoursePresenter.php:44
+msgid "Set course name."
+msgstr "Set course name."
+
+# AssignmentPresenter.php:240
+# AssignmentPresenter.php:262
+# AssignmentPresenter.php:279
+msgid "Set Label"
+msgstr "Set Label"
+
+# AssignmentPresenter.php:296
+# AssignmentPresenter.php:336
+msgid "Set Label and choices"
+msgstr "Set Label and choices"
+
+# CoursePresenter.php:72
+msgid "Set lesson topic."
+msgstr "Set lesson topic."
+
+# homepage.latte:0
+# homepage.latte:3
+msgid "Settings"
+msgstr "Settings"
+
+# SettingsPresenter.php:26
+msgid "Show my e-mail address to my coursemates"
+msgstr "Show my e-mail address to my coursemates"
+
+# MasterPresenter.php:84
+msgid "Sign in"
+msgstr "Sign in"
+
+# show.latte:14
+msgid "Solve Now"
+msgstr "Solve Now"
+
+# solve.latte:0
+# solve.latte:35
+msgid "Solving"
+msgstr "Solving"
+
+# @layout.latte:184
+# homepage.latte:37
+msgid "Student courses"
+msgstr "Student courses"
+
+# correct.latte:12
+msgid "Student Name"
+msgstr "Student Name"
+
+# homepage.latte:39
+msgid "Students"
+msgstr "Students"
+
+# inbox.latte:14
+# outbox.latte:13
+# showMessage.latte:8
+msgid "Subject"
+msgstr "Subject"
+
+# MessagePresenter.php:53
+msgid "Subject:"
+msgstr "Subject:"
+
+# AssignmentPresenter.php:144
+msgid "Submit"
+msgstr "Submit"
+
+# homepage.latte:18
+msgid "SUM"
+msgstr "SUM"
+
+# @layout.latte:170
+msgid "Teachered courses"
+msgstr "Teachered courses"
+
+# homepage.latte:21
+msgid "Teaching courses"
+msgstr "Teaching courses"
+
+# edit.latte:10
+msgid "Text area"
+msgstr "Text area"
+
+# edit.latte:9
+msgid "Text input"
+msgstr "Text input"
+
+# show.latte:11
+msgid "This assignment is time limited. You have"
+msgstr "This assignment is time limited. You have"
+
+# MessagePresenter.php:52
+msgid "This e-mail address is not registered."
+msgstr "This e-mail address is not registered."
+
+# homepage.latte:17
+msgid "Time Limit"
+msgstr "Time Limit"
+
+# AssignmentPresenter.php:187
+msgid "Time limit in minutes (0=no limit):"
+msgstr "Time limit in minutes (0=no limit):"
+
+# AssignmentPresenter.php:188
+msgid "Time limit must be a number"
+msgstr "Time limit must be a number"
+
+# outbox.latte:14
+msgid "To"
+msgstr "To"
+
+# show.latte:11
+msgid "to solve it once you click the Solve Now button."
+msgstr "to solve it once you click the Solve Now button."
+
+# MessagePresenter.php:49
+msgid "To:*"
+msgstr "To:*"
+
+# homepage.latte:10
+msgid "Topic Name"
+msgstr "Topic Name"
+
+# CoursePresenter.php:71
+# ForumPresenter.php:51
+msgid "Topic:*"
+msgstr "Topic:*"
+
+# homepage.latte:40
+msgid "Unauthorized access !"
+msgstr "Unauthorized access !"
+
+# Uploader.php:35
+msgid "Upload"
+msgstr "Upload"
+
+# homepage.latte:16
+msgid "Upload Resource"
+msgstr "Upload Resource"
+
+# check.latte:0
+msgid "User confirmation"
+msgstr "User confirmation"
+
+# UserPresenter.php:70
+msgid "Verify password:*"
+msgstr "Verify password:*"
+
+# UserPresenter.php:73
+# UserPresenter.php:101
+msgid "Webpage:"
+msgstr "Webpage:"
+
+# homepage.latte:56
+msgid "Welcome to Course Manager. Please sign in."
+msgstr "Welcome to Course Manager. Please sign in."
+
+# CoursePresenter.php:102
+msgid "Wrong e-mail format"
+msgstr "Wrong e-mail format"
+
+# homepage.latte:57
+msgid "You can register"
+msgstr "You can register"
+
+# show.latte:9
+msgid "You can start solving this assignment by clicking the Solve Now button."
+msgstr "You can start solving this assignment by clicking the Solve Now button."
+
+# homepage.latte:13
+msgid "You have been invited to"
+msgstr "You have been invited to"
+
+# testfile.php:10
+msgid "Your name:"
+msgstr "Your name:"
+
+# check.latte:7
+msgid "Your registration is complete. Log in now."
+msgstr "Your registration is complete. Log in now."
+

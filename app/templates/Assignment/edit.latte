@@ -1,20 +1,20 @@
-{block title}Edit Assignment{/block}
+{block title}{!_'Edit Assignment'}{/block}
 {block head}
 {/block}
 {block content}
-<h3>Edit Assignment</h3>
+<h3>{!_'Edit Assignment'}</h3>
             <div class="separator"><!----></div>
     <div id="assignment_edit">
 	<div id="formcreator">
 	    <div class="scroll">
-		<div id="addtext">Text input{widget addTextForm}</div>
-		{if !$assignment->autocorrect}<div id="addtextarea">Text area{widget addTextAreaForm}</div>{/if}
-		{if !$assignment->autocorrect}<div id="addfile">File upload{widget addFileForm}</div>{/if}
-		<div id="addradio">Radio choices{widget addRadioForm}</div>
-		<div id="addmultiselect">Multi choices{widget addMultiSelectForm}</div>
+		<div id="addtext">{!_'Text input'}{widget addTextForm}</div>
+		{if !$assignment->autocorrect}<div id="addtextarea">{!_'Text area'}{widget addTextAreaForm}</div>{/if}
+		{if !$assignment->autocorrect}<div id="addfile">{!_'File upload'}{widget addFileForm}</div>{/if}
+		<div id="addradio">{!_'Radio choices'}{widget addRadioForm}</div>
+		<div id="addmultiselect">{!_'Multi choices'}{widget addMultiSelectForm}</div>
 	    </div>
 	</div>	
-	<h3>Review</h3>
+	<h3>{!_'Preview'}</h3>
         <div class="separator"><!----></div>
 	<h4>{$assignment->name}</h4>
 	<span>{$assignment->description}</span>
@@ -23,7 +23,7 @@
 	    {widget virtualForm}
 	
 	<div class="buttonline">
-		<a class="abutton" href="{link homepage}">Done</a>
+		<a class="abutton" href="{link homepage}">{!_'Done'}</a>
 	</div>
 	{/snippet}
     </div>

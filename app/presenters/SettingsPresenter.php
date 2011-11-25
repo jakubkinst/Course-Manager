@@ -22,8 +22,11 @@ class SettingsPresenter extends MasterPresenter {
      */
     protected function createComponentSettings() {
         
-        $form = new AppForm;        
-        $form->addCheckbox('showEmail', 'Show my e-mail address to my coursemates');        
+        $form = new AppForm;   
+	$form->setTranslator($this->translator);     
+        $form->addCheckbox('showEmail', 'Show my e-mail address to my coursemates');
+	$langs =array('cs' => _('Czech'),'en' => _('English'));
+	$form->addSelect('lang', 'Preffered language', $langs);
         $form->addSubmit('post', 'Save');    
         $form->onSubmit[] = callback($this, 'SettingsFormSubmitted');
         return $form;

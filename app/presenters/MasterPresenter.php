@@ -17,6 +17,11 @@ abstract class MasterPresenter extends Presenter {
     public $canbesignedout = false;
     /** Logical value indicating state of user */
     public $logged = false;
+    /** @persistent */
+    public $lang;
+    public static $DEFAULT_LANG = 'en';
+    public $translator;
+    public $userSetLang;
 
     protected function startup() {
 	parent::startup();
@@ -53,6 +58,32 @@ abstract class MasterPresenter extends Presenter {
 	    $this->flashMessage('Please login.', $type = 'unauthorized');
 	    $this->redirect('courselist:homepage');
 	}
+
+	if ($this->logged)
+	    $this->userSetLang = SettingsModel::getMySettings()->lang;
+	$this->decideLanguage();
+
+	// template translator
+	// uncomment to generate .po file
+	//CommonModel::getTextExtract();
+	$this->template->setTranslator($this->translator);
+    }
+
+    public function decideLanguage() {
+	if ($this->getParam('lang') != '') {
+	    $this->lang = $this->getParam('lang');
+	    $this->setLanguage($this->lang);
+	} else if (isset($this->userSetLang))
+	    $this->setLanguage($this->userSetLang);
+	else
+	    $this->setLanguage(self::$DEFAULT_LANG);
+    }
+
+    public function setLanguage($lang) {
+	if ($lang == 'en')
+	    $this->translator = new GettextTranslator(APP_DIR . '/locale/en.mo');
+	else if ($lang == 'cs')
+	    $this->translator = new GettextTranslator(APP_DIR . '/locale/cs.mo');
     }
 
     /**
@@ -62,6 +93,7 @@ abstract class MasterPresenter extends Presenter {
     protected function createComponentSignInForm() {
 
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('email', 'E-Mail:')
 		->setRequired('Please provide an e-mail.');
 

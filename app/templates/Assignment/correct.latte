@@ -1,8 +1,8 @@
-{block title}Correcting {$assignment->name} - Assignments{/block}
+{block title}{!_'Correcting'} {$assignment->name} - {!_'Assignments'}{/block}
 {block head}
 {/block}
 {block content}
-<h3>Correcting {$assignment->name}</h3>
+<h3>{!_'Correcting'} {$assignment->name}</h3>
             <div class="separator"><!----></div>
     <div id="assignment_correct">
 	{control correctForm begin}
@@ -10,11 +10,11 @@
 	{var correctForm => $control['correctForm']}
 	 <table>
 	    <thead>	
-		    <td>Student Name</td>
+		    <td>{!_'Student Name'}</td>
 		    {foreach $questions as $question}
 			<td>{$question->label}</td>
 		    {/foreach}			
-		    <td>Points{if $assignment->maxpoints>0} (Max:{$assignment->maxpoints}){/if}</td>
+		    <td>{!_'Points'}{if $assignment->maxpoints>0} ({!_'Max:'}{$assignment->maxpoints}){/if}</td>
 	    </thead>
 	    {foreach $submissions as $submission}    
 		<tr>
@@ -26,7 +26,7 @@
 				<? echo str_replace('#','<br>',$submission[$question->id]) ?>
 				{/if}
 				{if $question->type == 'file'}
-				    <a href="{link downloadFile, $submission[$question->id]}">Download</a>
+				    <a href="{link downloadFile, $submission[$question->id]}">{!_'Download'}</a>
 				{/if}
 			    {/if}
 			</td>

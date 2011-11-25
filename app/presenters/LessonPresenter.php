@@ -40,6 +40,7 @@ class LessonPresenter extends BasePresenter {
      */
     protected function createComponentCommentForm() {
         $form = new AppForm;
+	$form->setTranslator($this->translator);
         $form->addTextArea('content', 'Comment:')
                 ->addRule(Form::FILLED, 'Fill comment.');
         $form->addSubmit('send', 'Post');

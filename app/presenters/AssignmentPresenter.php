@@ -104,6 +104,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentCorrectForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	foreach ($this->template->submissions as $submission) {
 	    $uid = $submission['user']->id;
 	    $form->addText($uid)
@@ -128,6 +129,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentSolveForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	foreach (AssignmentModel::getQuestions($this->aid) as $value) {
 	    $label = $value->label;
 	    if ($value->type == 'text')
@@ -176,6 +178,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddAssignmentForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('name', 'Name*')
 		->setRequired();
 	$form->addTextArea('description', 'Description:');
@@ -206,6 +209,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentVirtualForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	foreach ($this->template->questions as $value) {
 	    $label = Html::el()->setHtml(htmlspecialchars($value->label) .
 			    '<a class="ajax" href="' . $this->link('remove!', $value->id) . '"><span class="ui-icon ui-icon-trash"></span></a>');
@@ -234,6 +238,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddTextForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addText('example', "My Label")->setDisabled();
@@ -256,6 +261,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddFileForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addFile('example', 'My Label:');
@@ -273,6 +279,7 @@ class AssignmentPresenter extends BasePresenter {
     
     protected function createComponentAddTextAreaForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addTextArea('example', "My Label")->setDisabled();
@@ -290,6 +297,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddRadioForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addRadioList('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled();
@@ -330,6 +338,7 @@ class AssignmentPresenter extends BasePresenter {
 
     protected function createComponentAddMultiSelectForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2));

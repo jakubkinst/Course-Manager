@@ -199,7 +199,7 @@ input.button{
 }
 #footer{
     width:100%;
-    height:102px;
+    height:120px;
     font-size:11px;
     color:#dddddd;
     border-top:1px solid #dddddd;
@@ -209,6 +209,7 @@ input.button{
 }
 #footer #poweredlogos{
     width:295px;
+    height:104px;
     background:#f2f2f2;
     padding:4px;
     float:left;

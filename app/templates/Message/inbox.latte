@@ -1,20 +1,20 @@
-{block title}Inbox{if $countUnread>0}({$countUnread}){/if}{/block}
+{block title}{!_'Inbox'}{if $countUnread>0}({$countUnread}){/if}{/block}
 {block head}{/block}
 {block content}
     <div id="message_inbox">
         {if $logged}
-            <h3>My Inbox</h3>
+            <h3>{!_'My Inbox'}</h3>
             <div class="separator"><!----></div>
             <div class="buttonline">
-                <a class="abutton" href="{link outbox}">Outbox</a>
-                <a class="abutton" href="{link new}">New Message</a>
+                <a class="abutton" href="{link outbox}">{!_'Outbox'}</a>
+                <a class="abutton" href="{link new}">{!_'New Message'}</a>
             </div>
             
             <table>
                 <thead>
-                    <td>Subject</td> 
-                    <td>From</td>              
-                    <td>Recieved</td>
+                    <td>{!_'Subject'}</td> 
+                    <td>{!_'From'}</td>              
+                    <td>{!_'Recieved'}</td>
                 </thead>
                 {foreach $inbox as $message}    
                     

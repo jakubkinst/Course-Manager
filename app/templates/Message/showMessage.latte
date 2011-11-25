@@ -1,4 +1,4 @@
-{block title}{$message->subject} - Messages{/block}
+{block title}{$message->subject} - {!_'Messages'}{/block}
 {block head}
     
 {/block}
@@ -6,11 +6,11 @@
 {block content}
     <div id="message_showMessage">
         {if $logged}
-            <h3>Subject: {$message->subject}</h3>
+            <h3>{!_'Subject'}: {$message->subject}</h3>
             <div class="separator"><!----></div>
-            <h4>from {$message->from->email}</h4>
-            <span>on {$message->sent}</span>            
-            <div>Content: {$message->content}</div>
+            <h4>{!_'from'} {$message->from->email}</h4>
+            <span>{!_'on'} {$message->sent}</span>            
+            <div>{!_'Content'}: {$message->content}</div>
         {/if}
     </div>
     

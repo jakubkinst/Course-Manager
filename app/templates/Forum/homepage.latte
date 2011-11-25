@@ -1,17 +1,17 @@
-{block title}Forum{/block}
+{block title}{!_'Forum'}{/block}
 {block head}{/block}
 {block content}
     <div id="forum_homepage">
         {if $logged}
-            <h3>Course Forum</h3>
+            <h3>{!_'Course Forum'}</h3>
             <div class="separator"><!----></div>
             {control pages}
             <table>
                 <thead>
-                    <td>Topic Name</td>
-                    <td>Author</td>               
-                    <td>Replies</td>
-                    <td>Last reply</td> 
+                    <td>{!_'Topic Name'}</td>
+                    <td>{!_'Author'}</td>               
+                    <td>{!_'Replies'}</td>
+                    <td>{!_'Last reply'}</td> 
                 </thead>
                 {foreach $topics as $topic}    
                     <tr>

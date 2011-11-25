@@ -40,6 +40,7 @@ class CoursePresenter extends BasePresenter {
      */
     protected function createComponentAddForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('name', 'Course name:*')
 		->addRule(Form::FILLED, 'Set course name.');
 	$form->addTextArea('description', 'Course description:');
@@ -68,6 +69,7 @@ class CoursePresenter extends BasePresenter {
      */
     protected function createComponentAddLessonForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('topic', 'Topic:*')
 		->addRule(Form::FILLED, 'Set lesson topic.');
 	$form->addTextArea('description', 'Lesson description:')->getControlPrototype()->class("texyla");
@@ -97,6 +99,7 @@ class CoursePresenter extends BasePresenter {
      */
     protected function createComponentInviteStudentForm() {
 	$form = new AppForm;
+	$form->setTranslator($this->translator);
 	$form->addText('email', 'E-mail:*')
 		->addRule(Form::FILLED, 'Fill email.')
 		->addRule(Form::EMAIL, 'Wrong e-mail format');

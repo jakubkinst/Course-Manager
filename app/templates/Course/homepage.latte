@@ -1,4 +1,4 @@
-{block title}Course Home{/block}
+{block title}{!_'Course Home'}{/block}
 {block head}
 <script>
 	$(function() {
@@ -11,25 +11,25 @@
             
                 <div class="buttonline">
                     {if $isTeacher}
-                        <a class="adminbutton abutton" href="{link course:addLesson}"><span class="ui-icon ui-icon-circle-plus"></span>Add Lesson</a>
-                        <a class="adminbutton abutton" href="{link Course:inviteStudent}"><span class="ui-icon ui-icon-person"></span>Invite Student</a>
-                        <a class="redbutton abutton" href="{link Course:delete}"><span class="ui-icon ui-icon-trash"></span>Delete Course</a>
+                        <a class="adminbutton abutton" href="{link course:addLesson}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Lesson'}</a>
+                        <a class="adminbutton abutton" href="{link Course:inviteStudent}"><span class="ui-icon ui-icon-person"></span>{!_'Invite Student'}</a>
+                        <a class="redbutton abutton" href="{link Course:delete}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Course'}</a>
                     {else}
-                      <a class="redbutton abutton" href="{link Course:leave}"><span class="ui-icon ui-icon-circle-close"></span>Leave Course</a>
+                      <a class="redbutton abutton" href="{link Course:leave}"><span class="ui-icon ui-icon-circle-close"></span>{!_'Leave Course'}</a>
                     {/if} 
                 </div>
             
             <div id="lectorList">
-                <h4>Lectors</h4>
+                <h4>{!_'Lectors'}</h4>
                 <table>
                         <tr>
-                            <th>Name</th>
-                            <th>Message</th>
+                            <th>{!_'Name'}</th>
+                            <th>{!_'Message'}</th>
                         </tr>
                         {foreach $lectors as $lector}
                             <tr>
                                 <td><a href="{link user:homepage, $lector->id}">{$lector['firstname']} {$lector['lastname']}</a></td>
-                                <td><a href="{link message:new, $lector['email']}">Send Message</a></td>
+                                <td><a href="{link message:new, $lector['email']}">{!_'Send Message'}</a></td>
                             </tr>
                         {/foreach}
                 </table>
@@ -37,16 +37,16 @@
         
             <div class="separator"><!----></div>
             <div id="studentList">
-                <h4>Students</h4>
+                <h4>{!_'Students'}</h4>
                 <table>
                         <tr>
-                            <th>Name</th>
-                            <th>Message</th>
+                            <th>{!_'Name'}</th>
+                            <th>{!_'Message'}</th>
                         </tr>
                         {foreach $students as $student}
                             <tr>
                                 <td><a href="{link user:homepage, $student->id}">{$student['firstname']} {$student['lastname']}</a></td>
-                                <td><a href="{link message:new, $student['email']}">Send Message</a></td>
+                                <td><a href="{link message:new, $student['email']}">{!_'Send Message'}</a></td>
                             </tr>
                         {/foreach}
                 </table>
@@ -61,7 +61,7 @@
 			<div class="lesson">
 			    <div class="date">{$lesson['date']|mydate:'%d.%m.%Y'}</div>
 			    <p class="dexcription">{!$lesson['description']|texy}</p>
-			    <a href="{link lesson:homepage,$lesson->id}">More >></a>
+			    <a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
 			</div>
 		{/foreach}
 	    </div>

@@ -8,12 +8,12 @@
         {if $logged}
             <h3>{$showuser->firstname} {$showuser->lastname}</h3>
             <div class="separator"><!----></div>    
-		<span>First Name: {$showuser->firstname}</span>		
-		<span>Last Name: {$showuser->lastname}</span>
+		<span>{!_'First Name'}: {$showuser->firstname}</span>		
+		<span>{!_'Last Name'}: {$showuser->lastname}</span>
 		{if $settings->showEmail}
-		    <span>E-mail: {$showuser->email}</span>
+		    <span>{!_'E-mail'}: {$showuser->email}</span>
 		{/if}
-		<span><a href="{link message:new, $showuser->email}">Send Message</a></span>
+		<span><a href="{link message:new, $showuser->email}">{!_'Send Message'}</a></span>
         {/if}
     </div>    
 {/block}

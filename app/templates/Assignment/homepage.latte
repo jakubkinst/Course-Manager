@@ -1,21 +1,21 @@
-{block title}Assignments{/block}
+{block title}{!_'Assignments'}{/block}
 {block head}
 {/block}
 {block content}
 <div id="assignment_homepage">
-<h3>Assignments</h3>
+<h3>{!_'Assignments'}</h3>
             <div class="separator"><!----></div>
 	<div class="buttonline">
-	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, false}">Add Normal</a>{/if}
-	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, true}">Add Auto-Correct</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, false}">{!_'Add Normal'}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, true}">{!_'Add Auto-Correct'}</a>{/if}
 	</div>
     {foreach $assignments as $assignment}
 	<div class="assignment">
-	    <a href="{link show, $assignment->id}"><h5>{$assignment->name}{if $assignment->autocorrect} (Auto-Correct){/if}</h5></a>                        
+	    <a href="{link show, $assignment->id}"><h5>{$assignment->name}{if $assignment->autocorrect} ({!_'Auto-Correct'}){/if}</h5></a>                        
 	    <div class="assignment_description">{$assignment->description}</div>
-	    <div>Open: {$assignment->assigndate} - {$assignment->duedate}</div>
-	    <div>Max points: {$assignment->maxpoints}</div>
-	    <div>Time Limit: {if $assignment->timelimit==0}no limit {else}{$assignment->timelimit} min{/if}</div>
+	    <div>{!_'Open'}: {$assignment->assigndate} - {$assignment->duedate}</div>
+	    <div>{!_'Max points'}: {$assignment->maxpoints}</div>
+	    <div>{!_'Time Limit'}: {if $assignment->timelimit==0}{!_'no limit'} {else}{$assignment->timelimit} {!_'min'}{/if}</div>
 	</div>
     {/foreach}
 </div>

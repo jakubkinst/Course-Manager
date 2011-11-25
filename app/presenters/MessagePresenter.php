@@ -45,7 +45,8 @@ class MessagePresenter extends MasterPresenter {
             return !(count($result) === 0);
         }
         
-        $form = new AppForm;        
+        $form = new AppForm;   
+	$form->setTranslator($this->translator);     
         $form->addText('to', 'To:*')
                 ->setEmptyValue('@')
                 ->addRule(Form::EMAIL, 'Enter valid e-mail')

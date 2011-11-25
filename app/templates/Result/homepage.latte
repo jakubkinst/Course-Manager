@@ -1,22 +1,22 @@
-{block title}Results{/block}
+{block title}{!_'Results'}{/block}
 {block head}{/block}
 
 {block content}
 <div id="results_homepage">
-    <h3>Results</h3>
+    <h3>{!_'Results'}</h3>
             <div class="separator"><!----></div>
-<h4>Offline and Online tasks - Points</h4>
+<h4>{!_'Offline and Online tasks'} - {!_'Points'}</h4>
 <div class="floatcontainer">    
 <table>
             <tr>
-                <th>Name</th>
+                <th>{!_'Name'}</th>
                 {foreach $offlinePoints as $oA}
                 <th>{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
                 {/foreach}
 		{foreach $onlinePoints as $oA}
                 <th class="online">{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
                 {/foreach}
-                <th>SUM</th>
+                <th>{!_'SUM'}</th>
             </tr>
             {foreach $students as $student}
                 <tr>
@@ -39,15 +39,15 @@
             {/foreach}
     </table>
 </div>
-<h4>Offline tasks - Grades</h4>
+<h4>{!_'Offline tasks'} - {!_'Grades'}</h4>
 <div class="floatcontainer"> 
     <table>
             <tr>
-                <th>Name</th>
+                <th>{!_'Name'}</th>
                 {foreach $offlineGrades as $oA}
                 <th>{$oA->name}</th>
                 {/foreach}
-                <th>AVG</th>
+                <th>{!_'AVG'}</th>
             </tr>
             {foreach $students as $student}
                 <tr>
@@ -70,7 +70,7 @@
     {if $isTeacher}
             <div class="separator"><!----></div>
                 <div class="buttonline">
-                    <a class="adminbutton abutton" href="{link result:add}">Add Results</a>
+                    <a class="adminbutton abutton" href="{link result:add}">{!_'Add Results'}</a>
                 </div>
     {/if}
 </div>

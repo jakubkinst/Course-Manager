@@ -1,9 +1,9 @@
-{block title}Resources{/block}
+{block title}{!_'Resources'}{/block}
 {block head}{/block}
 {block content}
     <div id="resource_homepage">
         {if $logged}
-            <h3>Course Resources</h3>
+            <h3>{!_'Course Resources'}</h3>
             <div class="separator"><!----></div>
             <table>
                 {foreach $resources as $resource}
@@ -14,7 +14,7 @@
             </table> 
             <div class="separator"><!----></div>
             {if $isTeacher}
-            <h4>Upload Resource</h4>
+            <h4>{!_'Upload Resource'}</h4>
                 {control uploader}
             {/if}   
         {/if}

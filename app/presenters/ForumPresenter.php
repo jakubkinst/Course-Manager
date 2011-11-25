@@ -47,7 +47,7 @@ class ForumPresenter extends BasePresenter {
      */
     protected function createComponentAddTopic() {
         $form = new AppForm;
-        
+	$form->setTranslator($this->translator);        
         $form->addText('label', 'Topic:*')        
                 ->addRule(Form::FILLED, 'Fill topic.');
         $form->addTextArea('content', 'Content:*')
@@ -76,7 +76,8 @@ class ForumPresenter extends BasePresenter {
      * @return AppForm 
      */
     protected function createComponentAddReply() {
-        $form = new AppForm;        
+        $form = new AppForm;    
+	$form->setTranslator($this->translator);    
         $form->addTextArea('content', 'Reply:*')
                 ->addRule(Form::FILLED, 'Fill content.');
 

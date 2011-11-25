@@ -41,6 +41,7 @@ class ResultPresenter extends BasePresenter {
         }
 
         $form = new AppForm;
+	$form->setTranslator($this->translator);
         $form->addText('name', 'Offline assignment name:*')
                 ->addRule(Form::FILLED, 'Set assignment name.');
         $form->addText('maxpoints', 'Max points:')

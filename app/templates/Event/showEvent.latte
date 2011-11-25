@@ -1,4 +1,4 @@
-{block title}{$event->name} - Event{/block}
+{block title}{$event->name} - {!_'Event'}{/block}
 {block head}
     
 {/block}
@@ -6,11 +6,11 @@
 {block content}
     <div id="event_homepage">
         {if $logged}
-            <h3>Course Event Detail</h3>
+            <h3>{!_'Course Event Detail'}</h3>
             <div class="separator"><!----></div>
             <h4>{$event->name}</h4>
-            <span>on {$event->date}</span>
-            <div>Description: {$event->description}</div> 
+            <span>{!_'on'} {$event->date}</span>
+            <div>{!_'Description'}: {$event->description}</div> 
         {/if}
     </div>
     
