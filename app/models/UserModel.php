@@ -44,6 +44,7 @@ class UserModel extends Object implements IAuthenticator {
      */
     static public function addUser($values) {
 	dibi::begin();
+	$values['created'] = new DateTime;
 	$values['password'] = UserModel::calculateHash($values['password']);
 	$values['seclink'] = sha1($values['email'] . time() . 'yjtbvb678b987n5c4');
 	$result = dibi::query('INSERT INTO user', $values);
@@ -105,6 +106,15 @@ class UserModel extends Object implements IAuthenticator {
     public static function userExists($email){
 	return dibi::fetch('SELECT * FROM user WHERE email=%s',$email);
     }
+    public static function deleteUncheckedUsers(){
+	dibi::begin();
+	$users = dibi::fetchAll('SELECT * FROM user WHERE checked=0');
+	foreach ($users as $user) {
+	    if (new DateTime($user->created) < date_sub(new DateTime, date_interval_create_from_date_string('1 day')))
+		    dibi::query ('DELETE FROM user WHERE id=%i',$user->id);
+	}
+	dibi::commit();
+    }	
 
 }
 

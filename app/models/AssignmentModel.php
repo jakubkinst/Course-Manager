@@ -12,14 +12,13 @@ class AssignmentModel extends Object {
 	$values['created'] = new DateTime;
 	$values['assigndate'] = CommonModel::convertFormDate($values['assigndate']);
 	$values['duedate'] = CommonModel::convertFormDate($values['duedate']);
-	if (dibi::query('INSERT INTO assignment', $values)){
+	if (dibi::query('INSERT INTO assignment', $values)) {
 	    $id = dibi::getInsertId();
 	    self::sendNewAssignmentNotif($id);
 	    return $id;
 	}
 	else
 	    return -1;
-	
     }
 
     public static function addText($label, $aid, $ra) {
@@ -299,16 +298,38 @@ class AssignmentModel extends Object {
 	return $r;
     }
 
-    public static function sendNewAssignmentNotif($aid){
+    public static function sendNewAssignmentNotif($aid) {
 	$assignment = self::getAssignment($aid);
 	$course = CourseModel::getCourseByID($assignment->Course_id);
-	$subject = 'New Assignment added to '.$course->name;
-	$msg = 'There is a new assignment called '.$assignment->name.' in your course <b>'.$course->name.'</b><br />
-	    You can check it at <a href="'.MailModel::$hostUrl.'">'.MailModel::$hostUrl.'</a>.';
-    
+	$subject = 'New Assignment added to ' . $course->name;
+	$msg = 'There is a new assignment called ' . $assignment->name . ' in your course <b>' . $course->name . '</b><br />
+	    You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
+
 	MailModel::sendMailToStudents($course->id, $subject, $msg);
-	
     }
+
+    public static function sendAssignmentNotifications() {
+	$assignments = dibi::fetchAll('SELECT * FROM assignment WHERE duedate>NOW()');
+	foreach ($assignments as $assignment) {
+	    $course = CourseModel::getCourseByID($assignment->Course_id);
+	    $students = CourseModel::getStudents($assignment->Course_id);
+	    foreach ($students as $student) {
+		$settings = SettingsModel::getSettings($student->id);
+		$dayInterval = $settings->assignment_notif_interval;
+		$due = new DateTime($assignment->duedate);
+		$tmp = date_add(new DateTime,  date_interval_create_from_date_string($dayInterval.' days'));
+		$tmp2 = date_add(new DateTime,  date_interval_create_from_date_string(($dayInterval+1).' days'));
+		if ($tmp<$due && $tmp2>$due){
+		    $subject = 'Notification of upcoming assignment duedate';
+		    $msg = 'Assignment <b>'.$assignment->name.'</b> duedate is on <b>'.$assignment->duedate.'</b>. You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
+		    MailModel::addMail($student->email, $subject, $msg);
+		}
+		    
+		
+	    }
+	}
+    }
+
 }
 
 ?>
