@@ -24,10 +24,13 @@
 			    {if isset($submission[$question->id])}
 				{if $question->type == 'multi'}
 				<? echo str_replace('#','<br>',$submission[$question->id]) ?>
-				{/if}
-				{if $question->type == 'file'}
+				
+				{elseif $question->type == 'file'}
 				    <a href="{link downloadFile, $submission[$question->id]}">{!_'Download'}</a>
+				{else}
+				    {$submission[$question->id]}
 				{/if}
+				
 			    {/if}
 			</td>
 		    {/foreach}

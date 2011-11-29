@@ -16,7 +16,6 @@ class CourseListPresenter extends MasterPresenter {
     public function renderHomepage() {      
 	if ($this->logged)
 		$this->template->invites = CourseListModel::getMyInvites();
-
     }
     
     public function handleAcceptInvite($iid){
