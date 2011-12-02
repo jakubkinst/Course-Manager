@@ -5,7 +5,7 @@
  *
  * @author JerRy
  */
-class AssignmentPresenter extends BasePresenter {
+class AssignmentPresenter extends BaseCoursePresenter {
 
     var $aid = 0;
     var $autocorrect = false;
@@ -182,8 +182,8 @@ class AssignmentPresenter extends BasePresenter {
 	$form->addText('name', 'Name*')
 		->setRequired();
 	$form->addTextArea('description', 'Description:');
-	$form->addText('assigndate', 'Open Date:');
-	$form->addText('duedate', 'Close Date:');
+	$form->addText('assigndate', 'Open Date:')->getControlPrototype()->class = "datetimepicker";;
+	$form->addText('duedate', 'Close Date:')->getControlPrototype()->class = "datetimepicker";;
 	$form->addText('maxpoints', 'Max. Points (0=no max points):')
 		->setDefaultValue('0')
 		->addRule(Form::INTEGER, 'Max. points must be a number');

@@ -25,10 +25,34 @@ class CourseModel extends Object {
      * Adds lesson to DB by $values
      * @param type $values 
      */
-    public static function addLesson($values) {
+    public static function addLesson($values,$cid) {	
+	$values['Course_id'] = $cid;
+	$values['date'] = CommonModel::convertFormDate($values['date']);
         dibi::query('INSERT INTO lesson', $values);
     }
+    
+     public static function editLesson($lid, $values) {	
+        dibi::query('UPDATE lesson SET', $values, 'WHERE id=%i',$lid);
+    }
 
+    public static function deleteLesson($lid){
+	dibi::begin();
+	    // delete comments
+	    dibi::query('DELETE FROM comment WHERE Lesson_id=%i',$lid);
+	    
+	    // delete lesson resources
+	    foreach(dibi::fetchAll('SELECT * FROM resource WHERE Lesson_id=%i',$lid) as $res){
+		ResourceModel::deleteResource($res->id);		
+	    }
+	    
+	    // delete self
+	    dibi::query('DELETE FROM lesson WHERE id=%i',$lid);
+	    
+	if (dibi::commit()) return true;
+	
+	return true;
+    }
+    
     /**
      * Adds lesson to DB by $values
      * @param type $values 

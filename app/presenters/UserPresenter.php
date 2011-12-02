@@ -5,7 +5,7 @@
  *
  * @author Jakub Kinst
  */
-class UserPresenter extends MasterPresenter {
+class UserPresenter extends BasePresenter {
 
     public function startup() {
 	$this->canbesignedout = true;

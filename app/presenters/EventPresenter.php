@@ -4,7 +4,7 @@
  * Event presenter.
  *
  */
-class EventPresenter extends BasePresenter {
+class EventPresenter extends BaseCoursePresenter {
     
     /**
      * Homepage template render

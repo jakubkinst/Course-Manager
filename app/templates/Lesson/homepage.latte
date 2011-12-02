@@ -1,17 +1,31 @@
 {block title}{$lesson->topic} - {!_'Lesson'}{/block}
-{block head}{/block}
+{block head}
+<script>
+	$(function() {
+	    
+	    $(".deleteLesson").click(function(event) {
+		event.preventDefault();
+		if (confirm('{!_'Do you realy want to delete this lesson ?'}'))
+		    window.location = this.href;
+		});
+	});
+	</script>
+{/block}
 {block content}
     <div id="lesson_homepage">
 	<div class="buttonline">
                     {if $isTeacher}
-                        <a class="adminbutton abutton" href="{link lesson:addResource}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
-                    {/if} 
+                        <a class="adminbutton abutton" href="{link addResource}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
+			<a class="adminbutton abutton" href="{link edit}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
+			<a class="redbutton abutton deleteLesson" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Lesson'}</a>
+                    
+		    {/if} 
                 </div>
         {if $isTeacher || $isStudent}
             <h3>{$lesson['topic']}</h3>
             <div class="separator"><!----></div>
             <div id="date">{$lesson['date']}</div>
-            <p id="description">{!$lesson['description']|texy}</p>
+            <div id="description">{!$lesson['description']|texy}</div>
 	    
 	    <div class="resources">
             <div class="separator"><!----></div>

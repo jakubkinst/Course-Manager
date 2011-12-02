@@ -4,7 +4,7 @@
  * Course presenter.
  *
  */
-class CoursePresenter extends BasePresenter {
+class CoursePresenter extends BaseCoursePresenter {
 
     /**
      * Homepage template render
@@ -25,7 +25,7 @@ class CoursePresenter extends BasePresenter {
     public function renderAddLesson($cid) {
 	// if not teacher, redirect to homepage
 	$this->checkTeacherAuthority();
-    }
+    }    
 
     /**
      * Adding course template render
@@ -72,8 +72,8 @@ class CoursePresenter extends BasePresenter {
 	$form->setTranslator($this->translator);
 	$form->addText('topic', 'Topic:*')
 		->addRule(Form::FILLED, 'Set lesson topic.');
-	$form->addTextArea('description', 'Lesson description:')->getControlPrototype()->class("texyla");
-
+	$form->addTextArea('description', 'Lesson description:')->getControlPrototype()->class = "texyla";
+	$form->addText('date', 'Date:')->setRequired()->getControlPrototype()->class = "datepicker";
 	$form->addSubmit('send', 'Add lesson');
 	$form->onSubmit[] = callback($this, 'addLessonFormSubmitted');
 	return $form;
@@ -85,9 +85,7 @@ class CoursePresenter extends BasePresenter {
      */
     public function addLessonFormSubmitted($form) {
 	$values = $form->getValues();
-	$values['date'] = new DateTime;
-	$values['Course_id'] = $this->cid;
-	CourseModel::addLesson($values);
+	CourseModel::addLesson($values,$this->cid);
 
 	$this->flashMessage('Lesson added', $type = 'success');
 	$this->redirect('course:homepage', $values['Course_id']);

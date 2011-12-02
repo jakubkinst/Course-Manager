@@ -4,7 +4,7 @@
  * Message presenter.
  *
  */
-class MessagePresenter extends MasterPresenter {   
+class MessagePresenter extends BasePresenter {   
     /**
      * Homepage template render
      * @param type $cid 

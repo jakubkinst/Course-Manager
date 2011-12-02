@@ -5,7 +5,7 @@
  *
  * @author Jakub Kinst
  */
-class ResultPresenter extends BasePresenter {
+class ResultPresenter extends BaseCoursePresenter {
 
 
     /**

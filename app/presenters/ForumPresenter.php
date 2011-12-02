@@ -4,7 +4,7 @@
  * Resource presenter.
  *
  */
-class ForumPresenter extends BasePresenter {
+class ForumPresenter extends BaseCoursePresenter {
 
 
    

@@ -4,7 +4,7 @@
  * Settings presenter.
  *
  */
-class SettingsPresenter extends MasterPresenter {   
+class SettingsPresenter extends BasePresenter {   
     /**
      * Homepage template render
      * @param type $cid 

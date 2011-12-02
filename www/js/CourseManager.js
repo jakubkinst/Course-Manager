@@ -1,5 +1,12 @@
 
 $(document).ready(function(){
+    
+    // accordion
+    $( "#accordion" ).accordion();
+    
+    // datepickers
+    $( ".datetimepicker" ).datetimepicker();
+    $( ".datepicker" ).datepicker();
         
     // Texyla textareas
     $('.texyla').texyla();

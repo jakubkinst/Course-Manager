@@ -4,7 +4,7 @@
  * Resource presenter.
  *
  */
-class ResourcePresenter extends BasePresenter {
+class ResourcePresenter extends BaseCoursePresenter {
 
     public function actionHomepage($cid){	
         $uploader  = new Uploader($this, 'uploader');

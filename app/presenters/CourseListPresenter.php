@@ -5,7 +5,7 @@
  *
  * @author Jakub Kinst
  */
-class CourseListPresenter extends MasterPresenter {
+class CourseListPresenter extends BasePresenter {
 
     
    public function startup() {

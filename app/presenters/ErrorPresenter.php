@@ -6,7 +6,7 @@
  * @author     Jakub kinst
  * @package    Course-Manager
  */
-class ErrorPresenter extends BasePresenter {
+class ErrorPresenter extends BaseCoursePresenter {
 
     /**
      * 

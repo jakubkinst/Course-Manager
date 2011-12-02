@@ -462,6 +462,9 @@ input.button{
     margin-top:10px;
     padding:10px;
 }
+.lesson .description{
+    overflow:auto;
+}
 
 /* Lesson Presenter */
 #lesson_homepage #date {
@@ -469,8 +472,10 @@ input.button{
     font-style: italic; 
 }
 #lesson_homepage #description {
-    margin-left: 10px;   
+    margin-left: 10px; 
+    overflow: auto;
 }
+
 #lesson_homepage #comments {
     margin-left: 40px;    
 }
