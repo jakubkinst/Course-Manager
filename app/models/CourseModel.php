@@ -13,52 +13,53 @@ class CourseModel extends Object {
      * @param type $values 
      */
     public static function addCourse($user, $values) {
-        dibi::query('INSERT INTO course', $values);
-        $course_id = dibi::getInsertId();
-        $values2['User_id'] = UserModel::getUserID($user);
-        $values2['Course_id'] = $course_id;
+	dibi::query('INSERT INTO course', $values);
+	$course_id = dibi::getInsertId();
+	$values2['User_id'] = UserModel::getUserID($user);
+	$values2['Course_id'] = $course_id;
 
-        dibi::query('INSERT INTO teacher', $values2);
+	dibi::query('INSERT INTO teacher', $values2);
     }
 
     /**
      * Adds lesson to DB by $values
      * @param type $values 
      */
-    public static function addLesson($values,$cid) {	
+    public static function addLesson($values, $cid) {
 	$values['Course_id'] = $cid;
 	$values['date'] = CommonModel::convertFormDate($values['date']);
-        dibi::query('INSERT INTO lesson', $values);
-    }
-    
-     public static function editLesson($lid, $values) {	
-        dibi::query('UPDATE lesson SET', $values, 'WHERE id=%i',$lid);
+	dibi::query('INSERT INTO lesson', $values);
     }
 
-    public static function deleteLesson($lid){
+    public static function editLesson($lid, $values) {
+	dibi::query('UPDATE lesson SET', $values, 'WHERE id=%i', $lid);
+    }
+
+    public static function deleteLesson($lid) {
 	dibi::begin();
-	    // delete comments
-	    dibi::query('DELETE FROM comment WHERE Lesson_id=%i',$lid);
-	    
-	    // delete lesson resources
-	    foreach(dibi::fetchAll('SELECT * FROM resource WHERE Lesson_id=%i',$lid) as $res){
-		ResourceModel::deleteResource($res->id);		
-	    }
-	    
-	    // delete self
-	    dibi::query('DELETE FROM lesson WHERE id=%i',$lid);
-	    
-	if (dibi::commit()) return true;
-	
+	// delete comments
+	dibi::query('DELETE FROM comment WHERE Lesson_id=%i', $lid);
+
+	// delete lesson resources
+	foreach (dibi::fetchAll('SELECT * FROM resource WHERE Lesson_id=%i', $lid) as $res) {
+	    ResourceModel::deleteResource($res->id);
+	}
+
+	// delete self
+	dibi::query('DELETE FROM lesson WHERE id=%i', $lid);
+
+	if (dibi::commit())
+	    return true;
+
 	return true;
     }
-    
+
     /**
      * Adds lesson to DB by $values
      * @param type $values 
      */
     public static function addComment($values) {
-        dibi::query('INSERT INTO comment', $values);
+	dibi::query('INSERT INTO comment', $values);
     }
 
     /**
@@ -67,7 +68,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getCourseByID($id) {
-        return dibi::fetch('SELECT * FROM course WHERE id=%i', $id);
+	return dibi::fetch('SELECT * FROM course WHERE id=%i', $id);
     }
 
     /**
@@ -77,12 +78,12 @@ class CourseModel extends Object {
      * @return boolean 
      */
     public static function isTeacher($uid, $courseid) {
-        $approved = false;
-        foreach (CourseListModel::getTeacherCourses($uid) as $course) {
-            if ($course['id'] == $courseid)
-                $approved = true;
-        }
-        return $approved;
+	$approved = false;
+	foreach (CourseListModel::getTeacherCourses($uid) as $course) {
+	    if ($course['id'] == $courseid)
+		$approved = true;
+	}
+	return $approved;
     }
 
     /**
@@ -92,12 +93,12 @@ class CourseModel extends Object {
      * @return boolean 
      */
     public static function isStudent($uid, $courseid) {
-        $approved = false;
-        foreach (CourseListModel::getStudentCourses($uid) as $course) {
-            if ($course['id'] == $courseid)
-                $approved = true;
-        }
-        return $approved;
+	$approved = false;
+	foreach (CourseListModel::getStudentCourses($uid) as $course) {
+	    if ($course['id'] == $courseid)
+		$approved = true;
+	}
+	return $approved;
     }
 
     /**
@@ -106,7 +107,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getLectors($cid) {
-        return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN teacher ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id', $cid);
+	return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN teacher ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id', $cid);
     }
 
     /**
@@ -115,7 +116,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getStudents($cid) {
-        return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN student ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id', $cid);
+	return dibi::fetchAll('SELECT * FROM user RIGHT JOIN (SELECT User_id FROM (course JOIN student ON Course_id=id) WHERE Course_id=%i) AS user2 ON user.id=user2.User_id', $cid);
     }
 
     /**
@@ -124,7 +125,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getLessons($courseID) {
-        return dibi::fetchAll('SELECT * FROM lesson WHERE Course_id=%i ORDER BY date DESC', $courseID);
+	return dibi::fetchAll('SELECT * FROM lesson WHERE Course_id=%i ORDER BY date DESC', $courseID);
     }
 
     /**
@@ -133,7 +134,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getCourseIDByLessonID($lid) {
-        return dibi::fetchSingle('SELECT Course_id FROM lesson WHERE id=%i', $lid);
+	return dibi::fetchSingle('SELECT Course_id FROM lesson WHERE id=%i', $lid);
     }
 
     /**
@@ -142,7 +143,7 @@ class CourseModel extends Object {
      * @return type 
      */
     public static function getLessonByID($lid) {
-        return dibi::fetch('SELECT * FROM lesson WHERE id=%i', $lid);
+	return dibi::fetch('SELECT * FROM lesson WHERE id=%i', $lid);
     }
 
     /**
@@ -150,12 +151,16 @@ class CourseModel extends Object {
      * @param type $lid
      * @return type 
      */
-    public static function getComments($lid) {
-        $comments = dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i', $lid);
-        foreach ($comments as $comment) {
-            $comment['user'] = UserModel::getUser($comment['User_id']);
-        }
-        return $comments;
+    public static function getComments($lid, $offset, $limit) {
+	$comments = dibi::fetchAll('SELECT * FROM comment WHERE lesson_id=%i ORDER BY added DESC LIMIT %i OFFSET %i ', $lid, $limit, $offset);
+	foreach ($comments as $comment) {
+	    $comment['user'] = UserModel::getUser($comment['User_id']);
+	}
+	return $comments;
+    }
+    
+    public static function countComments($lid) {
+	return dibi::fetchSingle('SELECT COUNT(*) FROM comment WHERE Lesson_id=%i',$lid);
     }
 
     /**
@@ -164,16 +169,16 @@ class CourseModel extends Object {
      */
     public static function inviteStudent($values) {
 	$values2['email'] = $values['email'];
-        $values2['Course_id'] = $values['Course_id'];
+	$values2['Course_id'] = $values['Course_id'];
 	$values2['invitedBy'] = UserModel::getLoggedUser()->id;
-	$uid = UserModel::getUserIDByEmail($values2['email']);	
-	if (self::isStudent($uid, $values2['Course_id']) || self::isTeacher($uid, $values2['Course_id']) || CourseListModel::isInvited($values2['email'],$values2['Course_id']))
-		return false;
+	$uid = UserModel::getUserIDByEmail($values2['email']);
+	if (self::isStudent($uid, $values2['Course_id']) || self::isTeacher($uid, $values2['Course_id']) || CourseListModel::isInvited($values2['email'], $values2['Course_id']))
+	    return false;
 	dibi::begin();
-        $result = dibi::query('INSERT INTO invite', $values2);
-	MailModel::sendInvite($values2['email'],$values2['Course_id'],$values2['invitedBy']);
+	$result = dibi::query('INSERT INTO invite', $values2);
+	MailModel::sendInvite($values2['email'], $values2['Course_id'], $values2['invitedBy']);
 	dibi::commit();
-        return $result;
+	return $result;
     }
 
 }

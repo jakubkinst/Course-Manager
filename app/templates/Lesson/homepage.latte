@@ -13,40 +13,49 @@
 {/block}
 {block content}
     <div id="lesson_homepage">
-	<div class="buttonline">
-                    {if $isTeacher}
-                        <a class="adminbutton abutton" href="{link addResource}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
-			<a class="adminbutton abutton" href="{link edit}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
-			<a class="redbutton abutton deleteLesson" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Lesson'}</a>
-                    
-		    {/if} 
-                </div>
+	
         {if $isTeacher || $isStudent}
-            <h3>{$lesson['topic']}</h3>
-            <div class="separator"><!----></div>
-            <div id="date">{$lesson['date']}</div>
-            <div id="description">{!$lesson['description']|texy}</div>
-	    
-	    <div class="resources">
-            <div class="separator"><!----></div>
-                <h4>{!_'Resources'}</h4>
-	     {foreach $resources as $resource}
-                <tr>
-                    <td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
-                </tr>
-                {/foreach}
+	    <div class="buttonline">
+		{if $isTeacher}
+		    <a class="adminbutton abutton" href="{link addResource}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
+		    <a class="adminbutton abutton" href="{link edit}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
+		    <a class="redbutton abutton deleteLesson" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Lesson'}</a>
+		{/if} 
 	    </div>
-            <div id="comments">
+            <h3>{$lesson['topic']}</h3>
+	    <div id="date">{$lesson['date']|mydate}</div>
+		<div class="separator"><!----></div>
+            <div class="texy" id="description">{!$lesson['description']|texy}</div>
+	    
             <div class="separator"><!----></div>
-                <h4>{!_'Comments'}</h4>
-                {foreach $comments as $comment}
-                    <div class="comment">
-                        <div class="author"><a href="{link user:homepage, $comment->user->id}">{$comment->user->firstname} {$comment->user->lastname}</a></div>
-                        <div class="time">({$comment['added']})</div>                        
-                        <div class="content">{$comment['content']}</div>
-                    </div>
-                {/foreach}                    
-            </div>
+	    
+	    {if sizeof($resources)>0}
+		<div class="resources">
+		    <h4>{!_'Resources'}</h4>
+		 {foreach $resources as $resource}
+		    <tr>
+			<td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
+		    </tr>
+		    {/foreach}
+		</div>
+	    {/if}
+	    {if sizeof($comments)>0}
+		<div id="comments">
+		    <h4>{!_'Comments'}</h4>
+		    {control pages}
+		    {foreach $comments as $comment}
+			<div class="comment">
+			    <div class="author"><a href="{link user:homepage, $comment->user->id}">{$comment->user->firstname} {$comment->user->lastname}</a></div>
+			    <div class="time">{$comment['added']|mydatetime}</div>                        
+			    <div class="content">{$comment['content']}</div>
+			</div>
+		    {/foreach}		    
+		    {control pages}
+		</div>	    
+		<div class="separator"><!----></div>
+	    {/if}
+	    
+	    <h4>{!_'Add Comment'}</h4>
             <div id="commentForm">
                 {widget commentForm}
             </div>

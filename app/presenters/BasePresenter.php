@@ -22,6 +22,7 @@ abstract class BasePresenter extends Presenter {
     public static $DEFAULT_LANG = 'en';
     public $translator;
     public $userSetLang;
+    public $paginator;
 
     protected function startup() {
 	parent::startup();
@@ -30,8 +31,13 @@ abstract class BasePresenter extends Presenter {
 	function myDateHelper($value) {
 	    return CommonModel::relative_date(strtotime($value));
 	}
+	// Relative Date with time helper
+	function myDateTimeHelper($value) {
+	    return CommonModel::relative_date(strtotime($value)).' '.date('H:i',strtotime($value));
+	}
 
-	$this->template->registerHelper('mydate', 'myDateHelper');
+	$this->template->registerHelper('mydate', 'myDateHelper');	
+	$this->template->registerHelper('mydatetime', 'myDateTimeHelper');
 
 	// Texy helper
 	$texy = new Texy;
@@ -67,6 +73,10 @@ abstract class BasePresenter extends Presenter {
 	// uncomment to generate .po file
 	//CommonModel::getTextExtract();
 	$this->template->setTranslator($this->translator);
+	
+	// paging control
+        $pages = new VisualPaginator($this, 'pages');
+        $this->paginator = $pages->getPaginator();
     }
 
     public function decideLanguage() {

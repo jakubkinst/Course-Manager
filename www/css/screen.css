@@ -17,9 +17,9 @@ form label{
 }
 
 .shadow {
-  -moz-box-shadow: 0px 0px 8px #ccc;
-  -webkit-box-shadow: 0px 0px 8px #ccc;
-  box-shadow: 0px 0px 8px #ccc;
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
 }
 
 .floatcontainer{
@@ -53,8 +53,8 @@ a:hover {
 }
 #content{
     padding:5px;
-   height:100%;
-   min-height:500px;
+    height:100%;
+    min-height:500px;
     background:#fdfdfd;    
 }
 #content h3{
@@ -193,7 +193,7 @@ input.button{
     background:#f2f2f2;
 }
 #footer .container{
-       
+
     border-left:1px solid #dddddd;   
     border-right:1px solid #dddddd;
 }
@@ -228,14 +228,14 @@ input.button{
     float:left;     
     text-align: right;
     padding:12px;    
-    
+
 }
 
 #footer span {
     color:#aaaaaa;
     font-weight:bolder;
     font-size:16px;
-    
+
 }
 #logo{
     width:498px;
@@ -364,28 +364,37 @@ input.button{
 #courseBox .asStudent .title{    
     background-color: #c7cdcf;
 }
-#flashMessages {
+#flashMessages {    
     position:absolute;
     top:50%;
     left:35%;
-    width:350px;
+    width:400px;
 }
 .flash{
-    font-weight:bold;
-    font-style: italic;
-    color:black;
-    padding:10px;
-    width:100%;
+    border:1px solid #62B1DA;
+    background-color: #eeeeee;
+    vertical-align: middle;
+    padding:5px;
+    padding-left:50px;
+    background-repeat: no-repeat;
+    background-position: center left;   
+    font-size:15px;
+    font-weight: bold;
+    color:#666666;
+    min-height: 40px;
+
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
 }
-.unauthorized {
-    background:#ffcc33;
-    color:#ff6600;
-    border:2px solid #dddddd;
+.unauthorized { 
+    background-image: url('../images/flashicons/unauthorized.png');
 }
-.success {
-    background:#66cc00;
-    color:#339900;
-    border:2px solid #dddddd;
+.success {   
+    background-image: url('../images/flashicons/success.png');
+}
+.error {  
+    background-image: url('../images/flashicons/error.png');
 }
 
 /* CourseList Presenter */
@@ -454,16 +463,28 @@ input.button{
 
 
 /* Course Presenter */
-#course_homepage h5{
-    padding-left:25px;
-    font-size:17px;
+#course_homepage .lesson{
+    background: #eeeeee;
+    border:1px solid #dddddd;
+    padding:10px;
+    margin:10px;
+}
+#course_homepage .lesson h5{
+    font-size:16px;
+    color:#333333;
+    margin:0px;
+}
+#course_homepage .lesson h5 a:hover{
+    color:black;
+    text-decoration: underline;
+}
+#course_homepage .lesson .description{
+    margin-left:20px;    
+    overflow:auto;
 }
 #studentList, #lectorList{
     margin-top:10px;
     padding:10px;
-}
-.lesson .description{
-    overflow:auto;
 }
 
 /* Lesson Presenter */
@@ -476,15 +497,14 @@ input.button{
     overflow: auto;
 }
 
-#lesson_homepage #comments {
-    margin-left: 40px;    
-}
 #lesson_homepage #comments .comment {
     border:1px solid #dddddd;
-    background: #c7cdcf;
+    background: #eeeeee;
     padding:5px;
     width:60%;
-    margin-top: 10px;
+    min-height: 70px;
+    margin:5px;
+    margin-left:20px;
 }
 #lesson_homepage #comments .comment .author {
     font-weight:bold;
@@ -501,9 +521,6 @@ input.button{
     color:black;
 }
 #lesson_homepage #commentForm {
-    border:1px solid #dddddd;
-    padding:5px;
-    text-align: center;
 }
 #lesson_homepage #commentForm textarea{
     border:1px solid #dddddd;
@@ -617,12 +634,7 @@ input.button{
     display:block;
     font-size:13px;
 }
-#content code{
-    background:#eeeeee;
-    padding:5px;
-    border: 1px solid #dddddd;
-    font-size:11px;
-}
+
 
 /* Calendar */
 .fc-event-time{
@@ -635,4 +647,24 @@ input.button{
 }
 #calendar table{
     border:none;
+}
+
+/* Visual Paginator */
+.paginator{
+    margin:2px;
+}
+.paginator .button{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
+}
+.paginator .current{
+    border:1px solid #cccccc;
+    background:#dddddd;
+    padding:3px;
+}
+.paginator a{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
 }

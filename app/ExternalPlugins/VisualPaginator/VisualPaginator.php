@@ -56,6 +56,7 @@ class VisualPaginator extends Control
 	 */
 	public function render()
 	{
+		$this->template->setTranslator($this->presenter->translator);
 		$paginator = $this->getPaginator();
 		$page = $paginator->page;
 		if ($paginator->pageCount < 2) {

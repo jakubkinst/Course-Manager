@@ -22,9 +22,12 @@ class LessonPresenter extends BaseCoursePresenter {
 	}
 	$this->lid = $lid;
 
+	$this->paginator->itemsPerPage = 10;
+        $this->paginator->itemCount = CourseModel::countComments($this->lid);
+	
 	$this->template->lesson = CourseModel::getLessonByID($this->lid);
 	$this->template->resources = ResourceModel::getLessonFiles($this->lid);
-	$this->template->comments = CourseModel::getComments($this->lid);
+	$this->template->comments = CourseModel::getComments($this->lid,$this->paginator->offset,$this->paginator->itemsPerPage);
     }
 
     public function actionAddResource($lid) {

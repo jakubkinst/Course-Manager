@@ -59,17 +59,16 @@
     
     
             <div class="separator"><!----></div>
-            <div id="accordion">
 		{foreach $lessons as $lesson}
 		    <!-- Lesson -->
-			<h5>{$lesson['topic']}</h5>
-			<div class="lesson">
-			    <div class="date">{$lesson['date']|mydate:'%d.%m.%Y'}</div>
-			    <div class="description">{!$lesson['description']|texy}</div>
-			    <a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
-			</div>
+		    <div class="lesson">
+			<h5><a href="{link lesson:homepage,$lesson->id}">{$lesson['topic']}</a></h5>
+			<div class="date">{$lesson['date']|mydate}</div>
+			<div class="separator"><!----></div>
+			<div class="texy description">{!$lesson['description']|texy}</div>
+			<a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
+		    </div>
 		{/foreach}
-	    </div>
             
             
 

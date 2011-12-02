@@ -13,15 +13,10 @@ class ForumPresenter extends BaseCoursePresenter {
      * @param type $cid 
      */
     public function renderHomepage($cid) {
-        $this->checkAuthorization();
-        
-        // paging control
-        $pages = new VisualPaginator($this, 'pages');
-        $paginator = $pages->getPaginator();
-        $paginator->itemsPerPage = 20;
-        $paginator->itemCount = ForumModel::countTopics($cid);
-        
-        $this->template->topics = ForumModel::getTopics($cid,$paginator->offset,$paginator->itemsPerPage);
+        $this->checkAuthorization();       
+        $this->paginator->itemsPerPage = 20;
+        $this->paginator->itemCount = ForumModel::countTopics($cid);        
+        $this->template->topics = ForumModel::getTopics($cid,$this->paginator->offset,$this->paginator->itemsPerPage);
         
     }
     
@@ -32,10 +27,8 @@ class ForumPresenter extends BaseCoursePresenter {
         $this->checkAuthorization();
         
         // paging control
-        $pages = new VisualPaginator($this, 'pages');
-        $paginator = $pages->getPaginator();
-        $paginator->itemsPerPage = 2;
-        $paginator->itemCount = ForumModel::countReplies($tid);
+        $this->paginator->itemsPerPage = 2;
+        $this->paginator->itemCount = ForumModel::countReplies($tid);
         
         $this->template->topic = ForumModel::getTopic($tid);
         $this->template->replies = ForumModel::getReplies($tid,$paginator->offset,$paginator->itemsPerPage);
