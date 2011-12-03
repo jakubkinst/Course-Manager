@@ -1,5 +1,7 @@
 {block title}{!_'Resources'}{/block}
-{block head}{/block}
+{block head}
+    
+{/block}
 {block content}
     <div id="resource_homepage">
         {if $logged}
@@ -8,7 +10,7 @@
             <table>
                 {foreach $resources as $resource}
                 <tr>
-                    <td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
+                    <td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a> <a title="{!_'Delete'}" class="delete" href="{link delete!, $resource->id}"><span class="ui-icon ui-icon-trash"></span></a></td>                  
                 </tr>
                 {/foreach}
             </table> 

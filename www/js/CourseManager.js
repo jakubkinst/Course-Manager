@@ -1,5 +1,11 @@
 
 $(document).ready(function(){
+        
+    $("a.delete").click(function(event) {
+	event.preventDefault();
+	if (confirm(delete_confirm_message))
+	    window.location = this.href;
+    });
     
     // accordion
     $( "#accordion" ).accordion();
@@ -7,9 +13,20 @@ $(document).ready(function(){
     // datepickers
     $( ".datetimepicker" ).datetimepicker();
     $( ".datepicker" ).datepicker();
-        
+    
+    // Set texyla defaults
+    $.texyla.setDefaults({
+	baseDir: '../../texyla',
+	previewPath: texyla_preview_link,
+	bottomRightPreviewToolbar:[],
+	language: "en",
+	toolbar:['bold', 'italic','color',null,'h1','h2','h3','h4', null,'center','left','right','justify',null, 'ul', 'ol', null,'blockquote','sub','sup','code','codeHtml','codePhp','codeInline', 'link', null, 'emoticon', 'symbol', "img", "table", null]	
+    }); 
+     
     // Texyla textareas
     $('.texyla').texyla();
+    
+    
     
     // Flash messages fade out
     setTimeout(function() {
@@ -40,9 +57,25 @@ $(document).ready(function(){
     };
 
     //set jquery multiselect
-    $(document).ready(function(){
-	$("select").multiselect({
-	    header: "Choose Anwsers !"
-	});
+    $("select").multiselect({
+	header: choose_anwsers_message
+    });
+    
+    //loginbox dropdown
+    $("#loginBox").hide();
+    $("#userButton").click(function(){
+	$("#loginBox").slideToggle();
+    });
+    
+    
+    //course minimenu dropdown
+    $('.courseminimenu').hide();
+    if (active_course_id!=''){
+	$('#ul_'+active_course_id).show();
+    }
+    $('.dropdown').click(function(event){
+	event.preventDefault();
+	var id = this.id;
+	$('#ul_'+id).slideToggle();
     });
 });

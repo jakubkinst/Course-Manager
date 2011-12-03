@@ -4,6 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>{include #title} - {if isset($activeCourse)}{$activeCourse->name} -{/if} CourseManager</title>	
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />	
+
+	{* Variables passed from PHP to JavaScript *}
+	<script type="text/javascript"><? echo $presenter->getJSVariables(); ?></script>
 	{control css 
 	    'blueprint/screen.css',
 	    'smoothness/jquery-ui-1.8.16.custom.css',
@@ -18,7 +21,8 @@
 	    'jquery.nette.js',
 	    'jquery.ajaxform.js',
 	    'jquery-ui-timepicker-addon.js',
-	    'fullcalendar.min.js'
+	    'fullcalendar.min.js',
+	    'jquery.multiselect.min.js'
 	}
 	{control js 
 	    "../texyla/js/texyla.js",
@@ -40,72 +44,11 @@
 	    "../texyla/plugins/symbol/symbol.js",
 	    "../texyla/plugins/color/color.js"
 	}
-	{control js 'CourseManager.js'}
-	
-        <script type="text/javascript">
-	    // Set texyla defaults
-	    $.texyla.setDefaults({
-		baseDir: '../../texyla',
-		previewPath: {link Texyla:preview},
-		bottomRightPreviewToolbar:[],
-		language: "en",
-		toolbar:['bold', 'italic','color',null,'h1','h2','h3','h4', null,'center','left','right','justify',null, 'ul', 'ol', null,'blockquote','sub','sup','code','codeHtml','codePhp','codeInline', 'link', null, 'emoticon', 'symbol', "img", "table", null]	
-	    });
-	    
-            var userMenuDown = false;
-            $(document).ready(function(){
-              $("#userButton").click(function(){
-                if (userMenuDown){
-                 $("#loginBox").slideUp();
-                userMenuDown = false;
-                } else {
-                $("#loginBox").slideDown();
-                userMenuDown = true;
-                }                
-              });
-              {if $logged}
-                  {foreach $tCourses as $course}
-                      {if isset($activeCourse)}
-                          {if $activeCourse->id==$course->id}
-                              $("#t{!$course->id}").slideDown();
-                          {/if}
-                      {/if}
-                        var t{!$course->id}Down = false;
-                        $("#t{!$course->id}_toggle").click(function(){
-                            if (t{!$course->id}Down){
-                             $("#t{!$course->id}").slideUp();
-                            t{!$course->id}Down = false;
-                            } else {
-                            $("#t{!$course->id}").slideDown();
-                            t{!$course->id}Down = true;
-                            } 
-                      });
-                  {/foreach}
-                  {foreach $sCourses as $course}
-                      {if isset($activeCourse)}
-                          {if $activeCourse->id==$course->id}
-                              $("#s{!$course->id}").slideDown();
-                          {/if}
-                      {/if}
-                        var s{!$course->id}Down = false;
-                        $("#s{!$course->id}_toggle").click(function(){
-                            if (s{!$course->id}Down){
-                             $("#s{!$course->id}").slideUp();
-                            s{!$course->id}Down = false;
-                            } else {
-                            $("#s{!$course->id}").slideDown();
-                            s{!$course->id}Down = true;
-                            } 
-                      });
-                  {/foreach}
-              {/if}
-              
-            });
-        </script>
+	{control js 'CourseManager.js'}       
 
-<!-- head -->                    
-            {include #head}
-<!-- /head -->
+	<!-- head -->                    
+	{include #head}
+	<!-- /head -->
 
     </head>
 
@@ -126,11 +69,11 @@
 			    {if $logged}<li><a class="mainMenuButton" href="{link settings:homepage}"> <span class="ui-icon ui-icon-gear"></span></a></li>{/if}
 			    <li><a class="mainMenuButton{if !$logged} leftborder{/if}" href="{link help:homepage}"> <span class="ui-icon ui-icon-help"></span></a></li>
 			    <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;                        
-				{if !$logged}
+				    {if !$logged}
 				    {!_'Login'}
-				{else}
+				    {else}
 				    {$user->firstname} {$user->lastname}
-				{/if}
+				    {/if}
 				</a>
 				<div id="loginBox" >
 				    {if $logged}
@@ -141,10 +84,9 @@
 					<a href="{link user:logout}">{!_'Log out'}</a>
 				    </div>
 				    {else}
-					{widget signInForm} 
+				    {widget signInForm} 
 				    <a class="abutton" href="{link user:register}">{!_'REGISTER'}</a>
-				    {/if}   
-
+				    {/if}
 				</div>
 			    </li>
 
@@ -158,46 +100,46 @@
 	    <div class="container shadow">
 		<div class="span-19" id="leftcontent">
 		    {if isset($activeCourse->name)}
-			<div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
+		    <div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
 		    {/if}
 		    <div id="content">
 			<!-- content -->                    
-                    {include #content}
+			{include #content}
 			<!-- /content -->
 		    </div>
 		</div>
 		<div class="span-5 last" id="sidebar">
 		    {if $logged}
-			<div id="courseBox">                    
-			    <h3>{!_'Teachered courses'}</h3>
-			    {foreach $tCourses as $course}
-			    <div class="course asTeacher">
-				<div id="t{$course->id}_toggle" class="title"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</div>
-				<ul id="t{$course->id}">
-				    <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Lessons'}</a></li>
-				    <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
-				    <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
-				    <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
-				    <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
-				    <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
-				</ul>
-			    </div>
-			    {/foreach}
-			    <h3>{!_'Student courses'}</h3>
-			    {foreach $sCourses as $course}
-			    <div class="course asStudent">
-				<div id="s{$course->id}_toggle" class="title"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</div>
-				<ul id="s{$course->id}">
-				    <li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Lessons'}</a></li>
-				    <li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
-				    <li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
-				    <li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
-				    <li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
-				    <li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
-				</ul>
-			    </div>
-			    {/foreach}
+		    <div id="courseBox">                    
+			<h3>{!_'Teachered courses'}</h3>
+			{foreach $tCourses as $course}
+			<div class="course asTeacher">
+			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
+			    <ul id="ul_{$course->id}" class="courseminimenu">
+				<li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Home'}/{!_'Lessons'}</a></li>
+				<li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
+				<li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
+				<li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
+				<li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
+				<li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
+			    </ul>
 			</div>
+			{/foreach}
+			<h3>{!_'Student courses'}</h3>
+			{foreach $sCourses as $course}
+			<div class="course asStudent">
+			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
+			    <ul id="ul_{$course->id}" class="courseminimenu">
+				<li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Home'}/{!_'Lessons'}</a></li>
+				<li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
+				<li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
+				<li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
+				<li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
+				<li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
+			    </ul>
+			</div>
+			{/foreach}
+		    </div>
 		    {/if}
 		</div>
 	    </div>
@@ -220,11 +162,11 @@
         </div>
 
 
-<!-- Flash messages -->
+	<!-- Flash messages -->
         <div id="flashMessages">
             {foreach $flashes as $flash}            
             <div class="flash {$flash->type}">
-                    {$flash->message}
+		{$flash->message}
             </div>            
             {/foreach}
         </div>

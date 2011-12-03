@@ -51,7 +51,6 @@ abstract class BasePresenter extends Presenter {
 	    $this->tCourses = CourseListModel::getTeacherCourses(UserModel::getLoggedUser()->id);
 	    $this->sCourses = CourseListModel::getStudentCourses(UserModel::getLoggedUser()->id);
 
-
 	    $this->template->tCourses = $this->tCourses;
 	    $this->template->sCourses = $this->sCourses;
 
@@ -165,6 +164,16 @@ abstract class BasePresenter extends Presenter {
 	$js->sourcePath = WWW_DIR . "/js";
 
 	return $js;
+    }
+    
+     public function getJSVariables(){
+	$vars = '
+		delete_confirm_message = "'._('Are you sure you want to delete this item').'";
+		texyla_preview_link = "'.@$this->link('Texyla:preview').'";		    
+		active_course_id = "'.@$this->template->activeCourse->id.'";
+		choose_anwsers_message = "'._('Choose anwsers').'";
+	';	
+	return $vars;
     }
 
 }

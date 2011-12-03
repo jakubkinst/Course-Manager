@@ -27,11 +27,11 @@ class ForumPresenter extends BaseCoursePresenter {
         $this->checkAuthorization();
         
         // paging control
-        $this->paginator->itemsPerPage = 2;
+        $this->paginator->itemsPerPage = 20;
         $this->paginator->itemCount = ForumModel::countReplies($tid);
         
         $this->template->topic = ForumModel::getTopic($tid);
-        $this->template->replies = ForumModel::getReplies($tid,$paginator->offset,$paginator->itemsPerPage);
+        $this->template->replies = ForumModel::getReplies($tid,$this->paginator->offset,$this->paginator->itemsPerPage);
     }
     
      /**

@@ -18,6 +18,11 @@ class ResourcePresenter extends BaseCoursePresenter {
         $this->template->resources = ResourceModel::getFiles($cid);
     }
     
+    public function handleDelete($rid){
+	ResourceModel::deleteResource($rid);
+	$this->redirect($this);
+    }
+    
     public function actionDownload($rid){	
         // check if resource id corresponds to course id
         if (ResourceModel::getCourseIDByResourceID($rid) != $this->cid)
