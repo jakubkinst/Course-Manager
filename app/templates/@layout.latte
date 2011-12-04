@@ -75,7 +75,7 @@
 				    {$user->firstname} {$user->lastname}
 				    {/if}
 				</a>
-				<div id="loginBox" >
+				<div id="loginBox" class="hide">
 				    {if $logged}
 				    <div id="loggedMenu">
 					<span class="loggedUser">{$user->firstname} {$user->lastname}</span>
@@ -115,7 +115,7 @@
 			{foreach $tCourses as $course}
 			<div class="course asTeacher">
 			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
-			    <ul id="ul_{$course->id}" class="courseminimenu">
+			    <ul id="ul_{$course->id}" class="hide">
 				<li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Home'}/{!_'Lessons'}</a></li>
 				<li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
 				<li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>

@@ -132,7 +132,7 @@ abstract class BasePresenter extends Presenter {
 	    $this->getUser()->login($values->email, $values->password);
 	    $this->redirect('Courselist:homepage');
 	} catch (AuthenticationException $e) {
-	    $form->addError($e->getMessage());
+	    $this->flashMessage($e->getMessage(),'error');	    
 	}
     }
 

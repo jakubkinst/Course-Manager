@@ -62,11 +62,13 @@
 		{foreach $lessons as $lesson}
 		    <!-- Lesson -->
 		    <div class="lesson">
-			<h5><a href="{link lesson:homepage,$lesson->id}">{$lesson['topic']}</a></h5>
+			<h5><a class="lesson_dropdown" id="{$lesson->id}" href="{link lesson:homepage,$lesson->id}">{$lesson['topic']}</a></h5>
 			<div class="date">{$lesson['date']|mydate}</div>
-			<div class="separator"><!----></div>
-			<div class="texy description">{!$lesson['description']|texy}</div>
-			<a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
+			<div id="div_{$lesson->id}" {if !$iterator->isFirst()}class="hide"{/if}>
+			    <div class="separator"><!----></div>
+			    <div class="texy description">{!$lesson['description']|texy}</div>
+			    <a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
+			</div>
 		    </div>
 		{/foreach}
             

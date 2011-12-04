@@ -1,6 +1,13 @@
 
 $(document).ready(function(){
-        
+    
+    
+    
+    
+    // hide elements with class hide
+    $('.hide').hide();
+
+    // confirm dialog when deleting
     $("a.delete").click(function(event) {
 	event.preventDefault();
 	if (confirm(delete_confirm_message))
@@ -62,14 +69,12 @@ $(document).ready(function(){
     });
     
     //loginbox dropdown
-    $("#loginBox").hide();
     $("#userButton").click(function(){
 	$("#loginBox").slideToggle();
     });
     
     
     //course minimenu dropdown
-    $('.courseminimenu').hide();
     if (active_course_id!=''){
 	$('#ul_'+active_course_id).show();
     }
@@ -77,5 +82,12 @@ $(document).ready(function(){
 	event.preventDefault();
 	var id = this.id;
 	$('#ul_'+id).slideToggle();
+    });    
+    
+    // lesson dropdown
+    $('.lesson_dropdown').click(function(event){
+	event.preventDefault();
+	var id = this.id;
+	$('#div_'+id).slideToggle();
     });
 });
