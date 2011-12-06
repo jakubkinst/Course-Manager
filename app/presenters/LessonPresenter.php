@@ -7,20 +7,23 @@
  */
 class LessonPresenter extends BaseCoursePresenter {
 
-    /** @persistent Lesson ID */
     public $lid;
+    
+    protected function beforeRender() {
+	parent::beforeRender();
+	if (null!= $this->getParam('lid')){
+	    $this->lid = $this->getParam('lid');	    
+	    // check if lesson id corresponds to course id
+	    if (CourseModel::getCourseIDByLessonID($this->lid) != $this->cid)
+		throw new BadRequestException;
+	}
+    }
 
     /**
      * Homepage template render
      * @param type $lid 
      */
     public function renderHomepage($lid) {
-
-	// check if lesson id corresponds to course id
-	if (CourseModel::getCourseIDByLessonID($lid) != $this->cid) {
-	    throw new BadRequestException;
-	}
-	$this->lid = $lid;
 
 	$this->paginator->itemsPerPage = 10;
         $this->paginator->itemCount = CourseModel::countComments($this->lid);
@@ -58,16 +61,15 @@ class LessonPresenter extends BaseCoursePresenter {
      */
     public function commentFormSubmitted($form) {
 	$values = $form->getValues();
-	$values['added'] = new DateTime;
-	$values['user_id'] = UserModel::getUserID(Environment::getUser()->getIdentity());
-
-	$values['Lesson_id'] = $this->lid;
-	CourseModel::addComment($values);
-	$this->flashMessage('Comment added.', $type = 'success');
-	$this->redirect('lesson:homepage');
+	if (CourseModel::addComment($values,$this->lid)){
+	    $this->flashMessage('Comment added.', $type = 'success');
+	    $this->redirect('lesson:homepage',$this->lid);
+	}
+	else $this->flashMessage('There was an error adding the comment.', $type = 'error');
     }
 
-    public function handleDelete($lid) {
+    public function handleDelete($lid) {	
+	$this->checkTeacherAuthority();
 	if (CourseModel::deleteLesson($lid)) {
 	    $this->flashMessage('Lesson was successfully deleted', 'success');
 	    $this->redirect('Course:homepage');

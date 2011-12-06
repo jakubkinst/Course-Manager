@@ -13,6 +13,21 @@ class EventModel extends Object {
         $values['date'] = CommonModel::convertFormDate($values['date']);
         return dibi::query('INSERT INTO event', $values);
     }
+    
+     public static function editEvent($eid,$values) {
+	 $array = array(
+	     'name' => $values['name'],
+	     'date' => CommonModel::convertFormDate($values['date']),
+	     'description' => $values['description'],
+	 );
+        return dibi::query('UPDATE event SET', $array,'WHERE id=%i',$eid);
+    }
+    
+    public static function deleteEvent($eid) {
+        return dibi::query('DELETE FROM event WHERE id=%i',$eid);
+    }
+    
+    
 
 
     public static function getEvents($cid) {

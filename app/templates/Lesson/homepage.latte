@@ -6,8 +6,8 @@
         {if $isTeacher || $isStudent}
 	    <div class="buttonline">
 		{if $isTeacher}
-		    <a class="adminbutton abutton" href="{link addResource}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
-		    <a class="adminbutton abutton" href="{link edit}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
+		    <a class="adminbutton abutton" href="{link addResource, $lesson->id}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
+		    <a class="adminbutton abutton" href="{link edit, $lesson->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
 		    <a class="redbutton abutton delete" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Lesson'}</a>
 		{/if} 
 	    </div>

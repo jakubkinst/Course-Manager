@@ -67,7 +67,7 @@ class UserPresenter extends BasePresenter {
 		->addRule('myValidator', 'E-mail is already registered.');
 	$form->addPassword('password', 'Password:*')
 		->addRule(Form::FILLED, 'Fill in the password')
-		->addRule(Form::MIN_LENGTH, 'Minimal password length is %d.', 5);
+		->addRule(Form::MIN_LENGTH, 'Minimal password length is 5',5);
 	$form->addPassword('password2', 'Verify password:*')
 		->addRule(Form::FILLED, 'Fill in the password again.')
 		->addRule(Form::EQUAL, 'Passwords don\'t match.', $form['password']);
@@ -102,7 +102,7 @@ class UserPresenter extends BasePresenter {
 		->addRule(Form::FILLED, 'Fill the lastname.');
 	$form->addText('web', 'Webpage:');
 
-	$form->addSubmit('send', 'Register');
+	$form->addSubmit('send', 'Save');
 	$form->onSubmit[] = callback($this, 'editFormSubmitted');
 	return $form;
     }

@@ -5,6 +5,12 @@
 
 {block content}
     <div id="event_homepage">
+		<div class="buttonline">
+                    {if $isTeacher}
+			<a class="adminbutton abutton" href="{link edit, $event->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Event'}</a>
+                        <a class="redbutton abutton delete" href="{link delete!,$event->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Event'}</a>
+                    {/if} 
+                </div>
         {if $logged}
             <h3>{!_'Course Event Detail'}</h3>
             <div class="separator"><!----></div>

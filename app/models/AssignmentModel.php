@@ -8,11 +8,17 @@
 class AssignmentModel extends Object {
 
     public static function addAssignment($values, $cid) {
-	$values['Course_id'] = $cid;
-	$values['created'] = new DateTime;
-	$values['assigndate'] = CommonModel::convertFormDate($values['assigndate']);
-	$values['duedate'] = CommonModel::convertFormDate($values['duedate']);
-	if (dibi::query('INSERT INTO assignment', $values)) {
+	$array = array(
+	    'name' => $values['name'],
+	    'description' =>$values['description'],
+	    'assigndate' => CommonModel::convertFormDate($values['assigndate']),
+	    'duedate' => CommonModel::convertFormDate($values['duedate']),
+	    'maxpoints' =>$values['maxpoints'],		
+	    'timelimit' =>$values['timelimit'],
+	    'created' => new DateTime,
+	    'Course_id' => $cid
+	    );
+	if (dibi::query('INSERT INTO assignment', $array)) {
 	    $id = dibi::getInsertId();
 	    self::sendNewAssignmentNotif($id);
 	    return $id;

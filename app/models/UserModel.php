@@ -44,11 +44,19 @@ class UserModel extends Object implements IAuthenticator {
      */
     static public function addUser($values) {
 	dibi::begin();
-	$values['created'] = new DateTime;
-	$values['password'] = UserModel::calculateHash($values['password']);
-	$values['seclink'] = sha1($values['email'] . time() . 'yjtbvb678b987n5c4');
-	$result = dibi::query('INSERT INTO user', $values);
-	$id = dibi::getInsertId();
+	$array = array(
+	    'email' => $values['email'],
+	    'password' => UserModel::calculateHash($values['password']),
+	    'firstname' => $values['firstname'],
+	    'lastname' => $values['lastname'],
+	    'web' => $values['web'],
+	    'seclink' => sha1($values['email'] . time() . 'yjtbvb678b987n5c4'),
+	    'created' => new DateTime,	    
+	);
+	$result = dibi::query('INSERT INTO user', $array);
+	$id = dibi::getInsertId();	
+	//create settings record
+	dibi::query('INSERT INTO settings',array('User_id'=>$id));
 	MailModel::sendRegisterHash($id);
 	dibi::commit();
 	return $result;
@@ -56,10 +64,13 @@ class UserModel extends Object implements IAuthenticator {
     
      static public function editUser($values) {
 	$uid = Environment::getUser()->getIdentity()->id;
+	$array = array(
+	    'firstname' => $values['firstname'],
+	    'lastname' => $values['lastname'],
+	    'web' => $values['web'],
+	);
 	dibi::begin();	
-	$result = dibi::query('UPDATE user SET', $values,'WHERE id=%i',$uid);
-	//create settings record
-	dibi::query('INSERT INTO settings',array('User_id'=>$id));
+	$result = dibi::query('UPDATE user SET', $array,'WHERE id=%i',$uid);
 	dibi::commit();
 	return $result;
     }
@@ -111,7 +122,10 @@ class UserModel extends Object implements IAuthenticator {
 	$users = dibi::fetchAll('SELECT * FROM user WHERE checked=0');
 	foreach ($users as $user) {
 	    if (new DateTime($user->created) < date_sub(new DateTime, date_interval_create_from_date_string('1 day')))
-		    dibi::query ('DELETE FROM user WHERE id=%i',$user->id);
+	    {
+		dibi::query ('DELETE FROM settings WHERE User_id=%i',$user->id);
+		dibi::query ('DELETE FROM user WHERE id=%i',$user->id);		
+	    }
 	}
 	dibi::commit();
     }	

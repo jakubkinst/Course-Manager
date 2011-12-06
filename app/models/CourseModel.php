@@ -13,12 +13,28 @@ class CourseModel extends Object {
      * @param type $values 
      */
     public static function addCourse($user, $values) {
-	dibi::query('INSERT INTO course', $values);
+	$array = array(
+	    'name' => $values['name'],
+	    'description' => $values['description']
+	);
+	dibi::query('INSERT INTO course', $array);
 	$course_id = dibi::getInsertId();
 	$values2['User_id'] = UserModel::getUserID($user);
 	$values2['Course_id'] = $course_id;
-
+	
 	dibi::query('INSERT INTO teacher', $values2);
+    }
+    
+    public static function editCourse($cid, $values) {	
+	$array = array(
+	    'name' => $values['name'],
+	    'description' => $values['description']
+	);
+	return dibi::query('UPDATE course SET', $array, 'WHERE id=%i', $cid);
+    }
+    
+    public static function deleteCourse($cid) {	
+	return dibi::query('DELETE FROM course WHERE id=%i', $cid);
     }
 
     /**
@@ -26,31 +42,25 @@ class CourseModel extends Object {
      * @param type $values 
      */
     public static function addLesson($values, $cid) {
-	$values['Course_id'] = $cid;
-	$values['date'] = CommonModel::convertFormDate($values['date']);
-	dibi::query('INSERT INTO lesson', $values);
+	$array = array(
+	    'topic' => $values['topic'],
+	    'description' => $values['description'],
+	    'Course_id' =>$cid,
+	    'date' => CommonModel::convertFormDate($values['date'])
+	);
+	dibi::query('INSERT INTO lesson', $array);
     }
 
-    public static function editLesson($lid, $values) {
-	dibi::query('UPDATE lesson SET', $values, 'WHERE id=%i', $lid);
+    public static function editLesson($lid, $values) {	
+	$array = array(
+	    'topic' => $values['topic'],
+	    'description' => $values['description']
+	);
+	dibi::query('UPDATE lesson SET', $array, 'WHERE id=%i', $lid);
     }
 
     public static function deleteLesson($lid) {
-	dibi::begin();
-	// delete comments
-	dibi::query('DELETE FROM comment WHERE Lesson_id=%i', $lid);
-
-	// delete lesson resources
-	foreach (dibi::fetchAll('SELECT * FROM resource WHERE Lesson_id=%i', $lid) as $res) {
-	    ResourceModel::deleteResource($res->id);
-	}
-
-	// delete self
 	dibi::query('DELETE FROM lesson WHERE id=%i', $lid);
-
-	if (dibi::commit())
-	    return true;
-
 	return true;
     }
 
@@ -58,8 +68,11 @@ class CourseModel extends Object {
      * Adds lesson to DB by $values
      * @param type $values 
      */
-    public static function addComment($values) {
-	dibi::query('INSERT INTO comment', $values);
+    public static function addComment($values,$lid) {	
+	$values['added'] = new DateTime;
+	$values['user_id'] = UserModel::getUserID(Environment::getUser()->getIdentity());
+	$values['Lesson_id'] = $lid;
+	return dibi::query('INSERT INTO comment', $values);
     }
 
     /**

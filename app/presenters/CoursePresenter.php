@@ -14,10 +14,10 @@ class CoursePresenter extends BaseCoursePresenter {
 	$this->checkAuthorization();
     }
 
-    public function renderInviteStudent(){
+    public function renderInviteStudent() {
 	$this->template->invites = CourseListModel::getInvites($this->cid);
     }
-    
+
     /**
      * Add lesson temlate render
      * @param type $cid 
@@ -25,7 +25,7 @@ class CoursePresenter extends BaseCoursePresenter {
     public function renderAddLesson($cid) {
 	// if not teacher, redirect to homepage
 	$this->checkTeacherAuthority();
-    }    
+    }
 
     /**
      * Adding course template render
@@ -63,6 +63,43 @@ class CoursePresenter extends BaseCoursePresenter {
 	$this->redirect('courselist:homepage');
     }
 
+    public function renderEdit($cid) {
+	$this->checkTeacherAuthority();
+	$this['editForm']->setDefaults(CourseModel::getCourseByID($cid));
+    }
+
+    public function handleDelete($cid) {
+	$this->checkTeacherAuthority();
+	if (CourseModel::deleteCourse($cid)) {
+	    $this->flashMessage(_('Course Deleted'), 'success');
+	    $this->redirect('courselist:homepage');
+	}
+	else
+	    $this->flashMessage(_('There was an error deleting the course'), 'error');
+    }
+
+    protected function createComponentEditForm() {
+	$form = new AppForm;
+	$form->setTranslator($this->translator);
+	$form->addText('name', 'Course name:*')
+		->addRule(Form::FILLED, 'Set course name.');
+	$form->addTextArea('description', 'Course description:');
+	$form->addSubmit('send', 'Save');
+	$form->onSubmit[] = callback($this, 'editFormSubmitted');
+
+	return $form;
+    }
+
+    public function editFormSubmitted($form) {
+	$values = $form->getValues();
+	if (CourseModel::editCourse($this->cid, $values)) {
+	    $this->flashMessage('Course edited.', $type = 'success');
+	    $this->redirect('homepage');
+	}
+	else
+	    $this->flashMessage('There was an error editting the Course.', $type = 'error');
+    }
+
     /**
      * Form factory - Add lesson form
      * @return AppForm 
@@ -85,7 +122,7 @@ class CoursePresenter extends BaseCoursePresenter {
      */
     public function addLessonFormSubmitted($form) {
 	$values = $form->getValues();
-	CourseModel::addLesson($values,$this->cid);
+	CourseModel::addLesson($values, $this->cid);
 
 	$this->flashMessage('Lesson added', $type = 'success');
 	$this->redirect('course:homepage', $values['Course_id']);
@@ -121,5 +158,4 @@ class CoursePresenter extends BaseCoursePresenter {
 	    $this->flashMessage('There was a problem inviting this student', $type = 'error');
     }
 
-    
 }

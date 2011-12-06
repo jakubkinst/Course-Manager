@@ -8,12 +8,14 @@
 class MessageModel extends Object {
 
     public static function sendMessage($values) {
-        $values['sent'] = new DateTime;
-        $values['from'] = UserModel::getUserID(Environment::getUser()->getIdentity());
-        $values['to'] = UserModel::getUserIDByEmail($values['to']);
-        //dump($values);
-        //return true;
-        return dibi::query('INSERT INTO message', $values);
+	$array = array(
+	    'to' => UserModel::getUserIDByEmail($values['to']),
+	    'subject' => $values['subject'],
+	    'content' => $values['content'],
+	    'from' => UserModel::getUserID(Environment::getUser()->getIdentity()),
+	    'sent' => new DateTime
+	);
+        return dibi::query('INSERT INTO message', $array);
     }
 
     public static function addReply($values, $tid) {

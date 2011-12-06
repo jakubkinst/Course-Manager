@@ -18,7 +18,8 @@ class ResourcePresenter extends BaseCoursePresenter {
         $this->template->resources = ResourceModel::getFiles($cid);
     }
     
-    public function handleDelete($rid){
+    public function handleDelete($rid){	
+	$this->checkTeacherAuthority();
 	ResourceModel::deleteResource($rid);
 	$this->redirect($this);
     }
