@@ -7,6 +7,8 @@
  */
 class ResultPresenter extends BaseCoursePresenter {
 
+    
+    
 
     /**
      * Homepage template render

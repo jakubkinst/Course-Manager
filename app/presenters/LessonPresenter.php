@@ -9,15 +9,14 @@ class LessonPresenter extends BaseCoursePresenter {
 
     public $lid;
     
-    protected function beforeRender() {
-	parent::beforeRender();
-	if (null!= $this->getParam('lid')){
-	    $this->lid = $this->getParam('lid');	    
-	    // check if lesson id corresponds to course id
-	    if (CourseModel::getCourseIDByLessonID($this->lid) != $this->cid)
-		throw new BadRequestException;
+    protected function startup() {
+	if (null != $this->getParam('lid')){	    
+	    $this->lid = $this->getParam('lid');
+	    $this->cid = CourseModel::getCourseIDByLessonID($this->lid);
 	}
+	parent::startup();
     }
+    
 
     /**
      * Homepage template render

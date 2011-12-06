@@ -64,9 +64,12 @@ $(document).ready(function(){
     };
 
     //set jquery multiselect
-    $("select").multiselect({
-	header: choose_anwsers_message
+    $("select.multi").multiselect({
+	noneSelectedText: choose_anwsers_message,
+	minWidth:300,
+	autoOpen:false
     });
+    $("select.multi").multiselect('close');
     
     //loginbox dropdown
     $("#userButton").click(function(){

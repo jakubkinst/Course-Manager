@@ -8,7 +8,7 @@
  */
 abstract class BaseCoursePresenter extends BasePresenter {
 
-    /** @persistent Course ID */
+    
     public $cid;    
     public $isTeacher;
     /** Boolean indicating user privileges */
@@ -23,8 +23,10 @@ abstract class BaseCoursePresenter extends BasePresenter {
      */
     protected function startup() {
         parent::startup();
-        if ($this->getParam('cid') != null){
-            $this->init($this->getParam('cid'));
+	if ($this->cid==null)
+	    $this->cid = $this->getParam('cid');
+        if ($this->cid != null){
+            $this->init($this->cid);
 	    $this->checkAuthorization();
 	}
     }
@@ -40,7 +42,7 @@ abstract class BaseCoursePresenter extends BasePresenter {
         $this->isStudent = CourseModel::isStudent($uid, $this->cid);
 
         $this->template->isStudent = $this->isStudent;
-        $this->template->isTeacher = $this->isTeacher;
+        $this->template->isTeacher = $this->isTeacher;	
 
         if ($this->isTeacher || $this->isStudent) {
             $this->template->activeCourse = CourseModel::getCourseByID($this->cid);

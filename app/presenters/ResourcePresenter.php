@@ -5,6 +5,16 @@
  *
  */
 class ResourcePresenter extends BaseCoursePresenter {
+    
+    public $rid;
+    
+    protected function startup() {
+	if (null != $this->getParam('rid')){	    
+	    $this->rid = $this->getParam('rid');
+	    $this->cid = ResourceModel::getCourseIDByResourceID($this->rid);
+	}
+	parent::startup();
+    }
 
     public function actionHomepage($cid){	
         $uploader  = new Uploader($this, 'uploader');
@@ -25,9 +35,6 @@ class ResourcePresenter extends BaseCoursePresenter {
     }
     
     public function actionDownload($rid){	
-        // check if resource id corresponds to course id
-        if (ResourceModel::getCourseIDByResourceID($rid) != $this->cid)
-            throw new BadRequestException;
 	$file = ResourceModel::getResource($rid);
 	$this->sendResponse(new DownloadResponse(WWW_DIR.'/../uploads/'.$file->filename,$file->name));
     }

@@ -6,26 +6,28 @@
  */
 class ForumPresenter extends BaseCoursePresenter {
 
-
+    public $tid;
+    
+    protected function startup() {
+	if (null != $this->getParam('tid')){	    
+	    $this->tid = $this->getParam('tid');
+	    $this->cid = ForumModel::getCourseIDByTopicID($this->tid);
+	}
+	parent::startup();
+    }
    
     /**
      * Homepage template render
      * @param type $cid 
      */
     public function renderHomepage($cid) {
-        $this->checkAuthorization();       
         $this->paginator->itemsPerPage = 20;
         $this->paginator->itemCount = ForumModel::countTopics($cid);        
         $this->template->topics = ForumModel::getTopics($cid,$this->paginator->offset,$this->paginator->itemsPerPage);
         
     }
     
-    public function renderShowTopic($tid){
-        // check if topic id corresponds to course id
-        if (ForumModel::getCourseIDByTopicID($tid) != $this->cid) 
-            throw new BadRequestException;
-        $this->checkAuthorization();
-        
+    public function renderShowTopic($tid){ 
         // paging control
         $this->paginator->itemsPerPage = 20;
         $this->paginator->itemCount = ForumModel::countReplies($tid);

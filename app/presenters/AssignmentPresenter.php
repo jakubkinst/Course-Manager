@@ -6,9 +6,19 @@
  * @author JerRy
  */
 class AssignmentPresenter extends BaseCoursePresenter {
+    
+    
 
-    var $aid = 0;
+    var $aid;
     var $autocorrect = false;
+    
+    protected function startup() {
+	if (null != $this->getParam('aid')){	    
+	    $this->aid = $this->getParam('aid');
+	    $this->cid = AssignmentModel::getCourseIDByAssignmentID($this->aid);
+	}
+	parent::startup();
+    }
 
     public function renderHomepage($cid) {
 	$this->template->assignments = AssignmentModel::getAssignments($this->cid);
@@ -16,10 +26,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
 
     public function actionShow($aid) {
 	$this->aid = $aid;
-	// check if assignment id corresponds to course id
-	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
-	    throw new BadRequestException;
-	}
     }
 
     public function renderShow($aid) {
@@ -36,9 +42,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
     }
 
     public function renderSolve($aid) {
-	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
-	    throw new BadRequestException;
-	}
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
 	$this->template->questions = AssignmentModel::getQuestions($aid);
@@ -69,11 +72,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
     }
 
     public function actionEdit($aid) {
-	// check if assignment id corresponds to course id
-	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
-	    throw new BadRequestException;
-	}
-
 	$this->template->assignment = AssignmentModel::getAssignment($aid);
 	$this->aid = $aid;
     }
@@ -89,10 +87,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
     }
 
     public function actionCorrect($aid) {
-	//// check if assignment id corresponds to course id
-	if (AssignmentModel::getCourseIDByAssignmentID($aid) != $this->cid) {
-	    throw new BadRequestException;
-	}
 	$this->checkTeacherAuthority();
 	$this->aid = $aid;
 
@@ -141,7 +135,8 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    if ($value->type == 'radio')
 		$form->addRadioList($value->id, $label, AssignmentModel::parseChoices($value->choices));
 	    if ($value->type == 'multi')
-		$form->addMultiSelect($value->id, $label, AssignmentModel::parseChoices($value->choices));
+		$form->addMultiSelect($value->id, $label, AssignmentModel::parseChoices($value->choices))
+			->getControlPrototype()->class = "multi";
 	}
 	$form->addSubmit('submit', 'Submit');
 	$form->onSubmit[] = callback($this, 'submitSubmission');
@@ -182,8 +177,8 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	$form->addText('name', 'Name*')
 		->setRequired();
 	$form->addTextArea('description', 'Description:');
-	$form->addText('assigndate', 'Open Date:')->getControlPrototype()->class = "datetimepicker";;
-	$form->addText('duedate', 'Close Date:')->getControlPrototype()->class = "datetimepicker";;
+	$form->addText('assigndate', 'Open Date:')->getControlPrototype()->class = "datetimepicker";
+	$form->addText('duedate', 'Close Date:')->getControlPrototype()->class = "datetimepicker";
 	$form->addText('maxpoints', 'Max. Points (0=no max points):')
 		->setDefaultValue('0')
 		->addRule(Form::INTEGER, 'Max. points must be a number');
@@ -222,7 +217,8 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    if ($value->type == 'radio')
 		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getRadioAnwserPos($value, $value->rightanwser));
 	    if ($value->type == 'multi')
-		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getMultiAnwserArray($value, $value->rightanwser));
+		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getMultiAnwserArray($value, $value->rightanwser))
+			->getControlPrototype()->class = "multi";
 	}
 
 	return $form;
@@ -341,7 +337,8 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
-	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2));
+	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2))
+		->getControlPrototype()->class = "multi";
 	$form->addGroup('Set Label and choices');
 	$form->addTextArea('label');
 	$form->addText('val1');
