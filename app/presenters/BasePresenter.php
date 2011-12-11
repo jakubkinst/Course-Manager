@@ -1,29 +1,55 @@
 <?php
 
 /**
- * Base class for all application presenters.
+ * Base class for application presenters. Defines variables and objects that
+ * are common for all application presenters. Contains Sign-In form which is included
+ * in layout.latte. Passes some neccessary variables to every single template
  *
- * @author     Jakub Kinst
- * @package    Course-Manager
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 abstract class BasePresenter extends Presenter {
 
     /** Teachered courses */
     public $tCourses;
+
     /** Courses where acting as student */
     public $sCourses;
+
     /** Boolean indicating user privileges */
+
     /** Is this presenter for unauthorised users too ? */
     public $canbesignedout = false;
+
     /** Logical value indicating state of user */
     public $logged = false;
-    /** @persistent */
+
+    /** @persistent language variable - if set, stays persistent */
     public $lang;
-    public static $DEFAULT_LANG = 'en';
-    public $translator;
+
+    /** User preferred language - may not be set */
     public $userSetLang;
+
+    /** Default language value - English */
+    public static $DEFAULT_LANG = 'en';
+
+    /**
+     * GetTextTranslator instance responsible for translating strings all
+     * across the application
+     */
+    public $translator;
+
+    /**
+     * Paginator instance for VisualPaginator
+     * Page control is available in every single presenter/template  
+     */
     public $paginator;
 
+    /**
+     * Startup function
+     * Called first when Presenter is created
+     * Registers helpers
+     */
     protected function startup() {
 	parent::startup();
 
@@ -31,19 +57,21 @@ abstract class BasePresenter extends Presenter {
 	function myDateHelper($value) {
 	    return CommonModel::relative_date(strtotime($value));
 	}
+
+	$this->template->registerHelper('mydate', 'myDateHelper');
+
 	// Relative Date with time helper
 	function myDateTimeHelper($value) {
-	    return CommonModel::relative_date(strtotime($value)).' '.date('H:i',strtotime($value));
+	    return CommonModel::relative_date(strtotime($value)) . ' ' . date('H:i', strtotime($value));
 	}
 
-	$this->template->registerHelper('mydate', 'myDateHelper');	
 	$this->template->registerHelper('mydatetime', 'myDateTimeHelper');
 
 	// Texy helper
 	$texy = new Texy;
 	$this->template->registerHelper("texy", array($texy, "process"));
 
-
+	// Set neccessary variables and pass them to template
 	$user = Environment::getUser();
 	$this->logged = $user->isLoggedIn();
 	$this->template->logged = $this->logged;
@@ -59,25 +87,31 @@ abstract class BasePresenter extends Presenter {
 
 	    $this->template->countUnread = MessageModel::countUnread();
 	}
+	// Handle unathorized access
 	if (!$this->logged & !$this->canbesignedout) {
 	    $this->flashMessage('Please login.', $type = 'unauthorized');
 	    $this->redirect('courselist:homepage');
 	}
 
+	// language settings
+	// first try to get user-preferred language
 	if ($this->logged)
 	    $this->userSetLang = SettingsModel::getMySettings()->lang;
 	$this->decideLanguage();
 
 	// template translator
 	// uncomment to generate .po file
-	//CommonModel::getTextExtract();
+	// CommonModel::getTextExtract();
 	$this->template->setTranslator($this->translator);
-	
-	// paging control
-        $pages = new VisualPaginator($this, 'pages');
-        $this->paginator = $pages->getPaginator();
+
+	// paging control - create Paginator instance
+	$pages = new VisualPaginator($this, 'pages');
+	$this->paginator = $pages->getPaginator();
     }
 
+    /**
+     * Gets language based on user settings or HTTP parameter
+     */
     public function decideLanguage() {
 	if ($this->getParam('lang') != '') {
 	    $this->lang = $this->getParam('lang');
@@ -88,6 +122,10 @@ abstract class BasePresenter extends Presenter {
 	    $this->setLanguage(self::$DEFAULT_LANG);
     }
 
+    /**
+     * Create and set Translator based on desired language
+     * @param string $lang 
+     */
     public function setLanguage($lang) {
 	if ($lang == 'en')
 	    $this->translator = new GettextTranslator(APP_DIR . '/locale/en.mo');
@@ -119,9 +157,9 @@ abstract class BasePresenter extends Presenter {
 
     /**
      * Sign In Form Handler
-     * @param type $form 
+     * @param Form $form 
      */
-    public function signInFormSubmitted($form) {
+    public function signInFormSubmitted(AppForm $form) {
 	try {
 	    $values = $form->getValues();
 	    if ($values->remember) {
@@ -132,30 +170,27 @@ abstract class BasePresenter extends Presenter {
 	    $this->getUser()->login($values->email, $values->password);
 	    $this->redirect('Courselist:homepage');
 	} catch (AuthenticationException $e) {
-	    $this->flashMessage($e->getMessage(),'error');	    
+	    $this->flashMessage($e->getMessage(), 'error');
 	}
     }
 
-    //WebLoader CSS
+    /**
+     * Loads Webloader extension for better CSS file loading
+     * @return CssLoader 
+     */
     protected function createComponentCss() {
 	$css = new CssLoader;
-
-	// cesta na disku ke zdroji
 	$css->sourcePath = WWW_DIR . "/css";
-
-	// cesta na webu ke zdroji (kvůli absolutizaci cest v css souboru)
 	$css->sourceUri = Environment::getVariable("baseUri") . "css";
-
-	// cesta na webu k cílovému adresáři
 	$css->tempUri = Environment::getVariable("baseUri") . "webtemp";
-
-	// cesta na disku k cílovému adresáři
 	$css->tempPath = WWW_DIR . "/webtemp";
-
 	return $css;
     }
 
-// WebLoader JS
+    /**
+     * Loads Webloader extension for better JS file loading
+     * @return JavaScriptLoader 
+     */
     protected function createComponentJs() {
 	$js = new JavaScriptLoader;
 
@@ -165,14 +200,19 @@ abstract class BasePresenter extends Presenter {
 
 	return $js;
     }
-    
-     public function getJSVariables(){
+
+    /**
+     * Function used to declare and pass PHP variables to JavaScript
+     * external files
+     * @return string 
+     */
+    public function getJSVariables() {
 	$vars = '
-		delete_confirm_message = "'._('Are you sure you want to delete this item').'";
-		texyla_preview_link = "'.@$this->link('Texyla:preview').'";		    
-		active_course_id = "'.@$this->template->activeCourse->id.'";
-		choose_anwsers_message = "'._('Choose anwsers').'";
-	';	
+		delete_confirm_message = "' . _('Are you sure you want to delete this item') . '";
+		texyla_preview_link = "' . @$this->link('Texyla:preview') . '";		    
+		active_course_id = "' . @$this->template->activeCourse->id . '";
+		choose_anwsers_message = "' . _('Choose anwsers') . '";
+	';
 	return $vars;
     }
 

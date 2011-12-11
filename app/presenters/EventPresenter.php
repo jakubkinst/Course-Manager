@@ -1,35 +1,60 @@
 <?php
 
 /**
- * Event presenter.
- *
+ * Presenter dedicated to show course events and handle related signals and actions
+ * 
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 class EventPresenter extends BaseCoursePresenter {
+    /*
+     * =============================================================
+     * ==================     Variables    =========================
+     */
 
+    /**
+     * @var int Event ID
+     */
     public $eid;
-    
-    protected function beforeRender() {
-	parent::beforeRender();
-	if (null!= $this->getParam('eid')){
+
+    /*
+     * =============================================================
+     * =================   Parent overrides   ======================
+     */
+
+    protected function startup() {
+	if (null != $this->getParam('eid')) {
 	    $this->eid = $this->getParam('eid');
-	    if (EventModel::getCourseIDByEventID($this->eid) != $this->cid)
-		throw new BadRequestException;
+	    $this->cid = EventModel::getCourseIDByEventID($this->eid);
 	}
+	parent::startup();
     }
+
+    /*
+     * =============================================================
+     * =======================  Actions ============================
+     */
 
     /**
      * Homepage template render
-     * @param type $cid 
+     * @param int $cid Course ID
      */
     public function renderHomepage($cid) {
 	$this->template->events = EventModel::getEvents($this->cid);
     }
 
-    public function renderShowEvent($eid) {	
-	$this->eid = $eid;
+    /**
+     * Show event detail
+     * @param int $eid Event ID
+     */
+    public function renderShowEvent($eid) {
 	$this->template->event = EventModel::getEvent($eid);
     }
 
+    /**
+     * Edit Event page
+     * @param int $eid Event ID
+     */
     public function renderEdit($eid) {
 	$this->checkTeacherAuthority();
 	$event = EventModel::getEvent($eid);
@@ -37,8 +62,28 @@ class EventPresenter extends BaseCoursePresenter {
 	$this['editEvent']->setDefaults($event);
     }
 
+    /*
+     * =============================================================
+     * ==================  Signal Handlers =========================
+     */
+
+    public function handleDelete($eid) {
+	$this->checkTeacherAuthority();
+	if (EventModel::deleteEvent($eid)) {
+	    $this->flashMessage(_('Event Deleted'), 'success');
+	    $this->redirect('event:homepage');
+	}
+	else
+	    $this->flashMessage(_('There was an error deleting the event'), 'error');
+    }
+
+    /*
+     * =============================================================
+     * ==================  Form factories  =========================
+     */
+
     /**
-     * Form factory - Add event Form
+     * Add event Form
      * @return AppForm 
      */
     protected function createComponentAddEvent() {
@@ -57,7 +102,11 @@ class EventPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addEventFormSubmitted($form) {
+    /**
+     * Add Event form handler
+     * @param AppForm $form 
+     */
+    public function addEventFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	if (EventModel::addEvent($values, $this->cid)) {
 	    $this->flashMessage('Event added.', $type = 'success');
@@ -66,16 +115,10 @@ class EventPresenter extends BaseCoursePresenter {
 	    $this->flashMessage('There was an error adding the Event.', $type = 'error');
     }
 
-    public function handleDelete($eid) {
-	$this->checkTeacherAuthority();
-	if (EventModel::deleteEvent($eid)) {
-	    $this->flashMessage(_('Event Deleted'), 'success');
-	    $this->redirect('event:homepage');
-	}
-	else
-	    $this->flashMessage(_('There was an error deleting the event'), 'error');
-    }
-
+    /**
+     * Edit Event form
+     * @return AppForm 
+     */
     protected function createComponentEditEvent() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -92,7 +135,11 @@ class EventPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function editEventFormSubmitted($form) {
+    /**
+     * Edit event form handler
+     * @param AppForm $form 
+     */
+    public function editEventFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	if (EventModel::editEvent($this->eid, $values)) {
 	    $this->flashMessage('Event edited.', $type = 'success');

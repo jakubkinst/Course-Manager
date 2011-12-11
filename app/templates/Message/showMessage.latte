@@ -10,7 +10,10 @@
             <div class="separator"><!----></div>
             <h4>{!_'from'} {$message->from->email}</h4>
             <span>{!_'on'} {$message->sent}</span>            
-            <div>{!_'Content'}: {$message->content}</div>
+            <div>{!_'Content'}: {!$message->content|nl2br}</div>
+	    <div class="buttonline">
+                <a class="abutton" href="{link new,'email'=>$message->from->email,'subject'=> 'Re: '.$message->subject,'content'=>MessageModel::wrapReply($message->content)}"> {!_'Reply'}</a>
+            </div>
         {/if}
     </div>
     

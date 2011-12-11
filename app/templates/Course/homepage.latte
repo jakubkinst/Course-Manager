@@ -5,10 +5,10 @@
             
                 <div class="buttonline">
                     {if $isTeacher}
-                        <a class="adminbutton abutton" href="{link course:addLesson}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Lesson'}</a>
-                        <a class="adminbutton abutton" href="{link Course:inviteStudent}"><span class="ui-icon ui-icon-person"></span>{!_'Invite Student'}</a>
-                        <a class="adminbutton abutton" href="{link course:edit}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Course'}</a>
-                        <a class="redbutton abutton delete" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Course'}</a>
+                        <a class="adminbutton abutton" href="{link course:addLesson,$activeCourse->id}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Lesson'}</a>
+                        <a class="adminbutton abutton" href="{link Course:inviteStudent,$activeCourse->id}"><span class="ui-icon ui-icon-person"></span>{!_'Invite Students'}</a>
+                        <a class="adminbutton abutton" href="{link course:edit,$activeCourse->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Course'}</a>
+                        <a class="redbutton abutton delete" href="{link delete!,$activeCourse->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Course'}</a>
                     {else}
                       <a class="redbutton abutton" href="{link Course:leave}"><span class="ui-icon ui-icon-circle-close"></span>{!_'Leave Course'}</a>
                     {/if} 

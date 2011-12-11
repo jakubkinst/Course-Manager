@@ -1,26 +1,36 @@
 <?php
 
 /**
- * Course presenter.
- *
+ * Presenter dedicated to Course homepage and course-related actions
+ * 
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 class CoursePresenter extends BaseCoursePresenter {
+    /*
+     * =============================================================
+     * =======================  Actions ============================
+     */
 
     /**
-     * Homepage template render
-     * @param type $cid 
+     * Course homepage
+     * @param int $cid Course ID 
      */
     public function renderHomepage($cid) {
 	$this->checkAuthorization();
     }
 
-    public function renderInviteStudent() {
+    /**
+     * Invite students
+     * @param int $cid Course ID 
+     */
+    public function renderInviteStudent($cid) {
 	$this->template->invites = CourseListModel::getInvites($this->cid);
     }
 
     /**
-     * Add lesson temlate render
-     * @param type $cid 
+     * Adding new lesson
+     * @param int $cid Course ID 
      */
     public function renderAddLesson($cid) {
 	// if not teacher, redirect to homepage
@@ -28,14 +38,45 @@ class CoursePresenter extends BaseCoursePresenter {
     }
 
     /**
-     * Adding course template render
+     * Adding new course
      */
     public function renderAdd() {
 	$this->checkLogged();
     }
 
     /**
-     * Form Factory - Add Course Form
+     * Editting Course
+     */
+    public function renderEdit($cid) {
+	$this->checkTeacherAuthority();
+	$this['editForm']->setDefaults(CourseModel::getCourse($cid));
+    }
+
+    /*
+     * =============================================================
+     * ==================  Signal Handlers =========================
+     */
+
+    /**
+     * Delete course handler
+     */
+    public function handleDelete($cid) {
+	$this->checkTeacherAuthority();
+	if (CourseModel::deleteCourse($cid)) {
+	    $this->flashMessage(_('Course Deleted'), 'success');
+	    $this->redirect('courselist:homepage');
+	}
+	else
+	    $this->flashMessage(_('There was an error deleting the course'), 'error');
+    }
+
+    /*
+     * =============================================================
+     * ==================  Form factories  =========================
+     */
+
+    /**
+     * Add New Course Form
      * @return AppForm 
      */
     protected function createComponentAddForm() {
@@ -53,31 +94,19 @@ class CoursePresenter extends BaseCoursePresenter {
 
     /**
      * Add Course Form Handler
-     * @param type $form 
+     * @param AppForm $form 
      */
-    public function addFormSubmitted($form) {
+    public function addFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
-	$user = Environment::getUser()->getIdentity();
-	CourseModel::addCourse($user, $values);
+	CourseModel::addCourse($values);
 	$this->flashMessage('Course created', $type = 'success');
 	$this->redirect('courselist:homepage');
     }
 
-    public function renderEdit($cid) {
-	$this->checkTeacherAuthority();
-	$this['editForm']->setDefaults(CourseModel::getCourseByID($cid));
-    }
-
-    public function handleDelete($cid) {
-	$this->checkTeacherAuthority();
-	if (CourseModel::deleteCourse($cid)) {
-	    $this->flashMessage(_('Course Deleted'), 'success');
-	    $this->redirect('courselist:homepage');
-	}
-	else
-	    $this->flashMessage(_('There was an error deleting the course'), 'error');
-    }
-
+    /**
+     * Edit Course Form
+     * @return AppForm 
+     */
     protected function createComponentEditForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -90,7 +119,11 @@ class CoursePresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function editFormSubmitted($form) {
+    /**
+     * Edit Form handler
+     * @param AppForm $form
+     */
+    public function editFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	if (CourseModel::editCourse($this->cid, $values)) {
 	    $this->flashMessage('Course edited.', $type = 'success');
@@ -101,7 +134,7 @@ class CoursePresenter extends BaseCoursePresenter {
     }
 
     /**
-     * Form factory - Add lesson form
+     * Add lesson Form
      * @return AppForm 
      */
     protected function createComponentAddLessonForm() {
@@ -129,7 +162,7 @@ class CoursePresenter extends BaseCoursePresenter {
     }
 
     /**
-     * Form factory - Invite student Form
+     * Invite student Form
      * @return AppForm 
      */
     protected function createComponentInviteStudentForm() {
@@ -138,21 +171,19 @@ class CoursePresenter extends BaseCoursePresenter {
 	$form->addText('email', 'E-mail:*')
 		->addRule(Form::FILLED, 'Fill email.')
 		->addRule(Form::EMAIL, 'Wrong e-mail format');
-
 	$form->addSubmit('invite', 'Invite');
 	$form->onSubmit[] = callback($this, 'inviteStudentFormSubmitted');
-	$form->addHidden('Course_id', $this->cid);
 	return $form;
     }
 
     /**
      * Invite Student form handler
-     * @param type $form 
+     * @param AppForm $form 
      */
     public function inviteStudentFormSubmitted($form) {
 	$values = $form->getValues();
 	$values['date'] = new DateTime;
-	if (CourseModel::inviteStudent($values))
+	if (CourseModel::inviteStudent($values,$this->cid))
 	    $this->flashMessage('Student invited', $type = 'success');
 	else
 	    $this->flashMessage('There was a problem inviting this student', $type = 'error');

@@ -1,33 +1,68 @@
 <?php
 
 /**
- * Description of AssignmentPresenter
+ * Presenter dedicated to Assignment module of the application
  *
- * @author JerRy
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 class AssignmentPresenter extends BaseCoursePresenter {
-    
-    
+    /*
+     * =============================================================
+     * ==================     Variables    =========================
+     */
 
+    /**
+     * Assignment ID
+     * @var int
+     */
     var $aid;
+
+    /**
+     * Is this assignment auto-correcting ?
+     * @var boolean
+     */
     var $autocorrect = false;
-    
+
+    /*
+     * =============================================================
+     * =================   Parent overrides   ======================
+     */
+
     protected function startup() {
-	if (null != $this->getParam('aid')){	    
+	// set Assignment id if it is available
+	if (null != $this->getParam('aid')) {
 	    $this->aid = $this->getParam('aid');
 	    $this->cid = AssignmentModel::getCourseIDByAssignmentID($this->aid);
 	}
 	parent::startup();
     }
 
+    /*
+     * =============================================================
+     * =======================  Actions ============================
+     */
+
+    /**
+     * 
+     * @param int $cid Course ID 
+     */
     public function renderHomepage($cid) {
 	$this->template->assignments = AssignmentModel::getAssignments($this->cid);
     }
 
+    /**
+     * Show assignment details
+     * @param int $aid Assignment ID 
+     */
     public function actionShow($aid) {
 	$this->aid = $aid;
     }
 
+    /**
+     * 	Show assignment details
+     * @param int $aid Assignment ID 
+     */
     public function renderShow($aid) {
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
@@ -35,12 +70,20 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	$this->template->canSolve = AssignmentModel::canSolve($aid);
     }
 
+    /**
+     * Assignment solving
+     * @param int $aid Assignment ID 
+     */
     public function actionSolve($aid) {
 	if (!AssignmentModel::canSolve($aid, 2))
 	    throw new BadRequestException;
 	$this->aid = $aid;
     }
 
+    /**
+     * Assignment solving
+     * @param int $aid Assignment ID 
+     */
     public function renderSolve($aid) {
 	$assignment = AssignmentModel::getAssignment($aid);
 	$this->template->assignment = $assignment;
@@ -53,7 +96,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	else
 	    AssignmentModel::startSolving($aid);
 
-
 	// set real endtime for template
 	// (time when the form will be submitted automatically)
 	$realEndTime = AssignmentModel::getRealEndTime($aid);
@@ -63,19 +105,35 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    $this->template->realEndTime = AssignmentModel::getRealEndTime($aid)->format('Y-m-d H:i:s');
     }
 
+    /**
+     * Adding new assignment
+     * @param boolean $ac auto-correct
+     */
     public function actionAdd($ac) {
 	$this->autocorrect = $ac;
     }
 
+    /**
+     * Adding new assignment
+     * @param boolean $ac auto-correct 
+     */
     public function renderAdd($ac) {
 	$this->checkTeacherAuthority();
     }
 
+    /**
+     * Assignment editting - adding questions
+     * @param int $aid Assignment ID 
+     */
     public function actionEdit($aid) {
 	$this->template->assignment = AssignmentModel::getAssignment($aid);
 	$this->aid = $aid;
     }
 
+    /**
+     * Assignment editting - adding questions
+     * @param int $aid Assignment ID 
+     */
     public function renderEdit($aid) {
 	$this->checkTeacherAuthority();
 
@@ -86,6 +144,10 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	}
     }
 
+    /**
+     * Correcting assignment
+     * @param int $aid Assignment ID
+     */
     public function actionCorrect($aid) {
 	$this->checkTeacherAuthority();
 	$this->aid = $aid;
@@ -96,6 +158,46 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	$this->template->submissions = AssignmentModel::getSubmissions($aid);
     }
 
+    /**
+     * Download file uploaded to assignment
+     * @param int $afid Assignment file id 
+     */
+    public function actionDownloadFile($afid) {
+	// check if resource id corresponds to course id
+	$file = AssignmentModel::getAnwserFile($afid);
+	if ($file['Course_id'] != $this->cid)
+	    throw new BadRequestException;
+	$ext = pathinfo($file->filename, PATHINFO_EXTENSION);
+	$name = $file->firstname . $file->lastname . '_' . $file->label . '.' . $ext;
+	$this->sendResponse(new DownloadResponse(WWW_DIR . '/../uploads/' . $file->filename, $name));
+    }
+
+    /*
+     * =============================================================
+     * ==================  Signal Handlers =========================
+     */
+
+    /**
+     * Removes question from assignment
+     * @param int $qid Question ID
+     */
+    public function handleRemove($qid) {
+	// check if question id corresponds to course id
+	if (AssignmentModel::getCourseIDByQuestionID($qid) != $this->cid) {
+	    throw new BadRequestException;
+	}
+	AssignmentModel::removeQuestion($qid);
+    }
+
+    /*
+     * =============================================================
+     * ==================  Form factories  =========================
+     */
+
+    /**
+     * Correcting form - teacher awarding points
+     * @return AppForm 
+     */
     protected function createComponentCorrectForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -111,7 +213,11 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function submitCorrectForm($form) {
+    /**
+     * Correcting form handler
+     * @param AppForm $form 
+     */
+    public function submitCorrectForm(AppForm $form) {
 	$values = $form->getValues();
 	if (AssignmentModel::saveResult($this->aid, $values)) {
 	    $this->flashMessage('Correction successfully saved.', $type = 'success');
@@ -121,6 +227,10 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    $this->flashMessage('There was an error saving the correction.', $type = 'error');
     }
 
+    /**
+     * Solving form - for students
+     * @return AppForm 
+     */
     protected function createComponentSolveForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -130,13 +240,13 @@ class AssignmentPresenter extends BaseCoursePresenter {
 		$form->addText($value->id, $label);
 	    if ($value->type == 'textarea')
 		$form->addTextArea($value->id, $label);
-	     if ($value->type == 'file')
+	    if ($value->type == 'file')
 		$form->addFile($value->id, $label);
 	    if ($value->type == 'radio')
 		$form->addRadioList($value->id, $label, AssignmentModel::parseChoices($value->choices));
 	    if ($value->type == 'multi')
 		$form->addMultiSelect($value->id, $label, AssignmentModel::parseChoices($value->choices))
-			->getControlPrototype()->class = "multi";
+				->getControlPrototype()->class = "multi";
 	}
 	$form->addSubmit('submit', 'Submit');
 	$form->onSubmit[] = callback($this, 'submitSubmission');
@@ -144,7 +254,11 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function submitSubmission($form) {
+    /**
+     * Solving form handler
+     * @param AppForm $form 
+     */
+    public function submitSubmission(AppForm $form) {
 	$values = $form->getValues();
 
 	$now = new DateTime;
@@ -153,8 +267,8 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	if (AssignmentModel::canSolve($this->aid, 2))
 	    if ($assignment->autocorrect) {
 		$result = AssignmentModel::getCorrected($values, $this->aid);
-		if ($result>=0) {
-		    $this->flashMessage('Submission submitted successfully. You have scored '.$result.' points !', $type = 'success');
+		if ($result >= 0) {
+		    $this->flashMessage('Submission submitted successfully. You have scored ' . $result . ' points !', $type = 'success');
 		    $this->redirect('result:homepage');
 		}
 		else
@@ -171,6 +285,10 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    $this->flashMessage('It is too late or too early to submit for this assignment', $type = 'error');
     }
 
+    /**
+     * Adding new Assignment Form
+     * @return AppForm 
+     */
     protected function createComponentAddAssignmentForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -192,7 +310,11 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addAssignment($form) {
+    /**
+     * Adding new assignment form handler
+     * @param AppForm $form 
+     */
+    public function addAssignment(AppForm $form) {
 	$values = $form->getValues();
 	$newaid = AssignmentModel::addAssignment($values, $this->cid);
 	if ($newaid != -1) {
@@ -202,12 +324,16 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	    $this->flashMessage('There was an error adding the Assignment.', $type = 'error');
     }
 
+    /**
+     * Virtual Form showing new assignment preview
+     * @return AppForm 
+     */
     protected function createComponentVirtualForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
 	foreach ($this->template->questions as $value) {
 	    $label = Html::el()->setHtml(htmlspecialchars($value->label) .
-			    '<a class="ajax" href="' . $this->link('remove!', $value->id) . '"><span class="ui-icon ui-icon-trash"></span></a>');
+		    '<a class="ajax" href="' . $this->link('remove!', $value->id) . '"><span class="ui-icon ui-icon-trash"></span></a>');
 	    if ($value->type == 'text')
 		$form->addText('input' . $value->id, $label)->setDefaultValue($value->rightanwser);
 	    if ($value->type == 'textarea')
@@ -218,20 +344,16 @@ class AssignmentPresenter extends BaseCoursePresenter {
 		$form->addRadioList('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getRadioAnwserPos($value, $value->rightanwser));
 	    if ($value->type == 'multi')
 		$form->addMultiSelect('input' . $value->id, $label, AssignmentModel::parseChoices($value->choices))->setDefaultValue(AssignmentModel::getMultiAnwserArray($value, $value->rightanwser))
-			->getControlPrototype()->class = "multi";
+				->getControlPrototype()->class = "multi";
 	}
 
 	return $form;
     }
 
-    public function handleRemove($qid) {
-	// check if question id corresponds to course id
-	if (AssignmentModel::getCourseIDByQuestionID($qid) != $this->cid) {
-	    throw new BadRequestException;
-	}
-	AssignmentModel::removeQuestion($qid);
-    }
-
+    /**
+     * Add text input to assignment form
+     * @return AppForm 
+     */
     protected function createComponentAddTextForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -248,13 +370,21 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addText($form) {
+    /**
+     * Add text input form handler
+     * @param AppForm $form 
+     */
+    public function addText(AppForm$form) {
 	$values = $form->getValues();
 	if (!isset($values['ranwser']))
 	    $values['ranwser'] = null;
 	AssignmentModel::addText($values['label'], $this->aid, $values['ranwser']);
     }
 
+    /**
+     * Add file upload to assignment
+     * @return AppForm 
+     */
     protected function createComponentAddFileForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -268,11 +398,19 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addFile($form) {
+    /**
+     * Add file upload handler
+     * @param AppForm $form 
+     */
+    public function addFile(AppForm $form) {
 	$values = $form->getValues();
 	AssignmentModel::addFile($values['label'], $this->aid);
     }
-    
+
+    /**
+     * Add textarea to assignment
+     * @return AppForm 
+     */
     protected function createComponentAddTextAreaForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -286,11 +424,19 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addTextArea($form) {
+    /**
+     * Add textarea handler
+     * @param AppForm $form 
+     */
+    public function addTextArea(AppForm $form) {
 	$values = $form->getValues();
 	AssignmentModel::addTextArea($values['label'], $this->aid);
     }
 
+    /**
+     * Add radio to assignment form
+     * @return AppForm 
+     */
     protected function createComponentAddRadioForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -309,13 +455,18 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	$form->addText('val8');
 	if ($this->template->assignment->autocorrect)
 	    $form->addText('ranwser', 'Right Anwser:*')
+		->setOption('description', _('Use ; as delimiter'))
 		    ->addRule(Form::FILLED, 'Right anwser must be filled');
 	$form->addSubmit('add', 'Add');
 	$form->onSubmit[] = callback($this, 'addRadio');
 	return $form;
     }
 
-    public function addRadio($form) {
+    /**
+     * Add RadioButtons to assignment form handler
+     * @param AppForm $form 
+     */
+    public function addRadio(AppForm $form) {
 	$values = $form->getValues();
 	$choices = array(
 	    $values['val1'],
@@ -332,13 +483,17 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	AssignmentModel::addRadio($values['label'], $choices, $this->aid, $values['ranwser']);
     }
 
+    /**
+     * Add multiselect to assignment form
+     * @return AppForm 
+     */
     protected function createComponentAddMultiSelectForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
 	$form->getElementPrototype()->class[] = "ajax";
 	$form->addGroup('Example');
 	$form->addMultiSelect('example', "My Label", array('option 1', 'option 2', 'option 3'))->setDisabled()->setDefaultValue(array(1, 2))
-		->getControlPrototype()->class = "multi";
+			->getControlPrototype()->class = "multi";
 	$form->addGroup('Set Label and choices');
 	$form->addTextArea('label');
 	$form->addText('val1');
@@ -357,7 +512,11 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function addMultiSelect($form) {
+    /**
+     * Add multiselect form handler
+     * @param AppForm $form 
+     */
+    public function addMultiSelect(AppForm $form) {
 	$values = $form->getValues();
 	$choices = array(
 	    $values['val1'],
@@ -374,13 +533,4 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	AssignmentModel::addMultiSelect($values['label'], $choices, $this->aid, str_replace(';', '#', $values['ranwser']));
     }
 
-    public function actionDownloadFile($afid){	
-        // check if resource id corresponds to course id
-	$file = AssignmentModel::getAnwserFile($afid);
-        if ($file['Course_id'] != $this->cid)
-            throw new BadRequestException;
-	$ext = pathinfo($file->filename, PATHINFO_EXTENSION);
-	$name = $file->firstname.$file->lastname.'_'.$file->label.'.'.$ext;
-	$this->sendResponse(new DownloadResponse(WWW_DIR.'/../uploads/'.$file->filename,$name));
-    }
 }

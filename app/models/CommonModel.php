@@ -1,35 +1,39 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of CommonModel
+ * Model class with static methods that helps all across the application
+ * 
+ * Responsible mostly for communication with database via dibi.
  *
- * @author JerRy
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Models/Tools
  */
 class CommonModel extends Object {
 
-   public static function relative_date($time) {
+    /**
+     * Returns relative date format
+     * e.g. Tomorrow, 5 days ago, in 20 days, ...
+     * @param DateTime $time
+     * @return string 
+     */
+    public static function relative_date($time) {
 	$today = strtotime(date('M j, Y'));
 	$reldays = ($time - $today) / 86400;
 	if ($reldays >= 0 && $reldays < 1) {
-	    return 'Today';
+	    return _('Today');
 	} else if ($reldays >= 1 && $reldays < 2) {
-	    return 'Tomorrow';
+	    return _('Tomorrow');
 	} else if ($reldays >= -1 && $reldays < 0) {
-	    return 'Yesterday';
+	    return _('Yesterday');
 	}
 
 	if (abs($reldays) < 7) {
 	    if ($reldays > 0) {
 		$reldays = floor($reldays);
-		return 'In ' . $reldays . ' day' . ($reldays != 1 ? 's' : '');
+		return _('In ') . $reldays . _(' day') . ($reldays != 1 ? 's' : '');
 	    } else {
 		$reldays = abs(floor($reldays));
-		return $reldays . ' day' . ($reldays != 1 ? 's' : '') . ' ago';
+		return $reldays . _(' day') . ($reldays != 1 ? 's' : '') . _(' ago');
 	    }
 	}
 
@@ -40,16 +44,32 @@ class CommonModel extends Object {
 	}
     }
 
+    /**
+     * Converts a string date to a php date format
+     * @param string $formDate
+     * @return date 
+     */
     public static function convertFormDate($formDate) {
 	$phpdate = strtotime($formDate);
 	return date('Y-m-d H:i:s', $phpdate);
     }
 
+    /**
+     * Push an associative pair into array
+     * @param array $array
+     * @param type $key
+     * @param type $value
+     * @return array 
+     */
     public static function array_push_assoc($array, $key, $value) {
 	$array[$key] = $value;
 	return $array;
     }
 
+    /**
+     * Extracts all strings from an application and saves them into .po file for 
+     * further translation. Run only when strings have changed.
+     */
     public static function getTextExtract() {
 	@$ge = new NetteGettextExtractor(); // provede základní nastavení pro šablony apod.
 	@$ge->setupForms()->setupDataGrid(); // provede nastavení pro formuláře a DataGrid

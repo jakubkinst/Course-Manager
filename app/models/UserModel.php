@@ -1,9 +1,12 @@
 <?php
 
 /**
- * UserModel
+ * Model class with static methods dedicated to User-related db methods
+ * 
+ * Responsible mostly for communication with database via dibi.
  *
- * @author JerRy
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Models
  */
 class UserModel extends Object implements IAuthenticator {
 
@@ -41,6 +44,7 @@ class UserModel extends Object implements IAuthenticator {
     /**
      * Adds new user to db
      * @param type $values 
+     * @return boolean
      */
     static public function addUser($values) {
 	dibi::begin();
@@ -51,30 +55,40 @@ class UserModel extends Object implements IAuthenticator {
 	    'lastname' => $values['lastname'],
 	    'web' => $values['web'],
 	    'seclink' => sha1($values['email'] . time() . 'yjtbvb678b987n5c4'),
-	    'created' => new DateTime,	    
+	    'created' => new DateTime,
 	);
 	$result = dibi::query('INSERT INTO user', $array);
-	$id = dibi::getInsertId();	
+	$id = dibi::getInsertId();
 	//create settings record
-	dibi::query('INSERT INTO settings',array('User_id'=>$id));
+	dibi::query('INSERT INTO settings', array('User_id' => $id));
 	MailModel::sendRegisterHash($id);
 	dibi::commit();
 	return $result;
     }
-    
-     static public function editUser($values) {
-	$uid = Environment::getUser()->getIdentity()->id;
+
+    /**
+     * Edits user profile in a db
+     * @param array $values
+     * @return boolean 
+     */
+    static public function editUser($values) {
+	$uid = self::getLoggedUser()->id;
 	$array = array(
 	    'firstname' => $values['firstname'],
 	    'lastname' => $values['lastname'],
 	    'web' => $values['web'],
 	);
-	dibi::begin();	
-	$result = dibi::query('UPDATE user SET', $array,'WHERE id=%i',$uid);
+	dibi::begin();
+	$result = dibi::query('UPDATE user SET', $array, 'WHERE id=%i', $uid);
 	dibi::commit();
 	return $result;
     }
 
+    /**
+     * Confirms user email address and allows him to log in
+     * @param string $hash
+     * @return boolean 
+     */
     public static function checkUser($hash) {
 	dibi::begin();
 	$result = dibi::query('UPDATE user SET checked=1 WHERE seclink=%s', $hash);
@@ -83,18 +97,18 @@ class UserModel extends Object implements IAuthenticator {
     }
 
     /**
-     * Returns userID according to user object
-     * @param type $user
-     * @return type 
+     * Returns user ID according to user object
+     * @param array $user
+     * @return int 
      */
     public static function getUserID($user) {
 	return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $user->email);
     }
 
     /**
-     * Returns userID according to user email
-     * @param type $user
-     * @return type 
+     * Returns user ID according to user email
+     * @param string $user
+     * @return int 
      */
     public static function getUserIDByEmail($email) {
 	return dibi::fetchSingle('SELECT id FROM user WHERE email=%s', $email);
@@ -102,33 +116,45 @@ class UserModel extends Object implements IAuthenticator {
 
     /**
      * Returns user by ID
-     * @param type $uid
-     * @return type 
+     * @param int $uid User ID
+     * @return array 
      */
     public static function getUser($uid) {
 	return dibi::fetch('SELECT * FROM user WHERE id=%i', $uid);
     }
-    
-    public static function getLoggedUser(){
+
+    /**
+     * Returns current (logged) user
+     * @return array 
+     */
+    public static function getLoggedUser() {
 	$uid = Environment::getUser()->getIdentity()->id;
-	return dibi::fetch('SELECT * FROM user WHERE id=%i',$uid);
+	return dibi::fetch('SELECT * FROM user WHERE id=%i', $uid);
     }
-    
-    public static function userExists($email){
-	return dibi::fetch('SELECT * FROM user WHERE email=%s',$email);
+
+    /**
+     * Checks availability of an e-mail address. returns true if there is a user with given e-mail address
+     * @param string $email
+     * @return boolean 
+     */
+    public static function userExists($email) {
+	return dibi::fetch('SELECT * FROM user WHERE email=%s', $email);
     }
-    public static function deleteUncheckedUsers(){
+
+    /**
+     * Deletes all unchecked user, who havent confirmed their e-mail addresses for some time
+     */
+    public static function deleteUncheckedUsers() {
 	dibi::begin();
 	$users = dibi::fetchAll('SELECT * FROM user WHERE checked=0');
 	foreach ($users as $user) {
-	    if (new DateTime($user->created) < date_sub(new DateTime, date_interval_create_from_date_string('1 day')))
-	    {
-		dibi::query ('DELETE FROM settings WHERE User_id=%i',$user->id);
-		dibi::query ('DELETE FROM user WHERE id=%i',$user->id);		
+	    if (new DateTime($user->created) < date_sub(new DateTime, date_interval_create_from_date_string('1 day'))) {
+		dibi::query('DELETE FROM settings WHERE User_id=%i', $user->id);
+		dibi::query('DELETE FROM user WHERE id=%i', $user->id);
 	    }
 	}
 	dibi::commit();
-    }	
+    }
 
 }
 

@@ -79,7 +79,7 @@
 				    {if $logged}
 				    <div id="loggedMenu">
 					<span class="loggedUser">{$user->firstname} {$user->lastname}</span>
-					<a href="{link user:homepage, $user->id}">{!_'My profile'}</a>
+					<a href="{link user:homepage}">{!_'My profile'}</a>
 					<a href="{link user:edit}">{!_'Edit profile'}</a>
 					<a href="{link user:logout}">{!_'Log out'}</a>
 				    </div>

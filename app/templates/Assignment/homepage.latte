@@ -6,8 +6,8 @@
 <h3>{!_'Assignments'}</h3>
             <div class="separator"><!----></div>
 	<div class="buttonline">
-	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, false}">{!_'Add Normal'}</a>{/if}
-	    {if $isTeacher}<a class="adminbutton abutton" href="{link add, true}">{!_'Add Auto-Correct'}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add,'cid'=>$activeCourse->id,'ac'=> false}">{!_'Add Normal'}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add,'cid'=>$activeCourse->id,'ac'=> true}">{!_'Add Auto-Correct'}</a>{/if}
 	</div>
     {foreach $assignments as $assignment}
 	<div class="assignment">

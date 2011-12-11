@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.3.0">
+
+	<title>Class UserModel | CourseManager 1.0</title>
+
+	<script type="text/javascript" src="resources/combined.js?1841058525"></script>
+	<script type="text/javascript" src="elementlist.js?3900795361"></script>
+	<script type="text/javascript">
+		var ApiGen = ApiGen || {};
+		ApiGen.options = {"elementDetailsCollapsed":true,"elementsOrder":"natural"};
+	</script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1298244258">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Course.Manager.Controls.html">Course-Manager/Controls</a>
+						</li>
+				<li><a href="package-Course.Manager.Controls.Models.html">Course-Manager/Controls/Models</a>
+						</li>
+				<li class="active"><a href="package-Course.Manager.Models.html">Course-Manager/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.Tools.html">Course-Manager/Models/Tools</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.html">Course-Manager/Presenters</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.Tools.html">Course-Manager/Presenters/Tools</a>
+						</li>
+				<li><a href="package-Nette.html">Nette</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.html">Extras</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.GettextTranslator.html">Extras\GettextTranslator</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li><a href="package-Texy.html">Texy</a>
+						</li>
+			</ul>
+
+		</div>
+
+		<hr>
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-AssignmentModel.html">AssignmentModel</a></li>
+				<li><a href="class-CourseListModel.html">CourseListModel</a></li>
+				<li><a href="class-CourseModel.html">CourseModel</a></li>
+				<li><a href="class-EventModel.html">EventModel</a></li>
+				<li><a href="class-ForumModel.html">ForumModel</a></li>
+				<li><a href="class-MessageModel.html">MessageModel</a></li>
+				<li><a href="class-ResourceModel.html">ResourceModel</a></li>
+				<li><a href="class-ResultModel.html">ResultModel</a></li>
+				<li><a href="class-SettingsModel.html">SettingsModel</a></li>
+				<li class="active"><a href="class-UserModel.html">UserModel</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-Course.Manager.Models.html" title="Summary of Course-Manager/Models"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class UserModel</h1>
+
+	<div class="description">
+	
+<p>Model class with static methods dedicated to User-related db methods</p>
+
+<p>Responsible mostly for communication with database via dibi.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Object
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b>UserModel</b>			
+			 implements 
+IAuthenticator
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+
+				<b>Package:</b>
+				<a href="package-Course.Manager.Models.html">Course-Manager/Models</a> <br>
+				<b>Author:</b>
+				Jakub Kinst &lt;<a
+href="mailto:jakub&#64;kinst.cz">jakub&#64;<!---->kinst.cz</a>&gt; (@link <a
+href="http://jakub.kinst.cz">http://jakub.kinst.cz</a>)<br>
+		<b>Located at</b> <a href="source-class-UserModel.html#3" title="Go to source code">models/UserModel.php</a><br>
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="authenticate" id="_authenticate">
+
+		<td class="attributes"><code>
+			
+			 public 
+			Identity
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_authenticate">#</a>
+		<code><a href="source-class-UserModel.html#13" title="Go to source code">authenticate</a>( <span>array <var>$credentials</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Performs an authentication</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Performs an authentication</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$credentials</var></dt>
+					<dd><code>array</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Identity</code><br>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>AuthenticationException</code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="calculateHash" id="_calculateHash">
+
+		<td class="attributes"><code>
+			
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_calculateHash">#</a>
+		<code><a href="source-class-UserModel.html#35" title="Go to source code">calculateHash</a>( <span>string <var>$password</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Computes salted password hash.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Computes salted password hash.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$password</var></dt>
+					<dd><code>string</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addUser" id="_addUser">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addUser">#</a>
+		<code><a href="source-class-UserModel.html#44" title="Go to source code">addUser</a>( <span>type <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds new user to db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds new user to db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>type</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="editUser" id="_editUser">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_editUser">#</a>
+		<code><a href="source-class-UserModel.html#69" title="Go to source code">editUser</a>( <span>array <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Edits user profile in a db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Edits user profile in a db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkUser" id="_checkUser">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkUser">#</a>
+		<code><a href="source-class-UserModel.html#87" title="Go to source code">checkUser</a>( <span>string <var>$hash</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Confirms user email address and allows him to log in</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Confirms user email address and allows him to log in</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$hash</var></dt>
+					<dd><code>string</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getUserID" id="_getUserID">
+
+		<td class="attributes"><code>
+			
+			 public static
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getUserID">#</a>
+		<code><a href="source-class-UserModel.html#99" title="Go to source code">getUserID</a>( <span>array <var>$user</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns user ID according to user object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns user ID according to user object</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$user</var></dt>
+					<dd><code>array</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getUserIDByEmail" id="_getUserIDByEmail">
+
+		<td class="attributes"><code>
+			
+			 public static
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getUserIDByEmail">#</a>
+		<code><a href="source-class-UserModel.html#108" title="Go to source code">getUserIDByEmail</a>( <span>string <var>$email</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns user ID according to user email</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns user ID according to user email</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$email</var></dt>
+					<dd><code>string</code><br>$user</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getUser" id="_getUser">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getUser">#</a>
+		<code><a href="source-class-UserModel.html#117" title="Go to source code">getUser</a>( <span>integer <var>$uid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns user by ID</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns user by ID</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uid</var></dt>
+					<dd><code>integer</code><br> User ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLoggedUser" id="_getLoggedUser">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLoggedUser">#</a>
+		<code><a href="source-class-UserModel.html#126" title="Go to source code">getLoggedUser</a>( )</code>
+
+		<div class="description short">
+			
+<p>Returns current (logged) user</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns current (logged) user</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="userExists" id="_userExists">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_userExists">#</a>
+		<code><a href="source-class-UserModel.html#135" title="Go to source code">userExists</a>( <span>string <var>$email</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks availability of an e-mail address. returns true if there is a user
+with given e-mail address</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks availability of an e-mail address. returns true if there is a user
+with given e-mail address</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$email</var></dt>
+					<dd><code>string</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteUncheckedUsers" id="_deleteUncheckedUsers">
+
+		<td class="attributes"><code>
+			
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteUncheckedUsers">#</a>
+		<code><a href="source-class-UserModel.html#144" title="Go to source code">deleteUncheckedUsers</a>( )</code>
+
+		<div class="description short">
+			
+<p>Deletes all unchecked user, who havent confirmed their e-mail addresses for
+some time</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes all unchecked user, who havent confirmed their e-mail addresses for
+some time</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CourseManager 1.0 API documentation generated by <a href="http://apigen.org">ApiGen 2.3.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

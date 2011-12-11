@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.3.0">
+
+	<title>Class EventModel | CourseManager 1.0</title>
+
+	<script type="text/javascript" src="resources/combined.js?1841058525"></script>
+	<script type="text/javascript" src="elementlist.js?3900795361"></script>
+	<script type="text/javascript">
+		var ApiGen = ApiGen || {};
+		ApiGen.options = {"elementDetailsCollapsed":true,"elementsOrder":"natural"};
+	</script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1298244258">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Course.Manager.Controls.html">Course-Manager/Controls</a>
+						</li>
+				<li><a href="package-Course.Manager.Controls.Models.html">Course-Manager/Controls/Models</a>
+						</li>
+				<li class="active"><a href="package-Course.Manager.Models.html">Course-Manager/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.Tools.html">Course-Manager/Models/Tools</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.html">Course-Manager/Presenters</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.Tools.html">Course-Manager/Presenters/Tools</a>
+						</li>
+				<li><a href="package-Nette.html">Nette</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.html">Extras</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.GettextTranslator.html">Extras\GettextTranslator</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li><a href="package-Texy.html">Texy</a>
+						</li>
+			</ul>
+
+		</div>
+
+		<hr>
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-AssignmentModel.html">AssignmentModel</a></li>
+				<li><a href="class-CourseListModel.html">CourseListModel</a></li>
+				<li><a href="class-CourseModel.html">CourseModel</a></li>
+				<li class="active"><a href="class-EventModel.html">EventModel</a></li>
+				<li><a href="class-ForumModel.html">ForumModel</a></li>
+				<li><a href="class-MessageModel.html">MessageModel</a></li>
+				<li><a href="class-ResourceModel.html">ResourceModel</a></li>
+				<li><a href="class-ResultModel.html">ResultModel</a></li>
+				<li><a href="class-SettingsModel.html">SettingsModel</a></li>
+				<li><a href="class-UserModel.html">UserModel</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-Course.Manager.Models.html" title="Summary of Course-Manager/Models"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class EventModel</h1>
+
+	<div class="description">
+	
+<p>Model class with static methods dedicated to Event module</p>
+
+<p>Responsible mostly for communication with database via dibi.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Object
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b>EventModel</b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+
+				<b>Package:</b>
+				<a href="package-Course.Manager.Models.html">Course-Manager/Models</a> <br>
+				<b>Author:</b>
+				Jakub Kinst &lt;<a
+href="mailto:jakub&#64;kinst.cz">jakub&#64;<!---->kinst.cz</a>&gt; (@link <a
+href="http://jakub.kinst.cz">http://jakub.kinst.cz</a>)<br>
+		<b>Located at</b> <a href="source-class-EventModel.html#3" title="Go to source code">models/EventModel.php</a><br>
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="addEvent" id="_addEvent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addEvent">#</a>
+		<code><a href="source-class-EventModel.html#13" title="Go to source code">addEvent</a>( <span>array <var>$values</var></span>, <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds an event to db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds an event to db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="editEvent" id="_editEvent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_editEvent">#</a>
+		<code><a href="source-class-EventModel.html#26" title="Go to source code">editEvent</a>( <span>integer <var>$eid</var></span>, <span>array <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Edits existing event in db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Edits existing event in db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$eid</var></dt>
+					<dd><code>integer</code><br> Event ID</dd>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteEvent" id="_deleteEvent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteEvent">#</a>
+		<code><a href="source-class-EventModel.html#41" title="Go to source code">deleteEvent</a>( <span>integer <var>$eid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes an event from db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes an event from db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$eid</var></dt>
+					<dd><code>integer</code><br> Event ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEvents" id="_getEvents">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEvents">#</a>
+		<code><a href="source-class-EventModel.html#50" title="Go to source code">getEvents</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns array of all events of a given course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns array of all events of a given course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEvent" id="_getEvent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEvent">#</a>
+		<code><a href="source-class-EventModel.html#60" title="Go to source code">getEvent</a>( <span>integer <var>$eid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns single event</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns single event</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$eid</var></dt>
+					<dd><code>integer</code><br> Event ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCourseIDByEventID" id="_getCourseIDByEventID">
+
+		<td class="attributes"><code>
+			
+			 public static
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCourseIDByEventID">#</a>
+		<code><a href="source-class-EventModel.html#70" title="Go to source code">getCourseIDByEventID</a>( <span>integer <var>$eid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns course id of a course hosting given event</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns course id of a course hosting given event</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$eid</var></dt>
+					<dd><code>integer</code><br> Event ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CourseManager 1.0 API documentation generated by <a href="http://apigen.org">ApiGen 2.3.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

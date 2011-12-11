@@ -1,37 +1,58 @@
 <?php
 
 /**
- * LessonPresenter
- *
- * @author Jakub Kinst
+ * Presenter dedicated to Lesson homepage and lesson-related actions
+ * 
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 class LessonPresenter extends BaseCoursePresenter {
+    /*
+     * =============================================================
+     * ==================     Variables    =========================
+     */
 
+    /**
+     * @var int Lesson ID
+     */
     public $lid;
-    
+
+    /*
+     * =============================================================
+     * =================   Parent overrides   ======================
+     */
+
     protected function startup() {
-	if (null != $this->getParam('lid')){	    
+	if (null != $this->getParam('lid')) {
 	    $this->lid = $this->getParam('lid');
 	    $this->cid = CourseModel::getCourseIDByLessonID($this->lid);
 	}
 	parent::startup();
     }
-    
+
+    /*
+     * =============================================================
+     * =======================  Actions ============================
+     */
 
     /**
-     * Homepage template render
-     * @param type $lid 
+     * Lesson Homepage 
+     * @param int $lid Lesson ID 
      */
     public function renderHomepage($lid) {
 
 	$this->paginator->itemsPerPage = 10;
-        $this->paginator->itemCount = CourseModel::countComments($this->lid);
-	
+	$this->paginator->itemCount = CourseModel::countComments($this->lid);
+
 	$this->template->lesson = CourseModel::getLessonByID($this->lid);
 	$this->template->resources = ResourceModel::getLessonFiles($this->lid);
-	$this->template->comments = CourseModel::getComments($this->lid,$this->paginator->offset,$this->paginator->itemsPerPage);
+	$this->template->comments = CourseModel::getComments($this->lid, $this->paginator->offset, $this->paginator->itemsPerPage);
     }
 
+    /**
+     * Add resource to a lesson
+     * @param int $lid Lesson ID 
+     */
     public function actionAddResource($lid) {
 	$this->checkTeacherAuthority();
 	$uploader = new Uploader($this, 'uploader');
@@ -40,7 +61,35 @@ class LessonPresenter extends BaseCoursePresenter {
     }
 
     /**
-     * Form factory - Add comment
+     * Edit lesson page
+     * @param int $lid Lesson ID 
+     */
+    public function renderEdit($lid) {
+	$this->checkTeacherAuthority();
+	$lesson = CourseModel::getLessonByID($lid);
+	$this->getComponent('editForm')->setDefaults($lesson);
+    }
+
+    /*
+     * =============================================================
+     * ==================  Signal Handlers =========================
+     */
+
+    /**
+     * Delete lesson handler
+     * @param type $lid 
+     */
+    public function handleDelete($lid) {
+	$this->checkTeacherAuthority();
+	if (CourseModel::deleteLesson($lid)) {
+	    $this->flashMessage('Lesson was successfully deleted', 'success');
+	    $this->redirect('Course:homepage');
+	} else
+	    $this->flashMessage('There was an error deleting the lesson', 'error');
+    }
+
+    /**
+     * Add comment to a lesson Form
      * @return AppForm 
      */
     protected function createComponentCommentForm() {
@@ -56,32 +105,22 @@ class LessonPresenter extends BaseCoursePresenter {
 
     /**
      * Add comment form handler
-     * @param type $form 
+     * @param AppForm $form 
      */
-    public function commentFormSubmitted($form) {
+    public function commentFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
-	if (CourseModel::addComment($values,$this->lid)){
+	if (CourseModel::addComment($values, $this->lid)) {
 	    $this->flashMessage('Comment added.', $type = 'success');
-	    $this->redirect('lesson:homepage',$this->lid);
+	    $this->redirect('lesson:homepage', $this->lid);
 	}
-	else $this->flashMessage('There was an error adding the comment.', $type = 'error');
+	else
+	    $this->flashMessage('There was an error adding the comment.', $type = 'error');
     }
 
-    public function handleDelete($lid) {	
-	$this->checkTeacherAuthority();
-	if (CourseModel::deleteLesson($lid)) {
-	    $this->flashMessage('Lesson was successfully deleted', 'success');
-	    $this->redirect('Course:homepage');
-	} else
-	    $this->flashMessage('There was an error deleting the lesson', 'error');
-    }
-
-    public function renderEdit($lid) {
-	$this->checkTeacherAuthority();
-	$lesson = CourseModel::getLessonByID($lid);
-	$this->getComponent('editForm')->setDefaults($lesson);
-    }
-
+    /**
+     * Edit Lesson Form
+     * @return AppForm 
+     */
     public function createComponentEditForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -93,7 +132,11 @@ class LessonPresenter extends BaseCoursePresenter {
 	return $form;
     }
 
-    public function editFormSubmitted($form) {
+    /**
+     * Edit Form handler
+     * @param AppForm $form 
+     */
+    public function editFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	CourseModel::editLesson($this->lid, $values);
 	$this->flashMessage('Lesson edited', $type = 'success');

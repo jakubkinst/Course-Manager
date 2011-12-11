@@ -1,32 +1,45 @@
 <?php
 
 /**
- * Description of CronPresenter
- *
- * @author JerRy
+ * Presenter dedicated to be used by cron or other task scheduler.
+ * It provides methods that are supposed to run once ine a gevin period 
+ * of time. Hashes behind the name of presenter is for security reasons.
+ * 
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters/Tools
  */
 class CronPresenter extends Presenter {
 
+    /**
+     * Send All emails which are prepared for sending
+     */
     public function actionSendEmailsEW5q3n825mL6BM2bTZ81() {
 	MailModel::sendMailsNow();
 	$this->terminate();
     }
 
-    //delete users who havent confirmed email
+    /**
+     * Delete users who havent confirmed email
+     */
     public function actionDeleteUncheckedUsersEW5q3n825mL6BM2bTZ81() {
 	UserModel::deleteUncheckedUsers();
 	$this->terminate();
     }
 
+    /**
+     * Send Assignment notifications
+     */
     public function actionSendAssignmentNotificationsEW5q3n825mL6BM2bTZ81() {
 	AssignmentModel::sendAssignmentNotifications();
 	$this->terminate();
     }
 
-    // delete 30 minutes old webtemp files
-    public function actionDeleteOldTempFilesEW5q3n825mL6BM2bTZ81() {	
-	
-	$dirName = WWW_DIR.'/webtemp'; // Path to the cache directory
+    /**
+     * Clean webtemp directory from old files (older than 30 minutes)
+     */
+    public function actionDeleteOldTempFilesEW5q3n825mL6BM2bTZ81() {
+
+	$dirName = WWW_DIR . '/webtemp'; // Path to the cache directory
 	$timeLimit = 30; // Max time since a file has been accessed
 	//   before it should be deleted
 
@@ -39,7 +52,7 @@ class CronPresenter extends Presenter {
 		continue;
 	    }
 
-	    if (fileatime($dirName . '/' . $file) < time() - ($timeLimit *60)) {
+	    if (fileatime($dirName . '/' . $file) < time() - ($timeLimit * 60)) {
 		if (unlink($dirName . '/' . $file)) {
 		    echo "$file deleted successfully.";
 		} else {
@@ -47,7 +60,7 @@ class CronPresenter extends Presenter {
 		}
 		echo '<br />';
 	    }
-	}	
+	}
 	$this->terminate();
     }
 

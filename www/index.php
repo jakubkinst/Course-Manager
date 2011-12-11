@@ -7,7 +7,7 @@
 define('SITE', '');
 
 // base dir
-define("BASE_DIR", "/Course-Manager");
+define("BASE_DIR", "/CourseMan");
 
 // absolute filesystem path to the web root
 define('WWW_DIR', dirname(__FILE__));

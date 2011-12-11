@@ -1,18 +1,34 @@
 <?php
 
 /**
- * UserPresenter
- *
- * @author Jakub Kinst
+ * Presenter dedicated to User profile module
+ * 
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
  */
 class UserPresenter extends BasePresenter {
+    /*
+     * =============================================================
+     * =================   Parent overrides   ======================
+     */
 
     public function startup() {
 	$this->canbesignedout = true;
 	parent::startup();
     }
 
-    public function renderHomepage($uid) {
+    /*
+     * =============================================================
+     * =======================  Actions ============================
+     */
+
+    /**
+     * User homepage - profile page
+     */
+    public function renderHomepage() {
+	$uid = $this->getParam('uid');
+	if ($uid == null)
+	    $uid = UserModel::getLoggedUser()->id;
 	$this->template->settings = SettingsModel::getSettings($uid);
 	$this->template->showuser = UserModel::getUser($uid);
     }
@@ -25,6 +41,10 @@ class UserPresenter extends BasePresenter {
 	$this->redirect('Courselist:homepage');
     }
 
+    /**
+     * Confirms user email address
+     * @param string $hash Hash from confirmation email
+     */
     public function actionCheck($hash) {
 	if (!UserModel::checkUser($hash))
 	    throw new BadRequestException;
@@ -33,18 +53,19 @@ class UserPresenter extends BasePresenter {
     }
 
     /**
-     * Register template render
+     * Edit user info action
      */
-    public function renderRegister() {
-	
-    }
-
     public function actionEdit() {
 	$this['editForm']->setDefaults(UserModel::getLoggedUser());
     }
 
+    /*
+     * =============================================================
+     * ==================  Form factories  =========================
+     */
+
     /**
-     * Form factory - Register user
+     * Register user form
      * @return AppForm 
      */
     protected function createComponentRegisterForm() {
@@ -67,7 +88,7 @@ class UserPresenter extends BasePresenter {
 		->addRule('myValidator', 'E-mail is already registered.');
 	$form->addPassword('password', 'Password:*')
 		->addRule(Form::FILLED, 'Fill in the password')
-		->addRule(Form::MIN_LENGTH, 'Minimal password length is 5',5);
+		->addRule(Form::MIN_LENGTH, 'Minimal password length is 5', 5);
 	$form->addPassword('password2', 'Verify password:*')
 		->addRule(Form::FILLED, 'Fill in the password again.')
 		->addRule(Form::EQUAL, 'Passwords don\'t match.', $form['password']);
@@ -80,9 +101,9 @@ class UserPresenter extends BasePresenter {
 
     /**
      * Register user form handler
-     * @param type $form 
+     * @param AppForm $form 
      */
-    public function registerFormSubmitted($form) {
+    public function registerFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	unset($values['password2']);
 	if (UserModel::addUser($values)) {
@@ -93,6 +114,10 @@ class UserPresenter extends BasePresenter {
 	    $this->flashMessage('There was an error registering you.', $type = 'error');
     }
 
+    /**
+     * Edit profile form
+     * @return AppForm 
+     */
     protected function createComponentEditForm() {
 	$form = new AppForm;
 	$form->setTranslator($this->translator);
@@ -107,7 +132,11 @@ class UserPresenter extends BasePresenter {
 	return $form;
     }
 
-    public function editFormSubmitted($form) {
+    /**
+     * Edit user form handler
+     * @param AppForm $form 
+     */
+    public function editFormSubmitted(AppForm $form) {
 	$values = $form->getValues();
 	if (UserModel::editUser($values)) {
 	    $this->flashMessage('User data successfully edited.', $type = 'success');

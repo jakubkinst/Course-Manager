@@ -1,23 +1,33 @@
 <?php
 
 /**
- * AssignmentModel
+ * Model class with static methods dedicated to Assignment application module
+ * 
+ * Responsible mostly for communication with database via dibi.
  *
- * @author Jakub Kinst
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Models
  */
 class AssignmentModel extends Object {
 
+    /**
+     * Adds new assignment to db
+     * 
+     * @param array $values Values from Form
+     * @param int $cid Course ID
+     * @return int ID of an added assignment or -1 if adding fails 
+     */
     public static function addAssignment($values, $cid) {
 	$array = array(
 	    'name' => $values['name'],
-	    'description' =>$values['description'],
+	    'description' => $values['description'],
 	    'assigndate' => CommonModel::convertFormDate($values['assigndate']),
 	    'duedate' => CommonModel::convertFormDate($values['duedate']),
-	    'maxpoints' =>$values['maxpoints'],		
-	    'timelimit' =>$values['timelimit'],
+	    'maxpoints' => $values['maxpoints'],
+	    'timelimit' => $values['timelimit'],
 	    'created' => new DateTime,
 	    'Course_id' => $cid
-	    );
+	);
 	if (dibi::query('INSERT INTO assignment', $array)) {
 	    $id = dibi::getInsertId();
 	    self::sendNewAssignmentNotif($id);
@@ -27,18 +37,49 @@ class AssignmentModel extends Object {
 	    return -1;
     }
 
+    /**
+     * Adds text input to an assignment
+     * 
+     * @param string $label Text input label
+     * @param int $aid Assignment ID
+     * @param string $ra Right anwser (may be null)
+     * @return boolean
+     */
     public static function addText($label, $aid, $ra) {
-	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'text', 'rightanwser' => $ra, 'label' => $label));
+	return dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'text', 'rightanwser' => $ra, 'label' => $label));
     }
 
+    /**
+     * Adds textarea to an assignment
+     * 
+     * @param string $label Textarea label
+     * @param int $aid Assignment ID
+     * @return boolean
+     */
     public static function addTextArea($label, $aid) {
-	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'textarea', 'label' => $label));
+	return dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'textarea', 'label' => $label));
     }
 
+    /**
+     * Adds file upload field to an assignment
+     * 
+     * @param string $label field label
+     * @param int $aid Assignment ID
+     * @return boolean
+     */
     public static function addFile($label, $aid) {
-	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'file', 'label' => $label));
+	return dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'file', 'label' => $label));
     }
 
+    /**
+     * Adds radiogroup to an assignment
+     * 
+     * @param string $label radiogroup label
+     * @param array $choices Array of possible choices
+     * @param int $aid Assignment ID
+     * @param string $ra right anwser (may be null)
+     * @return boolean 
+     */
     public static function addRadio($label, $choices, $aid, $ra) {
 
 	function isEmpty($var) {
@@ -47,9 +88,18 @@ class AssignmentModel extends Object {
 
 	$choices = array_filter($choices, 'isEmpty');
 	$choices2 = implode('#', $choices);
-	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'radio', 'rightanwser' => $ra, 'label' => $label, 'choices' => $choices2));
+	return dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'radio', 'rightanwser' => $ra, 'label' => $label, 'choices' => $choices2));
     }
 
+    /**
+     * Adds radiogroup to an assignment
+     * 
+     * @param string $label radiogroup label
+     * @param array $choices Array of possible choices
+     * @param int $aid Assignment ID
+     * @param string $ra right anwser (may be null)
+     * @return boolean
+     */
     public static function addMultiSelect($label, $choices, $aid, $ra) {
 
 	function isEmpty($var) {
@@ -58,9 +108,15 @@ class AssignmentModel extends Object {
 
 	$choices = array_filter($choices, 'isEmpty');
 	$choices2 = implode('#', $choices);
-	dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'multi', 'rightanwser' => $ra, 'label' => $label, 'choices' => $choices2));
+	return dibi::query('INSERT INTO question', array('Assignment_id' => $aid, 'type' => 'multi', 'rightanwser' => $ra, 'label' => $label, 'choices' => $choices2));
     }
 
+    /**
+     * Returns a submission by given user to a given assignment
+     * @param int $aid Assignment ID
+     * @param int $uid User ID
+     * @return array Submission row
+     */
     public static function getUserSubmission($aid, $uid) {
 	$submission = dibi::fetchPairs(
 			'SELECT Question_id,anwser.anwser FROM anwser 
@@ -73,16 +129,32 @@ class AssignmentModel extends Object {
 	return $submission;
     }
 
+    /**
+     * Saves result of an assignment given by the teacher
+     * @param int $aid Assignment ID
+     * @param array $values
+     * @return boolean
+     */
     public static function saveResult($aid, $values) {
 	foreach ($values as $uid => $pts)
 	    dibi::query('UPDATE onlinesubmission SET points=%i', $pts, 'WHERE User_id=%i AND Assignment_id=%i', $uid, $aid);
 	return true;
     }
 
+    /**
+     * Returns array of users who have not been graded, but submitted a submission
+     * @param int $aid Assignment ID
+     * @return array 
+     */
     public static function getStudentsWithSubmissionWithoutResult($aid) {
 	return dibi::fetchAll('SELECT User_id FROM onlinesubmission WHERE Assignment_id=%i AND points IS NULL', $aid);
     }
 
+    /**
+     * Gets all submissions to an assignment
+     * @param int $aid Assignment ID
+     * @return array 
+     */
     public static function getSubmissions($aid) {
 	$students = self::getStudentsWithSubmissionWithoutResult($aid);
 	$submissions = array();
@@ -94,43 +166,87 @@ class AssignmentModel extends Object {
 	return $submissions;
     }
 
+    /**
+     * Returns questions of an assignment
+     * @param int $aid Assignment ID
+     * @return array 
+     */
     public static function getQuestions($aid) {
 	$q = dibi::fetchAll('SELECT * FROM question WHERE Assignment_id=%i ORDER BY id ASC', $aid);
 	return $q;
     }
 
+    /**
+     * Returns simple question of given ID
+     * @param int $aid Question ID
+     * @return array 
+     */
     public static function getQuestion($qid) {
 	$q = dibi::fetch('SELECT * FROM question WHERE id=%i', $qid);
 	return $q;
     }
 
+    /**
+     * Returns string converted to array by a delimiter
+     * @param string $str input string
+     * @return array 
+     */
     public static function parseChoices($str) {
 	return explode('#', $str);
     }
 
+    /**
+     * Removes a question from an assignment
+     * @param int $qid Question ID
+     * @return boolean 
+     */
     public static function removeQuestion($qid) {
-	return dibi::query('DELETE FROM question WHERE id=%i', $qid) &&
-	dibi::query('DELETE FROM anwser WHERE Question_id=%i', $qid);
+	return dibi::query('DELETE FROM question WHERE id=%i', $qid);
     }
 
+    /**
+     * Returns Course ID of an Assignment
+     * @param int $aid Assignment ID
+     * @return int 
+     */
     public static function getCourseIDByAssignmentID($aid) {
 	return dibi::fetchSingle('SELECT Course_id FROM assignment WHERE id=%i', $aid);
     }
 
+    /**
+     * Returns Course ID of a Question
+     * @param int $qid Question ID
+     * @return int 
+     */
     public static function getCourseIDByQuestionID($qid) {
 	return dibi::fetchSingle('SELECT Course_id FROM question JOIN assignment ON Assignment_id=assignment.id WHERE question.id=%i', $qid);
     }
 
+    /**
+     * Returns assignment of a given ID
+     * @param int $aid Assignment ID
+     * @return array
+     */
     public static function getAssignment($aid) {
 	$q = dibi::fetch('SELECT * FROM assignment WHERE id=%i', $aid);
 	return $q;
     }
 
+    /**
+     * Returns array of assignments for a given Course
+     * @param int $cid Course ID
+     * @return array
+     */
     public static function getAssignments($cid) {
 	$q = dibi::fetchAll('SELECT * FROM assignment WHERE Course_id=%i ORDER BY duedate ASC', $cid);
 	return $q;
     }
 
+    /**
+     * Begins solving of an assignment - creates submission record and records time of start
+     * @param int $aid Assignment ID
+     * @return boolean 
+     */
     public static function startSolving($aid) {
 	$values = array(
 	    'Assignment_id' => $aid,
@@ -140,6 +256,12 @@ class AssignmentModel extends Object {
 	return dibi::query('INSERT INTO onlinesubmission', $values);
     }
 
+    /**
+     * Corrects an Auto-correcting Assignment and returns amount of points
+     * @param array $values Anwsers
+     * @param int $aid Assignment ID
+     * @return int Points
+     */
     public static function getCorrected($values, $aid) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	$cor = 0;
@@ -173,6 +295,12 @@ class AssignmentModel extends Object {
 	return $score;
     }
 
+    /**
+     * Submits a non auto-correcting assignment
+     * @param array $values Anwsers
+     * @param int $aid Assignment ID
+     * @return boolean 
+     */
     public static function submitSubmission($values, $aid) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	$ok = true;
@@ -210,6 +338,11 @@ class AssignmentModel extends Object {
 	return $ok;
     }
 
+    /**
+     * Uploads a file submitted to a assignment
+     * @param array $file PHP file structure
+     * @return int of File inserted into db or false if it fails
+     */
     public static function uploadAnwserFile($file) {
 	$data = array();
 	$data['size'] = $file->getSize();
@@ -227,6 +360,11 @@ class AssignmentModel extends Object {
 	return false;
     }
 
+    /**
+     * Returns an array of anwsers of all students submissions to a given Assignment
+     * @param int $aid Assignment ID
+     * @return array
+     */
     public static function getAnwsers($aid) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	$anwsers = dibi::fetchAll('SELECT Question_id, anwser,type,choices FROM anwser JOIN question ON question.id=Question_id WHERE Assignment_id=%i AND User_id=%i', $aid, $uid);
@@ -248,6 +386,11 @@ class AssignmentModel extends Object {
 	return $assocanwsers;
     }
 
+    /**
+     * Returns a time value, when the current user has a deadline to submit a submission for given assignment
+     * @param int $aid Assignment ID
+     * @return DateTime 
+     */
     public static function getRealEndTime($aid) {
 	$assignment = AssignmentModel::getAssignment($aid);
 	$startTime = new DateTime(AssignmentModel::getStartTime($aid));
@@ -259,7 +402,12 @@ class AssignmentModel extends Object {
 	    return new DateTime($assignment->duedate);
     }
 
-    // time reserve in seconds
+    /**
+     * Returns boolean whether the user is now eligible to submit a submission
+     * @param int $aid Assignment ID
+     * @param int $reserve time reserve after deadline to submit (seconds)
+     * @return boolean 
+     */
     public static function canSolve($aid, $reserve = 0) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	$pts = dibi::fetchSingle('SELECT points FROM onlinesubmission WHERE User_id=%i AND Assignment_id=%i', $uid, $aid);
@@ -271,20 +419,42 @@ class AssignmentModel extends Object {
 	return ($now > new DateTime($assignment->assigndate) && $now < $end && !$hasPoints);
     }
 
+    /**
+     * Returns a time value, when the current user started solving given assignment
+     * @param int $aid Assignment ID
+     * @return string date 
+     */
     public static function getStartTime($aid) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	return dibi::fetchSingle('SELECT started FROM onlinesubmission WHERE Assignment_id=%i AND User_id=%i', $aid, $uid);
     }
 
+    /**
+     * Returns true if current user has already solved this submission
+     * @param type $aid
+     * @return type 
+     */
     public static function isSolved($aid) {
 	$uid = UserModel::getUserID(Environment::getUser()->getIdentity());
 	return (null != dibi::fetch('SELECT * FROM onlinesubmission WHERE Assignment_id=%i AND User_id=%i', $aid, $uid));
     }
 
+    /**
+     * Returns a position of an anwser in a question
+     * @param array $question
+     * @param string $value
+     * @return int 
+     */
     public static function getRadioAnwserPos($question, $value) {
 	return array_search($value, explode('#', $question->choices));
     }
 
+    /**
+     * Returns a multianwser array
+     * @param array $question
+     * @param string $anwser
+     * @return array 
+     */
     public static function getMultiAnwserArray($question, $anwser) {
 	$intarr = array();
 	foreach (explode('#', $anwser) as $oneanwser)
@@ -292,6 +462,11 @@ class AssignmentModel extends Object {
 	return $intarr;
     }
 
+    /**
+     * returns a File from anwser file table in db
+     * @param id $afid Anwser File ID
+     * @return array File 
+     */
     public static function getAnwserFile($afid) {
 	$r = dibi::fetch('SELECT * FROM anwser 
 	    JOIN question ON Question_id=question.id 
@@ -304,9 +479,13 @@ class AssignmentModel extends Object {
 	return $r;
     }
 
+    /**
+     * Sends e-mail notifications to all students about a new assignment
+     * @param int $aid Assignment ID 
+     */
     public static function sendNewAssignmentNotif($aid) {
 	$assignment = self::getAssignment($aid);
-	$course = CourseModel::getCourseByID($assignment->Course_id);
+	$course = CourseModel::getCourse($assignment->Course_id);
 	$subject = 'New Assignment added to ' . $course->name;
 	$msg = 'There is a new assignment called ' . $assignment->name . ' in your course <b>' . $course->name . '</b><br />
 	    You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
@@ -314,24 +493,25 @@ class AssignmentModel extends Object {
 	MailModel::sendMailToStudents($course->id, $subject, $msg);
     }
 
+    /**
+     * Sends e-mail notifications to all students some time before deadline (depending on user settings)
+     */
     public static function sendAssignmentNotifications() {
 	$assignments = dibi::fetchAll('SELECT * FROM assignment WHERE duedate>NOW()');
 	foreach ($assignments as $assignment) {
-	    $course = CourseModel::getCourseByID($assignment->Course_id);
+	    $course = CourseModel::getCourse($assignment->Course_id);
 	    $students = CourseModel::getStudents($assignment->Course_id);
 	    foreach ($students as $student) {
 		$settings = SettingsModel::getSettings($student->id);
 		$dayInterval = $settings->assignment_notif_interval;
 		$due = new DateTime($assignment->duedate);
-		$tmp = date_add(new DateTime,  date_interval_create_from_date_string($dayInterval.' days'));
-		$tmp2 = date_add(new DateTime,  date_interval_create_from_date_string(($dayInterval+1).' days'));
-		if ($tmp<$due && $tmp2>$due){
+		$tmp = date_add(new DateTime, date_interval_create_from_date_string($dayInterval . ' days'));
+		$tmp2 = date_add(new DateTime, date_interval_create_from_date_string(($dayInterval + 1) . ' days'));
+		if ($tmp < $due && $tmp2 > $due) {
 		    $subject = 'Notification of upcoming assignment duedate';
-		    $msg = 'Assignment <b>'.$assignment->name.'</b> duedate is on <b>'.$assignment->duedate.'</b>. You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
+		    $msg = 'Assignment <b>' . $assignment->name . '</b> duedate is on <b>' . $assignment->duedate . '</b>. You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
 		    MailModel::addMail($student->email, $subject, $msg);
 		}
-		    
-		
 	    }
 	}
     }
