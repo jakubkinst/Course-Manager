@@ -8,3 +8,6 @@ cron settings:
     every day run http request www/cron/sendassignmentnotificationew5q3n825ml6bm2btz81
     every day run http request www/cron/deleteoldtempfilesew5q3n825ml6bm2btz81
 
+-create www/webtemp directory with r/w rights
+
+-create uploads directory with r/w rights
