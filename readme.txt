@@ -11,3 +11,5 @@ cron settings:
 -create www/webtemp directory with r/w rights
 
 -create uploads directory with r/w rights
+
+-create temp/cache directory with r/w rights
