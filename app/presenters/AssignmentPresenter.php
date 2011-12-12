@@ -17,6 +17,9 @@ class AssignmentPresenter extends BaseCoursePresenter {
      * @var int
      */
     var $aid;
+    
+    /** @persistent */
+    public $cid;
 
     /**
      * Is this assignment auto-correcting ?
@@ -316,6 +319,7 @@ class AssignmentPresenter extends BaseCoursePresenter {
      */
     public function addAssignment(AppForm $form) {
 	$values = $form->getValues();
+	dump($this->cid);
 	$newaid = AssignmentModel::addAssignment($values, $this->cid);
 	if ($newaid != -1) {
 	    $this->redirect('edit', $newaid);

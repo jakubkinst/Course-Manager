@@ -1,0 +1,2232 @@
+/* -----------------------------------------------------------------------
+
+
+ Blueprint CSS Framework 1.0
+ http://blueprintcss.org
+
+   * Copyright (c) 2007-Present. See LICENSE for more info.
+   * See README for instructions on how to use Blueprint.
+   * For credits and origins, see AUTHORS.
+   * This is a compressed file. See the sources in the 'src' directory.
+
+----------------------------------------------------------------------- */
+
+/* reset.css */
+html {margin:0;padding:0;border:0;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1.5;background:white;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;float:none !important;}
+table, th, td {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+:focus {outline:0;}
+
+/* typography.css */
+html {font-size:100.01%;}
+body {font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
+h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
+h2 {font-size:2em;margin-bottom:0.75em;}
+h3 {font-size:1.5em;line-height:1;margin-bottom:1em;}
+h4 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
+h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
+h6 {font-size:1em;font-weight:bold;}
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {margin:0;}
+p {margin:0 0 1.5em;}
+.left {float:left !important;}
+p .left {margin:1.5em 1.5em 1.5em 0;padding:0;}
+.right {float:right !important;}
+p .right {margin:1.5em 0 1.5em 1.5em;padding:0;}
+a:focus, a:hover {color:#09f;}
+a {color:#06c;text-decoration:underline;}
+blockquote {margin:1.5em;color:#666;font-style:italic;}
+strong, dfn {font-weight:bold;}
+em, dfn {font-style:italic;}
+sup, sub {line-height:0;}
+abbr, acronym {border-bottom:1px dotted #666;}
+address {margin:0 0 1.5em;font-style:italic;}
+del {color:#666;}
+pre {margin:1.5em 0;white-space:pre;}
+pre, code, tt {font:1em 'andale mono', 'lucida console', monospace;line-height:1.5;}
+li ul, li ol {margin:0;}
+ul, ol {margin:0 1.5em 1.5em 0;padding-left:1.5em;}
+ul {list-style-type:disc;}
+ol {list-style-type:decimal;}
+dl {margin:0 0 1.5em 0;}
+dl dt {font-weight:bold;}
+dd {margin-left:1.5em;}
+table {margin-bottom:1.4em;width:100%;}
+th {font-weight:bold;}
+thead th {background:#c3d9ff;}
+th, td, caption {padding:4px 10px 4px 5px;}
+tbody tr:nth-child(even) td, tbody tr.even td {background:#e5ecf9;}
+tfoot {font-style:italic;}
+caption {background:#eee;}
+.small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}
+.large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}
+.hide {display:none;}
+.quiet {color:#666;}
+.loud {color:#000;}
+.highlight {background:#ff0;}
+.added {background:#060;color:#fff;}
+.removed {background:#900;color:#fff;}
+.first {margin-left:0;padding-left:0;}
+.last {margin-right:0;padding-right:0;}
+.top {margin-top:0;padding-top:0;}
+.bottom {margin-bottom:0;padding-bottom:0;}
+
+/* forms.css */
+label {font-weight:bold;}
+fieldset {padding:0 1.4em 1.4em 1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
+legend {font-weight:bold;font-size:1.2em;margin-top:-0.2em;margin-bottom:1em;}
+fieldset, #IE8#HACK {padding-top:1.4em;}
+legend, #IE8#HACK {margin-top:0;margin-bottom:0;}
+input[type=text], input[type=password], input.text, input.title, textarea {background-color:#fff;border:1px solid #bbb;color:#000;}
+input[type=text]:focus, input[type=password]:focus, input.text:focus, input.title:focus, textarea:focus {border-color:#666;}
+select {background-color:#fff;border-width:1px;border-style:solid;}
+input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0.5em 0;}
+input.text, input.title {width:300px;padding:5px;}
+input.title {font-size:1.5em;}
+textarea {width:390px;height:250px;padding:5px;}
+form.inline {line-height:3;}
+form.inline p {margin-bottom:0;}
+.error, .alert, .notice, .success, .info {padding:0.8em;margin-bottom:1em;border:2px solid #ddd;}
+.error, .alert {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+.notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
+.success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+.info {background:#d5edf8;color:#205791;border-color:#92cae4;}
+.error a, .alert a {color:#8a1f11;}
+.notice a {color:#514721;}
+.success a {color:#264409;}
+.info a {color:#205791;}
+
+/* grid.css */
+.container {width:950px;margin:0 auto;}
+.showgrid {background:url('http://localhost/CourseMan/document_root/css/blueprint/src/grid.png');}
+.column, .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10, .span-11, .span-12, .span-13, .span-14, .span-15, .span-16, .span-17, .span-18, .span-19, .span-20, .span-21, .span-22, .span-23, .span-24 {float:left;margin-right:10px;}
+.last {margin-right:0;}
+.span-1 {width:30px;}
+.span-2 {width:70px;}
+.span-3 {width:110px;}
+.span-4 {width:150px;}
+.span-5 {width:190px;}
+.span-6 {width:230px;}
+.span-7 {width:270px;}
+.span-8 {width:310px;}
+.span-9 {width:350px;}
+.span-10 {width:390px;}
+.span-11 {width:430px;}
+.span-12 {width:470px;}
+.span-13 {width:510px;}
+.span-14 {width:550px;}
+.span-15 {width:590px;}
+.span-16 {width:630px;}
+.span-17 {width:670px;}
+.span-18 {width:710px;}
+.span-19 {width:750px;}
+.span-20 {width:790px;}
+.span-21 {width:830px;}
+.span-22 {width:870px;}
+.span-23 {width:910px;}
+.span-24 {width:950px;margin-right:0;}
+input.span-1, textarea.span-1, input.span-2, textarea.span-2, input.span-3, textarea.span-3, input.span-4, textarea.span-4, input.span-5, textarea.span-5, input.span-6, textarea.span-6, input.span-7, textarea.span-7, input.span-8, textarea.span-8, input.span-9, textarea.span-9, input.span-10, textarea.span-10, input.span-11, textarea.span-11, input.span-12, textarea.span-12, input.span-13, textarea.span-13, input.span-14, textarea.span-14, input.span-15, textarea.span-15, input.span-16, textarea.span-16, input.span-17, textarea.span-17, input.span-18, textarea.span-18, input.span-19, textarea.span-19, input.span-20, textarea.span-20, input.span-21, textarea.span-21, input.span-22, textarea.span-22, input.span-23, textarea.span-23, input.span-24, textarea.span-24 {border-left-width:1px;border-right-width:1px;padding-left:5px;padding-right:5px;}
+input.span-1, textarea.span-1 {width:18px;}
+input.span-2, textarea.span-2 {width:58px;}
+input.span-3, textarea.span-3 {width:98px;}
+input.span-4, textarea.span-4 {width:138px;}
+input.span-5, textarea.span-5 {width:178px;}
+input.span-6, textarea.span-6 {width:218px;}
+input.span-7, textarea.span-7 {width:258px;}
+input.span-8, textarea.span-8 {width:298px;}
+input.span-9, textarea.span-9 {width:338px;}
+input.span-10, textarea.span-10 {width:378px;}
+input.span-11, textarea.span-11 {width:418px;}
+input.span-12, textarea.span-12 {width:458px;}
+input.span-13, textarea.span-13 {width:498px;}
+input.span-14, textarea.span-14 {width:538px;}
+input.span-15, textarea.span-15 {width:578px;}
+input.span-16, textarea.span-16 {width:618px;}
+input.span-17, textarea.span-17 {width:658px;}
+input.span-18, textarea.span-18 {width:698px;}
+input.span-19, textarea.span-19 {width:738px;}
+input.span-20, textarea.span-20 {width:778px;}
+input.span-21, textarea.span-21 {width:818px;}
+input.span-22, textarea.span-22 {width:858px;}
+input.span-23, textarea.span-23 {width:898px;}
+input.span-24, textarea.span-24 {width:938px;}
+.append-1 {padding-right:40px;}
+.append-2 {padding-right:80px;}
+.append-3 {padding-right:120px;}
+.append-4 {padding-right:160px;}
+.append-5 {padding-right:200px;}
+.append-6 {padding-right:240px;}
+.append-7 {padding-right:280px;}
+.append-8 {padding-right:320px;}
+.append-9 {padding-right:360px;}
+.append-10 {padding-right:400px;}
+.append-11 {padding-right:440px;}
+.append-12 {padding-right:480px;}
+.append-13 {padding-right:520px;}
+.append-14 {padding-right:560px;}
+.append-15 {padding-right:600px;}
+.append-16 {padding-right:640px;}
+.append-17 {padding-right:680px;}
+.append-18 {padding-right:720px;}
+.append-19 {padding-right:760px;}
+.append-20 {padding-right:800px;}
+.append-21 {padding-right:840px;}
+.append-22 {padding-right:880px;}
+.append-23 {padding-right:920px;}
+.prepend-1 {padding-left:40px;}
+.prepend-2 {padding-left:80px;}
+.prepend-3 {padding-left:120px;}
+.prepend-4 {padding-left:160px;}
+.prepend-5 {padding-left:200px;}
+.prepend-6 {padding-left:240px;}
+.prepend-7 {padding-left:280px;}
+.prepend-8 {padding-left:320px;}
+.prepend-9 {padding-left:360px;}
+.prepend-10 {padding-left:400px;}
+.prepend-11 {padding-left:440px;}
+.prepend-12 {padding-left:480px;}
+.prepend-13 {padding-left:520px;}
+.prepend-14 {padding-left:560px;}
+.prepend-15 {padding-left:600px;}
+.prepend-16 {padding-left:640px;}
+.prepend-17 {padding-left:680px;}
+.prepend-18 {padding-left:720px;}
+.prepend-19 {padding-left:760px;}
+.prepend-20 {padding-left:800px;}
+.prepend-21 {padding-left:840px;}
+.prepend-22 {padding-left:880px;}
+.prepend-23 {padding-left:920px;}
+.border {padding-right:4px;margin-right:5px;border-right:1px solid #ddd;}
+.colborder {padding-right:24px;margin-right:25px;border-right:1px solid #ddd;}
+.pull-1 {margin-left:-40px;}
+.pull-2 {margin-left:-80px;}
+.pull-3 {margin-left:-120px;}
+.pull-4 {margin-left:-160px;}
+.pull-5 {margin-left:-200px;}
+.pull-6 {margin-left:-240px;}
+.pull-7 {margin-left:-280px;}
+.pull-8 {margin-left:-320px;}
+.pull-9 {margin-left:-360px;}
+.pull-10 {margin-left:-400px;}
+.pull-11 {margin-left:-440px;}
+.pull-12 {margin-left:-480px;}
+.pull-13 {margin-left:-520px;}
+.pull-14 {margin-left:-560px;}
+.pull-15 {margin-left:-600px;}
+.pull-16 {margin-left:-640px;}
+.pull-17 {margin-left:-680px;}
+.pull-18 {margin-left:-720px;}
+.pull-19 {margin-left:-760px;}
+.pull-20 {margin-left:-800px;}
+.pull-21 {margin-left:-840px;}
+.pull-22 {margin-left:-880px;}
+.pull-23 {margin-left:-920px;}
+.pull-24 {margin-left:-960px;}
+.pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12, .pull-13, .pull-14, .pull-15, .pull-16, .pull-17, .pull-18, .pull-19, .pull-20, .pull-21, .pull-22, .pull-23, .pull-24 {float:left;position:relative;}
+.push-1 {margin:0 -40px 1.5em 40px;}
+.push-2 {margin:0 -80px 1.5em 80px;}
+.push-3 {margin:0 -120px 1.5em 120px;}
+.push-4 {margin:0 -160px 1.5em 160px;}
+.push-5 {margin:0 -200px 1.5em 200px;}
+.push-6 {margin:0 -240px 1.5em 240px;}
+.push-7 {margin:0 -280px 1.5em 280px;}
+.push-8 {margin:0 -320px 1.5em 320px;}
+.push-9 {margin:0 -360px 1.5em 360px;}
+.push-10 {margin:0 -400px 1.5em 400px;}
+.push-11 {margin:0 -440px 1.5em 440px;}
+.push-12 {margin:0 -480px 1.5em 480px;}
+.push-13 {margin:0 -520px 1.5em 520px;}
+.push-14 {margin:0 -560px 1.5em 560px;}
+.push-15 {margin:0 -600px 1.5em 600px;}
+.push-16 {margin:0 -640px 1.5em 640px;}
+.push-17 {margin:0 -680px 1.5em 680px;}
+.push-18 {margin:0 -720px 1.5em 720px;}
+.push-19 {margin:0 -760px 1.5em 760px;}
+.push-20 {margin:0 -800px 1.5em 800px;}
+.push-21 {margin:0 -840px 1.5em 840px;}
+.push-22 {margin:0 -880px 1.5em 880px;}
+.push-23 {margin:0 -920px 1.5em 920px;}
+.push-24 {margin:0 -960px 1.5em 960px;}
+.push-1, .push-2, .push-3, .push-4, .push-5, .push-6, .push-7, .push-8, .push-9, .push-10, .push-11, .push-12, .push-13, .push-14, .push-15, .push-16, .push-17, .push-18, .push-19, .push-20, .push-21, .push-22, .push-23, .push-24 {float:left;position:relative;}
+div.prepend-top, .prepend-top {margin-top:1.5em;}
+div.append-bottom, .append-bottom {margin-bottom:1.5em;}
+.box {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
+hr {background:#ddd;color:#ddd;clear:both;float:none;width:100%;height:1px;margin:0 0 17px;border:none;}
+hr.space {background:#fff;color:#fff;visibility:hidden;}
+.clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
+.clearfix, .container {display:block;}
+.clear {clear:both;}/*
+ * jQuery UI CSS Framework 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/*
+ * jQuery UI CSS Framework 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Cambria,Times%20New%20Roman&fwDefault=normal&fsDefault=1.3em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=01_flat.png&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=88beda&bgTextureDefault=02_glass.png&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=02_glass.png&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=02_glass.png&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
+ */
+
+
+/* Component containers
+----------------------------------*/
+.ui-widget { font-family: Cambria,Times New Roman; font-size: 1.3em; }
+.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Cambria,Times New Roman; font-size: 1em; }
+.ui-widget-content { border: 1px solid #aaaaaa; background: #ffffff url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_flat_75_ffffff_40x100.png') 50% 50% repeat-x; color: #222222; }
+.ui-widget-content a { color: #222222; }
+.ui-widget-header { border: 1px solid #aaaaaa; background: #cccccc url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png') 50% 50% repeat-x; color: #222222; font-weight: bold; }
+.ui-widget-header a { color: #222222; }
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3; background: #88beda url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_glass_75_88beda_1x400.png') 50% 50% repeat-x; font-weight: normal; color: #555555; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #555555; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #999999; background: #dadada url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_glass_75_dadada_1x400.png') 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #212121; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa; background: #ffffff url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_glass_65_ffffff_1x400.png') 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121; text-decoration: none; }
+.ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fcefa1; background: #fbf9ee url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png') 50% 50% repeat-x; color: #363636; }
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png') 50% 50% repeat-x; color: #cd0a0a; }
+.ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd0a0a; }
+.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #cd0a0a; }
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { width: 16px; height: 16px; background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_222222_256x240.png'); }
+.ui-widget-content .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_222222_256x240.png'); }
+.ui-widget-header .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_222222_256x240.png'); }
+.ui-state-default .ui-icon { background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_888888_256x240.png'); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_454545_256x240.png'); }
+.ui-state-active .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_454545_256x240.png'); }
+.ui-state-highlight .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_2e83ff_256x240.png'); }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-icons_cd0a0a_256x240.png'); }
+
+/* positioning */
+.ui-icon-carat-1-n { background-position: 0 0; }
+.ui-icon-carat-1-ne { background-position: -16px 0; }
+.ui-icon-carat-1-e { background-position: -32px 0; }
+.ui-icon-carat-1-se { background-position: -48px 0; }
+.ui-icon-carat-1-s { background-position: -64px 0; }
+.ui-icon-carat-1-sw { background-position: -80px 0; }
+.ui-icon-carat-1-w { background-position: -96px 0; }
+.ui-icon-carat-1-nw { background-position: -112px 0; }
+.ui-icon-carat-2-n-s { background-position: -128px 0; }
+.ui-icon-carat-2-e-w { background-position: -144px 0; }
+.ui-icon-triangle-1-n { background-position: 0 -16px; }
+.ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.ui-icon-triangle-1-e { background-position: -32px -16px; }
+.ui-icon-triangle-1-se { background-position: -48px -16px; }
+.ui-icon-triangle-1-s { background-position: -64px -16px; }
+.ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.ui-icon-triangle-1-w { background-position: -96px -16px; }
+.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+.ui-icon-arrow-1-n { background-position: 0 -32px; }
+.ui-icon-arrow-1-ne { background-position: -16px -32px; }
+.ui-icon-arrow-1-e { background-position: -32px -32px; }
+.ui-icon-arrow-1-se { background-position: -48px -32px; }
+.ui-icon-arrow-1-s { background-position: -64px -32px; }
+.ui-icon-arrow-1-sw { background-position: -80px -32px; }
+.ui-icon-arrow-1-w { background-position: -96px -32px; }
+.ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+.ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+.ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+.ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+.ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+.ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+.ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+.ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+.ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+.ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.ui-icon-arrow-4 { background-position: 0 -80px; }
+.ui-icon-arrow-4-diag { background-position: -16px -80px; }
+.ui-icon-extlink { background-position: -32px -80px; }
+.ui-icon-newwin { background-position: -48px -80px; }
+.ui-icon-refresh { background-position: -64px -80px; }
+.ui-icon-shuffle { background-position: -80px -80px; }
+.ui-icon-transfer-e-w { background-position: -96px -80px; }
+.ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.ui-icon-folder-collapsed { background-position: 0 -96px; }
+.ui-icon-folder-open { background-position: -16px -96px; }
+.ui-icon-document { background-position: -32px -96px; }
+.ui-icon-document-b { background-position: -48px -96px; }
+.ui-icon-note { background-position: -64px -96px; }
+.ui-icon-mail-closed { background-position: -80px -96px; }
+.ui-icon-mail-open { background-position: -96px -96px; }
+.ui-icon-suitcase { background-position: -112px -96px; }
+.ui-icon-comment { background-position: -128px -96px; }
+.ui-icon-person { background-position: -144px -96px; }
+.ui-icon-print { background-position: -160px -96px; }
+.ui-icon-trash { background-position: -176px -96px; }
+.ui-icon-locked { background-position: -192px -96px; }
+.ui-icon-unlocked { background-position: -208px -96px; }
+.ui-icon-bookmark { background-position: -224px -96px; }
+.ui-icon-tag { background-position: -240px -96px; }
+.ui-icon-home { background-position: 0 -112px; }
+.ui-icon-flag { background-position: -16px -112px; }
+.ui-icon-calendar { background-position: -32px -112px; }
+.ui-icon-cart { background-position: -48px -112px; }
+.ui-icon-pencil { background-position: -64px -112px; }
+.ui-icon-clock { background-position: -80px -112px; }
+.ui-icon-disk { background-position: -96px -112px; }
+.ui-icon-calculator { background-position: -112px -112px; }
+.ui-icon-zoomin { background-position: -128px -112px; }
+.ui-icon-zoomout { background-position: -144px -112px; }
+.ui-icon-search { background-position: -160px -112px; }
+.ui-icon-wrench { background-position: -176px -112px; }
+.ui-icon-gear { background-position: -192px -112px; }
+.ui-icon-heart { background-position: -208px -112px; }
+.ui-icon-star { background-position: -224px -112px; }
+.ui-icon-link { background-position: -240px -112px; }
+.ui-icon-cancel { background-position: 0 -128px; }
+.ui-icon-plus { background-position: -16px -128px; }
+.ui-icon-plusthick { background-position: -32px -128px; }
+.ui-icon-minus { background-position: -48px -128px; }
+.ui-icon-minusthick { background-position: -64px -128px; }
+.ui-icon-close { background-position: -80px -128px; }
+.ui-icon-closethick { background-position: -96px -128px; }
+.ui-icon-key { background-position: -112px -128px; }
+.ui-icon-lightbulb { background-position: -128px -128px; }
+.ui-icon-scissors { background-position: -144px -128px; }
+.ui-icon-clipboard { background-position: -160px -128px; }
+.ui-icon-copy { background-position: -176px -128px; }
+.ui-icon-contact { background-position: -192px -128px; }
+.ui-icon-image { background-position: -208px -128px; }
+.ui-icon-video { background-position: -224px -128px; }
+.ui-icon-script { background-position: -240px -128px; }
+.ui-icon-alert { background-position: 0 -144px; }
+.ui-icon-info { background-position: -16px -144px; }
+.ui-icon-notice { background-position: -32px -144px; }
+.ui-icon-help { background-position: -48px -144px; }
+.ui-icon-check { background-position: -64px -144px; }
+.ui-icon-bullet { background-position: -80px -144px; }
+.ui-icon-radio-off { background-position: -96px -144px; }
+.ui-icon-radio-on { background-position: -112px -144px; }
+.ui-icon-pin-w { background-position: -128px -144px; }
+.ui-icon-pin-s { background-position: -144px -144px; }
+.ui-icon-play { background-position: 0 -160px; }
+.ui-icon-pause { background-position: -16px -160px; }
+.ui-icon-seek-next { background-position: -32px -160px; }
+.ui-icon-seek-prev { background-position: -48px -160px; }
+.ui-icon-seek-end { background-position: -64px -160px; }
+.ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+.ui-icon-seek-first { background-position: -80px -160px; }
+.ui-icon-stop { background-position: -96px -160px; }
+.ui-icon-eject { background-position: -112px -160px; }
+.ui-icon-volume-off { background-position: -128px -160px; }
+.ui-icon-volume-on { background-position: -144px -160px; }
+.ui-icon-power { background-position: 0 -176px; }
+.ui-icon-signal-diag { background-position: -16px -176px; }
+.ui-icon-signal { background-position: -32px -176px; }
+.ui-icon-battery-0 { background-position: -48px -176px; }
+.ui-icon-battery-1 { background-position: -64px -176px; }
+.ui-icon-battery-2 { background-position: -80px -176px; }
+.ui-icon-battery-3 { background-position: -96px -176px; }
+.ui-icon-circle-plus { background-position: 0 -192px; }
+.ui-icon-circle-minus { background-position: -16px -192px; }
+.ui-icon-circle-close { background-position: -32px -192px; }
+.ui-icon-circle-triangle-e { background-position: -48px -192px; }
+.ui-icon-circle-triangle-s { background-position: -64px -192px; }
+.ui-icon-circle-triangle-w { background-position: -80px -192px; }
+.ui-icon-circle-triangle-n { background-position: -96px -192px; }
+.ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.ui-icon-circle-arrow-s { background-position: -128px -192px; }
+.ui-icon-circle-arrow-w { background-position: -144px -192px; }
+.ui-icon-circle-arrow-n { background-position: -160px -192px; }
+.ui-icon-circle-zoomin { background-position: -176px -192px; }
+.ui-icon-circle-zoomout { background-position: -192px -192px; }
+.ui-icon-circle-check { background-position: -208px -192px; }
+.ui-icon-circlesmall-plus { background-position: 0 -208px; }
+.ui-icon-circlesmall-minus { background-position: -16px -208px; }
+.ui-icon-circlesmall-close { background-position: -32px -208px; }
+.ui-icon-squaresmall-plus { background-position: -48px -208px; }
+.ui-icon-squaresmall-minus { background-position: -64px -208px; }
+.ui-icon-squaresmall-close { background-position: -80px -208px; }
+.ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+.ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-left-radius: 4px; -khtml-border-bottom-left-radius: 4px; border-bottom-left-radius: 4px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; -khtml-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+/* Overlays */
+.ui-widget-overlay { background: #aaaaaa url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png') 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url('http://localhost/CourseMan/document_root/css/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png') 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/*
+ * jQuery UI Resizable 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizable#theming
+ */
+.ui-resizable { position: relative;}
+.ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block; }
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
+.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/*
+ * jQuery UI Selectable 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Selectable#theming
+ */
+.ui-selectable-helper { position: absolute; z-index: 100; border:1px dotted black; }
+/*
+ * jQuery UI Accordion 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Accordion#theming
+ */
+/* IE/Win - Fix animation bug - #4615 */
+.ui-accordion { width: 100%; }
+.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.ui-accordion .ui-accordion-li-fix { display: inline; }
+.ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; }
+.ui-accordion-icons .ui-accordion-header a { padding-left: 2.2em; }
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+.ui-accordion .ui-accordion-content { padding: 1em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content-active { display: block; }
+/*
+ * jQuery UI Autocomplete 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Autocomplete#theming
+ */
+.ui-autocomplete { position: absolute; cursor: default; }	
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+/*
+ * jQuery UI Menu 1.8.16
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Menu#theming
+ */
+.ui-menu {
+	list-style:none;
+	padding: 2px;
+	margin: 0;
+	display:block;
+	float: left;
+}
+.ui-menu .ui-menu {
+	margin-top: -3px;
+}
+.ui-menu .ui-menu-item {
+	margin:0;
+	padding: 0;
+	zoom: 1;
+	float: left;
+	clear: left;
+	width: 100%;
+}
+.ui-menu .ui-menu-item a {
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1.5;
+	zoom:1;
+}
+.ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active {
+	font-weight: normal;
+	margin: -1px;
+}
+/*
+ * jQuery UI Button 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Button#theming
+ */
+.ui-button { display: inline-block; position: relative; padding: 0; margin-right: .1em; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; } /* the overflow property removes extra width in IE */
+.ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
+button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
+.ui-button-icons-only { width: 3.4em; } 
+button.ui-button-icons-only { width: 3.7em; } 
+
+/*button text element */
+.ui-button .ui-button-text { display: block; line-height: 1.4;  }
+.ui-button-text-only .ui-button-text { padding: .4em 1em; }
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .4em; text-indent: -9999999px; }
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .4em 1em .4em 2.1em; }
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .4em 2.1em .4em 1em; }
+.ui-button-text-icons .ui-button-text { padding-left: 2.1em; padding-right: 2.1em; }
+/* no icon support for input elements, provide padding by default */
+input.ui-button { padding: .4em 1em; }
+
+/*button icon element(s) */
+.ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon { position: absolute; top: 50%; margin-top: -8px; }
+.ui-button-icon-only .ui-icon { left: 50%; margin-left: -8px; }
+.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary { left: .5em; }
+.ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+.ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
+
+/*button sets*/
+.ui-buttonset { margin-right: 7px; }
+.ui-buttonset .ui-button { margin-left: 0; margin-right: -.3em; }
+
+/* workarounds */
+button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra padding in Firefox */
+/*
+ * jQuery UI Dialog 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+/*
+ * jQuery UI Slider 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider#theming
+ */
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
+.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
+
+.ui-slider-horizontal { height: .8em; }
+.ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
+.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
+.ui-slider-horizontal .ui-slider-range-min { left: 0; }
+.ui-slider-horizontal .ui-slider-range-max { right: 0; }
+
+.ui-slider-vertical { width: .8em; height: 100px; }
+.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }/*
+ * jQuery UI Tabs 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
+.ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
+.ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
+.ui-tabs .ui-tabs-hide { display: none !important; }
+/*
+ * jQuery UI Datepicker 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { left:2px; }
+.ui-datepicker .ui-datepicker-next { right:2px; }
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%;}
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi { width:auto; }
+.ui-datepicker-multi .ui-datepicker-group { float:left; }
+.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.ui-datepicker-rtl { direction: rtl; }
+.ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.ui-datepicker-cover {
+    display: none; /*sorry for IE5*/
+    display/**/: block; /*sorry for IE5*/
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
+    filter: mask(); /*must have*/
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+}/*
+ * jQuery UI Progressbar 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar#theming
+ */
+.ui-progressbar { height:2em; text-align: left; }
+.ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }*{
+    margin:0;padding:0;
+    color:#555555;
+}
+/*div , a{    
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}*/
+
+p a{
+    text-decoration: underline;
+}
+form label{
+    color:#555555;
+}
+
+.shadow {
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
+}
+
+.floatcontainer{
+    overflow: auto;
+}
+.ui-icon{
+    float:left;        
+}
+body {
+    font-family: "Cambria","Trebuchet MS",Verdana,Arial,sans-serif; 
+    font-size: 12px;
+    color: #222222;
+    background-color: #fff;
+}
+
+tbody tr:nth-child(even) td, tbody tr.even td {
+    background: #dde8ed;
+}
+
+/* Disable even row coloring in forms */
+form tbody tr:nth-child(even) td, form tbody tr.even td {
+    background-color:transparent;
+} 
+a {
+    text-decoration: none;
+    color:#555555;
+}
+a:hover {
+    text-decoration: none;
+    color:#111111;
+}
+#content{
+    padding:5px;
+    height:100%;
+    min-height:500px;
+    background:#fdfdfd;    
+}
+#content h3{
+    color:#555555;
+    margin:8px;
+    font-size: 18px;
+}
+#content div.separator {
+    height: 1px;
+    width: 98%;
+    display: block;
+    background-color: #dddddd ;
+    margin:8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content table{    
+    border: 1px solid #dddddd;
+}
+#content table th{
+    background:#c7cdcf;
+}
+#naviHead {
+    padding:1px;
+    padding-left:10px;
+    background:#f1f1f1;
+    font-size: 17px; 
+    color:#555555;
+    text-transform: uppercase;
+    border-bottom:1px solid #dddddd;
+}
+#main .container{
+    border-left:1px solid #dddddd;    
+    border-right:1px solid #dddddd;
+}
+#leftcontent{
+    float:left;
+    border-right:1px solid #dddddd;
+}
+#sidebar{
+    width:189px;
+    float:right;
+}
+.notActive {
+    text-decoration: line-through;
+}
+/* Required form input */
+form tr.required {
+    font-weight: bold;
+    color:#9e0c0c;
+}
+div.buttonline{
+    width:100%;
+    height:32px;
+}
+a.nbutton {
+    font-weight: bold;
+    text-transform: uppercase;
+    display:block;
+    width:8px;
+    text-align: center;
+    padding:3px;
+    margin:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    background: #c7cdcf;
+    border:1px solid #dddddd;
+}
+
+
+a.abutton {
+    font-weight: bold;
+    text-transform: uppercase;
+    display:block;
+    float:right;
+    padding:3px;
+    margin:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    background: #c7cdcf;
+    border:1px solid #dddddd;
+}
+a.abutton:hover{
+    background:#dde8ed;
+    color:black;
+}
+a.adminbutton{
+    background:#62b1da;
+}
+a.redbutton{
+    background:#fe896e;
+}
+#content form table{
+    border:none;
+}
+#content form table th{
+    background:transparent;
+}
+form tr{
+    margin:0px;
+    padding:0px;
+}
+
+form td{
+    padding:3px;
+}
+input{
+    font-size:11px;
+    margin:0px;
+}
+input.text{
+    padding:2px;
+    background:#dde8ed;
+    width:200px;
+}
+input.button{
+    padding:2px;
+    background:#dde8ed;
+}
+
+
+#header {
+    width:100%;
+    height:60px;
+    background:#f7f7f7;    
+    border-bottom:1px solid #dddddd;
+}
+#header .container {    
+    height:100%;    
+    border-left:1px solid #dddddd;
+    border-right:1px solid #dddddd;
+}
+#header .container #innerheader{ 
+    overflow: auto;
+    height:100%;
+    background:#f2f2f2;
+}
+#footer .container{
+
+    border-left:1px solid #dddddd;   
+    border-right:1px solid #dddddd;
+}
+#footer{
+    width:100%;
+    height:120px;
+    font-size:11px;
+    color:#dddddd;
+    border-top:1px solid #dddddd;
+    overflow:auto;    
+    background:#f7f7f7;    
+    border-bottom:1px solid #dddddd;
+}
+#footer #poweredlogos{
+    width:295px;
+    height:104px;
+    background:#f2f2f2;
+    padding:4px;
+    float:left;
+    border-right:1px solid #dddddd; 
+}
+
+#footer #poweredlogos a{
+    display:block;
+    float:left;
+    margin:20px;
+    margin-top:30px;
+}
+#footer #cminfo{
+    width:620px;
+    background: #f9f9f9;
+    float:left;     
+    text-align: right;
+    padding:12px;    
+
+}
+
+#footer span {
+    color:#aaaaaa;
+    font-weight:bolder;
+    font-size:16px;
+
+}
+#logo{
+    width:498px;
+    height:45px;
+    float:left;
+    margin-top:3px;
+    background: url('http://localhost/CourseMan/document_root/images/logo.png');
+}
+#logo h1{
+    display:none;
+}
+#mainmenu{
+    float:right;    
+}
+#mainmenu .ui-icon{
+    margin-right:0px;
+    display:block;
+}
+#mainmenu #home .ui-icon{
+    margin-left:10px;
+    margin-right:10px;
+}
+#mainmenu ul{
+    list-style-type: none;
+}
+#mainmenu ul li{
+    float:left;
+}
+#mainmenu ul li a.mainMenuButton{
+
+    height:18px;
+    padding:4px;
+    padding-left: 6px;
+    padding-right: 7px;
+    font-size:12px;
+    background: #88beda;
+    border: 1px solid #666666;
+    cursor:pointer;
+    border-left:none;    
+    border-top:none;
+    display:block;    
+    overflow: auto;
+
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -khtml-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -khtml-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+
+}
+#mainmenu ul li a.leftborder{
+    border-left:1px solid #666666;
+}
+#mainmenu ul li a.mainMenuButton:hover{
+    background: #c7cdcf;
+    color: black;
+}
+#loginBox {
+    position:absolute;
+    top:26px;
+    padding:5px;
+    background: #88beda;
+    border: 1px solid #666666;
+}
+#loginBox input.text{
+    width:120px;
+}
+#loginBox #loggedMenu{
+    width:160px;
+    min-height:70px;
+}
+
+#loginBox .loggedUser {
+    display:block;
+    color:#9e0c0c;
+    text-align: right;
+    font-size:20px;
+}
+#loginBox a{
+    display:block;
+    text-align: right;
+}
+#courseBox{
+    padding:5px;
+}
+#courseBox h3{
+    font-size:14px;
+    font-weight: bold;
+    color:#555555;
+
+}
+#courseBox .course ul {
+    padding:0;
+    margin:0;
+    list-style-type: none;
+    margin:5px;
+    padding-left:10px;
+}
+#courseBox .course ul li {   
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+#courseBox .course {
+    margin:10px;
+    border:1px solid #dddddd;
+    background:white;
+
+}
+.ui-icon{
+    margin-right:6px;
+}
+#courseBox .course .title{
+    display:block;
+    color:black;
+    padding:4px;
+    font-size:12px;
+    cursor:pointer;
+}
+#courseBox .asTeacher .title{    
+    background-color: #88beda;
+}
+#courseBox .asStudent .title{    
+    background-color: #c7cdcf;
+}
+#flashMessages {    
+    position:absolute;
+    top:50%;
+    left:35%;
+    width:400px;
+}
+.flash{
+    border:1px solid #62B1DA;
+    background-color: #eeeeee;
+    vertical-align: middle;
+    padding:5px;
+    padding-left:50px;
+    background-repeat: no-repeat;
+    background-position: center left;   
+    font-size:15px;
+    font-weight: bold;
+    color:#666666;
+    min-height: 40px;
+
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
+}
+.unauthorized { 
+    background-image: url('http://localhost/CourseMan/document_root/images/flashicons/unauthorized.png');
+}
+.success {   
+    background-image: url('http://localhost/CourseMan/document_root/images/flashicons/success.png');
+}
+.error {  
+    background-image: url('http://localhost/CourseMan/document_root/images/flashicons/error.png');
+}
+
+/* CourseList Presenter */
+
+#courseList_homepage .invite{
+    border:1px solid #dddddd;
+    background: wheat;
+    padding:5px;
+}
+#courseList_homepage .invite a{
+    float:right;
+    margin-left:3px;
+    margin-right:3px;
+    background:#e5ecf9;
+    padding-left:2px;
+    padding-right:2px;
+    border:1px solid #dddddd;
+}
+#courseList_homepage .invite a:hover{
+    background:#dddddd;
+}
+#courseList_homepage h4{
+    font-size:16px;
+    font-weight: bold;
+    color: #555555;
+    border-bottom:1px solid #dddddd;
+    padding:4px;
+}
+
+#courseList_homepage .teachercourses{
+    width:50%;
+    float:left;
+}
+#courseList_homepage .studentcourses{
+    width:50%;
+    float:left;
+}
+#courseList_homepage .course {
+    margin:8px;
+    border: 1px solid #dddddd;
+}
+#courseList_homepage .course:hover {
+    background:#dde8ed;  
+}
+#courseList_homepage .course .head{
+    display:block;
+    padding:5px;
+    border-bottom:1px solid #dddddd;
+}
+#courseList_homepage .asTeacher .head {    
+    background-color: #88beda;
+}
+
+#courseList_homepage .asStudent  .head{    
+    background-color: #c7cdcf;
+}
+#courseList_homepage .course .title{
+    font-size: large;
+    color: black;   
+}
+#courseList_homepage .course .description{
+    font-size: small;
+    color: black;  
+    padding:5px;
+}
+
+
+/* Course Presenter */
+#course_homepage .lesson{
+    background: #eeeeee;
+    border:1px solid #dddddd;
+    padding:10px;
+    margin:10px;
+}
+#course_homepage .lesson h5{
+    font-size:16px;
+    color:#333333;
+    margin:0px;
+}
+#course_homepage .lesson h5 a:hover{
+    color:black;
+    text-decoration: underline;
+}
+#course_homepage .lesson .description{
+    margin-left:20px;    
+    overflow:auto;
+}
+#studentList, #lectorList{
+    margin-top:10px;
+    padding:10px;
+}
+
+/* Lesson Presenter */
+#lesson_homepage #date {
+    margin-left: 10px;    
+    font-style: italic; 
+}
+#lesson_homepage #description {
+    margin-left: 10px; 
+    overflow: auto;
+}
+
+#lesson_homepage #comments .comment {
+    border:1px solid #dddddd;
+    background: #eeeeee;
+    padding:5px;
+    width:60%;
+    min-height: 70px;
+    margin:5px;
+    margin-left:20px;
+}
+#lesson_homepage #comments .comment .author {
+    font-weight:bold;
+    color:black;
+}
+#lesson_homepage #comments .comment .time {
+    font-style: italic;
+    color:#333;
+}
+#lesson_homepage #comments .comment .content {
+    border-top:1px solid #dddddd;
+    padding:3px;
+    padding-left: 5px;
+    color:black;
+}
+#lesson_homepage #commentForm {
+}
+#lesson_homepage #commentForm textarea{
+    border:1px solid #dddddd;
+    background: #e5ecf9;
+    padding:5px;
+    width:300px;
+    height:80px;
+}
+#course_addlesson textarea{
+    width:600px;
+}
+
+/* Forum presenter */
+#forum_showTopic h4{
+    font-size: 20px;
+    font-weight: bold;
+    margin:0px;
+    padding:4px;
+
+}
+.forum_thread_head{
+    border:1px solid #dddddd;
+    margin:auto;
+    background-color: #88beda;
+    padding:20px;
+}
+.forum_thread_reply{
+    border:1px solid #dddddd;
+    margin:auto;
+    margin-left:20px;
+    background-color: #dde8ed;
+    padding:20px;
+}
+
+/* Event presenter */
+.event_event{
+    margin:10px;
+    background: #88beda;
+    border:1px solid #dddddd;
+}
+
+/* Message presenter */
+#message_inbox tr.notRead td{
+    font-weight: bold;
+}
+/* Assignment presenter */
+#assignment_edit #formcreator{
+    overflow: auto;    
+}
+#assignment_edit #formcreator div.scroll{    
+    width:3000px;
+}
+
+#assignment_edit #formcreator div div{    
+    float:left;
+    width:260px;
+    margin:5px;
+}
+#assignment_edit #formcreator input[type=text]{
+    width:150px;
+    margin:0;
+}
+#assignment_edit #formcreator textarea{
+    width:150px;
+    height:80px;
+}
+#assignment_homepage .assignment{
+    background: #88beda;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .description{
+
+    background: #88beda;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .generalinfo{
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .timelimitinfo{        
+    background:#fe896e;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .timelimitinfo strong{
+    color:black;
+}
+#assignment_solve h4#remainingtime{
+    font-size:20px;
+    color:red;
+    font-weight:bold;
+    display:block;
+    padding:5px;
+    margin:5px;
+    visibility: hidden;
+    border:1px solid #dddddd;
+}
+
+.online{
+    font-weight:bold;
+}
+
+/* User presenter */
+#user_homepage span{
+    display:block;
+    font-size:13px;
+}
+
+
+/* Calendar */
+.fc-event-time{
+    color:#eeeeee;
+    font-size:11px;
+}
+.fc-event-title{
+    color:white;
+    font-size:11px;
+}
+#calendar table{
+    border:none;
+}
+
+/* Visual Paginator */
+.paginator{
+    margin:2px;
+}
+.paginator .button{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
+}
+.paginator .current{
+    border:1px solid #cccccc;
+    background:#dddddd;
+    padding:3px;
+}
+.paginator a{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
+}/*
+ * FullCalendar v1.5.2 Stylesheet
+ *
+ * Copyright (c) 2011 Adam Shaw
+ * Dual licensed under the MIT and GPL licenses, located in
+ * MIT-LICENSE.txt and GPL-LICENSE.txt respectively.
+ *
+ * Date: Sun Aug 21 22:06:09 2011 -0700
+ *
+ */
+
+
+.fc {
+	direction: ltr;
+	text-align: left;
+	}
+	
+.fc table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	}
+	
+html .fc,
+.fc table {
+	font-size: 1em;
+	}
+	
+.fc td,
+.fc th {
+	padding: 0;
+	vertical-align: top;
+	}
+
+
+
+/* Header
+------------------------------------------------------------------------*/
+
+.fc-header td {
+	white-space: nowrap;
+	}
+
+.fc-header-left {
+	width: 25%;
+	text-align: left;
+	}
+	
+.fc-header-center {
+	text-align: center;
+	}
+	
+.fc-header-right {
+	width: 25%;
+	text-align: right;
+	}
+	
+.fc-header-title {
+	display: inline-block;
+	vertical-align: top;
+	}
+	
+.fc-header-title h2 {
+	margin-top: 0;
+	white-space: nowrap;
+	}
+	
+.fc .fc-header-space {
+	padding-left: 10px;
+	}
+	
+.fc-header .fc-button {
+	margin-bottom: 1em;
+	vertical-align: top;
+	}
+	
+/* buttons edges butting together */
+
+.fc-header .fc-button {
+	margin-right: -1px;
+	}
+	
+.fc-header .fc-corner-right {
+	margin-right: 1px; /* back to normal */
+	}
+	
+.fc-header .ui-corner-right {
+	margin-right: 0; /* back to normal */
+	}
+	
+/* button layering (for border precedence) */
+	
+.fc-header .fc-state-hover,
+.fc-header .ui-state-hover {
+	z-index: 2;
+	}
+	
+.fc-header .fc-state-down {
+	z-index: 3;
+	}
+
+.fc-header .fc-state-active,
+.fc-header .ui-state-active {
+	z-index: 4;
+	}
+	
+	
+	
+/* Content
+------------------------------------------------------------------------*/
+	
+.fc-content {
+	clear: both;
+	}
+	
+.fc-view {
+	width: 100%; /* needed for view switching (when view is absolute) */
+	overflow: hidden;
+	}
+	
+	
+
+/* Cell Styles
+------------------------------------------------------------------------*/
+
+.fc-widget-header,    /* <th>, usually */
+.fc-widget-content {  /* <td>, usually */
+	border: 1px solid #ccc;
+	}
+	
+.fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
+	background: #ffc;
+	}
+	
+.fc-cell-overlay { /* semi-transparent rectangle while dragging */
+	background: #9cf;
+	opacity: .2;
+	filter: alpha(opacity=20); /* for IE */
+	}
+	
+
+
+/* Buttons
+------------------------------------------------------------------------*/
+
+.fc-button {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	}
+	
+.fc-state-default { /* non-theme */
+	border-style: solid;
+	border-width: 1px 0;
+	}
+	
+.fc-button-inner {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	}
+	
+.fc-state-default .fc-button-inner { /* non-theme */
+	border-style: solid;
+	border-width: 0 1px;
+	}
+	
+.fc-button-content {
+	position: relative;
+	float: left;
+	height: 1.9em;
+	line-height: 1.9em;
+	padding: 0 .6em;
+	white-space: nowrap;
+	}
+	
+/* icon (for jquery ui) */
+	
+.fc-button-content .fc-icon-wrap {
+	position: relative;
+	float: left;
+	top: 50%;
+	}
+	
+.fc-button-content .ui-icon {
+	position: relative;
+	float: left;
+	margin-top: -50%;
+	*margin-top: 0;
+	*top: -50%;
+	}
+	
+/* gloss effect */
+	
+.fc-state-default .fc-button-effect {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	}
+	
+.fc-state-default .fc-button-effect span {
+	position: absolute;
+	top: -100px;
+	left: 0;
+	width: 500px;
+	height: 100px;
+	border-width: 100px 0 0 1px;
+	border-style: solid;
+	border-color: #fff;
+	background: #444;
+	opacity: .09;
+	filter: alpha(opacity=9);
+	}
+	
+/* button states (determines colors)  */
+	
+.fc-state-default,
+.fc-state-default .fc-button-inner {
+	border-style: solid;
+	border-color: #ccc #bbb #aaa;
+	background: #F3F3F3;
+	color: #000;
+	}
+	
+.fc-state-hover,
+.fc-state-hover .fc-button-inner {
+	border-color: #999;
+	}
+	
+.fc-state-down,
+.fc-state-down .fc-button-inner {
+	border-color: #555;
+	background: #777;
+	}
+	
+.fc-state-active,
+.fc-state-active .fc-button-inner {
+	border-color: #555;
+	background: #777;
+	color: #fff;
+	}
+	
+.fc-state-disabled,
+.fc-state-disabled .fc-button-inner {
+	color: #999;
+	border-color: #ddd;
+	}
+	
+.fc-state-disabled {
+	cursor: default;
+	}
+	
+.fc-state-disabled .fc-button-effect {
+	display: none;
+	}
+	
+	
+
+/* Global Event Styles
+------------------------------------------------------------------------*/
+	 
+.fc-event {
+	border-style: solid;
+	border-width: 0;
+	font-size: .85em;
+	cursor: default;
+	}
+	
+a.fc-event,
+.fc-event-draggable {
+	cursor: pointer;
+	}
+	
+a.fc-event {
+	text-decoration: none;
+	}
+	
+.fc-rtl .fc-event {
+	text-align: right;
+	}
+	
+.fc-event-skin {
+	border-color: #36c;     /* default BORDER color */
+	background-color: #36c; /* default BACKGROUND color */
+	color: #fff;            /* default TEXT color */
+	}
+	
+.fc-event-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-style: solid;
+	border-width: 0;
+	overflow: hidden;
+	}
+	
+.fc-event-time,
+.fc-event-title {
+	padding: 0 1px;
+	}
+	
+.fc .ui-resizable-handle { /*** TODO: don't use ui-resizable anymore, change class ***/
+	display: block;
+	position: absolute;
+	z-index: 99999;
+	overflow: hidden; /* hacky spaces (IE6/7) */
+	font-size: 300%;  /* */
+	line-height: 50%; /* */
+	}
+	
+	
+	
+/* Horizontal Events
+------------------------------------------------------------------------*/
+
+.fc-event-hori {
+	border-width: 1px 0;
+	margin-bottom: 1px;
+	}
+	
+/* resizable */
+	
+.fc-event-hori .ui-resizable-e {
+	top: 0           !important; /* importants override pre jquery ui 1.7 styles */
+	right: -3px      !important;
+	width: 7px       !important;
+	height: 100%     !important;
+	cursor: e-resize;
+	}
+	
+.fc-event-hori .ui-resizable-w {
+	top: 0           !important;
+	left: -3px       !important;
+	width: 7px       !important;
+	height: 100%     !important;
+	cursor: w-resize;
+	}
+	
+.fc-event-hori .ui-resizable-handle {
+	_padding-bottom: 14px; /* IE6 had 0 height */
+	}
+	
+	
+	
+/* Fake Rounded Corners (for buttons and events)
+------------------------------------------------------------*/
+	
+.fc-corner-left {
+	margin-left: 1px;
+	}
+	
+.fc-corner-left .fc-button-inner,
+.fc-corner-left .fc-event-inner {
+	margin-left: -1px;
+	}
+	
+.fc-corner-right {
+	margin-right: 1px;
+	}
+	
+.fc-corner-right .fc-button-inner,
+.fc-corner-right .fc-event-inner {
+	margin-right: -1px;
+	}
+	
+.fc-corner-top {
+	margin-top: 1px;
+	}
+	
+.fc-corner-top .fc-event-inner {
+	margin-top: -1px;
+	}
+	
+.fc-corner-bottom {
+	margin-bottom: 1px;
+	}
+	
+.fc-corner-bottom .fc-event-inner {
+	margin-bottom: -1px;
+	}
+	
+	
+	
+/* Fake Rounded Corners SPECIFICALLY FOR EVENTS
+-----------------------------------------------------------------*/
+	
+.fc-corner-left .fc-event-inner {
+	border-left-width: 1px;
+	}
+	
+.fc-corner-right .fc-event-inner {
+	border-right-width: 1px;
+	}
+	
+.fc-corner-top .fc-event-inner {
+	border-top-width: 1px;
+	}
+	
+.fc-corner-bottom .fc-event-inner {
+	border-bottom-width: 1px;
+	}
+	
+	
+	
+/* Reusable Separate-border Table
+------------------------------------------------------------*/
+
+table.fc-border-separate {
+	border-collapse: separate;
+	}
+	
+.fc-border-separate th,
+.fc-border-separate td {
+	border-width: 1px 0 0 1px;
+	}
+	
+.fc-border-separate th.fc-last,
+.fc-border-separate td.fc-last {
+	border-right-width: 1px;
+	}
+	
+.fc-border-separate tr.fc-last th,
+.fc-border-separate tr.fc-last td {
+	border-bottom-width: 1px;
+	}
+	
+.fc-border-separate tbody tr.fc-first td,
+.fc-border-separate tbody tr.fc-first th {
+	border-top-width: 0;
+	}
+	
+	
+
+/* Month View, Basic Week View, Basic Day View
+------------------------------------------------------------------------*/
+
+.fc-grid th {
+	text-align: center;
+	}
+	
+.fc-grid .fc-day-number {
+	float: right;
+	padding: 0 2px;
+	}
+	
+.fc-grid .fc-other-month .fc-day-number {
+	opacity: 0.3;
+	filter: alpha(opacity=30); /* for IE */
+	/* opacity with small font can sometimes look too faded
+	   might want to set the 'color' property instead
+	   making day-numbers bold also fixes the problem */
+	}
+	
+.fc-grid .fc-day-content {
+	clear: both;
+	padding: 2px 2px 1px; /* distance between events and day edges */
+	}
+	
+/* event styles */
+	
+.fc-grid .fc-event-time {
+	font-weight: bold;
+	}
+	
+/* right-to-left */
+	
+.fc-rtl .fc-grid .fc-day-number {
+	float: left;
+	}
+	
+.fc-rtl .fc-grid .fc-event-time {
+	float: right;
+	}
+	
+	
+
+/* Agenda Week View, Agenda Day View
+------------------------------------------------------------------------*/
+
+.fc-agenda table {
+	border-collapse: separate;
+	}
+	
+.fc-agenda-days th {
+	text-align: center;
+	}
+	
+.fc-agenda .fc-agenda-axis {
+	width: 50px;
+	padding: 0 4px;
+	vertical-align: middle;
+	text-align: right;
+	white-space: nowrap;
+	font-weight: normal;
+	}
+	
+.fc-agenda .fc-day-content {
+	padding: 2px 2px 1px;
+	}
+	
+/* make axis border take precedence */
+	
+.fc-agenda-days .fc-agenda-axis {
+	border-right-width: 1px;
+	}
+	
+.fc-agenda-days .fc-col0 {
+	border-left-width: 0;
+	}
+	
+/* all-day area */
+	
+.fc-agenda-allday th {
+	border-width: 0 1px;
+	}
+	
+.fc-agenda-allday .fc-day-content {
+	min-height: 34px; /* TODO: doesnt work well in quirksmode */
+	_height: 34px;
+	}
+	
+/* divider (between all-day and slots) */
+	
+.fc-agenda-divider-inner {
+	height: 2px;
+	overflow: hidden;
+	}
+	
+.fc-widget-header .fc-agenda-divider-inner {
+	background: #eee;
+	}
+	
+/* slot rows */
+	
+.fc-agenda-slots th {
+	border-width: 1px 1px 0;
+	}
+	
+.fc-agenda-slots td {
+	border-width: 1px 0 0;
+	background: none;
+	}
+	
+.fc-agenda-slots td div {
+	height: 20px;
+	}
+	
+.fc-agenda-slots tr.fc-slot0 th,
+.fc-agenda-slots tr.fc-slot0 td {
+	border-top-width: 0;
+	}
+
+.fc-agenda-slots tr.fc-minor th,
+.fc-agenda-slots tr.fc-minor td {
+	border-top-style: dotted;
+	}
+	
+.fc-agenda-slots tr.fc-minor th.ui-widget-header {
+	*border-top-style: solid; /* doesn't work with background in IE6/7 */
+	}
+	
+
+
+/* Vertical Events
+------------------------------------------------------------------------*/
+
+.fc-event-vert {
+	border-width: 0 1px;
+	}
+	
+.fc-event-vert .fc-event-head,
+.fc-event-vert .fc-event-content {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	overflow: hidden;
+	}
+	
+.fc-event-vert .fc-event-time {
+	white-space: nowrap;
+	font-size: 10px;
+	}
+	
+.fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	opacity: .3;
+	filter: alpha(opacity=30);
+	}
+	
+.fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
+.fc-select-helper .fc-event-bg {
+	display: none\9; /* for IE6/7/8. nested opacity filters while dragging don't work */
+	}
+	
+/* resizable */
+	
+.fc-event-vert .ui-resizable-s {
+	bottom: 0        !important; /* importants override pre jquery ui 1.7 styles */
+	width: 100%      !important;
+	height: 8px      !important;
+	overflow: hidden !important;
+	line-height: 8px !important;
+	font-size: 11px  !important;
+	font-family: monospace;
+	text-align: center;
+	cursor: s-resize;
+	}
+	
+.fc-agenda .ui-resizable-resizing { /* TODO: better selector */
+	_overflow: hidden;
+	}
+	
+	
+/* textarea */
+div.texyla div.textarea-container {text-align:center; margin:5px 0; clear:left;}
+div.texyla div.textarea-container * {margin: auto !important;}
+
+/* lišta */
+div.texyla ul.toolbar {margin:0; padding:0 0 0 5px; height:30px;}
+div.texyla ul.toolbar li {margin:0; padding:0; list-style:none; float:left; width:30px; height:30px;}
+div.texyla ul.toolbar li span {display:block; padding:7px; cursor:pointer;}
+div.texyla ul.toolbar li img {display:block;}
+div.texyla ul.toolbar li.separator {width:5px; background:url('http://localhost/CourseMan/document_root/texyla/img/separator.gif') no-repeat 50% 50%;}
+div.texyla ul.toolbar li.label {width:auto; line-height:30px; font-size: 90%; padding: 0 4px 0 7px;}
+
+/* menu */
+div.texyla ul.toolbar li.menu {z-index:2; background:url('http://localhost/CourseMan/document_root/texyla/img/menu.gif') no-repeat 50% 50%; width:15px; position:relative;}
+div.texyla ul.toolbar li ul {display:none; top:29px; left:0; position:absolute; margin:0; padding:2px;}
+div.texyla ul.toolbar li ul li {padding: 0; height:auto; width:auto; display:block; cursor:pointer; float:none; white-space:nowrap;}
+div.texyla ul.toolbar li ul li span {background-position: 2px 50% !important; background-repeat:no-repeat; padding:3px 5px 3px 22px; display:block;}
+
+/* náhledy */
+div.view-header {line-height:30px; background-repeat:no-repeat; background:no-repeat 5px 50%; padding-left:26px;}
+div.preview-wrapper {background:white; overflow:auto; position: relative; margin:5px;}
+div.preview, pre.html-preview {padding:10px; margin:0;}
+div.preview-wait {border:1px solid #777; padding:10px 10px 10px 36px; background:url('http://localhost/CourseMan/document_root/texyla/img/loader.gif') 10px 10px no-repeat; position:absolute; z-index:999;}
+
+/* tlačítkové lišty */
+div.texyla .bottom-toolbar {position:relative; padding: 0 5px 5px;}
+div.texyla .right-toolbar {position:absolute; right:0; top:0; margin-right:5px;}
+div.texyla .right-toolbar .btn, div.texyla .right-toolbar button {margin-left:5px;}
+div.texyla .span-tb, .twindow .span-tb, div.texyla .tabs {height:30px;}
+
+/* tlačítka */
+div.texyla .bottom-toolbar .btn, .twindow .btn {display:block; float:left; padding:0 0.5em; line-height:28px; cursor:pointer;}
+div.texyla .left-toolbar .btn, div.texyla .left-toolbar button {margin-right:5px;}
+div.texyla .btn .icon-span {background: no-repeat 0 50%; padding-left:20px;}
+div.texyla .bottom-toolbar button img {vertical-align:middle;}
+
+/* taby */
+div.texyla .bottom-toolbar .tabs {position:relative; top:-5px;}
+div.texyla .bottom-toolbar .tabs .btn {border-top:none; margin-right: 0;}
+div.texyla .bottom-toolbar .tabs .btn.ui-state-active {line-height:30px; cursor:default;}
+
+/* pluginy */
+.ui-dialog-content .tab-background {width:81px; height:81px; position:absolute; top:19px; right:21px; background:url('http://localhost/CourseMan/document_root/texyla/plugins/table/table-background.gif');}
+.ui-dialog-content .tab-control {width:80px; height:80px; position:absolute; top:0; left:0;}
+.ui-dialog-content .tab-selection {width:16px; height:16px; position:absolute; top:0; left:0; background:url('http://localhost/CourseMan/document_root/texyla/plugins/table/table-selection.gif');}
+
+.ui-dialog-content .emoticons {line-height:1em;}
+.ui-dialog-content .emoticons img {margin:1px; padding:5px; cursor:pointer; display:inline-block;}
+
+.ui-dialog-content .colors span {margin:1px; padding: 1px; cursor:pointer; display:inline-block;}
+.ui-dialog-content .colors span span {display:block; width: 12px; height:12px;}
+
+.ui-dialog-content .symbols span {cursor:pointer; padding:0; display:inline-block; text-align:center; width:2em; line-height:2em; margin:1px;}
+
+.ui-dialog-content p.wait {background:url('http://localhost/CourseMan/document_root/texyla/img/loader.gif') 0 50% no-repeat; padding-left:26px; margin:0;}
+
+.ui-dialog-content .files-gallery .image {width:60px; text-align:center; vertical-align:middle; line-height:0;}
+.ui-dialog-content .files-gallery .image img {cursor:pointer;}
+.ui-dialog-content .files-gallery .label {display:table-cell; padding-left:5px;}
+.ui-dialog-content .files-gallery {padding:0;}
+.ui-dialog-content .gallery-item {margin-top:5px; font-size: 90%; width:100%}
+.ui-dialog-content .gallery-item td.buttons {font-size: 80%; text-align: right; visibility: hidden;}
+.ui-dialog-content .gallery-item:hover td.buttons {visibility: visible;}
+.ui-dialog-content div.files-filter {padding-top: 15px;}
+
+.ui-dialog-content div.clear {font-size:0; height:0; clear:both;}/* 
+    Document   : texy.css
+    Created on : 2.12.2011, 11:17:53
+    Author     : Jakub Kinst
+    Description:
+        Stylesheet for formatting text created with texy
+*/
+
+.texy{
+    font-size:12px;
+}
+
+.texy h1{
+    font-size:15px;
+    font-weight:bold;
+}
+.texy h2{
+    font-size:14px;
+    font-weight:bold;
+}
+.texy h3{
+    font-size:13px;
+    font-weight:bold;
+}
+.texy h4{
+    font-size:12px;
+    font-weight:bold;
+}
+.texy h5{
+    font-size:11px;
+    font-weight:bold;
+}
+
+.texy a{
+    color:black;
+    text-decoration: underline;
+}
+.texy a:hover{
+    color:#328ADC;
+    text-decoration: none;
+}
+
+.texy code{
+    display:block;
+    background:#eeeeee;
+    padding:5px;
+    border: 1px solid #dddddd;
+    font-size:11px;
+    color:black;
+}
