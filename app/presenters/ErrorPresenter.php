@@ -13,7 +13,7 @@ class ErrorPresenter extends BaseCoursePresenter {
      * @param  Exception
      * @return void
      */
-    public function renderHomepage($exception) {
+    public function renderDefault($exception) {
 	if ($this->isAjax()) { // AJAX request? Just note this error in payload.
 	    $this->payload->error = TRUE;
 	    $this->terminate();
