@@ -27,7 +27,7 @@ dibi::connect(Environment::getConfig('database'));
 // Configure application
 $application = Environment::getApplication();
 $application->errorPresenter = 'Error';
-//$application->catchExceptions = FALSE;
+$application->catchExceptions = FALSE;
 
 /**
  * Mailer Configuration
