@@ -23,7 +23,7 @@ $(document).ready(function(){
     
     // Set texyla defaults
     $.texyla.setDefaults({
-	baseDir: '../../texyla',
+	baseDir: '../texyla',
 	previewPath: texyla_preview_link,
 	bottomRightPreviewToolbar:[],
 	language: "en",

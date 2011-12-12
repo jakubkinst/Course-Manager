@@ -1,6 +1,6 @@
 /temp/*
 /uploads
-/www/webtemp
+/document_root/webtemp/*
 mailpwd.txt
 /log/*
 nbproject/*
