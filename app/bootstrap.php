@@ -33,12 +33,7 @@ $application->catchExceptions = FALSE;
  * Mailer Configuration
  * SMTP host, username, password settings
  */
-Environment::setVariable('mailer', new SmtpMailer(array(
-	    'host' => 'smtp.gmail.com',
-	    'username' => 'cm@kinst.cz',
-	    'password' => 'hj',
-	    'secure' => 'ssl',
-	)));
+Environment::setVariable('mailer', Environment::getConfig('mailer'));
 
 
 // Setup router
