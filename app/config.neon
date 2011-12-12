@@ -17,6 +17,13 @@ common:
 			option:
 				directory: [%appDir%, %libsDir%]
 			run: true
+	database:
+		driver: mysql
+		host: localhost
+		username: root
+		password: example
+		database: course-manager
+		charset: utf8
 
 production < common:
 

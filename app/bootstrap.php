@@ -13,14 +13,6 @@ require LIBS_DIR . '/dibi/dibi.php';
 
 // Setup DB Connection
 // DEBUG
-dibi::connect(array(
-    'driver' => 'mysql',
-    'host' => 'localhost',
-    'username' => 'root',
-    'database' => 'course-manager',
-    'charset' => 'utf8',
-));
-
 
 
 // Enable Debug for error visualisation & logging
@@ -29,6 +21,9 @@ Debug::enable();
 
 // Load configuration from config.neon file
 Environment::loadConfig();
+
+
+dibi::connect(Environment::getConfig('database'));
 
 // Configure application
 $application = Environment::getApplication();
@@ -42,7 +37,7 @@ $application->errorPresenter = 'Error';
 Environment::setVariable('mailer', new SmtpMailer(array(
 	    'host' => 'smtp.gmail.com',
 	    'username' => 'cm@kinst.cz',
-	    'password' => 'hidden',
+	    'password' => 'hj',
 	    'secure' => 'ssl',
 	)));
 
