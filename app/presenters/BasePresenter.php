@@ -54,11 +54,11 @@ abstract class BasePresenter extends Presenter {
 	parent::startup();
 
 	// Relative Date helper
-	function myDateHelper($value) {
+	function dateHelper($value) {
 	    return CommonModel::relative_date(strtotime($value));
 	}
 
-	$this->template->registerHelper('mydate', 'myDateHelper');
+	$this->template->registerHelper('mydate', 'dateHelper');
 
 	// Relative Date with time helper
 	function myDateTimeHelper($value) {

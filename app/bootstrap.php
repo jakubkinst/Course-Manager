@@ -16,13 +16,12 @@ require LIBS_DIR . '/dibi/dibi.php';
 
 // Enable Debug for error visualisation & logging
 Debug::$strictMode = TRUE;
-Debug::enable(Debug::DEBUG);
+Debug::enable();
 
 // Load configuration from config.neon file
 Environment::loadConfig();
 
 // Setup DB Connection
-// DEBUG
 dibi::connect(Environment::getConfig('database'));
 
 // Configure application
