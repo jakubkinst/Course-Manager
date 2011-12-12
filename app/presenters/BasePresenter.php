@@ -45,6 +45,16 @@ abstract class BasePresenter extends Presenter {
      */
     public $paginator;
 
+    // Relative Date helper
+    function dateHelper($value) {
+	return CommonModel::relative_date(strtotime($value));
+    }
+
+    // Relative Date with time helper
+    function myDateTimeHelper($value) {
+	return CommonModel::relative_date(strtotime($value)) . ' ' . date('H:i', strtotime($value));
+    }
+
     /**
      * Startup function
      * Called first when Presenter is created
@@ -52,20 +62,8 @@ abstract class BasePresenter extends Presenter {
      */
     protected function startup() {
 	parent::startup();
-
-	// Relative Date helper
-	function dateHelper($value) {
-	    return CommonModel::relative_date(strtotime($value));
-	}
-
-	$this->template->registerHelper('mydate', 'dateHelper');
-
-	// Relative Date with time helper
-	function myDateTimeHelper($value) {
-	    return CommonModel::relative_date(strtotime($value)) . ' ' . date('H:i', strtotime($value));
-	}
-
-	$this->template->registerHelper('mydatetime', 'myDateTimeHelper');
+	$this->template->registerHelper('mydate', callback($this, 'dateHelper'));
+	$this->template->registerHelper('mydatetime', callback($this, 'myDateTimeHelper'));
 
 	// Texy helper
 	$texy = new Texy;
