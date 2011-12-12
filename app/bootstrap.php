@@ -76,7 +76,7 @@ function outFunction($id) {
 }
 
 $router[] = new Route('[<lang [a-z]{2}>/]<presenter>/<action>[/<cid [0-9]+>]', array(
-	    'action' => 'Homepage'
+	    'action' => 'homepage'
 	));
 
 
