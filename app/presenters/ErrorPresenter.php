@@ -6,7 +6,7 @@
  * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
  * @package    Course-Manager/Presenters/Tools
  */
-class ErrorPresenter extends BasePresenter {
+class ErrorPresenter extends Presenter {
 
     /**
      * Error homepage
