@@ -27,7 +27,7 @@ dibi::connect(Environment::getConfig('database'));
 // Configure application
 $application = Environment::getApplication();
 $application->errorPresenter = 'Error';
-$application->catchExceptions = FALSE;
+//$application->catchExceptions = FALSE;
 
 /**
  * Mailer Configuration
@@ -47,8 +47,8 @@ $router[] = new Route('index.php', 'Courselist:homepage', Route::ONE_WAY);
 
 $router[] = new Route('[<lang [a-z]{2}>]', 'Courselist:homepage');
 $router[] = new Route('<cid [0-9]+>', array(
-	    'presenter' => 'Course',
-	    'action' => 'Homepage',
+	    'presenter' => 'course',
+	    'action' => 'homepage',
 	    'cid' => array(
 		Route::VALUE => null,
 		Route::FILTER_IN => 'inFunction',
