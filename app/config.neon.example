@@ -19,10 +19,9 @@ common:
 			run: true
 	database:
 		driver: mysql
-		host: localhost
-		username: root
-		password: example
-		database: course-manager
+		username: rp_jakub_cz
+		password: JDfgIFFNhF1L3x4c
+		database: rp_jakub_cz
 		charset: utf8
 
 production < common:

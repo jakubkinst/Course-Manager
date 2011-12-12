@@ -11,8 +11,7 @@
 require LIBS_DIR . '/Nette/loader.php';
 require LIBS_DIR . '/dibi/dibi.php';
 
-// Setup DB Connection
-// DEBUG
+
 
 
 // Enable Debug for error visualisation & logging
@@ -22,7 +21,8 @@ Debug::enable();
 // Load configuration from config.neon file
 Environment::loadConfig();
 
-
+// Setup DB Connection
+// DEBUG
 dibi::connect(Environment::getConfig('database'));
 
 // Configure application

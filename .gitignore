@@ -4,3 +4,4 @@
 mailpwd.txt
 /log/*
 nbproject/*
+/app/config.neon
