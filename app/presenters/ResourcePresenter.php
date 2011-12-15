@@ -3,78 +3,78 @@
 /**
  * Presenter dedicated to Resource module. Offers basic actions
  * and signals for resource download, upload, list
- * 
+ *
  * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
  * @package    Course-Manager/Presenters
  */
 class ResourcePresenter extends BaseCoursePresenter {
-    /*
-     * =============================================================
-     * ==================     Variables    =========================
-     */
+	/*
+	 * =============================================================
+	 * ==================     Variables    =========================
+	 */
 
-    /**
-     * @var int Resource ID
-     */
-    public $rid;
+	/**
+	 * @var int Resource ID
+	 */
+	public $rid;
 
-    /*
-     * =============================================================
-     * =================   Parent overrides   ======================
-     */
+	/*
+	 * =============================================================
+	 * =================   Parent overrides   ======================
+	 */
 
-    protected function startup() {
-	if (null != $this->getParam('rid')) {
-	    $this->rid = $this->getParam('rid');
-	    $this->cid = ResourceModel::getCourseIDByResourceID($this->rid);
+	protected function startup() {
+		if (null != $this->getParam('rid')) {
+			$this->rid = $this->getParam('rid');
+			$this->cid = ResourceModel::getCourseIDByResourceID($this->rid);
+		}
+		parent::startup();
 	}
-	parent::startup();
-    }
 
-    /*
-     * =============================================================
-     * =======================  Actions ============================
-     */
+	/*
+	 * =============================================================
+	 * =======================  Actions ============================
+	 */
 
-    /**
-     * Resource list
-     * @param int $cid Course ID
-     */
-    public function actionHomepage($cid) {
-	$uploader = new Uploader($this, 'uploader');
-	$uploader->cid = $cid;
-    }
+	/**
+	 * Resource list
+	 * @param int $cid Course ID
+	 */
+	public function actionHomepage($cid) {
+		$uploader = new Uploader($this, 'uploader');
+		$uploader->cid = $cid;
+	}
 
-    /**
-     * Resource list
-     * @param int $cid Course ID
-     */
-    public function renderHomepage($cid) {
-	$this->template->resources = ResourceModel::getResources($cid);
-    }
+	/**
+	 * Resource list
+	 * @param int $cid Course ID
+	 */
+	public function renderHomepage($cid) {
+		$this->template->resources = ResourceModel::getResources($cid);
+	}
 
-    /**
-     * Download resource
-     * @param int $rid Resource ID
-     */
-    public function actionDownload($rid) {
-	$file = ResourceModel::getResource($rid);
-	$this->sendResponse(new DownloadResponse(WWW_DIR . '/../uploads/' . $file->filename, $file->name));
-    }
+	/**
+	 * Download resource
+	 * @param int $rid Resource ID
+	 */
+	public function actionDownload($rid) {
+		$file = ResourceModel::getResource($rid);
+		$this->sendResponse(new DownloadResponse(WWW_DIR . '/../uploads/' . $file->filename, $file->name));
+	}
 
-    /*
-     * =============================================================
-     * ==================  Signal Handlers =========================
-     */
+	/*
+	 * =============================================================
+	 * ==================  Signal Handlers =========================
+	 */
 
-    /**
-     * Delete resource handler
-     * @param int $rid Resource ID
-     */
-    public function handleDelete($rid) {
-	$this->checkTeacherAuthority();
-	ResourceModel::deleteResource($rid);
-	$this->redirect($this);
-    }
+	/**
+	 * Delete resource handler
+	 * @param int $rid Resource ID
+	 */
+	public function handleDelete($rid) {
+		$this->checkTeacherAuthority();
+		ResourceModel::deleteResource($rid);
+		$this->redirect('this');
+	}
 
 }

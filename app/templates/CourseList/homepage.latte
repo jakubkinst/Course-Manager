@@ -15,11 +15,11 @@
 	    </div>
 	    {/foreach}
 	</div>
-	
+
         <div class="floatcontainer">
             {if sizeof($tCourses)>0}
                 <div class="teachercourses">
-                    <h4>{!_'Teaching courses'}</h4>
+                    <h4>{!_'Teaching'}</h4>
                 {foreach $tCourses as $course}
                     <a href="{link course:homepage, $course['id']}">
                         <div class="course asTeacher">
@@ -32,10 +32,10 @@
                 {/foreach}
                 </div>
             {/if}
-            
+
             {if sizeof($sCourses)>0}
                 <div class="studentcourses">
-                    <h4>{!_'Student courses'}</h4>
+                    <h4>{!_'Studying'}</h4>
                 {foreach $sCourses as $course}
                     <a href="{link course:homepage, $course['id']}">
                         <div class="course asStudent">

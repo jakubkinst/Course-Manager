@@ -1,13 +1,15 @@
+/*
+ * Cascade style sheet for CourseManager Application
+ *
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
+ */
+
+
 *{
     margin:0;padding:0;
     color:#555555;
 }
-/*div , a{    
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    border-radius: 3px;
-}*/
 
 p a{
     text-decoration: underline;
@@ -26,10 +28,10 @@ form label{
     overflow: auto;
 }
 .ui-icon{
-    float:left;        
+    float:left;
 }
 body {
-    font-family: "Cambria","Trebuchet MS",Verdana,Arial,sans-serif; 
+    font-family: "Cambria","Trebuchet MS",Verdana,Arial,sans-serif;
     font-size: 12px;
     color: #222222;
     background-color: #fff;
@@ -38,11 +40,14 @@ body {
 tbody tr:nth-child(even) td, tbody tr.even td {
     background: #dde8ed;
 }
-
+h3 span.date{
+	font-size:14px;
+	color:#888888;
+}
 /* Disable even row coloring in forms */
 form tbody tr:nth-child(even) td, form tbody tr.even td {
     background-color:transparent;
-} 
+}
 a {
     text-decoration: none;
     color:#555555;
@@ -55,7 +60,7 @@ a:hover {
     padding:5px;
     height:100%;
     min-height:500px;
-    background:#fdfdfd;    
+    background:#fdfdfd;
 }
 #content h3{
     color:#555555;
@@ -71,7 +76,7 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
 }
-#content table{    
+#content table{
     border: 1px solid #dddddd;
 }
 #content table th{
@@ -81,13 +86,13 @@ a:hover {
     padding:1px;
     padding-left:10px;
     background:#f1f1f1;
-    font-size: 17px; 
+    font-size: 17px;
     color:#555555;
     text-transform: uppercase;
     border-bottom:1px solid #dddddd;
 }
 #main .container{
-    border-left:1px solid #dddddd;    
+    border-left:1px solid #dddddd;
     border-right:1px solid #dddddd;
 }
 #leftcontent{
@@ -179,32 +184,32 @@ input.button{
 #header {
     width:100%;
     height:60px;
-    background:#f7f7f7;    
+    background:#f7f7f7;
     border-bottom:1px solid #dddddd;
 }
-#header .container {    
-    height:100%;    
+#header .container {
+    height:100%;
     border-left:1px solid #dddddd;
     border-right:1px solid #dddddd;
 }
-#header .container #innerheader{ 
+#header .container #innerheader{
     overflow: auto;
     height:100%;
     background:#f2f2f2;
 }
 #footer .container{
 
-    border-left:1px solid #dddddd;   
+    border-left:1px solid #dddddd;
     border-right:1px solid #dddddd;
 }
 #footer{
     width:100%;
-    height:120px;
+    height:112px;
     font-size:11px;
     color:#dddddd;
     border-top:1px solid #dddddd;
-    overflow:auto;    
-    background:#f7f7f7;    
+    overflow:auto;
+    background:#f7f7f7;
     border-bottom:1px solid #dddddd;
 }
 #footer #poweredlogos{
@@ -213,7 +218,7 @@ input.button{
     background:#f2f2f2;
     padding:4px;
     float:left;
-    border-right:1px solid #dddddd; 
+    border-right:1px solid #dddddd;
 }
 
 #footer #poweredlogos a{
@@ -225,9 +230,9 @@ input.button{
 #footer #cminfo{
     width:620px;
     background: #f9f9f9;
-    float:left;     
+    float:left;
     text-align: right;
-    padding:12px;    
+    padding:12px;
 
 }
 
@@ -248,7 +253,7 @@ input.button{
     display:none;
 }
 #mainmenu{
-    float:right;    
+    float:right;
 }
 #mainmenu .ui-icon{
     margin-right:0px;
@@ -274,9 +279,9 @@ input.button{
     background: #88beda;
     border: 1px solid #666666;
     cursor:pointer;
-    border-left:none;    
+    border-left:none;
     border-top:none;
-    display:block;    
+    display:block;
     overflow: auto;
 
     -moz-border-radius-topright: 0px;
@@ -299,6 +304,8 @@ input.button{
 #loginBox {
     position:absolute;
     top:26px;
+	min-width:180px;
+	margin-left:-96px;
     padding:5px;
     background: #88beda;
     border: 1px solid #666666;
@@ -337,7 +344,7 @@ input.button{
     margin:5px;
     padding-left:10px;
 }
-#courseBox .course ul li {   
+#courseBox .course ul li {
     font-weight: bolder;
     text-transform: uppercase;
 }
@@ -357,13 +364,13 @@ input.button{
     font-size:12px;
     cursor:pointer;
 }
-#courseBox .asTeacher .title{    
+#courseBox .asTeacher .title{
     background-color: #88beda;
 }
-#courseBox .asStudent .title{    
+#courseBox .asStudent .title{
     background-color: #c7cdcf;
 }
-#flashMessages {    
+#flashMessages {
     position:absolute;
     top:50%;
     left:35%;
@@ -376,7 +383,7 @@ input.button{
     padding:5px;
     padding-left:50px;
     background-repeat: no-repeat;
-    background-position: center left;   
+    background-position: center left;
     font-size:15px;
     font-weight: bold;
     color:#666666;
@@ -386,13 +393,13 @@ input.button{
     -webkit-box-shadow: 0px 0px 8px #ccc;
     box-shadow: 0px 0px 8px #ccc;
 }
-.unauthorized { 
+.unauthorized {
     background-image: url('../images/flashicons/unauthorized.png');
 }
-.success {   
+.success {
     background-image: url('../images/flashicons/success.png');
 }
-.error {  
+.error {
     background-image: url('../images/flashicons/error.png');
 }
 
@@ -436,27 +443,27 @@ input.button{
     border: 1px solid #dddddd;
 }
 #courseList_homepage .course:hover {
-    background:#dde8ed;  
+    background:#dde8ed;
 }
 #courseList_homepage .course .head{
     display:block;
     padding:5px;
     border-bottom:1px solid #dddddd;
 }
-#courseList_homepage .asTeacher .head {    
+#courseList_homepage .asTeacher .head {
     background-color: #88beda;
 }
 
-#courseList_homepage .asStudent  .head{    
+#courseList_homepage .asStudent  .head{
     background-color: #c7cdcf;
 }
 #courseList_homepage .course .title{
     font-size: large;
-    color: black;   
+    color: black;
 }
 #courseList_homepage .course .description{
     font-size: small;
-    color: black;  
+    color: black;
     padding:5px;
 }
 
@@ -467,6 +474,7 @@ input.button{
     border:1px solid #dddddd;
     padding:10px;
     margin:10px;
+	overflow: auto;
 }
 #course_homepage .lesson h5{
     font-size:16px;
@@ -478,21 +486,50 @@ input.button{
     text-decoration: underline;
 }
 #course_homepage .lesson .description{
-    margin-left:20px;    
+    margin-left:20px;
     overflow:auto;
 }
-#studentList, #lectorList{
+#studentList, #lectorList, #lessonList, #eventList{
     margin-top:10px;
     padding:10px;
 }
 
+a.upcomingEvent{
+	display:block;
+	margin:5px;
+	padding:4px;
+	border: 1px solid #dddddd;
+}
+a.upcomingEvent:hover{
+	background: #eeeeee;
+}
+a.upcomingEvent .title{
+	color:#222222;
+	font-weight: bold;
+}
+
+div.lesson a.more{
+	font-size:14px;
+	color:#222222;
+	display:block;
+	margin:0;
+	width:30%;
+	background:#ffffff;
+	text-align:center;
+	border:1px solid #dddddd;
+	padding:4px;
+	float:right;
+}
+div.lesson a.more:hover{
+	background:#dddddd;
+}
 /* Lesson Presenter */
 #lesson_homepage #date {
-    margin-left: 10px;    
-    font-style: italic; 
+    margin-left: 10px;
+    font-style: italic;
 }
 #lesson_homepage #description {
-    margin-left: 10px; 
+    margin-left: 10px;
     overflow: auto;
 }
 
@@ -561,19 +598,61 @@ input.button{
     border:1px solid #dddddd;
 }
 
+#event_homepage h4 {
+	font-size:15px;
+	font-weight:bold;
+	margin-top:20px;
+	margin-left:15px;
+}
+
+#event_homepage h4 span{
+	font-style: italic;
+	font-weight: normal;
+}
+
+#event_homepage div.description{
+	margin:20px;
+	font-size: 14px;
+	min-height:100px;
+	padding:10px;
+	border-left:1px solid #dddddd;
+}
+
 /* Message presenter */
 #message_inbox tr.notRead td{
     font-weight: bold;
 }
+
+#message_showMessage #message{
+	border:1px solid #dddddd;
+	padding:10px;
+	margin:10px;
+}
+#message h3{
+
+}
+#message span.from{
+	margin-left:30px;
+}
+#message span.date{
+	font-style:italic;
+}
+#message div.content{
+	margin:10px;
+	padding:10px;
+	width:90%;
+	border-top:1px solid #dddddd;
+}
+
 /* Assignment presenter */
 #assignment_edit #formcreator{
-    overflow: auto;    
+    overflow: auto;
 }
-#assignment_edit #formcreator div.scroll{    
+#assignment_edit #formcreator div.scroll{
     width:3000px;
 }
 
-#assignment_edit #formcreator div div{    
+#assignment_edit #formcreator div div{
     float:left;
     width:260px;
     margin:5px;
@@ -604,7 +683,7 @@ input.button{
     border:1px solid #dddddd;
     padding:5px;
 }
-#assignment_show .timelimitinfo{        
+#assignment_show .timelimitinfo{
     background:#fe896e;
     margin:5px;
     border:1px solid #dddddd;
@@ -629,9 +708,24 @@ input.button{
 }
 
 /* User presenter */
+
+#user_homepage h3{
+	font-size:25px;
+}
 #user_homepage span{
     display:block;
-    font-size:13px;
+    font-size:14px;
+}
+#user_homepage #profile{
+
+	margin:20px;
+}
+
+#user_homepage img {
+	float:left;
+	margin-right: 20px;
+	padding-right:20px;
+	border-right:1px solid #dddddd;
 }
 
 

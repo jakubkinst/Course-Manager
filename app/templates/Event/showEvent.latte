@@ -1,23 +1,22 @@
 {block title}{$event->name} - {!_'Event'}{/block}
 {block head}
-    
+
 {/block}
 
 {block content}
     <div id="event_homepage">
 		<div class="buttonline">
-                    {if $isTeacher}
-			<a class="adminbutton abutton" href="{link edit, $event->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Event'}</a>
-                        <a class="redbutton abutton delete" href="{link delete!,$event->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Event'}</a>
-                    {/if} 
-                </div>
+			{if $isTeacher}
+				<a class="adminbutton abutton" href="{link edit, $event->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Event'}</a>
+				<a class="redbutton abutton delete" href="{link delete!,$event->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Event'}</a>
+			{/if}
+		</div>
         {if $logged}
             <h3>{!_'Course Event Detail'}</h3>
             <div class="separator"><!----></div>
-            <h4>{$event->name}</h4>
-            <span>{!_'on'} {$event->date}</span>
-            <div>{!_'Description'}: {$event->description}</div> 
+            <h4>{$event->name} <span>({$event->date})</span></h4>
+            <div class="description"><p>{$event->description}</p></div>
         {/if}
     </div>
-    
+
 {/block}

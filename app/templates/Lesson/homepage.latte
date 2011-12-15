@@ -2,30 +2,32 @@
 {block head}{/block}
 {block content}
     <div id="lesson_homepage">
-	
+
         {if $isTeacher || $isStudent}
 	    <div class="buttonline">
 		{if $isTeacher}
 		    <a class="adminbutton abutton" href="{link addResource, $lesson->id}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Resource'}</a>
 		    <a class="adminbutton abutton" href="{link edit, $lesson->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Lesson'}</a>
 		    <a class="redbutton abutton delete" href="{link delete!}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Lesson'}</a>
-		{/if} 
+		{/if}
 	    </div>
             <h3>{$lesson['topic']}</h3>
 	    <div id="date">{$lesson['date']|mydate}</div>
 		<div class="separator"><!----></div>
             <div class="texy" id="description">{!$lesson['description']|texy}</div>
-	    
+
             <div class="separator"><!----></div>
-	    
+
 	    {if sizeof($resources)>0}
 		<div class="resources">
 		    <h4>{!_'Resources'}</h4>
-		 {foreach $resources as $resource}
-		    <tr>
-			<td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>                  
-		    </tr>
+			<table>
+			{foreach $resources as $resource}
+				<tr>
+					<td><a href="{link resource:download,$resource['id']}">{$resource['name']} (<?php echo round($resource['size']/1024,2); ?> kB)</a></td>
+				</tr>
 		    {/foreach}
+			</table>
 		</div>
 	    {/if}
 	    {if sizeof($comments)>0}
@@ -35,15 +37,15 @@
 		    {foreach $comments as $comment}
 			<div class="comment">
 			    <div class="author"><a href="{link user:homepage, $comment->user->id}">{$comment->user->firstname} {$comment->user->lastname}</a></div>
-			    <div class="time">{$comment['added']|mydatetime}</div>                        
+			    <div class="time">{$comment['added']|mydatetime}</div>
 			    <div class="content">{$comment['content']}</div>
 			</div>
-		    {/foreach}		    
+		    {/foreach}
 		    {control pages}
-		</div>	    
+		</div>
 		<div class="separator"><!----></div>
 	    {/if}
-	    
+
 	    <h4>{!_'Add Comment'}</h4>
             <div id="commentForm">
                 {widget commentForm}

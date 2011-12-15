@@ -8,14 +8,14 @@
  * @package    Course-Manager/Presenters
  */
 class HelpPresenter extends BasePresenter {
-    /*
-     * =============================================================
-     * =================   Parent overrides   ======================
-     */
+	/*
+	 * =============================================================
+	 * =================   Parent overrides   ======================
+	 */
 
-    public function startup() {
-	$this->canbesignedout = true;
-	parent::startup();
-    }
+	public function startup() {
+		$this->canbesignedout = true;
+		parent::startup();
+	}
 
 }

@@ -8,47 +8,46 @@
  * @package    Course-Manager/Presenters
  */
 class CourseListPresenter extends BasePresenter {
-    
-    /*
-     * =============================================================
-     * =================   Parent overrides   ======================
-     */
+	/*
+	 * =============================================================
+	 * =================   Parent overrides   ======================
+	 */
 
-    public function startup() {
-	$this->canbesignedout = true;
-	parent::startup();
-    }
+	public function startup() {
+		$this->canbesignedout = true;
+		parent::startup();
+	}
 
-    /*
-     * =============================================================
-     * =======================  Actions ============================
-     */
+	/*
+	 * =============================================================
+	 * =======================  Actions ============================
+	 */
 
-    /**
-     * Homepage
-     */
-    public function renderHomepage() {
-	if ($this->logged)
-	    $this->template->invites = CourseListModel::getMyInvites();
-    }
+	/**
+	 * Homepage
+	 */
+	public function renderHomepage() {
+		if ($this->logged)
+			$this->template->invites = CourseListModel::getMyInvites();
+	}
 
-    /*
-     * =============================================================
-     * ==================  Signal Handlers =========================
-     */
+	/*
+	 * =============================================================
+	 * ==================  Signal Handlers =========================
+	 */
 
-    /**
-     * Accepting an invite to a course
-     */
-    public function handleAcceptInvite($iid) {
-	CourseListModel::acceptInvite($iid);
-    }
+	/**
+	 * Accepting an invite to a course
+	 */
+	public function handleAcceptInvite($iid) {
+		CourseListModel::acceptInvite($iid);
+	}
 
-    /**
-     * Declining an invite to a course
-     */
-    public function handleDeclineInvite($iid) {
-	CourseListModel::declineInvite($iid);
-    }
+	/**
+	 * Declining an invite to a course
+	 */
+	public function handleDeclineInvite($iid) {
+		CourseListModel::declineInvite($iid);
+	}
 
 }

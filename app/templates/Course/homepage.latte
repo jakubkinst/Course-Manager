@@ -1,21 +1,20 @@
 {block title}{!_'Course Home'}{/block}
 {block head}{/block}
 {block content}
-    <div id="course_homepage">     
-            
+    <div id="course_homepage">
                 <div class="buttonline">
                     {if $isTeacher}
                         <a class="adminbutton abutton" href="{link course:addLesson,$activeCourse->id}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Lesson'}</a>
                         <a class="adminbutton abutton" href="{link Course:inviteStudent,$activeCourse->id}"><span class="ui-icon ui-icon-person"></span>{!_'Invite Students'}</a>
                         <a class="adminbutton abutton" href="{link course:edit,$activeCourse->id}"><span class="ui-icon ui-icon-pencil"></span>{!_'Edit Course'}</a>
-                        <a class="redbutton abutton delete" href="{link delete!,$activeCourse->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Course'}</a>
+                        <a class="redbutton abutton delete" msg="{!_'Do you really wand to delete '}{$activeCourse['name']} ?" href="{link delete!,$activeCourse->id}"><span class="ui-icon ui-icon-trash"></span>{!_'Delete Course'}</a>
                     {else}
-                      <a class="redbutton abutton" href="{link Course:leave}"><span class="ui-icon ui-icon-circle-close"></span>{!_'Leave Course'}</a>
-                    {/if} 
+                      <a class="redbutton abutton delete" msg="{!_'Do you really want to leave'} {$activeCourse['name']}?" href="{link leave!}"><span class="ui-icon ui-icon-circle-close"></span>{!_'Leave Course'}</a>
+                    {/if}
                 </div>
-            
+
             <div id="lectorList">
-                <h4>{!_'Lectors'}</h4>
+                <h4>{!_'Teachers'}</h4>
                 <table>
                         <tr>
                             <th>{!_'Name'}</th>
@@ -29,7 +28,7 @@
                         {/foreach}
                 </table>
             </div>
-        
+
             <div class="separator"><!----></div>
             <div id="studentList">
                 <h4>{!_'Students'}</h4>
@@ -37,34 +36,50 @@
                         <tr>
                             <th>{!_'Name'}</th>
                             <th>{!_'Message'}</th>
+							{if $isTeacher}<th>{!_'Make teacher'}</th>{/if}
                         </tr>
                         {foreach $students as $student}
                             <tr>
                                 <td><a href="{link user:homepage, $student->id}">{$student['firstname']} {$student['lastname']}</a></td>
                                 <td><a href="{link message:new, $student['email']}">{!_'Send Message'}</a></td>
-                            </tr>
+								{if $isTeacher}<td><a href="{link makeTeacher!, $student['id']}">{!_'Make teacher'}</a></td>{/if}
+							</tr>
                         {/foreach}
                 </table>
             </div>
-    
-    
-            <div class="separator"><!----></div>
-		{foreach $lessons as $lesson}
-		    <!-- Lesson -->
-		    <div class="lesson">
-			<h5><a class="lesson_dropdown" id="{$lesson->id}" href="{link lesson:homepage,$lesson->id}">{$lesson['topic']}</a></h5>
-			<div class="date">{$lesson['date']|mydate}</div>
-			<div id="div_{$lesson->id}" {if !$iterator->isFirst()}class="hide"{/if}>
-			    <div class="separator"><!----></div>
-			    <div class="texy description">{!$lesson['description']|texy}</div>
-			    <a href="{link lesson:homepage,$lesson->id}">{!_'More'} >></a>
-			</div>
-		    </div>
-		{/foreach}
-            
-            
 
-        
+
+		 <div class="separator"><!----></div>
+			<div id="eventList">
+				<h4>{!_'Upcoming events'}</h4>
+				{foreach $events as $e}
+					<a href="{link event:showEvent, $e['id']}" class="upcomingEvent">
+						<span class="ui-icon ui-icon-calendar"></span>
+						<span class="title">{$e['name']}</span>
+						<span class="date">{$e['date']|myDate}</span>
+					</a>
+				{/foreach}
+			</div>
+
+            <div class="separator"><!----></div>
+			<div id="lessonList">
+				<h4>{!_'Lessons'}</h4>
+				{foreach $lessons as $lesson}
+					<!-- Lesson -->
+					<div class="lesson">
+					<h5><a class="lesson_dropdown" id="{$lesson->id}" href="{link lesson:homepage,$lesson->id}">{$lesson['topic']}</a></h5>
+					<div class="date">{$lesson['date']|mydate}</div>
+					<div id="div_{$lesson->id}" {if !$iterator->isFirst()}class="hide"{/if}>
+						<div class="separator"><!----></div>
+						<div class="texy description">{!$lesson['description']|texy}</div>
+						<a class="more" href="{link lesson:homepage,$lesson->id}">{!_'Comments & More'} >></a>
+					</div>
+					</div>
+				{/foreach}
+			</div>
+
+
+
     </div>
 {/block}
 

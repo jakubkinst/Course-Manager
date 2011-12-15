@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>{include #title} - {if isset($activeCourse)}{$activeCourse->name} -{/if} CourseManager</title>	
-        <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />	
+        <title>{include #title} - {if isset($activeCourse)}{$activeCourse->name} -{/if} CourseManager</title>
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
 
 	{* Variables passed from PHP to JavaScript *}
 	<script type="text/javascript"><? echo $presenter->getJSVariables(); ?></script>
-	{control css 
+	{control css
 	    'blueprint/screen.css',
 	    'smoothness/jquery-ui-1.8.16.custom.css',
 	    'screen.css',
@@ -15,7 +15,7 @@
 	    '../texyla/css/style.css',
 	    'texy.css'
 	}
-        {control js 
+        {control js
 	    'jquery-1.6.2.min.js',
 	    'jquery-ui-1.8.16.custom.min.js',
 	    'jquery.nette.js',
@@ -24,7 +24,7 @@
 	    'fullcalendar.min.js',
 	    'jquery.multiselect.min.js'
 	}
-	{control js 
+	{control js
 	    "../texyla/js/texyla.js",
 	    "../texyla/js/selection.js",
 	    "../texyla/js/texy.js",
@@ -44,16 +44,16 @@
 	    "../texyla/plugins/symbol/symbol.js",
 	    "../texyla/plugins/color/color.js"
 	}
-	{control js 'CourseManager.js'}       
+	{control js 'CourseManager.js'}
 
-	<!-- head -->                    
+	<!-- head -->
 	{include #head}
 	<!-- /head -->
 
     </head>
 
-    <body>        
-	<div id="header" class="span-24 last">   
+    <body>
+	<div id="header" class="span-24 last">
 	    <div class="container shadow">
 		<div id="innerheader">
 		    <a href="{link courselist:homepage}">
@@ -68,7 +68,7 @@
 			    {if $logged}<li><a class="mainMenuButton" href="{link message:homepage}"> <span class="ui-icon ui-icon-mail-open"></span>{if $countUnread>0}&nbsp;{$countUnread}{/if}</a></li>{/if}
 			    {if $logged}<li><a class="mainMenuButton" href="{link settings:homepage}"> <span class="ui-icon ui-icon-gear"></span></a></li>{/if}
 			    <li><a class="mainMenuButton{if !$logged} leftborder{/if}" href="{link help:homepage}"> <span class="ui-icon ui-icon-help"></span></a></li>
-			    <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;                        
+			    <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;
 				    {if !$logged}
 				    {!_'Login'}
 				    {else}
@@ -84,7 +84,7 @@
 					<a href="{link user:logout}">{!_'Log out'}</a>
 				    </div>
 				    {else}
-				    {widget signInForm} 
+				    {widget signInForm}
 				    <a class="abutton" href="{link user:register}">{!_'REGISTER'}</a>
 				    {/if}
 				</div>
@@ -103,15 +103,15 @@
 		    <div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
 		    {/if}
 		    <div id="content">
-			<!-- content -->                    
+			<!-- content -->
 			{include #content}
 			<!-- /content -->
 		    </div>
 		</div>
 		<div class="span-5 last" id="sidebar">
 		    {if $logged}
-		    <div id="courseBox">                    
-			<h3>{!_'Teachered courses'}</h3>
+		    <div id="courseBox">
+			{if sizeof($tCourses)>0}<h3>{!_'Teaching'}</h3>{/if}
 			{foreach $tCourses as $course}
 			<div class="course asTeacher">
 			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
@@ -125,7 +125,7 @@
 			    </ul>
 			</div>
 			{/foreach}
-			<h3>{!_'Student courses'}</h3>
+			{if sizeof($sCourses)>0}<h3>{!_'Studying'}</h3>{/if}
 			{foreach $sCourses as $course}
 			<div class="course asStudent">
 			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
@@ -164,10 +164,10 @@
 
 	<!-- Flash messages -->
         <div id="flashMessages">
-            {foreach $flashes as $flash}            
+            {foreach $flashes as $flash}
             <div class="flash {$flash->type}">
 		{$flash->message}
-            </div>            
+            </div>
             {/foreach}
         </div>
 
