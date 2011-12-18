@@ -6,7 +6,10 @@
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
 
 	{* Variables passed from PHP to JavaScript *}
-	<script type="text/javascript"><? echo $presenter->getJSVariables(); ?></script>
+	<script type="text/javascript">
+		texylaHome = "{!$basePath}/texyla";
+		<? echo $presenter->getJSVariables(); ?>
+	</script>
 	{control css
 	    'blueprint/screen.css',
 	    'smoothness/jquery-ui-1.8.16.custom.css',

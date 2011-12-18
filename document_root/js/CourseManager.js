@@ -1,9 +1,6 @@
 
 $(document).ready(function(){
 
-
-
-
 	// hide elements with class hide
 	$('.hide').hide();
 
@@ -27,7 +24,7 @@ $(document).ready(function(){
 
 	// Set texyla defaults
 	$.texyla.setDefaults({
-		baseDir: texyla_base,
+		baseDir: texylaHome,
 		previewPath: texyla_preview_link,
 		bottomRightPreviewToolbar:[],
 		language: "en",
