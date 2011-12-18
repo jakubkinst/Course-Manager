@@ -761,3 +761,12 @@ div.lesson a.more:hover{
     background:#eeeeee;
     padding:3px;
 }
+
+/* Help Presenter */
+
+iframe#helpDoc{
+	width:100%;
+	margin:auto;
+	height:700px;
+	border:1px solid #dddddd;
+}

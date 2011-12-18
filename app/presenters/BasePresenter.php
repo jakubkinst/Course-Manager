@@ -195,7 +195,6 @@ abstract class BasePresenter extends Presenter {
 		$js->tempUri = Environment::getVariable("baseUri") . "webtemp";
 		$js->tempPath = WWW_DIR . "/webtemp";
 		$js->sourcePath = WWW_DIR . "/js";
-
 		return $js;
 	}
 

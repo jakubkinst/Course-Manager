@@ -9,10 +9,14 @@
 class TestPresenter extends Presenter {
 
 	public function renderHomepage() {
-
-		// TODO: Add testing here
-
-		$this->terminate();
+		$req = Environment::getHttpRequest();
+		$resp = array();
+		$resp['error'] = "Test Error";
+		$resp['dump'] = "Test Dump";
+		$resp['flashmessages'] = array("Flash 1","Flash 2", "Flash 3");
+		$resp['users'] = dibi::fetchAll('SELECT * FROM user');
+		if ($req->getPost('mobile'))
+			$this->sendResponse(new JsonResponse($resp));
 	}
 
 }
