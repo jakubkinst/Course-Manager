@@ -28,6 +28,7 @@ class Uploader extends Control {
 	 */
 	public function render() {
 		$this->template->f = $this->f;
+                $this->template->GGGG = 3;
 		$this->template->setFile(dirname(__FILE__) . '/template.latte');
 		$this->template->render();
 	}

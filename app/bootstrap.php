@@ -2,7 +2,7 @@
 
 /**
  * CourseManager bootstrap file.
- * 
+ *
  * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
  */
 // Load Nette Framework
@@ -54,7 +54,7 @@ $router[] = new Route('<cid [0-9]+>', array(
 /**
  * Converts url string to id
  * @param string $name
- * @return int 
+ * @return int
  */
 function inFunction($name) {
     return substr($name, 0, strpos($name, '-'));
@@ -63,7 +63,7 @@ function inFunction($name) {
 /**
  * Converts id to string
  * @param int $id
- * @return string 
+ * @return string
  */
 function outFunction($id) {
     $course = CourseModel::getCourse($id);

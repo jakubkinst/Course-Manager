@@ -10,208 +10,237 @@
  */
 abstract class BasePresenter extends Presenter {
 
-	/** Teachered courses */
-	public $tCourses;
+    /**
+     * @persistent
+     * True if accessing from Android App
+     * @var boolean
+     */
+    public $mobile;
 
-	/** Courses where acting as student */
-	public $sCourses;
+    /** Teachered courses */
+    public $tCourses;
 
-	/** Boolean indicating user privileges */
+    /** Courses where acting as student */
+    public $sCourses;
 
-	/** Is this presenter for unauthorised users too ? */
-	public $canbesignedout = false;
+    /** Boolean indicating user privileges */
 
-	/** Logical value indicating state of user */
-	public $logged = false;
+    /** Is this presenter for unauthorised users too ? */
+    public $canbesignedout = false;
 
-	/** @persistent language variable - if set, stays persistent */
-	public $lang;
+    /** Logical value indicating state of user */
+    public $logged = false;
 
-	/** User preferred language - may not be set */
-	public $userSetLang;
+    /** @persistent language variable - if set, stays persistent */
+    public $lang;
 
-	/** Default language value - English */
-	public static $DEFAULT_LANG = 'en';
+    /** User preferred language - may not be set */
+    public $userSetLang;
 
-	/**
-	 * GetTextTranslator instance responsible for translating strings all
-	 * across the application
-	 */
-	public $translator;
+    /** Default language value - English */
+    public static $DEFAULT_LANG = 'en';
 
-	/**
-	 * Paginator instance for VisualPaginator
-	 * Page control is available in every single presenter/template
-	 */
-	public $paginator;
+    /**
+     * GetTextTranslator instance responsible for translating strings all
+     * across the application
+     */
+    public $translator;
 
-	// Relative Date helper
-	function dateHelper($value) {
-		return CommonModel::relative_date(strtotime($value));
-	}
+    /**
+     * Paginator instance for VisualPaginator
+     * Page control is available in every single presenter/template
+     */
+    public $paginator;
 
-	// Relative Date with time helper
-	function myDateTimeHelper($value) {
-		return CommonModel::relative_date(strtotime($value)) . ' ' . date('H:i', strtotime($value));
-	}
+    // Relative Date helper
+    function dateHelper($value) {
+        return CommonModel::relative_date(strtotime($value));
+    }
 
-	/**
-	 * Startup function
-	 * Called first when Presenter is created
-	 * Registers helpers
-	 */
-	protected function startup() {
-		parent::startup();
-		$this->template->registerHelper('mydate', callback($this, 'dateHelper'));
-		$this->template->registerHelper('mydatetime', callback($this, 'myDateTimeHelper'));
+    // Relative Date with time helper
+    function myDateTimeHelper($value) {
+        return CommonModel::relative_date(strtotime($value)) . ' ' . date('H:i', strtotime($value));
+    }
 
-		// Texy helper
-		$texy = new Texy;
-		$this->template->registerHelper("texy", array($texy, "process"));
+    /**
+     * Startup function
+     * Called first when Presenter is created
+     * Registers helpers
+     */
+    protected function startup() {
+        parent::startup();
+        if ($this->mobile == null)
+            $this->mobile = $this->getParam('mobile');
+        $this->template->registerHelper('mydate', callback($this, 'dateHelper'));
+        $this->template->registerHelper('mydatetime', callback($this, 'myDateTimeHelper'));
 
-		// Set neccessary variables and pass them to template
-		$user = Environment::getUser();
-		$this->logged = $user->isLoggedIn();
-		$this->template->logged = $this->logged;
-		if ($this->logged) {
-			$this->tCourses = CourseListModel::getTeacherCourses(UserModel::getLoggedUser()->id);
-			$this->sCourses = CourseListModel::getStudentCourses(UserModel::getLoggedUser()->id);
+        // Texy helper
+        $texy = new Texy;
+        $this->template->registerHelper("texy", array($texy, "process"));
 
-			$this->template->tCourses = $this->tCourses;
-			$this->template->sCourses = $this->sCourses;
+        // Set neccessary variables and pass them to template
+        $user = Environment::getUser();
+        $this->logged = $user->isLoggedIn();
+        $this->template->logged = $this->logged;
+        if ($this->logged) {
+            $this->tCourses = CourseListModel::getTeacherCourses(UserModel::getLoggedUser()->id);
+            $this->sCourses = CourseListModel::getStudentCourses(UserModel::getLoggedUser()->id);
 
-			$this->template->user = UserModel::getLoggedUser();
-			$this->template->userid = $this->template->user->id;
+            $this->template->tCourses = $this->tCourses;
+            $this->template->sCourses = $this->sCourses;
 
-			$this->template->countUnread = MessageModel::countUnread();
-		}
-		// Handle unathorized access
-		if (!$this->logged & !$this->canbesignedout) {
-			$this->flashMessage('Please login.', $type = 'unauthorized');
-			$this->redirect('courselist:homepage');
-		}
+            $this->template->user = UserModel::getLoggedUser();
+            $this->template->userid = $this->template->user->id;
 
-		// language settings
-		// first try to get user-preferred language
-		if ($this->logged)
-			$this->userSetLang = SettingsModel::getMySettings()->lang;
-		$this->decideLanguage();
+            $this->template->countUnread = MessageModel::countUnread();
+        }
+        // Handle unathorized access
+        if (!$this->logged & !$this->canbesignedout) {
+            $this->flashMessage('Please login.', $type = 'unauthorized');
+            $this->redirect('courselist:homepage');
+        }
 
-		// template translator
-		// uncomment to generate .po file
-		// CommonModel::getTextExtract();
-		$this->template->setTranslator($this->translator);
+        // language settings
+        // first try to get user-preferred language
+        if ($this->logged)
+            $this->userSetLang = SettingsModel::getMySettings()->lang;
+        $this->decideLanguage();
 
-		// paging control - create Paginator instance
-		$pages = new VisualPaginator($this, 'pages');
-		$this->paginator = $pages->getPaginator();
-	}
+        // template translator
+        // uncomment to generate .po file
+        // CommonModel::getTextExtract();
+        $this->template->setTranslator($this->translator);
 
-	/**
-	 * Gets language based on user settings or HTTP parameter
-	 */
-	public function decideLanguage() {
-		if ($this->getParam('lang') != '') {
-			$this->lang = $this->getParam('lang');
-			$this->setLanguage($this->lang);
-		} else if (isset($this->userSetLang))
-			$this->setLanguage($this->userSetLang);
-		else
-			$this->setLanguage(self::$DEFAULT_LANG);
-	}
+        // paging control - create Paginator instance
+        $pages = new VisualPaginator($this, 'pages');
+        $this->paginator = $pages->getPaginator();
+    }
 
-	/**
-	 * Create and set Translator based on desired language
-	 * @param string $lang
-	 */
-	public function setLanguage($lang) {
-		if ($lang == 'en')
-			$this->translator = new GettextTranslator(APP_DIR . '/locale/en.mo');
-		else if ($lang == 'cs')
-			$this->translator = new GettextTranslator(APP_DIR . '/locale/cs.mo');
-	}
+    /**
+     * For mobile
+     */
+    protected function afterRender() {
+        parent::afterRender();
+        $req = Environment::getHttpRequest();
 
-	/**
-	 * Form Factory - Sign In Form
-	 * @return AppForm
-	 */
-	protected function createComponentSignInForm() {
+        $payload = $this->template->getParams();
+        $components = array();
+        foreach ($this->getComponents() as $component){
+            $components[$component->getName()] = $component->template->getParams();
+            //Debug::barDump($component);
+        }
+        //unset($payload['presenter']);
+        $payload['components'] = $components;
+        Debug::barDump($this['uploader']->template->GGGG);
+        if ($this->mobile)
+            $this->sendResponse(new JsonResponse($payload));
+    }
 
-		$form = new AppForm;
-		$form->setTranslator($this->translator);
-		$form->addText('email', 'E-Mail:')
-				->setRequired('Please provide an e-mail.');
+    /**
+     * Gets language based on user settings or HTTP parameter
+     */
+    public function decideLanguage() {
+        if ($this->getParam('lang') != '') {
+            $this->lang = $this->getParam('lang');
+            $this->setLanguage($this->lang);
+        } else if (isset($this->userSetLang))
+            $this->setLanguage($this->userSetLang);
+        else
+            $this->setLanguage(self::$DEFAULT_LANG);
+    }
 
-		$form->addPassword('password', 'Password:')
-				->setRequired('Please provide a password.');
+    /**
+     * Create and set Translator based on desired language
+     * @param string $lang
+     */
+    public function setLanguage($lang) {
+        if ($lang == 'en')
+            $this->translator = new GettextTranslator(APP_DIR . '/locale/en.mo');
+        else if ($lang == 'cs')
+            $this->translator = new GettextTranslator(APP_DIR . '/locale/cs.mo');
+    }
 
-		$form->addCheckbox('remember', 'Remember');
+    /**
+     * Form Factory - Sign In Form
+     * @return AppForm
+     */
+    protected function createComponentSignInForm() {
 
-		$form->addSubmit('send', 'Sign in');
+        $form = new AppForm;
+        $form->setTranslator($this->translator);
+        $form->addText('email', 'E-Mail:')
+                ->setRequired('Please provide an e-mail.');
 
-		$form->onSubmit[] = callback($this, 'signInFormSubmitted');
-		return $form;
-	}
+        $form->addPassword('password', 'Password:')
+                ->setRequired('Please provide a password.');
 
-	/**
-	 * Sign In Form Handler
-	 * @param Form $form
-	 */
-	public function signInFormSubmitted(AppForm $form) {
-		try {
-			$values = $form->getValues();
-			if ($values->remember) {
-				$this->getUser()->setExpiration('+ 14 days', FALSE);
-			} else {
-				$this->getUser()->setExpiration('+ 20 minutes', TRUE);
-			}
-			$this->getUser()->login($values->email, $values->password);
-			$this->redirect('Courselist:homepage');
-		} catch (AuthenticationException $e) {
-			$this->flashMessage($e->getMessage(), 'error');
-		}
-	}
+        $form->addCheckbox('remember', 'Remember');
 
-	/**
-	 * Loads Webloader extension for better CSS file loading
-	 * @return CssLoader
-	 */
-	protected function createComponentCss() {
-		$css = new CssLoader;
-		$css->sourcePath = WWW_DIR . "/css";
-		$css->sourceUri = Environment::getVariable("baseUri") . "css";
-		$css->tempUri = Environment::getVariable("baseUri") . "webtemp";
-		$css->tempPath = WWW_DIR . "/webtemp";
-		return $css;
-	}
+        $form->addSubmit('send', 'Sign in');
 
-	/**
-	 * Loads Webloader extension for better JS file loading
-	 * @return JavaScriptLoader
-	 */
-	protected function createComponentJs() {
-		$js = new JavaScriptLoader;
+        $form->onSubmit[] = callback($this, 'signInFormSubmitted');
+        return $form;
+    }
 
-		$js->tempUri = Environment::getVariable("baseUri") . "webtemp";
-		$js->tempPath = WWW_DIR . "/webtemp";
-		$js->sourcePath = WWW_DIR . "/js";
-		return $js;
-	}
+    /**
+     * Sign In Form Handler
+     * @param Form $form
+     */
+    public function signInFormSubmitted(AppForm $form) {
+        try {
+            $values = $form->getValues();
+            if ($values->remember) {
+                $this->getUser()->setExpiration('+ 14 days', FALSE);
+            } else {
+                $this->getUser()->setExpiration('+ 20 minutes', TRUE);
+            }
+            $this->getUser()->login($values->email, $values->password);
+            $this->redirect('Courselist:homepage');
+        } catch (AuthenticationException $e) {
+            $this->flashMessage($e->getMessage(), 'error');
+        }
+    }
 
-	/**
-	 * Function used to declare and pass PHP variables to JavaScript
-	 * external files
-	 * @return string
-	 */
-	public function getJSVariables() {
-		$vars = '
+    /**
+     * Loads Webloader extension for better CSS file loading
+     * @return CssLoader
+     */
+    protected function createComponentCss() {
+        $css = new CssLoader;
+        $css->sourcePath = WWW_DIR . "/css";
+        $css->sourceUri = Environment::getVariable("baseUri") . "css";
+        $css->tempUri = Environment::getVariable("baseUri") . "webtemp";
+        $css->tempPath = WWW_DIR . "/webtemp";
+        return $css;
+    }
+
+    /**
+     * Loads Webloader extension for better JS file loading
+     * @return JavaScriptLoader
+     */
+    protected function createComponentJs() {
+        $js = new JavaScriptLoader;
+
+        $js->tempUri = Environment::getVariable("baseUri") . "webtemp";
+        $js->tempPath = WWW_DIR . "/webtemp";
+        $js->sourcePath = WWW_DIR . "/js";
+        return $js;
+    }
+
+    /**
+     * Function used to declare and pass PHP variables to JavaScript
+     * external files
+     * @return string
+     */
+    public function getJSVariables() {
+        $vars = '
 		delete_confirm_message = "' . _('Are you sure you want to delete this item') . '";
 		texyla_preview_link = "' . @$this->link('Texyla:preview') . '";
 		texyla_base = "' . BASE_DIR . '/document_root/texyla/";
 		active_course_id = "' . @$this->template->activeCourse->id . '";
 		choose_anwsers_message = "' . _('Choose anwsers') . '";
 	';
-		return $vars;
-	}
+        return $vars;
+    }
 
 }
