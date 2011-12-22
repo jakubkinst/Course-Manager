@@ -121,9 +121,20 @@ abstract class BasePresenter extends Presenter {
      */
     protected function afterRender() {
         parent::afterRender();
-        Debug::barDump($this->template->getParams());
-        if ($this->mobile)
+        if ($this->mobile) {
+            ob_start();
+            $files = $this->formatTemplateFiles($this->getName(), $this->view);
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    $this->template->setFile($file);
+                    break;
+                }
+            }
+            $this->template->render();
+            ob_end_clean();
+            $resp = new TemplateParametersResponse($this);
             $this->sendResponse(new TemplateParametersResponse($this));
+        }
     }
 
     /**
