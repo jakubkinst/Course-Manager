@@ -121,25 +121,9 @@ abstract class BasePresenter extends Presenter {
      */
     protected function afterRender() {
         parent::afterRender();
-<<<<<<< HEAD
         Debug::barDump($this->template->getParams());
         if ($this->mobile)
             $this->sendResponse(new TemplateParametersResponse($this));
-=======
-        $req = Environment::getHttpRequest();
-
-        $payload = $this->template->getParams();
-        $components = array();
-        foreach ($this->getComponents() as $component) {
-            $components[$component->getName()] = $component->template->getParams();
-            //Debug::barDump($component);
-        }
-        unset($payload['presenter']);
-        $payload['components'] = $components;
-        //Debug::barDump($this['uploader']->template->GGGG);
-        if ($this->mobile)
-            $this->sendResponse(new JsonResponse($payload));
->>>>>>> origin/master
     }
 
     /**
