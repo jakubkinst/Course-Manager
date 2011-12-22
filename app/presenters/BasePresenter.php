@@ -125,13 +125,13 @@ abstract class BasePresenter extends Presenter {
 
         $payload = $this->template->getParams();
         $components = array();
-        foreach ($this->getComponents() as $component){
+        foreach ($this->getComponents() as $component) {
             $components[$component->getName()] = $component->template->getParams();
             //Debug::barDump($component);
         }
-        //unset($payload['presenter']);
+        unset($payload['presenter']);
         $payload['components'] = $components;
-        Debug::barDump($this['uploader']->template->GGGG);
+        //Debug::barDump($this['uploader']->template->GGGG);
         if ($this->mobile)
             $this->sendResponse(new JsonResponse($payload));
     }
