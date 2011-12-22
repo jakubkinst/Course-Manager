@@ -13,9 +13,9 @@ class TestPresenter extends Presenter {
 		$resp = array();
 		$resp['error'] = "Test Error";
 		$resp['dump'] = "Test Dump";
-		$resp['flashmessages'] = array("Flash 1","Flash 2", "Flash 3");
+		$resp['flashmessages'] = $req->getCookies();
 		$resp['users'] = dibi::fetchAll('SELECT * FROM user');
-		if ($req->getPost('mobile'))
+		if ($req->getQuery('mobile'))
 			$this->sendResponse(new JsonResponse($resp));
 	}
 
