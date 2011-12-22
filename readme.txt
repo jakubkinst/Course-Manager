@@ -13,3 +13,5 @@ cron settings:
 -create uploads directory with r/w rights
 
 -create temp/cache directory with r/w rights
+
+s
