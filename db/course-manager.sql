@@ -5,6 +5,10 @@ SET foreign_key_checks = 0;
 SET time_zone = 'SYSTEM';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP DATABASE IF EXISTS `course-manager`;
+CREATE DATABASE `course-manager` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `course-manager`;
+
 DROP TABLE IF EXISTS `anwser`;
 CREATE TABLE `anwser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -14,8 +18,8 @@ CREATE TABLE `anwser` (
   PRIMARY KEY (`id`),
   KEY `User_id` (`User_id`),
   KEY `Question_id` (`Question_id`),
-  CONSTRAINT `anwser_ibfk_4` FOREIGN KEY (`Question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `anwser_ibfk_3` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `anwser_ibfk_3` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `anwser_ibfk_4` FOREIGN KEY (`Question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
 INSERT INTO `anwser` (`id`, `User_id`, `Question_id`, `anwser`) VALUES
@@ -97,7 +101,7 @@ CREATE TABLE `comment` (
   KEY `fk_Comment_Lesson1` (`Lesson_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`Lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_Comment_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 INSERT INTO `comment` (`id`, `content`, `added`, `User_id`, `Lesson_id`) VALUES
 (1,	'ahooj',	'2011-06-14 20:37:28',	2,	1),
@@ -174,8 +178,8 @@ CREATE TABLE `invite` (
   PRIMARY KEY (`id`),
   KEY `invitedBy` (`invitedBy`),
   KEY `Course_id` (`Course_id`),
-  CONSTRAINT `invite_ibfk_3` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `invite_ibfk_1` FOREIGN KEY (`invitedBy`) REFERENCES `user` (`id`)
+  CONSTRAINT `invite_ibfk_1` FOREIGN KEY (`invitedBy`) REFERENCES `user` (`id`),
+  CONSTRAINT `invite_ibfk_3` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 INSERT INTO `invite` (`id`, `email`, `invitedBy`, `Course_id`) VALUES
@@ -290,11 +294,11 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 INSERT INTO `message` (`id`, `subject`, `content`, `read`, `sent`, `from`, `to`, `reply_to_id`) VALUES
-(3,	'Ahoj',	'Zkouska zpravy',	'0',	'2011-11-02 18:04:32',	1,	2,	NULL),
+(3,	'Ahoj',	'Zkouska zpravy',	'1',	'2011-11-02 18:04:32',	1,	2,	NULL),
 (4,	'Cus',	'askjdhflasjfalkfhlkjfhlksdjfhkladshflkadsjhfkladsjhflkajdshflkajdshfkladshlfkjsaf\r\nasdf\r\nasdf\r\nasdf\r\nasdfsdfasdfasdkjfgakdsfygkdsufy',	'1',	'2011-11-02 18:12:20',	2,	1,	NULL),
 (5,	'Cus 2',	'Blablabla',	'1',	'2011-11-02 18:13:06',	2,	1,	NULL),
 (6,	'Test',	'ahoj jak se mas ?',	'1',	'2011-11-03 08:32:15',	1,	1,	NULL),
-(7,	'Ahoj',	'sdffsd',	'0',	'2011-11-03 09:34:51',	1,	2,	NULL),
+(7,	'Ahoj',	'sdffsd',	'1',	'2011-11-03 09:34:51',	1,	2,	NULL),
 (8,	'Ahoj',	'asdasdasd',	'1',	'2011-11-07 13:44:02',	1,	2,	NULL),
 (9,	'Ahoj',	'askjhdkasjdhkadshkshdfadsf',	'1',	'2011-11-13 10:57:25',	1,	1,	NULL);
 
@@ -343,8 +347,8 @@ CREATE TABLE `onlinesubmission` (
   PRIMARY KEY (`id`),
   KEY `fk_Submission_User1` (`User_id`),
   KEY `fk_Submission_Assignment1` (`Assignment_id`),
-  CONSTRAINT `onlinesubmission_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `onlinesubmission_ibfk_1` FOREIGN KEY (`Assignment_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `onlinesubmission_ibfk_1` FOREIGN KEY (`Assignment_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `onlinesubmission_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 INSERT INTO `onlinesubmission` (`id`, `started`, `submitted`, `User_id`, `Assignment_id`, `points`) VALUES
@@ -413,10 +417,10 @@ CREATE TABLE `reply` (
   KEY `fk_Reply_Topic1` (`Topic_id`),
   KEY `fk_Reply_User1` (`User_id`),
   KEY `fk_Reply_Reply1` (`Reply_id`),
-  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_Reply_Reply1` FOREIGN KEY (`Reply_id`) REFERENCES `reply` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`Topic_id`) REFERENCES `topic` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`Topic_id`) REFERENCES `topic` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 INSERT INTO `reply` (`id`, `content`, `created`, `Topic_id`, `User_id`, `Reply_id`) VALUES
 (5,	'Nevime',	'2011-10-26 16:53:42',	4,	1,	NULL),
@@ -425,7 +429,26 @@ INSERT INTO `reply` (`id`, `content`, `created`, `Topic_id`, `User_id`, `Reply_i
 (8,	'ahooj',	'2011-11-03 10:11:53',	8,	1,	NULL),
 (9,	'dsfs',	'2011-11-03 10:12:21',	8,	1,	NULL),
 (10,	'proto',	'2011-11-13 11:03:08',	11,	1,	NULL),
-(11,	'protoze',	'2011-11-13 11:03:32',	11,	1,	NULL);
+(11,	'protoze',	'2011-11-13 11:03:32',	11,	1,	NULL),
+(12,	'asdf',	'2011-12-22 11:53:24',	4,	1,	NULL),
+(13,	'asdf',	'2011-12-22 11:53:54',	4,	1,	NULL),
+(14,	'asdfasdf',	'2011-12-22 11:53:59',	4,	1,	NULL),
+(15,	'asdfasdfadsf',	'2011-12-22 11:54:03',	4,	1,	NULL),
+(16,	'asdfasdfadasdfsf',	'2011-12-22 11:54:07',	4,	1,	NULL),
+(17,	'asdfasdfadasdfsf',	'2011-12-22 11:54:10',	4,	1,	NULL),
+(18,	'asdfasdfadasdfsf',	'2011-12-22 11:54:13',	4,	1,	NULL),
+(19,	'asdfasdfadasdfsf',	'2011-12-22 11:54:14',	4,	1,	NULL),
+(20,	'asdfasdfadasdfsf',	'2011-12-22 11:54:16',	4,	1,	NULL),
+(21,	'asdfasdfadasdfsf',	'2011-12-22 11:54:18',	4,	1,	NULL),
+(22,	'asdfasdfadasdfsf',	'2011-12-22 11:54:19',	4,	1,	NULL),
+(23,	'asdfasdfadasdfsf',	'2011-12-22 11:54:21',	4,	1,	NULL),
+(24,	'asdfasdfadasdfsf',	'2011-12-22 11:54:23',	4,	1,	NULL),
+(25,	'asdfasdfadasdfsf',	'2011-12-22 11:54:24',	4,	1,	NULL),
+(26,	'asdfasdfadasdfsf',	'2011-12-22 11:54:27',	4,	1,	NULL),
+(27,	'asdfasdfadasdfsf',	'2011-12-22 11:54:28',	4,	1,	NULL),
+(28,	'asdfasdfadasdfsf',	'2011-12-22 11:54:30',	4,	1,	NULL),
+(29,	'asdfasdfadasdfsf',	'2011-12-22 11:54:32',	4,	1,	NULL),
+(30,	'asdfasdfadasdfsf',	'2011-12-22 11:54:34',	4,	1,	NULL);
 
 DROP TABLE IF EXISTS `resource`;
 CREATE TABLE `resource` (
@@ -440,8 +463,8 @@ CREATE TABLE `resource` (
   PRIMARY KEY (`id`),
   KEY `fk_Resource_Lesson1` (`Lesson_id`),
   KEY `Course_id` (`Course_id`),
-  CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`Lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`Lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 INSERT INTO `resource` (`id`, `name`, `description`, `filename`, `size`, `added`, `Lesson_id`, `Course_id`) VALUES
@@ -462,8 +485,8 @@ CREATE TABLE `result` (
   PRIMARY KEY (`id`),
   KEY `fk_Result_User1` (`User_id`),
   KEY `fk_Result_RealTask1` (`OfflineTask_id`),
-  CONSTRAINT `result_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `result_ibfk_1` FOREIGN KEY (`OfflineTask_id`) REFERENCES `offlinetask` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `result_ibfk_1` FOREIGN KEY (`OfflineTask_id`) REFERENCES `offlinetask` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `result_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 INSERT INTO `result` (`id`, `points`, `User_id`, `OfflineTask_id`) VALUES
@@ -545,8 +568,8 @@ CREATE TABLE `student` (
   PRIMARY KEY (`Course_id`,`User_id`),
   KEY `fk_Course_has_User_User1` (`User_id`),
   KEY `fk_Course_has_User_Course` (`Course_id`),
-  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `student` (`Course_id`, `User_id`) VALUES
@@ -565,8 +588,8 @@ CREATE TABLE `teacher` (
   PRIMARY KEY (`Course_id`,`User_id`),
   KEY `fk_Course_has_User_User2` (`User_id`),
   KEY `fk_Course_has_User_Course1` (`Course_id`),
-  CONSTRAINT `teacher_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `teacher_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `teacher` (`Course_id`, `User_id`) VALUES
@@ -588,8 +611,8 @@ CREATE TABLE `topic` (
   PRIMARY KEY (`id`),
   KEY `fk_Topic_Course1` (`Course_id`),
   KEY `fk_Topic_User1` (`User_id`),
-  CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 INSERT INTO `topic` (`id`, `label`, `content`, `created`, `Course_id`, `User_id`) VALUES
@@ -617,7 +640,7 @@ CREATE TABLE `user` (
   `phone` varchar(15) DEFAULT NULL,
   `web` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `created`, `seclink`, `checked`, `facebook`, `icq`, `phone`, `web`) VALUES
 (1,	'jakub@kinst.cz',	'c7290eb6d8dc2fc4edc97cc1808bbe02',	'Jakub',	'Kinst',	'2011-10-03 22:15:23',	'25f32c020a6efe345e1eac1436444faf23df3453',	1,	NULL,	NULL,	NULL,	'http://jakub.kinst.cz'),
@@ -633,4 +656,4 @@ INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `created
 (11,	'jerry90@gmail.com',	'cb7f9bc7ffeb30e49343592027655810',	'Jerry',	'Key',	'2011-11-01 22:14:39',	'39743a72fb31cbd96fe747e836d77bc632f03fcf',	1,	NULL,	NULL,	NULL,	''),
 (12,	'jirka@kropacek.cz',	'9a6f796e1c7de0282a61a460011fd8dc',	'Jiri',	'Kropacek',	'2011-12-06 11:35:39',	'f137a46cb68d4e79c90f5ffdf17fb6ddb1aeadd7',	0,	NULL,	NULL,	NULL,	'');
 
--- 2011-12-06 13:08:43
+-- 2012-01-25 17:29:45

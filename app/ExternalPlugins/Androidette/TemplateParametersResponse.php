@@ -3,10 +3,12 @@
 class TemplateParametersResponse extends Object implements IPresenterResponse {
 
     private $parameters = array();
+	private $presenter;
 
     public function __construct(PresenterComponent $component) {
         $this->addComponent($component);
         $this->parameters = $component->template->getParams();
+		$this->presenter = $component;
         foreach ($component->getComponents(TRUE, 'PresenterComponent') as $child) {
             $this->addComponent($child);
         }
@@ -35,7 +37,8 @@ class TemplateParametersResponse extends Object implements IPresenterResponse {
      */
     public function send(IHttpRequest $httpRequest, IHttpResponse $httpResponse) {
         $httpResponse->setHeader('Content-Type', 'application/json');
-        echo json_encode($this->parameters);
+		$finalVariables = $this->presenter->processAndroidVariables($this->parameters);
+        echo json_encode($finalVariables);
     }
 
 }

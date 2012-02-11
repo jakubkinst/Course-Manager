@@ -8,14 +8,7 @@
  * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
  * @package    Course-Manager/Presenters
  */
-abstract class BasePresenter extends Presenter {
-
-    /**
-     * @persistent
-     * True if accessing from Android App
-     * @var boolean
-     */
-    public $mobile;
+abstract class BasePresenter extends AndroidettePresenter {
 
     /** Teachered courses */
     public $tCourses;
@@ -69,8 +62,6 @@ abstract class BasePresenter extends Presenter {
      */
     protected function startup() {
         parent::startup();
-        if ($this->mobile == null)
-            $this->mobile = $this->getParam('mobile');
         $this->template->registerHelper('mydate', callback($this, 'dateHelper'));
         $this->template->registerHelper('mydatetime', callback($this, 'myDateTimeHelper'));
 
@@ -114,27 +105,6 @@ abstract class BasePresenter extends Presenter {
         // paging control - create Paginator instance
         $pages = new VisualPaginator($this, 'pages');
         $this->paginator = $pages->getPaginator();
-    }
-
-    /**
-     * For mobile
-     */
-    protected function afterRender() {
-        parent::afterRender();
-        if ($this->mobile) {
-            ob_start();
-            $files = $this->formatTemplateFiles($this->getName(), $this->view);
-            foreach ($files as $file) {
-                if (is_file($file)) {
-                    $this->template->setFile($file);
-                    break;
-                }
-            }
-            $this->template->render();
-            ob_end_clean();
-            $resp = new TemplateParametersResponse($this);
-            $this->sendResponse(new TemplateParametersResponse($this));
-        }
     }
 
     /**

@@ -39,37 +39,8 @@ Environment::setVariable('mailer', Environment::getConfig('mailer'));
 // Setup router
 $router = $application->getRouter();
 $router[] = new Route('index.php', 'Courselist:homepage', Route::ONE_WAY);
-
 $router[] = new Route('[<lang [a-z]{2}>]', 'Courselist:homepage');
-$router[] = new Route('<cid [0-9]+>', array(
-	    'presenter' => 'course',
-	    'action' => 'homepage',
-	    'cid' => array(
-		Route::VALUE => null,
-		Route::FILTER_IN => 'inFunction',
-		Route::FILTER_OUT => 'outFunction'
-	    )
-	));
-
-/**
- * Converts url string to id
- * @param string $name
- * @return int
- */
-function inFunction($name) {
-    return substr($name, 0, strpos($name, '-'));
-}
-
-/**
- * Converts id to string
- * @param int $id
- * @return string
- */
-function outFunction($id) {
-    $course = CourseModel::getCourse($id);
-    return $id . '-' . String::webalize($course['name']);
-}
-
+$router[] = new Route('<presenter>/<action>/?mobile=1', 'courselist:homepage',Route::ONE_WAY);
 $router[] = new Route('[<lang [a-z]{2}>/]<presenter>/<action>[/<cid [0-9]+>]', array(
 	    'action' => 'homepage'
 	));
