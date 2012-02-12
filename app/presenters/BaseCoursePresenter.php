@@ -47,6 +47,10 @@ abstract class BaseCoursePresenter extends BasePresenter {
 		if ($this->isTeacher || $this->isStudent) {
 			$this->template->activeCourse = CourseModel::getCourse($this->cid);
 			$this->template->lessons = CourseModel::getLessons($this->cid);
+			$texy = new Texy();
+			foreach ($this->template->lessons as $lesson){
+				$lesson['description_html'] = $texy->process($lesson['description']);
+			}
 			$this->template->lectors = CourseModel::getTeachers($this->cid);
 			$this->template->students = CourseModel::getStudents($this->cid);
 		}
