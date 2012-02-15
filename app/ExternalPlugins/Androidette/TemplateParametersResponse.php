@@ -8,6 +8,8 @@ class TemplateParametersResponse extends Object implements IPresenterResponse {
     public function __construct(PresenterComponent $component) {
         $this->addComponent($component);
         $this->parameters = $component->template->getParams();
+		unset($this->parameters['presenter']);
+		unset($this->parameters['control']);
 		$this->presenter = $component;
         foreach ($component->getComponents(TRUE, 'PresenterComponent') as $child) {
             $this->addComponent($child);
@@ -28,6 +30,7 @@ class TemplateParametersResponse extends Object implements IPresenterResponse {
         }
 
         $params = $template->getParams();
+		unset($params['presenter']);
         $this->parameters[$component->getUniqueId() ? : 'presenter'] = $params;
     }
 
