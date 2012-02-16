@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/connection" >
+        <Preference android:title="@string/login" android:key="login"/>
+        <EditTextPreference android:key="server" android:title="@string/server" android:summary="@string/server_summary"/>
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>
