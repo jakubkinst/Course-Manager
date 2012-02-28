@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.kinst.jakub.netteconnector;
 
 import java.io.Serializable;
@@ -16,9 +12,9 @@ import cz.kinst.jakub.coursemanager.CourseManagerConnector;
 
 /**
  * 
- * @author JerRy
+ * @author Jakub Kinst
  */
-public class NetteConnector  implements Serializable{
+public class NetteConnector implements Serializable {
 
 	/**
 	 * 
@@ -53,13 +49,21 @@ public class NetteConnector  implements Serializable{
 
 	public JSONObject sendForm(String presenter, String action,
 			String formName, ArrayList<NameValuePair> postArgs) {
-		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
-		args.add(new BasicNameValuePair("do", formName + "-submit"));
-		return getAction(presenter, action, args, postArgs);
+		return sendForm(presenter, action, formName, null, postArgs);
+	}
+
+	public JSONObject sendForm(String presenter, String action,
+			String formName, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs) {
+		if (getArgs == null)
+			getArgs = new ArrayList<NameValuePair>();
+		getArgs.add(new BasicNameValuePair("do", formName + "-submit"));
+		return getAction(presenter, action, getArgs, postArgs);
 	}
 
 	public JSONObject getAction(String presenter, String action,
 			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs) {
+		
 		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
 		}

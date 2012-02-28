@@ -1,6 +1,5 @@
 package cz.kinst.jakub.coursemanager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,39 +9,114 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.text.Editable;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 
 public class Lesson extends CMActivity {
 
+	private static final int DIALOG_NEW_COMMENT = 0;
 	private int lid;
 	public ArrayList<Integer> pages;
 	public int page = 1;
+	public int MENU_NEW_COMMENT;
+	public static final String TAB_COMMENTS = "comments";
+	public static final String TAB_RESOURCES = "resources";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lesson);
+
+		setHeader(R.layout.lesson_header);
+		addTab(TAB_COMMENTS, R.layout.lesson_comments,
+				getText(R.string.comments));
+		addTab(TAB_RESOURCES, R.layout.lesson_resources,
+				getText(R.string.resources));
+		switchTab("comments");
+
 		this.lid = getIntent().getExtras().getInt("lid");
-		((TextView) (findViewById(R.id.category1).findViewById(R.id.name)))
-				.setText(R.string.resources);
-		((TextView) (findViewById(R.id.category2).findViewById(R.id.name)))
-				.setText(R.string.comments);
+		((TextView) (getTab(TAB_COMMENTS).findViewById(R.id.category)
+				.findViewById(R.id.name))).setText(R.string.comments);
+		((TextView) (getTab(TAB_RESOURCES).findViewById(R.id.category)
+				.findViewById(R.id.name))).setText(R.string.resources);
 		reload();
+	}
+
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		switch (id) {
+		case DIALOG_NEW_COMMENT:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			final EditText input = new EditText(this);
+			input.setInputType(InputType.TYPE_CLASS_TEXT);
+			builder.setMessage(R.string.new_comment)
+					.setView(input)
+					.setCancelable(false)
+					.setPositiveButton(R.string.post,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									addComment(input.getText());
+									input.setText("");
+								}
+							})
+					.setNegativeButton(R.string.cancel,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
+			dialog = builder.create();
+			break;
+		default:
+			dialog = null;
+		}
+		return dialog;
+	}
+
+	protected void addComment(Editable text) {
+		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
+		postArgs.add(new BasicNameValuePair("content", text.toString()));
+
+		final ArrayList<NameValuePair> getArgs = new ArrayList<NameValuePair>();
+		getArgs.add(new BasicNameValuePair("lid", String.valueOf(lid)));
+
+		// post comment in safe thread
+		new AsyncTask<Void, Void, Void>() {
+			protected void onPreExecute() {
+				setProgressBarIndeterminateVisibility(true);
+			};
+
+			protected Void doInBackground(Void... params) {
+				cm.sendForm("lesson", "homepage", "commentForm", getArgs,
+						postArgs);
+				return null;
+			}
+
+			protected void onPostExecute(Void result) {
+				setProgressBarIndeterminateVisibility(false);
+				cm.toastFlashes();
+				reload();
+			};
+		}.execute();
 	}
 
 	@Override
@@ -57,11 +131,36 @@ public class Lesson extends CMActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+		MenuItem newComment = menu.add(R.string.new_comment);
+		this.MENU_NEW_COMMENT = newComment.getItemId();
+		newComment.setIcon(android.R.drawable.ic_menu_edit);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return result;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == MENU_NEW_COMMENT) {
+			showDialog(DIALOG_NEW_COMMENT);
+			return true;
+		} else {
+			return super.onMenuItemSelected(featureId, item);
+		}
+
+	}
+
+	@Override
 	public void gotData(JSONObject data) throws JSONException {
 
-		Button prev = (Button) findViewById(R.id.previous_page);
-		Button next = (Button) findViewById(R.id.nextt_page);
-		TextView pageLabel = (TextView) findViewById(R.id.page);
+		Button prev = (Button) getTab(TAB_COMMENTS).findViewById(
+				R.id.previous_page);
+		Button next = (Button) getTab(TAB_COMMENTS).findViewById(
+				R.id.nextt_page);
+		TextView pageLabel = (TextView) getTab(TAB_COMMENTS).findViewById(
+				R.id.page);
 		if (data.getJSONObject("pages").has("steps")) {
 			JSONArray steps = data.getJSONObject("pages").getJSONArray("steps");
 			pages = new ArrayList<Integer>();
@@ -69,7 +168,9 @@ public class Lesson extends CMActivity {
 				pages.add(new Integer(steps.getInt(i)));
 			}
 
-			pageLabel.setText(String.valueOf(page));
+			pageLabel.setText(getText(R.string.page) + " "
+					+ String.valueOf(page) + " " + getText(R.string.of) + " "
+					+ pages.size());
 			if (page < 2)
 				prev.setVisibility(View.INVISIBLE);
 			else
@@ -102,10 +203,11 @@ public class Lesson extends CMActivity {
 		}
 
 		JSONObject lesson = data.getJSONObject("lesson");
-		((TextView) (findViewById(R.id.topic))).setText(lesson
+		((TextView) (getHeader().findViewById(R.id.topic))).setText(lesson
 				.getString("topic"));
-		((TextView) (findViewById(R.id.date)))
-				.setText(lesson.getString("date"));
+		((TextView) (getHeader().findViewById(R.id.date))).setText(lesson
+				.getString("date"));
+
 		ArrayList<JSONObject> resources = new ArrayList<JSONObject>();
 		JSONArray resourcesJSON = data.getJSONArray("resources");
 		for (int i = 0; i < resourcesJSON.length(); i++) {
@@ -117,10 +219,10 @@ public class Lesson extends CMActivity {
 			comments.add(commentsJSON.getJSONObject(i));
 		}
 		// ListView list = new ListView(this);
-		((ListView) (findViewById(R.id.resources)))
+		((ListView) (getTab(TAB_RESOURCES).findViewById(R.id.resources)))
 				.setAdapter(new ResourceAdapter(this,
 						android.R.layout.simple_list_item_1, resources));
-		((ListView) (findViewById(R.id.comments)))
+		((ListView) (getTab(TAB_COMMENTS).findViewById(R.id.comments)))
 				.setAdapter(new CommentsAdapter(this,
 						android.R.layout.simple_list_item_1, comments));
 	}
@@ -155,89 +257,12 @@ public class Lesson extends CMActivity {
 			v.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					new DownloadTask().execute(resource);
+					new DownloadTask(Lesson.this, cm).execute(resource);
 				}
 			});
 
 			return v;
 		}
-	}
-	
-	
-	
-	class DownloadTask extends AsyncTask<JSONObject,Void, File> {
-
-		protected void onPreExecute() {
-			setProgressBarIndeterminateVisibility(true);
-			Toast.makeText(Lesson.this,
-					"Download started", 2000)
-					.show();
-		}
-
-		protected File doInBackground(JSONObject... resource) {
-			File myFolder = new File(Environment
-					.getExternalStorageDirectory()
-					+ "/CourseManager_downloads");
-			myFolder.mkdirs();
-			File file = new File("");
-			try {
-				file = cm.getResource(resource[0].getInt("id"),
-						myFolder + "/" + resource[0].getString("name"));
-			} catch (JSONException e) {
-			}			
-			return file;
-		}
-
-		protected void onPostExecute(File file) {
-			Toast.makeText(Lesson.this,
-					"File saved to " + file.getAbsolutePath(), 2000)
-					.show();
-			try {
-				Intent intent = new Intent();
-				intent.setAction(android.content.Intent.ACTION_VIEW);
-				intent.setDataAndType(Uri.fromFile(file),
-						getMIMEType(file));
-				startActivity(intent);
-			} catch (Exception e) {
-				Toast.makeText(Lesson.this,
-						"No application found to open this file. File was just saved.", 2000)
-						.show();
-			}
-			setProgressBarIndeterminateVisibility(false);
-
-		}
-
-
-	}
-
-	public String getMIMEType(File f) {
-		String filenameArray[] = f.getName().split("\\.");
-		String e = filenameArray[filenameArray.length - 1];
-		String mime = "";
-		e = e.toLowerCase();
-
-		if (e.equals("jpg"))
-			mime = "image/jpg";
-		if (e.equals("jpeg"))
-			mime = "image/jpeg";
-		if (e.equals("png"))
-			mime = "image/png";
-		if (e.equals("gif"))
-			mime = "image/gif";
-		if (e.equals("mp3"))
-			mime = "audio/mp3";
-		if (e.equals("html"))
-			mime = "text/html";
-		if (e.equals("pdf"))
-			mime = "application/pdf";
-		if (e.equals("doc"))
-			mime = "application/doc";
-		if (e.equals("apk"))
-			mime = "application/vnd.android.package-archive";
-		if (e.equals("txt"))
-			mime = "text/plain";
-
-		return mime;
 	}
 
 	public class CommentsAdapter extends ArrayAdapter<JSONObject> {
@@ -269,7 +294,6 @@ public class Lesson extends CMActivity {
 						+ " "
 						+ comment.getJSONObject("user").getString("lastname"));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return v;

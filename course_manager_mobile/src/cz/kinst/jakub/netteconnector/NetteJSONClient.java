@@ -6,7 +6,6 @@ package cz.kinst.jakub.netteconnector;
 
 import android.net.ParseException;
 import android.util.Log;
-import android.widget.Toast;
 import cz.kinst.jakub.netteconnector.FlashMessage;
 
 import java.io.Serializable;
@@ -42,6 +41,7 @@ public class NetteJSONClient implements Serializable {
 			if (json_data.has("__error")) {
 				Log.e("coursemanager", "JSON ERROR: " + json_data.getString("__error"));
 			}
+			flashmessages.clear();
 			if (json_data.has("flashes")) {
 				JSONArray flashes = json_data.getJSONArray("flashes");
 				for (int i = 0; i < flashes.length(); i++) {

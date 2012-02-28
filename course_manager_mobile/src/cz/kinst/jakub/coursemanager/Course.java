@@ -24,11 +24,14 @@ import android.widget.TextView;
 
 public class Course extends CMActivity implements Serializable{
 
+	private static final String TAB_LESSONS = "lessons";
 	private int cid;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//addTab(TAB_LESSONS,R.layout.course,getText(R.string.lesson));
+		//switchTab(TAB_LESSONS);
 		setContentView(R.layout.course);
 		this.cid = getIntent().getExtras().getInt("cid");
 		reload();

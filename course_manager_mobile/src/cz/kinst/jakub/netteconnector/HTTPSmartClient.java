@@ -15,18 +15,21 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.ByteArrayBuffer;
 
 import android.util.Log;
@@ -37,12 +40,9 @@ public class HTTPSmartClient implements Serializable {
 	/**
 	 * 
 	 */
+	private static final String TAG = "HTTPSmartClient";
 	private static final long serialVersionUID = -1500477031448176559L;
-	HashMap<String, String> cookies = new HashMap<String, String>();
-
-	public HashMap<String, String> getCookies() {
-		return cookies;
-	}
+	private List<SerializableCookie> cookies = new ArrayList<SerializableCookie>();
 
 	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
 			ArrayList<NameValuePair> postArgs) {
@@ -63,7 +63,6 @@ public class HTTPSmartClient implements Serializable {
 			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs)
 			throws IllegalStateException, IOException {
 
-		String result;
 		InputStream is;
 
 		if (getArgs == null) {
@@ -73,30 +72,33 @@ public class HTTPSmartClient implements Serializable {
 			postArgs = new ArrayList<NameValuePair>();
 		}
 
+		// Creating a local HTTP context
+		HttpContext localContext = new BasicHttpContext();
+
+		BasicCookieStore cookieStore = new BasicCookieStore();
+		for (Cookie cookie : cookies) {
+			cookieStore.addCookie(cookie);
+		}
+		// Bind custom cookie store to the local context
+		localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
 		HttpClient httpclient = new DefaultHttpClient();
 		url = packGetParams(url, getArgs);
-		Log.d("coursemanager", "Request: " + url);
+		Log.d(TAG, "Request: " + url);
 		HttpPost httppost = new HttpPost(url);
-		if (cookies != null && !cookies.isEmpty()) {
-			String cks = "";
-			for (HashMap.Entry<String, String> entry : cookies.entrySet()) {
-				String name = entry.getKey();
-				String value = entry.getValue();
-				cks = cks + ";" + name + "=" + value;
-				Log.d(CourseManagerConnector.LOGTAG, "Loading cookie " + name
-						+ ":" + value);
-			}
-			cks = cks.substring(1);
-			httppost.setHeader("cookie", cks);
-		}
+
 		httppost.setEntity(new UrlEncodedFormEntity(postArgs));
-		HttpResponse response = httpclient.execute(httppost);
+		HttpResponse response = httpclient.execute(httppost, localContext);
 
-		saveCookies(response.getHeaders("Set-Cookie"));
-
+		for (Cookie cookie : cookieStore.getCookies()) {
+			this.cookies.add(new SerializableCookie(cookie));
+		}
 		HttpEntity entity = response.getEntity();
-		is = entity.getContent();
-		return is;
+		if (entity != null) {
+			is = entity.getContent();
+			return is;
+		} else
+			return null;
 	}
 
 	public File downloadFile(String url, ArrayList<NameValuePair> getArgs,
@@ -122,21 +124,6 @@ public class HTTPSmartClient implements Serializable {
 		} catch (IOException e) {
 		}
 		return f;
-	}
-
-	private void saveCookies(Header[] headers) {
-		for (Header h : headers) {
-			String header = URLDecoder.decode(h.getValue());
-			String[] cks = header.split(";");
-			String c = cks[0];
-			for (String subC : c.split(",")) {
-				String name = subC.split("=")[0].trim();
-				String value = subC.split("=")[1].trim();
-				cookies.put(name, value);
-				Log.d(CourseManagerConnector.LOGTAG, "Saving cookie " + name
-						+ ":" + value);
-			}
-		}
 	}
 
 	private String packGetParams(String url, ArrayList<NameValuePair> getArgs) {

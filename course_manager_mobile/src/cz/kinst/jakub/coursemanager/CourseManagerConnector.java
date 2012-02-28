@@ -58,8 +58,6 @@ public class CourseManagerConnector extends NetteConnector implements
 	}
 
 	public boolean login() {
-		this.parser.getCookies().clear();
-		this.getFlashMessages().clear();
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		String email = prefs.getString("email", "");

@@ -111,6 +111,7 @@ class LessonPresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		if (CourseModel::addComment($values, $this->lid)) {
 			$this->flashMessage('Comment added.', $type = 'success');
+			Environment::getSession()->close();
 			$this->redirect('lesson:homepage', $this->lid);
 		}
 		else

@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -22,19 +24,17 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 
-public class CMActivity extends Activity {
+public class CMActivity extends TabbedActivity {
 
 	CourseManagerConnector cm;
 	boolean isLoading = false;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		
-		super.onCreate(savedInstanceState);
-		
+	public void onCreate(Bundle savedInstanceState) {		
 		
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        
+
+		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		if (!prefs.contains("server"))
@@ -91,6 +91,7 @@ public class CMActivity extends Activity {
 
 		protected void onPreExecute() {
 			setProgressBarIndeterminateVisibility(true);
+			cm.getFlashMessages().clear();
 		}
 
 		protected JSONObject doInBackground(Void... unused) {
@@ -103,10 +104,9 @@ public class CMActivity extends Activity {
 
 		protected void onPostExecute(JSONObject list) {
 			try {
-				gotData(list);
 				cm.toastFlashes();
+				gotData(list);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setProgressBarIndeterminateVisibility(false);

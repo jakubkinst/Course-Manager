@@ -33,4 +33,8 @@
     <string name="next_page">&gt;</string>
     <string name="prev_page">&lt;</string>
     <string name="page">Page</string>
+    <string name="new_comment">Comment</string>
+    <string name="post">Post</string>
+    <string name="cancel">Cancel</string>
+    <string name="of">of</string>
 </resources>

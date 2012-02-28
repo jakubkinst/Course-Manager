@@ -33,9 +33,9 @@ public class CourseList extends CMActivity implements Serializable {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.courselist);
+		addTab("list",R.layout.courselist,"");
+		switchTab("list");
 		reload();
 	}
 
