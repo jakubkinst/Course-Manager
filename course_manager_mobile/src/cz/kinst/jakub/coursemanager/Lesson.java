@@ -65,7 +65,8 @@ public class Lesson extends CMActivity {
 		case DIALOG_NEW_COMMENT:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			final EditText input = new EditText(this);
-			input.setInputType(InputType.TYPE_CLASS_TEXT);
+			input.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+			input.setSingleLine(false);
 			builder.setMessage(R.string.new_comment)
 					.setView(input)
 					.setCancelable(false)

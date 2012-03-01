@@ -62,7 +62,7 @@ public class Course extends CMActivity implements Serializable{
 		}
 		ExpandableListView lessonView = (ExpandableListView) findViewById(R.id.lessons);
 		lessonView.setAdapter(new LessonListAdapter(list));
-
+		lessonView.expandGroup(0);
 	}
 
 	public class LessonListAdapter extends BaseExpandableListAdapter {
