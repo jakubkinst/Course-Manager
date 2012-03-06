@@ -43,7 +43,8 @@ class ForumPresenter extends BaseCoursePresenter {
 	public function renderHomepage($cid) {
 		$this->paginator->itemsPerPage = 20;
 		$this->paginator->itemCount = ForumModel::countTopics($cid);
-		$this->template->topics = ForumModel::getTopics($cid, $this->paginator->offset, $this->paginator->itemsPerPage);
+		$topics = ForumModel::getTopics($cid, $this->paginator->offset, $this->paginator->itemsPerPage);
+		$this->template->topics = $topics;
 	}
 
 	/**

@@ -221,6 +221,7 @@ abstract class BasePresenter extends AndroidettePresenter {
 	public function processAndroidVariables($variables) {
 		$variables = parent::processAndroidVariables($variables);
 		$this->unsetPropertiesRecursively($variables,'password');
+
 		$this->unsetPropertiesRecursively($variables,'seclink');
 		return $variables;
 	}
