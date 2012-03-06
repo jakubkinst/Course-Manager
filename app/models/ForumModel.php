@@ -44,7 +44,7 @@ class ForumModel extends Object {
 	 * @return array
 	 */
 	public static function getTopics($cid, $offset, $limit) {
-		$topics = dibi::fetchAll('SELECT * FROM topic WHERE Course_id=%i LIMIT %i OFFSET %i', $cid, $limit, $offset);
+		$topics = dibi::fetchAll('SELECT * FROM topic WHERE Course_id=%i', $cid);
 		foreach ($topics as $topic) {
 			$topic['author'] = UserModel::getUser($topic['User_id']);
 			$topic['replies'] = ForumModel::countReplies($topic['id']);
@@ -63,7 +63,7 @@ class ForumModel extends Object {
 
 		usort($topics, "cmp");
 
-		return $topics;
+		return array_slice($topics,$offset,$limit);
 	}
 
 	/**
