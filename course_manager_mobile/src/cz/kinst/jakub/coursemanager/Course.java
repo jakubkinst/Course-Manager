@@ -25,15 +25,17 @@ import android.widget.TextView;
 public class Course extends CMActivity implements Serializable{
 
 	private static final String TAB_LESSONS = "lessons";
+	private static final String TAB_FORUM = "forum";
 	private int cid;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//addTab(TAB_LESSONS,R.layout.course,getText(R.string.lesson));
-		//switchTab(TAB_LESSONS);
-		setContentView(R.layout.course);
 		this.cid = getIntent().getExtras().getInt("cid");
+		addTab(TAB_LESSONS,R.layout.course,getText(R.string.lesson));
+		addRedirectTab(TAB_FORUM,getText(R.string.forum),new Intent(
+				this,Forum.class).putExtra("cm", cm).putExtra("cid", cid));
+		switchTab(TAB_LESSONS);
 		reload();
 	}
 

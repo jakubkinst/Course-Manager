@@ -37,4 +37,9 @@
     <string name="post">Post</string>
     <string name="cancel">Cancel</string>
     <string name="of">of</string>
+    <string name="forum">Forum</string>
+    <string name="new_topic">Add Topic</string>
+    <string name="content">Content</string>
+    <string name="topic">Topic</string>
+    <string name="reply">Reply</string>
 </resources>

@@ -34,8 +34,6 @@ public class Lesson extends CMActivity {
 
 	private static final int DIALOG_NEW_COMMENT = 0;
 	private int lid;
-	public ArrayList<Integer> pages;
-	public int page = 1;
 	public int MENU_NEW_COMMENT;
 	public static final String TAB_COMMENTS = "comments";
 	public static final String TAB_RESOURCES = "resources";
@@ -156,52 +154,7 @@ public class Lesson extends CMActivity {
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
 
-		Button prev = (Button) getTab(TAB_COMMENTS).findViewById(
-				R.id.previous_page);
-		Button next = (Button) getTab(TAB_COMMENTS).findViewById(
-				R.id.nextt_page);
-		TextView pageLabel = (TextView) getTab(TAB_COMMENTS).findViewById(
-				R.id.page);
-		if (data.getJSONObject("pages").has("steps")) {
-			JSONArray steps = data.getJSONObject("pages").getJSONArray("steps");
-			pages = new ArrayList<Integer>();
-			for (int i = 0; i < steps.length(); i++) {
-				pages.add(new Integer(steps.getInt(i)));
-			}
-
-			pageLabel.setText(getText(R.string.page) + " "
-					+ String.valueOf(page) + " " + getText(R.string.of) + " "
-					+ pages.size());
-			if (page < 2)
-				prev.setVisibility(View.INVISIBLE);
-			else
-				prev.setVisibility(View.VISIBLE);
-			if (page >= pages.size())
-				next.setVisibility(View.INVISIBLE);
-			else
-				next.setVisibility(View.VISIBLE);
-
-			pageLabel.setVisibility(View.VISIBLE);
-
-			prev.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					page = page - 1;
-					reload();
-				}
-			});
-			next.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					page = page + 1;
-					reload();
-				}
-			});
-		} else {
-			prev.setVisibility(View.GONE);
-			next.setVisibility(View.GONE);
-			pageLabel.setVisibility(View.GONE);
-		}
+		setPaginator(data, getTab(TAB_COMMENTS));
 
 		JSONObject lesson = data.getJSONObject("lesson");
 		((TextView) (getHeader().findViewById(R.id.topic))).setText(lesson

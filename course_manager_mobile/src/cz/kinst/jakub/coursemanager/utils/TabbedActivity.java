@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import cz.kinst.jakub.coursemanager.R;
@@ -44,6 +46,17 @@ public class TabbedActivity extends Activity {
 		else
 			tabsPanel.setVisibility(View.VISIBLE);
 	}
+	
+	public void addRedirectTab(final String name, CharSequence title,Intent intent) {
+		Tab t = new Tab(name, title,intent);
+		tabs.add(t);
+
+		tabsPanel.addView(t.getButton());
+		if (tabs.size() <= 1)
+			tabsPanel.setVisibility(View.GONE);
+		else
+			tabsPanel.setVisibility(View.VISIBLE);
+	}
 
 	public void addTab(String name, int resourceId, CharSequence title) {
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,7 +74,7 @@ public class TabbedActivity extends Activity {
 		t.getButton().setBackgroundColor(COLOR_ACTIVE);
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		tabContent.removeAllViews();
-		tabContent.addView(getTab(name));
+		tabContent.addView(getTab(name),new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
 
 	private void leaveTab(String name) {
@@ -111,6 +124,21 @@ public class TabbedActivity extends Activity {
 				}
 			});
 		}
+		
+		public Tab(final String name, CharSequence title, final Intent intent) {
+			this.name = name;
+			this.title = title;
+			this.button = new Button(TabbedActivity.this);
+			this.button.setText(title);
+			this.button.setBackgroundColor(COLOR_NORMAL);
+			this.button.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					startActivity(intent);
+				}
+			});
+		}
+
 
 		public String getName() {
 			return name;

@@ -29,6 +29,14 @@
             android:label="@string/lesson" >
         </activity>
         <activity
+            android:name=".Forum"
+            android:label="@string/forum" >
+        </activity>
+         <activity
+            android:name=".ForumReplies"
+            android:label="@string/forum" >
+        </activity>
+        <activity
             android:name=".Course"
             android:label="@string/course" >
         </activity>

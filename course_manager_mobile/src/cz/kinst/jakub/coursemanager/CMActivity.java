@@ -1,17 +1,12 @@
 package cz.kinst.jakub.coursemanager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
-
-import android.app.Activity;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,18 +16,26 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
 
-public class CMActivity extends TabbedActivity {
+public class CMActivity extends TabbedActivity implements Serializable{
 
+	
+	private static final long serialVersionUID = 1494642907274259339L;
 	CourseManagerConnector cm;
 	boolean isLoading = false;
+	public int pages;
+	public int page = 1;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {		
-		
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+	public void onCreate(Bundle savedInstanceState) {
+
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager
@@ -45,7 +48,7 @@ public class CMActivity extends TabbedActivity {
 			cm.setContext(this);
 		} else
 			cm = new CourseManagerConnector(prefs.getString("server", ""), this);
-		
+
 	}
 
 	public void reload() {
@@ -58,7 +61,7 @@ public class CMActivity extends TabbedActivity {
 	 * 
 	 * @return
 	 */
-	protected JSONObject reloadWork() throws JSONException{
+	protected JSONObject reloadWork() throws JSONException {
 		return new JSONObject();
 	}
 
@@ -84,7 +87,6 @@ public class CMActivity extends TabbedActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
 
 	class ReloadTask extends AsyncTask<Void, Void, JSONObject> {
 		ProgressDialog dialog;
@@ -120,6 +122,59 @@ public class CMActivity extends TabbedActivity {
 	 * @param data
 	 */
 	public void gotData(JSONObject data) throws JSONException {
+
+	}
+
+	protected void setPaginator(JSONObject data) throws JSONException {
+		setPaginator(data, null);
+	}
+
+	protected void setPaginator(JSONObject data, View view)
+			throws JSONException {
+		boolean act = view == null;
+		Button prev = act ? (Button) this.findViewById(R.id.previous_page)
+				: (Button) view.findViewById(R.id.previous_page);
+		Button next = act ? (Button) this.findViewById(R.id.nextt_page)
+				: (Button) view.findViewById(R.id.nextt_page);
+		TextView pageLabel = act ? (TextView) this.findViewById(R.id.page)
+				: (TextView) view.findViewById(R.id.page);
+		if (data.getJSONObject("pages").has("steps")) {
+			JSONArray steps = data.getJSONObject("pages").getJSONArray("steps");
+			pages = steps.length();
+
+			pageLabel.setText(getText(R.string.page) + " "
+					+ String.valueOf(page) + " " + getText(R.string.of) + " "
+					+ pages);
+			if (page < 2)
+				prev.setVisibility(View.INVISIBLE);
+			else
+				prev.setVisibility(View.VISIBLE);
+			if (page >= pages)
+				next.setVisibility(View.INVISIBLE);
+			else
+				next.setVisibility(View.VISIBLE);
+
+			pageLabel.setVisibility(View.VISIBLE);
+
+			prev.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					page = page - 1;
+					reload();
+				}
+			});
+			next.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					page = page + 1;
+					reload();
+				}
+			});
+		} else {
+			prev.setVisibility(View.GONE);
+			next.setVisibility(View.GONE);
+			pageLabel.setVisibility(View.GONE);
+		}
 
 	}
 

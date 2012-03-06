@@ -32,7 +32,7 @@ public class Settings extends PreferenceActivity {
 
 	private void showLoginDialog() {
 		LayoutInflater factory = LayoutInflater.from(this);
-		final View textEntryView = factory.inflate(R.layout.login_dialog, null);
+		final View textEntryView = factory.inflate(R.layout.dialog_login, null);
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(Settings.this);
 		((EditText) textEntryView.findViewById(R.id.login_email)).setText(prefs
