@@ -49,13 +49,12 @@ class ForumModel extends Object {
 			$topic['author'] = UserModel::getUser($topic['User_id']);
 			$topic['replies'] = ForumModel::countReplies($topic['id']);
 			$topic['lastreply'] = ForumModel::getLastReply($topic['id']);
-
 		}
 
 		// sort topics by last reply or created date
 		function cmp($a, $b) {
-			$aC = $a->lastreply!=null ? $a->lastreply->created:$a->created;
-			$bC = $b->lastreply!=null ? $b->lastreply->created:$a->created;
+			$aC = $a->lastreply != null ? $a->lastreply->created : $a->created;
+			$bC = $b->lastreply != null ? $b->lastreply->created : $b->created;
 			if ($aC == $bC) {
 				return 0;
 			}
