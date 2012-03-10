@@ -42,4 +42,6 @@
     <string name="content">Content</string>
     <string name="topic">Topic</string>
     <string name="reply">Reply</string>
+    <string name="events">Events</string>
+    <string name="add_to_calendar">Add to device calendar</string>
 </resources>

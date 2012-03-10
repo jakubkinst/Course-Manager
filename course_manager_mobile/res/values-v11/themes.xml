@@ -12,5 +12,6 @@
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
+    
 
 </resources>

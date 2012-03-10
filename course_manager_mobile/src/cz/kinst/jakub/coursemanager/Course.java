@@ -26,6 +26,7 @@ public class Course extends CMActivity implements Serializable{
 
 	private static final String TAB_LESSONS = "lessons";
 	private static final String TAB_FORUM = "forum";
+	private static final String TAB_EVENTS = "events";
 	private int cid;
 
 	@Override
@@ -35,6 +36,8 @@ public class Course extends CMActivity implements Serializable{
 		addTab(TAB_LESSONS,R.layout.course,getText(R.string.lesson));
 		addRedirectTab(TAB_FORUM,getText(R.string.forum),new Intent(
 				this,Forum.class).putExtra("cm", cm).putExtra("cid", cid));
+		addRedirectTab(TAB_EVENTS,getText(R.string.events),new Intent(
+				this,Events.class).putExtra("cm", cm).putExtra("cid", cid));
 		switchTab(TAB_LESSONS);
 		reload();
 	}

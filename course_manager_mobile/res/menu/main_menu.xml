@@ -3,16 +3,16 @@
     <item android:id="@+id/menu_reload"
           android:title="@string/menu_reload" 
           android:icon="@android:drawable/ic_menu_rotate"
-          android:showAsAction="always">
+          android:showAsAction="ifRoom">
     </item>
     <item android:id="@+id/menu_settings"
           android:title="@string/menu_settings" 
           android:icon="@android:drawable/ic_menu_preferences"
-          android:showAsAction="collapseActionView">
+          android:showAsAction="ifRoom">
     </item>
     <item android:id="@+id/menu_help"
           android:title="@string/menu_help" 
           android:icon="@android:drawable/ic_menu_help"
-          android:showAsAction="collapseActionView">
-    </item>
+          android:showAsAction="ifRoom">
+    </item> 
 </menu>
