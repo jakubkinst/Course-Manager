@@ -5,10 +5,6 @@ SET foreign_key_checks = 0;
 SET time_zone = 'SYSTEM';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP DATABASE IF EXISTS `course-manager`;
-CREATE DATABASE `course-manager` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `course-manager`;
-
 DROP TABLE IF EXISTS `anwser`;
 CREATE TABLE `anwser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -101,7 +97,7 @@ CREATE TABLE `comment` (
   KEY `fk_Comment_Lesson1` (`Lesson_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`Lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_Comment_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 INSERT INTO `comment` (`id`, `content`, `added`, `User_id`, `Lesson_id`) VALUES
 (1,	'ahooj',	'2011-06-14 20:37:28',	2,	1),
@@ -127,7 +123,27 @@ INSERT INTO `comment` (`id`, `content`, `added`, `User_id`, `Lesson_id`) VALUES
 (28,	'saf',	'2011-12-02 12:12:30',	1,	15),
 (29,	'asdf',	'2011-12-02 12:13:49',	1,	15),
 (30,	'asd',	'2011-12-02 12:14:12',	1,	15),
-(31,	'adsf',	'2011-12-02 12:14:49',	1,	15);
+(31,	'adsf',	'2011-12-02 12:14:49',	1,	15),
+(32,	'asdaskljad\r\n',	'2012-02-15 18:35:34',	1,	15),
+(33,	'asdkasjdlkjadl',	'2012-02-15 18:35:45',	1,	15),
+(34,	'slkadjaskdjlaskdjlhskaj',	'2012-02-15 18:35:57',	1,	15),
+(35,	'sakldjlaskdjasld\r\n',	'2012-02-15 18:36:09',	1,	15),
+(36,	'asdasd',	'2012-02-28 14:10:15',	1,	15),
+(37,	'hkjhk',	'2012-02-28 14:14:41',	1,	15),
+(38,	'jhkjh\r\n',	'2012-02-28 14:31:35',	1,	15),
+(39,	'kljlkj\r\n',	'2012-02-28 14:59:48',	1,	15),
+(40,	'kikj',	'2012-02-28 16:15:34',	1,	15),
+(41,	'comment',	'2012-02-28 16:25:47',	1,	15),
+(42,	'com',	'2012-02-28 16:26:27',	1,	15),
+(43,	'hhfg',	'2012-02-28 16:28:03',	1,	15),
+(44,	'pak',	'2012-02-28 16:31:26',	1,	15),
+(45,	'test',	'2012-02-28 16:32:18',	1,	15),
+(46,	'com',	'2012-02-28 16:33:31',	1,	15),
+(47,	'k',	'2012-02-28 16:34:52',	1,	15),
+(48,	'bu',	'2012-02-28 16:37:20',	1,	15),
+(49,	'buuuu',	'2012-02-28 16:37:52',	1,	15),
+(50,	'kuku',	'2012-02-28 17:22:12',	1,	15),
+(51,	'zzh',	'2012-02-28 17:23:47',	1,	15);
 
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
@@ -158,7 +174,7 @@ CREATE TABLE `event` (
   PRIMARY KEY (`id`),
   KEY `fk_Event_Course1` (`Course_id`),
   CONSTRAINT `event_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 INSERT INTO `event` (`id`, `name`, `date`, `time`, `description`, `added`, `Course_id`) VALUES
 (3,	'asdasd',	'2011-10-18 00:00:00',	NULL,	'asd',	'2011-10-28 12:26:54',	1),
@@ -167,7 +183,10 @@ INSERT INTO `event` (`id`, `name`, `date`, `time`, `description`, `added`, `Cour
 (6,	'asdasd',	'2011-10-25 00:00:00',	NULL,	'asd',	'2011-10-28 12:27:56',	1),
 (7,	'asdasd',	'2011-10-05 00:00:00',	NULL,	'asd',	'2011-10-28 12:28:05',	1),
 (8,	'Test z ekonomie',	'2011-11-22 00:00:00',	NULL,	'Testik',	'2011-11-21 10:55:08',	1),
-(9,	'Logika',	'2011-11-23 11:33:00',	NULL,	'adasd',	'2011-11-21 11:01:02',	1);
+(9,	'Logika',	'2011-11-23 11:33:00',	NULL,	'adasd',	'2011-11-21 11:01:02',	1),
+(10,	'Narozeniny',	'2012-03-20 00:00:00',	NULL,	'Moje narozky',	'2012-03-10 12:05:57',	1),
+(11,	'Narozeniny2',	'2012-03-21 00:00:00',	NULL,	'Pavel narozeniny',	'2012-03-10 12:06:23',	1),
+(12,	'Narozeniny',	'2012-03-20 00:00:00',	NULL,	'Moje narozky',	'2012-03-10 12:06:37',	1);
 
 DROP TABLE IF EXISTS `invite`;
 CREATE TABLE `invite` (
@@ -279,7 +298,7 @@ CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject` varchar(45) DEFAULT NULL,
   `content` text,
-  `read` bit(1) DEFAULT b'0',
+  `read` tinyint(1) DEFAULT '0',
   `sent` datetime DEFAULT NULL,
   `from` int(11) NOT NULL,
   `to` int(11) NOT NULL,
@@ -291,16 +310,17 @@ CREATE TABLE `message` (
   CONSTRAINT `fk_Message_Message1` FOREIGN KEY (`reply_to_id`) REFERENCES `message` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Message_User1` FOREIGN KEY (`from`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Message_User2` FOREIGN KEY (`to`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 INSERT INTO `message` (`id`, `subject`, `content`, `read`, `sent`, `from`, `to`, `reply_to_id`) VALUES
-(3,	'Ahoj',	'Zkouska zpravy',	'1',	'2011-11-02 18:04:32',	1,	2,	NULL),
-(4,	'Cus',	'askjdhflasjfalkfhlkjfhlksdjfhkladshflkadsjhfkladsjhflkajdshflkajdshfkladshlfkjsaf\r\nasdf\r\nasdf\r\nasdf\r\nasdfsdfasdfasdkjfgakdsfygkdsufy',	'1',	'2011-11-02 18:12:20',	2,	1,	NULL),
-(5,	'Cus 2',	'Blablabla',	'1',	'2011-11-02 18:13:06',	2,	1,	NULL),
-(6,	'Test',	'ahoj jak se mas ?',	'1',	'2011-11-03 08:32:15',	1,	1,	NULL),
-(7,	'Ahoj',	'sdffsd',	'1',	'2011-11-03 09:34:51',	1,	2,	NULL),
-(8,	'Ahoj',	'asdasdasd',	'1',	'2011-11-07 13:44:02',	1,	2,	NULL),
-(9,	'Ahoj',	'askjhdkasjdhkadshkshdfadsf',	'1',	'2011-11-13 10:57:25',	1,	1,	NULL);
+(3,	'Ahoj',	'Zkouska zpravy',	1,	'2011-11-02 18:04:32',	1,	2,	NULL),
+(4,	'Cus',	'askjdhflasjfalkfhlkjfhlksdjfhkladshflkadsjhfkladsjhflkajdshflkajdshfkladshlfkjsaf\r\nasdf\r\nasdf\r\nasdf\r\nasdfsdfasdfasdkjfgakdsfygkdsufy',	1,	'2011-11-02 18:12:20',	2,	1,	NULL),
+(5,	'Cus 2',	'Blablabla',	1,	'2011-11-02 18:13:06',	2,	1,	NULL),
+(6,	'Test',	'ahoj jak se mas ?',	1,	'2011-11-03 08:32:15',	1,	1,	NULL),
+(7,	'Ahoj',	'sdffsd',	1,	'2011-11-03 09:34:51',	1,	2,	NULL),
+(8,	'Ahoj',	'asdasdasd',	1,	'2011-11-07 13:44:02',	1,	2,	NULL),
+(9,	'Ahoj',	'askjhdkasjdhkadshkshdfadsf',	1,	'2011-11-13 10:57:25',	1,	1,	NULL),
+(10,	'Test',	'asdfasfsdf',	1,	'2012-03-11 23:05:33',	1,	1,	NULL);
 
 DROP TABLE IF EXISTS `offlinetask`;
 CREATE TABLE `offlinetask` (
@@ -465,7 +485,7 @@ CREATE TABLE `resource` (
   KEY `Course_id` (`Course_id`),
   CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`Lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 INSERT INTO `resource` (`id`, `name`, `description`, `filename`, `size`, `added`, `Lesson_id`, `Course_id`) VALUES
 (1,	'asdasdasdasdasd',	'asdasdasdasdasasd',	'3d606950be92ea61b55c4af48d3c6eca_MY STOCK EXCHANGE.ppt',	907776,	'2011-10-24 12:13:18',	NULL,	1),
@@ -474,7 +494,8 @@ INSERT INTO `resource` (`id`, `name`, `description`, `filename`, `size`, `added`
 (4,	'05_WS_ADDRESSING.pptx',	NULL,	'd954ab1a2ee87f9c51e6ac5a42c1a46d_05_WS_ADDRESSING.pptx',	464338,	'2011-11-21 12:45:43',	NULL,	1),
 (5,	'05_WS_ADDRESSING.pptx',	NULL,	'd954ab1a2ee87f9c51e6ac5a42c1a46d_05_WS_ADDRESSING.pptx',	464338,	'2011-11-21 12:45:43',	NULL,	1),
 (11,	'Jellyfish.jpg',	NULL,	'e01472921fbe0fb355276b306173d3e6_Jellyfish.jpg',	775702,	'2011-11-24 10:35:52',	NULL,	1),
-(12,	'Chrysanthemum.jpg',	NULL,	'e01472921fbe0fb355276b306173d3e6_Chrysanthemum.jpg',	879394,	'2011-11-24 10:35:52',	NULL,	1);
+(12,	'Chrysanthemum.jpg',	NULL,	'e01472921fbe0fb355276b306173d3e6_Chrysanthemum.jpg',	879394,	'2011-11-24 10:35:52',	NULL,	1),
+(13,	'SAM_1758_800x600.JPG',	NULL,	'a4ae60d232718ffa274ea542a98fc005_SAM_1758_800x600.JPG',	123737,	'2012-02-13 20:57:11',	15,	1);
 
 DROP TABLE IF EXISTS `result`;
 CREATE TABLE `result` (
@@ -613,7 +634,7 @@ CREATE TABLE `topic` (
   KEY `fk_Topic_User1` (`User_id`),
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`Course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 INSERT INTO `topic` (`id`, `label`, `content`, `created`, `Course_id`, `User_id`) VALUES
 (4,	'Dotaz',	'Nevite jak to tu funguje ??',	'2011-10-26 16:53:27',	1,	1),
@@ -623,7 +644,8 @@ INSERT INTO `topic` (`id`, `label`, `content`, `created`, `Course_id`, `User_id`
 (8,	'dsfas',	'asdfsdfsdf',	'2011-10-26 17:09:49',	1,	1),
 (9,	'as',	'Adsad',	'2011-10-28 12:33:57',	4,	1),
 (10,	'Testa',	'dasdasd',	'2011-11-03 10:21:13',	1,	1),
-(11,	'Ukol 1',	'Proc ?',	'2011-11-13 11:02:59',	1,	1);
+(11,	'Ukol 1',	'Proc ?',	'2011-11-13 11:02:59',	1,	1),
+(12,	'asf fas',	'asdf',	'2012-03-06 14:21:24',	1,	1);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -656,4 +678,4 @@ INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `created
 (11,	'jerry90@gmail.com',	'cb7f9bc7ffeb30e49343592027655810',	'Jerry',	'Key',	'2011-11-01 22:14:39',	'39743a72fb31cbd96fe747e836d77bc632f03fcf',	1,	NULL,	NULL,	NULL,	''),
 (12,	'jirka@kropacek.cz',	'9a6f796e1c7de0282a61a460011fd8dc',	'Jiri',	'Kropacek',	'2011-12-06 11:35:39',	'f137a46cb68d4e79c90f5ffdf17fb6ddb1aeadd7',	0,	NULL,	NULL,	NULL,	'');
 
--- 2012-01-25 17:29:45
+-- 2012-03-11 23:16:45
