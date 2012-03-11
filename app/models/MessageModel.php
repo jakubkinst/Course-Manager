@@ -35,6 +35,7 @@ class MessageModel extends Object {
 		$messages = dibi::fetchAll('SELECT * FROM message WHERE (message.to=%i) ORDER BY sent DESC', $uid);
 		foreach ($messages as $message) {
 			$message['from'] = UserModel::getUser($message['from']);
+			$message['to'] = UserModel::getUser($message['to']);
 		}
 		return $messages;
 	}
@@ -48,6 +49,7 @@ class MessageModel extends Object {
 		$messages = dibi::fetchAll('SELECT * FROM message WHERE (message.from=%i) ORDER BY sent DESC', $uid);
 		foreach ($messages as $message) {
 			$message['to'] = UserModel::getUser($message['to']);
+			$message['from'] = UserModel::getUser($message['from']);
 		}
 		return $messages;
 	}
