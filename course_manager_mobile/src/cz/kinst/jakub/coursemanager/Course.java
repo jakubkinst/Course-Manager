@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -22,22 +24,20 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class Course extends CMActivity implements Serializable{
+public class Course extends CMActivity implements Serializable {
 
 	private static final String TAB_LESSONS = "lessons";
 	private static final String TAB_FORUM = "forum";
 	private static final String TAB_EVENTS = "events";
 	private int cid;
+	private final int MENU_FORUM = 0;
+	private final int MENU_EVENTS = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.cid = getIntent().getExtras().getInt("cid");
-		addTab(TAB_LESSONS,R.layout.course,getText(R.string.lesson));
-		addRedirectTab(TAB_FORUM,getText(R.string.forum),new Intent(
-				this,Forum.class).putExtra("cm", cm).putExtra("cid", cid));
-		addRedirectTab(TAB_EVENTS,getText(R.string.events),new Intent(
-				this,Events.class).putExtra("cm", cm).putExtra("cid", cid));
+		addTab(TAB_LESSONS, R.layout.course, getText(R.string.lesson));
 		switchTab(TAB_LESSONS);
 		reload();
 	}
@@ -47,7 +47,7 @@ public class Course extends CMActivity implements Serializable{
 		JSONObject course = new JSONObject();
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("cid", String.valueOf(this.cid)));
-		course = cm.getAction("course", "homepage", args,
+		course = courseManagerCon.getAction("course", "homepage", args,
 				new ArrayList<NameValuePair>());
 		return course;
 	}
@@ -67,7 +67,8 @@ public class Course extends CMActivity implements Serializable{
 		}
 		ExpandableListView lessonView = (ExpandableListView) findViewById(R.id.lessons);
 		lessonView.setAdapter(new LessonListAdapter(list));
-		lessonView.expandGroup(0);
+		if (list.size() > 0)
+			lessonView.expandGroup(0);
 	}
 
 	public class LessonListAdapter extends BaseExpandableListAdapter {
@@ -80,13 +81,12 @@ public class Course extends CMActivity implements Serializable{
 
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
-			return lessons.get(childPosition);
+			return lessons.get(groupPosition);
 		}
 
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
-			return 0;
+			return childPosition;
 		}
 
 		@Override
@@ -100,7 +100,6 @@ public class Course extends CMActivity implements Serializable{
 
 			WebView content = (WebView) v.findViewById(R.id.content);
 			Button detail = (Button) v.findViewById(R.id.show_more_button);
-			
 
 			content.setVerticalScrollBarEnabled(true);
 			content.setHorizontalScrollBarEnabled(true);
@@ -116,23 +115,22 @@ public class Course extends CMActivity implements Serializable{
 			detail.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-				Intent i = new Intent(Course.this,Lesson.class);
-				try {
-					i.putExtra("lid",lesson.getInt("id"));
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				i.putExtra("cm", cm);
-				startActivity(i);
+					Intent i = new Intent(Course.this, Lesson.class);
+					try {
+						i.putExtra("lid", lesson.getInt("id"));
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					i.putExtra("cm", courseManagerCon);
+					startActivity(i);
 
 				}
 			});
-			
+
 			content.loadData(html, "text/html", null);
 			return v;
 		}
-	
 
 		@Override
 		public int getChildrenCount(int groupPosition) {
@@ -141,8 +139,7 @@ public class Course extends CMActivity implements Serializable{
 
 		@Override
 		public Object getGroup(int groupPosition) {
-			// TODO Auto-generated method stub
-			return null;
+			return lessons.get(groupPosition);
 		}
 
 		@Override
@@ -152,8 +149,12 @@ public class Course extends CMActivity implements Serializable{
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			// TODO Auto-generated method stub
-			return 0;
+			return groupPosition;
+		}
+
+		@Override
+		public boolean isEmpty() {
+			return lessons.size() == 0;
 		}
 
 		@Override
@@ -192,4 +193,36 @@ public class Course extends CMActivity implements Serializable{
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+
+		MenuItem forum = menu.add(0, MENU_FORUM, 0, R.string.forum);
+		forum.setIcon(R.drawable.ic_action_forum);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+			forum.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		MenuItem events = menu.add(0, MENU_EVENTS, 0, R.string.events);
+		events.setIcon(R.drawable.ic_action_events);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+			events.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		return result;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == MENU_FORUM) {
+			startActivity(new Intent(this, Forum.class).putExtra("cm",
+					courseManagerCon).putExtra("cid", cid));
+			return true;
+		} else if (item.getItemId() == MENU_EVENTS) {
+			startActivity(new Intent(this, Events.class).putExtra("cm",
+					courseManagerCon).putExtra("cid", cid));
+			return true;
+		} else {
+			return super.onMenuItemSelected(featureId, item);
+		}
+
+	}
 }

@@ -94,14 +94,14 @@ public class ForumReplies extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				cm.sendForm("forum", "show-topic", "addReply", getArgs,
+				courseManagerCon.sendForm("forum", "show-topic", "addReply", getArgs,
 						postArgs);
 				return null;
 			}
 
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
-				cm.toastFlashes();
+				courseManagerCon.toastFlashes();
 				reload();
 			};
 		}.execute();
@@ -113,7 +113,7 @@ public class ForumReplies extends CMActivity {
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("tid", String.valueOf(this.tid)));
 		args.add(new BasicNameValuePair("pages-page", String.valueOf(this.page)));
-		forum = cm.getAction("forum", "show-topic", args,
+		forum = courseManagerCon.getAction("forum", "show-topic", args,
 				new ArrayList<NameValuePair>());
 		return forum;
 	}

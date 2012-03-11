@@ -109,13 +109,13 @@ public class Events extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				cm.sendForm("forum", "homepage", "addTopic", getArgs, postArgs);
+				courseManagerCon.sendForm("forum", "homepage", "addTopic", getArgs, postArgs);
 				return null;
 			}
 
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
-				cm.toastFlashes();
+				courseManagerCon.toastFlashes();
 				reload();
 			};
 		}.execute();
@@ -127,7 +127,7 @@ public class Events extends CMActivity {
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("cid", String.valueOf(this.cid)));
 		args.add(new BasicNameValuePair("pages-page", String.valueOf(this.page)));
-		forum = cm.getAction("event", "homepage", args,
+		forum = courseManagerCon.getAction("event", "homepage", args,
 				new ArrayList<NameValuePair>());
 		return forum;
 	}
@@ -137,7 +137,7 @@ public class Events extends CMActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuItem newComment = menu.add(R.string.new_topic);
 		this.MENU_NEW_TOPIC = newComment.getItemId();
-		newComment.setIcon(android.R.drawable.ic_menu_add);
+		newComment.setIcon(R.drawable.ic_action_add);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return result;
@@ -151,7 +151,6 @@ public class Events extends CMActivity {
 		} else {
 			return super.onMenuItemSelected(featureId, item);
 		}
-
 	}
 
 	@Override

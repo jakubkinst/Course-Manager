@@ -99,13 +99,14 @@ public class Forum extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				cm.sendForm("forum", "homepage", "addTopic", getArgs, postArgs);
+				courseManagerCon.sendForm("forum", "homepage", "addTopic",
+						getArgs, postArgs);
 				return null;
 			}
 
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
-				cm.toastFlashes();
+				courseManagerCon.toastFlashes();
 				reload();
 			};
 		}.execute();
@@ -117,7 +118,7 @@ public class Forum extends CMActivity {
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("cid", String.valueOf(this.cid)));
 		args.add(new BasicNameValuePair("pages-page", String.valueOf(this.page)));
-		forum = cm.getAction("forum", "homepage", args,
+		forum = courseManagerCon.getAction("forum", "homepage", args,
 				new ArrayList<NameValuePair>());
 		return forum;
 	}
@@ -203,7 +204,7 @@ public class Forum extends CMActivity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					i.putExtra("cm", cm);
+					i.putExtra("cm", courseManagerCon);
 					startActivity(i);
 				}
 			});

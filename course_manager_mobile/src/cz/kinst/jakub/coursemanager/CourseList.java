@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ public class CourseList extends CMActivity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6232480315437451355L;
+	private static final int MENU_MESSAGES = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class CourseList extends CMActivity implements Serializable {
 	@Override
 	protected JSONObject reloadWork() {
 		JSONObject resp = new JSONObject();
-		resp = cm.getAction("courselist");
+		resp = courseManagerCon.getAction("courselist");
 		return resp;
 	}
 
@@ -79,7 +81,7 @@ public class CourseList extends CMActivity implements Serializable {
 					else
 						cid = adapter.sCourses.get(childPosition).getInt("id");
 					i.putExtra("cid", cid);
-					i.putExtra("cm", cm);
+					i.putExtra("cm", courseManagerCon);
 					startActivity(i);
 				} catch (JSONException e) {
 				}
@@ -213,6 +215,28 @@ public class CourseList extends CMActivity implements Serializable {
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
 			// TODO Auto-generated method stub
 			return true;
+		}
+
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+
+		MenuItem messages = menu.add(0,MENU_MESSAGES, 0, R.string.inbox);
+		messages.setIcon(R.drawable.ic_action_messages);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+			messages.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return result;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (item.getItemId() == MENU_MESSAGES) {
+			startActivity(new Intent(this, Messages.class).putExtra("cm", courseManagerCon));
+			return true;
+		} else {
+			return super.onMenuItemSelected(featureId, item);
 		}
 
 	}

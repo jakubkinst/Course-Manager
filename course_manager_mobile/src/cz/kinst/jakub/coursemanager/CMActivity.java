@@ -1,12 +1,12 @@
 package cz.kinst.jakub.coursemanager;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,11 +23,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
 
-public class CMActivity extends TabbedActivity implements Serializable{
+public class CMActivity extends TabbedActivity implements Serializable {
 
-	
 	private static final long serialVersionUID = 1494642907274259339L;
-	CourseManagerConnector cm;
+	CourseManagerConnector courseManagerCon;
 	boolean isLoading = false;
 	public int pages;
 	public int page = 1;
@@ -37,6 +36,15 @@ public class CMActivity extends TabbedActivity implements Serializable{
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
+		// Android 3.0+
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
+			ActionBar actionBar = getActionBar();
+			// actionBar.setDisplayShowTitleEnabled(false);
+			actionBar.setLogo(R.drawable.ic_launcher);
+			actionBar.setDisplayUseLogoEnabled(true);
+
+		}
+
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -44,10 +52,12 @@ public class CMActivity extends TabbedActivity implements Serializable{
 			prefs.edit().putString("server", "").commit();
 		Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey("cm")) {
-			cm = (CourseManagerConnector) extras.getSerializable("cm");
-			cm.setContext(this);
+			courseManagerCon = (CourseManagerConnector) extras
+					.getSerializable("cm");
+			courseManagerCon.setContext(this);
 		} else
-			cm = new CourseManagerConnector(prefs.getString("server", ""), this);
+			courseManagerCon = new CourseManagerConnector(prefs.getString(
+					"server", ""), this);
 
 	}
 
@@ -77,11 +87,11 @@ public class CMActivity extends TabbedActivity implements Serializable{
 		// Handle item selection
 		switch (item.getItemId()) {
 		case android.R.id.home:
-            // app icon in action bar clicked; go home
-            Intent intent = new Intent(this, CourseList.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            return true;
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, CourseList.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
 		case R.id.menu_reload:
 			reload();
 			return true;
@@ -99,7 +109,7 @@ public class CMActivity extends TabbedActivity implements Serializable{
 
 		protected void onPreExecute() {
 			setProgressBarIndeterminateVisibility(true);
-			cm.getFlashMessages().clear();
+			courseManagerCon.getFlashMessages().clear();
 		}
 
 		protected JSONObject doInBackground(Void... unused) {
@@ -112,7 +122,7 @@ public class CMActivity extends TabbedActivity implements Serializable{
 
 		protected void onPostExecute(JSONObject list) {
 			try {
-				cm.toastFlashes();
+				courseManagerCon.toastFlashes();
 				gotData(list);
 			} catch (JSONException e) {
 				e.printStackTrace();

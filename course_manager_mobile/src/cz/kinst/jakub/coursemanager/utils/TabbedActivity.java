@@ -18,7 +18,7 @@ import cz.kinst.jakub.coursemanager.R;
 public class TabbedActivity extends Activity {
 	private static final int COLOR_ACTIVE = Color.parseColor("#cccccc");
 	private static final int COLOR_NORMAL = Color.parseColor("#eeeeee");
-	ArrayList<Tab> tabs = new ArrayList<Tab>();
+	protected ArrayList<Tab> tabs = new ArrayList<Tab>();
 	private String activeTab;
 	private LinearLayout tabContent;
 	private LinearLayout tabsPanel;
@@ -46,9 +46,10 @@ public class TabbedActivity extends Activity {
 		else
 			tabsPanel.setVisibility(View.VISIBLE);
 	}
-	
-	public void addRedirectTab(final String name, CharSequence title,Intent intent) {
-		Tab t = new Tab(name, title,intent);
+
+	public void addRedirectTab(final String name, CharSequence title,
+			Intent intent) {
+		Tab t = new Tab(name, title, intent);
 		tabs.add(t);
 
 		tabsPanel.addView(t.getButton());
@@ -74,7 +75,12 @@ public class TabbedActivity extends Activity {
 		t.getButton().setBackgroundColor(COLOR_ACTIVE);
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		tabContent.removeAllViews();
-		tabContent.addView(getTab(name),new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		tabContent.addView(getTab(name), new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		onTabSwitched(t);
+	}
+
+	protected void onTabSwitched(Tab t) {
 	}
 
 	private void leaveTab(String name) {
@@ -104,7 +110,7 @@ public class TabbedActivity extends Activity {
 		return header;
 	}
 
-	class Tab {
+	public class Tab {
 		private String name;
 		private CharSequence title;
 		private View view;
@@ -124,7 +130,7 @@ public class TabbedActivity extends Activity {
 				}
 			});
 		}
-		
+
 		public Tab(final String name, CharSequence title, final Intent intent) {
 			this.name = name;
 			this.title = title;
@@ -138,7 +144,6 @@ public class TabbedActivity extends Activity {
 				}
 			});
 		}
-
 
 		public String getName() {
 			return name;

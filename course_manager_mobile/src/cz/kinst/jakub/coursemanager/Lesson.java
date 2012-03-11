@@ -105,14 +105,14 @@ public class Lesson extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				cm.sendForm("lesson", "homepage", "commentForm", getArgs,
+				courseManagerCon.sendForm("lesson", "homepage", "commentForm", getArgs,
 						postArgs);
 				return null;
 			}
 
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
-				cm.toastFlashes();
+				courseManagerCon.toastFlashes();
 				reload();
 			};
 		}.execute();
@@ -124,7 +124,7 @@ public class Lesson extends CMActivity {
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("lid", String.valueOf(this.lid)));
 		args.add(new BasicNameValuePair("pages-page", String.valueOf(this.page)));
-		lesson = cm.getAction("lesson", "homepage", args,
+		lesson = courseManagerCon.getAction("lesson", "homepage", args,
 				new ArrayList<NameValuePair>());
 		return lesson;
 	}
@@ -134,7 +134,7 @@ public class Lesson extends CMActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuItem newComment = menu.add(R.string.new_comment);
 		this.MENU_NEW_COMMENT = newComment.getItemId();
-		newComment.setIcon(android.R.drawable.ic_menu_edit);
+		newComment.setIcon(R.drawable.ic_action_edit);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return result;
@@ -211,7 +211,7 @@ public class Lesson extends CMActivity {
 			v.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					new DownloadTask(Lesson.this, cm).execute(resource);
+					new DownloadTask(Lesson.this, courseManagerCon).execute(resource);
 				}
 			});
 

@@ -44,4 +44,15 @@
     <string name="reply">Reply</string>
     <string name="events">Events</string>
     <string name="add_to_calendar">Add to device calendar</string>
+    <string name="menu_messages">Messages</string>
+    <string name="inbox">Inbox</string>
+    <string name="message">Message</string>
+    <string name="new_message">New Message</string>
+    <string name="outbox">Outbox</string>
+    <string name="messages">Messages</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="subject">Subject</string>
+    <string name="tto">To</string>
+    <string name="send">Send</string>
 </resources>
