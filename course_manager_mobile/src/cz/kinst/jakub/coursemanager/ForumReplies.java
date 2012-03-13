@@ -94,8 +94,8 @@ public class ForumReplies extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				courseManagerCon.sendForm("forum", "show-topic", "addReply", getArgs,
-						postArgs);
+				courseManagerCon.sendForm("forum", "show-topic", "addReply",
+						getArgs, postArgs);
 				return null;
 			}
 
@@ -163,12 +163,9 @@ public class ForumReplies extends CMActivity {
 
 	public class RepliesAdapter extends ArrayAdapter<JSONObject> {
 
-		public List<JSONObject> replies;
-
 		public RepliesAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.replies = objects;
 		}
 
 		@Override
@@ -178,13 +175,13 @@ public class ForumReplies extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.forum_reply_row, null);
 			}
-			final JSONObject reply = replies.get(position);
+			final JSONObject reply = getItem(position);
 			try {
 				JSONObject author = reply.getJSONObject("author");
 				((TextView) (v.findViewById(R.id.content))).setText(reply
 						.getString("content"));
 				((TextView) (v.findViewById(R.id.added))).setText(reply
-								.getString("created"));
+						.getString("created"));
 				((TextView) (v.findViewById(R.id.author))).setText(author
 						.getString("firstname")
 						+ " "

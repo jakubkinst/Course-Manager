@@ -162,12 +162,9 @@ public class Messages extends CMActivity {
 
 	public class InboxAdapter extends ArrayAdapter<JSONObject> {
 
-		public List<JSONObject> messages;
-
 		public InboxAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.messages = objects;
 		}
 
 		@Override
@@ -177,7 +174,7 @@ public class Messages extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.messages_message_row, null);
 			}
-			final JSONObject message = messages.get(position);
+			final JSONObject message = getItem(position);
 			try {
 				boolean read = message.getString("read").equals("1");
 

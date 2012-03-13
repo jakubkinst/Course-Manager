@@ -159,12 +159,9 @@ public class Forum extends CMActivity {
 
 	public class TopicsAdapter extends ArrayAdapter<JSONObject> {
 
-		public List<JSONObject> threads;
-
 		public TopicsAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.threads = objects;
 		}
 
 		@Override
@@ -174,7 +171,7 @@ public class Forum extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.forum_topic_row, null);
 			}
-			final JSONObject topic = threads.get(position);
+			final JSONObject topic = getItem(position);
 			try {
 				String lastReply = topic.getString("lastreply");
 				if (lastReply.equals("false"))

@@ -105,8 +105,8 @@ public class Lesson extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				courseManagerCon.sendForm("lesson", "homepage", "commentForm", getArgs,
-						postArgs);
+				courseManagerCon.sendForm("lesson", "homepage", "commentForm",
+						getArgs, postArgs);
 				return null;
 			}
 
@@ -183,12 +183,9 @@ public class Lesson extends CMActivity {
 
 	public class ResourceAdapter extends ArrayAdapter<JSONObject> {
 
-		public List<JSONObject> resources;
-
 		public ResourceAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.resources = objects;
 		}
 
 		@Override
@@ -198,20 +195,20 @@ public class Lesson extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.resource_row, null);
 			}
-			final JSONObject resource = resources.get(position);
+			final JSONObject resource = getItem(position);
 			try {
 				((TextView) (v.findViewById(R.id.filename))).setText(resource
 						.getString("name"));
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			v.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					new DownloadTask(Lesson.this, courseManagerCon).execute(resource);
+					new DownloadTask(Lesson.this, courseManagerCon)
+							.execute(resource);
 				}
 			});
 

@@ -109,7 +109,8 @@ public class Events extends CMActivity {
 			};
 
 			protected Void doInBackground(Void... params) {
-				courseManagerCon.sendForm("forum", "homepage", "addTopic", getArgs, postArgs);
+				courseManagerCon.sendForm("forum", "homepage", "addTopic",
+						getArgs, postArgs);
 				return null;
 			}
 
@@ -169,12 +170,9 @@ public class Events extends CMActivity {
 
 	public class EventsAdapter extends ArrayAdapter<JSONObject> {
 
-		public List<JSONObject> events;
-
 		public EventsAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.events = objects;
 		}
 
 		@Override
@@ -184,7 +182,7 @@ public class Events extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.events_event_row, null);
 			}
-			final JSONObject event = events.get(position);
+			final JSONObject event = getItem(position);
 			try {
 				((TextView) (v.findViewById(R.id.name))).setText(event
 						.getString("name"));
@@ -221,10 +219,14 @@ public class Events extends CMActivity {
 				Calendar cal = Calendar.getInstance();
 				Intent intent = new Intent(Intent.ACTION_EDIT);
 				intent.setType("vnd.android.cursor.item/event");
-				intent.putExtra("beginTime",Utils.getDateFromDBString(event.getString("date")).getTime());
+				intent.putExtra("beginTime",
+						Utils.getDateFromDBString(event.getString("date"))
+								.getTime());
 				intent.putExtra("allDay", true);
-				//intent.putExtra("rrule", "FREQ=YEARLY");
-				intent.putExtra("endTime",Utils.getDateFromDBString(event.getString("date")).getTime());
+				// intent.putExtra("rrule", "FREQ=YEARLY");
+				intent.putExtra("endTime",
+						Utils.getDateFromDBString(event.getString("date"))
+								.getTime());
 				intent.putExtra("title", event.getString("name"));
 				intent.putExtra("description", event.getString("description"));
 
