@@ -166,6 +166,17 @@ class UserModel extends Object implements IAuthenticator {
 		return dibi::query("UPDATE user SET apiKey=%s WHERE id=%i", $key, $uid);
 	}
 
+	/**
+	 * Checks user api key
+	 * @param int $uid User-id
+	 * @param string $apiKey API key
+	 */
+	public static function checkApiKey($uid,$apiKey) {
+
+		$rightKey = dibi::fetchSingle("SELECT apiKey FROM user WHERE id=%i", $uid);
+		return $apiKey===$rightKey;
+	}
+
 }
 
 ?>

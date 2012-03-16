@@ -71,9 +71,18 @@ abstract class BasePresenter extends AndroidettePresenter {
 
 		// Set neccessary variables and pass them to template
 		$user = Environment::getUser();
+
 		$this->logged = $user->isLoggedIn();
 		$this->template->logged = $this->logged;
 		if ($this->logged) {
+
+			// If mobile-connection, check api-key
+			if ($this->mobile && !UserModel::checkApiKey($user->id, $this->getParam('apiKey')) && $this->name != 'ApiKey') {
+				$this->flashMessage('Bad api-key', $type = 'unauthorized');
+				$this->user->logout(true);
+				$this->redirect('courselist:homepage');
+			}
+
 			$this->tCourses = CourseListModel::getTeacherCourses(UserModel::getLoggedUser()->id);
 			$this->sCourses = CourseListModel::getStudentCourses(UserModel::getLoggedUser()->id);
 
@@ -85,9 +94,10 @@ abstract class BasePresenter extends AndroidettePresenter {
 
 			$this->template->countUnread = MessageModel::countUnread();
 		}
+
 		// Handle unathorized access
 		if (!$this->logged & !$this->canbesignedout) {
-			$this->flashMessage('Please login.', $type = 'unauthorized');
+			$this->flashMessage(_('Please login.'), $type = 'unauthorized');
 			$this->redirect('courselist:homepage');
 		}
 
@@ -209,7 +219,7 @@ abstract class BasePresenter extends AndroidettePresenter {
 		texyla_preview_link = "' . @$this->link('Texyla:preview') . '";
 		texyla_base = "' . BASE_DIR . '/document_root/texyla/";
 		active_course_id = "' . @$this->template->activeCourse->id . '";
-		choose_anwsers_message = "' . _('Choose anwsers') . '";
+		choose_anwsers_message = "' . _('Choose answers') . '";
 	';
 		return $vars;
 	}
@@ -220,9 +230,9 @@ abstract class BasePresenter extends AndroidettePresenter {
 	 */
 	public function processAndroidVariables($variables) {
 		$variables = parent::processAndroidVariables($variables);
-		$this->unsetPropertiesRecursively($variables,'password');
-
-		$this->unsetPropertiesRecursively($variables,'seclink');
+		$this->unsetPropertiesRecursively($variables, 'password');
+		$this->unsetPropertiesRecursively($variables, 'apiKey');
+		$this->unsetPropertiesRecursively($variables, 'seclink');
 		return $variables;
 	}
 
@@ -230,21 +240,21 @@ abstract class BasePresenter extends AndroidettePresenter {
 	 * Unset all fields with passwords
 	 * @param type $array
 	 */
-	private function unsetPropertiesRecursively($array,$property) {
+	private function unsetPropertiesRecursively($array, $property) {
 
 		if (is_array($array)) {
 			if (isset($array[$property]))
 				unset($array[$property]);
 		}
 		if (is_object($array)) {
-			if (property_exists($array,$property))
+			if (property_exists($array, $property))
 				unset($array->$property);
 		}
 
 
 		foreach ($array as $value) {
 			if (is_array($value) || is_object($value))
-				$this->unsetPropertiesRecursively($value,$property);
+				$this->unsetPropertiesRecursively($value, $property);
 		}
 	}
 

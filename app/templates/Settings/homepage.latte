@@ -6,6 +6,5 @@
     {widget settings}
 
 	<h3>{!_'Api Key'}</h3>
-	<code>{$apiKey!="" ? $apiKey : "no-api-key"}</code>
-	{control apiKeyGenerator}
+	<a n:href="apiKey:homepage">{!_'Show/Change API key'}</a>
 {/block}
