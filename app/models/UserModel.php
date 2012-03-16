@@ -61,6 +61,7 @@ class UserModel extends Object implements IAuthenticator {
 		$id = dibi::getInsertId();
 		//create settings record
 		dibi::query('INSERT INTO settings', array('User_id' => $id));
+		self::regenerateApiKey($id);
 		MailModel::sendRegisterHash($id);
 		dibi::commit();
 		return $result;
@@ -154,6 +155,15 @@ class UserModel extends Object implements IAuthenticator {
 			}
 		}
 		dibi::commit();
+	}
+
+	/**
+	 * Re-generates user api key and saves into db
+	 * @param int $uid User-id
+	 */
+	public static function regenerateApiKey($uid) {
+		$key = sha1('rt65465wr6t4rs6gsdfg5aew4' . $uid . time() . 'asuy87320ihwQ23808723Y44');
+		return dibi::query("UPDATE user SET apiKey=%s WHERE id=%i", $key, $uid);
 	}
 
 }

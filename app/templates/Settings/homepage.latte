@@ -4,4 +4,8 @@
     <h3>{!_'Settings'}</h3>
     <div class="separator"><!----></div>
     {widget settings}
+
+	<h3>{!_'Api Key'}</h3>
+	<code>{$apiKey!="" ? $apiKey : "no-api-key"}</code>
+	{control apiKeyGenerator}
 {/block}
