@@ -21,9 +21,10 @@ public final class R {
         public static final int ic_action_messages=0x7f020007;
         public static final int ic_action_refresh=0x7f020008;
         public static final int ic_action_reply=0x7f020009;
-        public static final int ic_action_settings=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int ic_menu_messages=0x7f02000c;
+        public static final int ic_action_results=0x7f02000a;
+        public static final int ic_action_settings=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int ic_menu_messages=0x7f02000d;
     }
     public static final class id {
         public static final int added=0x7f080003;
@@ -36,14 +37,17 @@ public final class R {
         public static final int course_name=0x7f08000f;
         public static final int course_view=0x7f080004;
         public static final int date=0x7f080018;
-        public static final int delete=0x7f080036;
+        public static final int delete=0x7f08003d;
         public static final int description=0x7f08000a;
-        public static final int edit=0x7f080035;
+        public static final int edit=0x7f08003c;
         public static final int events=0x7f080017;
         public static final int filename=0x7f080031;
         public static final int from=0x7f08002b;
+        public static final int gradeResults=0x7f080038;
         public static final int group_title=0x7f080020;
-        public static final int header=0x7f080032;
+        public static final int header=0x7f080039;
+        public static final int horizontalScrollView1=0x7f080034;
+        public static final int horizontalScrollView2=0x7f080037;
         public static final int imageView1=0x7f080006;
         public static final int label=0x7f080015;
         public static final int label_content=0x7f080013;
@@ -56,30 +60,34 @@ public final class R {
         public static final int list=0x7f08000e;
         public static final int login_email=0x7f080011;
         public static final int login_password=0x7f080012;
-        public static final int menu_help=0x7f08003a;
-        public static final int menu_reload=0x7f080038;
-        public static final int menu_settings=0x7f080039;
+        public static final int menu_help=0x7f080041;
+        public static final int menu_reload=0x7f08003f;
+        public static final int menu_settings=0x7f080040;
         public static final int messages=0x7f080029;
         public static final int name=0x7f080000;
         public static final int nextt_page=0x7f080030;
         public static final int page=0x7f08002f;
         public static final int paginator=0x7f080022;
+        public static final int pointResults=0x7f080035;
         public static final int previous_page=0x7f08002e;
         public static final int rel=0x7f080026;
         public static final int replies=0x7f08001c;
         public static final int resources=0x7f080028;
+        public static final int scrollView1=0x7f080032;
         public static final int sendButton=0x7f08002d;
         public static final int show_more_button=0x7f080025;
         public static final int subject=0x7f08002a;
-        public static final int tabContent=0x7f080034;
+        public static final int tabContent=0x7f08003b;
         public static final int tableLayout1=0x7f080007;
         public static final int tableRow1=0x7f080008;
         public static final int tableRow2=0x7f080009;
         public static final int tableRow3=0x7f08000b;
         public static final int tableRow4=0x7f08000c;
-        public static final int tabs=0x7f080033;
+        public static final int tabs=0x7f08003a;
+        public static final int textView1=0x7f080033;
+        public static final int textView2=0x7f080036;
         public static final int to=0x7f08002c;
-        public static final int toCalendar=0x7f080037;
+        public static final int toCalendar=0x7f08003e;
         public static final int topic=0x7f080027;
         public static final int topicAuthor=0x7f08001a;
         public static final int topicContent=0x7f080019;
@@ -113,7 +121,8 @@ public final class R {
         public static final int messages_show=0x7f030017;
         public static final int paginator=0x7f030018;
         public static final int resource_row=0x7f030019;
-        public static final int tabbedactivity=0x7f03001a;
+        public static final int results=0x7f03001a;
+        public static final int tabbedactivity=0x7f03001b;
     }
     public static final class menu {
         public static final int course_context_menu=0x7f070000;
@@ -123,6 +132,7 @@ public final class R {
     public static final class string {
         public static final int add_to_calendar=0x7f050026;
         public static final int app_name=0x7f050000;
+        public static final int average=0x7f050035;
         public static final int by=0x7f050016;
         public static final int cancel=0x7f05001e;
         public static final int comments=0x7f050013;
@@ -147,6 +157,7 @@ public final class R {
         public static final int menu_settings=0x7f050006;
         public static final int message=0x7f050029;
         public static final int messages=0x7f05002c;
+        public static final int name=0x7f050033;
         public static final int new_comment=0x7f05001c;
         public static final int new_message=0x7f05002a;
         public static final int new_topic=0x7f050021;
@@ -159,6 +170,9 @@ public final class R {
         public static final int prev_page=0x7f05001a;
         public static final int reply=0x7f050024;
         public static final int resources=0x7f050012;
+        public static final int results=0x7f050032;
+        public static final int results_grades_header=0x7f050037;
+        public static final int results_points_header=0x7f050036;
         public static final int send=0x7f050031;
         public static final int server=0x7f05000b;
         public static final int server_summary=0x7f05000c;
@@ -166,6 +180,7 @@ public final class R {
         public static final int student=0x7f05000d;
         public static final int studying=0x7f050011;
         public static final int subject=0x7f05002f;
+        public static final int sum=0x7f050034;
         public static final int teacher=0x7f05000e;
         public static final int teaching=0x7f050010;
         public static final int to=0x7f05002e;

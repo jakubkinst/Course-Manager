@@ -55,4 +55,10 @@
     <string name="subject">Subject</string>
     <string name="tto">To</string>
     <string name="send">Send</string>
+    <string name="results">Results</string>
+    <string name="name">Name</string>
+    <string name="sum">Sum</string>
+    <string name="average">Average</string>
+    <string name="results_points_header">Offline and Online tasks - Points</string>
+    <string name="results_grades_header">Offline tasks - Grades</string>
 </resources>

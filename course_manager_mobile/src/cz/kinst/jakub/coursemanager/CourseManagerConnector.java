@@ -23,6 +23,11 @@ import cz.kinst.jakub.netteconnector.NetteConnector;
 public class CourseManagerConnector extends NetteConnector implements
 		OnSharedPreferenceChangeListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3276276628414868331L;
+
 	public static String LOGTAG = "coursemanager";
 
 	CMActivity context;
@@ -48,14 +53,18 @@ public class CourseManagerConnector extends NetteConnector implements
 		if (!logged && !loggingIn) {
 			login();
 			if (!logged)
-				return new JSONObject();
+				return new JSONObject();			
 		}
 
+		if (getArgs==null)
+			getArgs = new ArrayList<NameValuePair>();
+		
 		// add api-key to url
 		if (apiKey != null)
 			getArgs.add(new BasicNameValuePair("apiKey", apiKey));
 
 		JSONObject data = super.getAction(presenter, action, getArgs, postArgs);
+		
 		// if empty - toast error
 		if (data.length() < 1)
 			this.getFlashMessages()
@@ -93,7 +102,6 @@ public class CourseManagerConnector extends NetteConnector implements
 		JSONObject result = this.getAction("apiKey", "homepage");
 		try {
 			this.apiKey = result.getString("myApiKey");
-			Log.e("test", apiKey);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

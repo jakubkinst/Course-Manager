@@ -62,6 +62,10 @@
             android:name=".MessagesNew"
             android:label="@string/new_message" >
         </activity>
+        <activity
+            android:name=".Results"
+            android:label="@string/results" >
+        </activity>
     </application>
 
 </manifest>
