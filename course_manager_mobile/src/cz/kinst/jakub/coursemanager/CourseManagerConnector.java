@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 import cz.kinst.jakub.netteconnector.FlashMessage;
 import cz.kinst.jakub.netteconnector.NetteConnector;
@@ -23,11 +24,12 @@ public class CourseManagerConnector extends NetteConnector implements
 		OnSharedPreferenceChangeListener {
 
 	public static String LOGTAG = "coursemanager";
-	
 
 	CMActivity context;
 	public boolean logged = false;
 	private boolean loggingIn = false;
+
+	private String apiKey;
 
 	public CourseManagerConnector(String url, CMActivity context) {
 		super(url);
@@ -35,18 +37,23 @@ public class CourseManagerConnector extends NetteConnector implements
 		PreferenceManager.getDefaultSharedPreferences(context)
 				.registerOnSharedPreferenceChangeListener(this);
 	}
-	
-	public void setContext(CMActivity context){
-		this.context= context;
+
+	public void setContext(CMActivity context) {
+		this.context = context;
 	}
 
 	@Override
 	public JSONObject getAction(String presenter, String action,
 			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs) {
-		if (!logged && !loggingIn) {			
-			if (!login())
+		if (!logged && !loggingIn) {
+			login();
+			if (!logged)
 				return new JSONObject();
 		}
+
+		// add api-key to url
+		if (apiKey != null)
+			getArgs.add(new BasicNameValuePair("apiKey", apiKey));
 
 		JSONObject data = super.getAction(presenter, action, getArgs, postArgs);
 		// if empty - toast error
@@ -69,14 +76,27 @@ public class CourseManagerConnector extends NetteConnector implements
 		this.loggingIn = true;
 		JSONObject result = this.sendForm("courselist", "homepage",
 				"signInForm", loginCred);
-		this.loggingIn = false;
-		boolean l = false;
+
 		try {
-			l = result.getBoolean("logged");
+			logged = result.getBoolean("logged");
 		} catch (JSONException e) {
+			logged = false;
 		}
-		logged = l;
-		return l;
+
+		getAndSetApiKey();
+
+		this.loggingIn = false;
+		return logged;
+	}
+
+	private void getAndSetApiKey() {
+		JSONObject result = this.getAction("apiKey", "homepage");
+		try {
+			this.apiKey = result.getString("myApiKey");
+			Log.e("test", apiKey);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void toastFlashes() {
@@ -86,12 +106,13 @@ public class CourseManagerConnector extends NetteConnector implements
 		}
 	}
 
-	public File getResource(int rid,String filename){
+	public File getResource(int rid, String filename) {
 		ArrayList<NameValuePair> get = new ArrayList<NameValuePair>();
 		get.add(new BasicNameValuePair("rid", String.valueOf(rid)));
-		return parser.downloadFile(getUrl()+"/resource/download",get , new ArrayList<NameValuePair>(), filename);
+		return parser.downloadFile(getUrl() + "/resource/download", get,
+				new ArrayList<NameValuePair>(), filename);
 	}
-	
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {

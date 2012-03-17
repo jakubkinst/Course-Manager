@@ -77,7 +77,7 @@ abstract class BasePresenter extends AndroidettePresenter {
 		if ($this->logged) {
 
 			// If mobile-connection, check api-key
-			if ($this->mobile && !UserModel::checkApiKey($user->id, $this->getParam('apiKey')) && $this->name != 'ApiKey') {
+			if ($this->mobile && !UserModel::checkApiKey($user->id, $this->getParam('apiKey')) && $this->name != 'ApiKey' && $this->name != 'CourseList') {
 				$this->flashMessage('Bad api-key', $type = 'unauthorized');
 				$this->user->logout(true);
 				$this->redirect('courselist:homepage');
