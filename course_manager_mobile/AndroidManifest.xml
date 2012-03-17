@@ -66,6 +66,18 @@
             android:name=".Results"
             android:label="@string/results" >
         </activity>
+        <activity
+            android:name=".Assignments"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".AssignmentDetail"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".AssignmentSolve"
+            android:label="@string/assignments" >
+        </activity>
     </application>
 
 </manifest>

@@ -33,6 +33,7 @@ public class Course extends CMActivity implements Serializable {
 	private final int MENU_FORUM = 0;
 	private final int MENU_EVENTS = 1;
 	private final int MENU_RESULTS = 2;
+	private final int MENU_ASSIGNMENTS = 3;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -212,6 +213,11 @@ public class Course extends CMActivity implements Serializable {
 		results.setIcon(R.drawable.ic_action_results);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			results.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		MenuItem assignments = menu.add(0, MENU_ASSIGNMENTS, 0, R.string.assignments);
+		assignments.setIcon(R.drawable.ic_action_assignments);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+			assignments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		return result;
 	}
@@ -228,6 +234,10 @@ public class Course extends CMActivity implements Serializable {
 			return true;
 		} else if (item.getItemId() == MENU_RESULTS) {
 			startActivity(new Intent(this, Results.class).putExtra("cm",
+					courseManagerCon).putExtra("cid", cid));
+			return true;
+		} else if (item.getItemId() == MENU_ASSIGNMENTS) {
+			startActivity(new Intent(this, Assignments.class).putExtra("cm",
 					courseManagerCon).putExtra("cid", cid));
 			return true;
 		} else {
