@@ -1,7 +1,9 @@
 package cz.kinst.jakub.netteconnector;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -54,16 +56,28 @@ public class NetteConnector implements Serializable {
 
 	public JSONObject sendForm(String presenter, String action,
 			String formName, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs) {
+			ArrayList<NameValuePair> postArgs){
+		return sendForm(presenter, action, formName, getArgs, postArgs,null);
+	}
+	
+	public JSONObject sendForm(String presenter, String action,
+			String formName, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs,HashMap<String, File> files) {
 		if (getArgs == null)
 			getArgs = new ArrayList<NameValuePair>();
 		getArgs.add(new BasicNameValuePair("do", formName + "-submit"));
-		return getAction(presenter, action, getArgs, postArgs);
+		return getAction(presenter, action, getArgs, postArgs,files);
 	}
 
 	public JSONObject getAction(String presenter, String action,
 			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs) {
-		
+		return getAction(presenter, action, getArgs, postArgs, null);
+	}
+
+	public JSONObject getAction(String presenter, String action,
+			ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
+
 		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
 		}
@@ -76,7 +90,7 @@ public class NetteConnector implements Serializable {
 		JSONObject result = new JSONObject();
 		try {
 			result = jsonClient.getJSONObject(parser.getJSON(URL + "/" + path,
-					getArgs, postArgs));
+					getArgs, postArgs, files));
 		} catch (Exception e) {
 			Log.e(CourseManagerConnector.LOGTAG, "++++" + e.getMessage());
 		}

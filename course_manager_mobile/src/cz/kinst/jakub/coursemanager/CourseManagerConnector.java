@@ -6,6 +6,7 @@ package cz.kinst.jakub.coursemanager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -49,22 +50,24 @@ public class CourseManagerConnector extends NetteConnector implements
 
 	@Override
 	public JSONObject getAction(String presenter, String action,
-			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs) {
+			ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
 		if (!logged && !loggingIn) {
 			login();
 			if (!logged)
-				return new JSONObject();			
+				return new JSONObject();
 		}
 
-		if (getArgs==null)
+		if (getArgs == null)
 			getArgs = new ArrayList<NameValuePair>();
-		
+
 		// add api-key to url
 		if (apiKey != null)
 			getArgs.add(new BasicNameValuePair("apiKey", apiKey));
 
-		JSONObject data = super.getAction(presenter, action, getArgs, postArgs);
-		
+		JSONObject data = super.getAction(presenter, action, getArgs, postArgs,
+				files);
+
 		// if empty - toast error
 		if (data.length() < 1)
 			this.getFlashMessages()

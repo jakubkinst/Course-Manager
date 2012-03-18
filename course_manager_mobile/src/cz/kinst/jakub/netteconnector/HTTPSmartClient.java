@@ -16,16 +16,20 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
@@ -45,11 +49,11 @@ public class HTTPSmartClient implements Serializable {
 	private List<SerializableCookie> cookies = new ArrayList<SerializableCookie>();
 
 	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs) {
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
 		String result;
 		try {
 			result = convertStreamToString(getInputStream(url, getArgs,
-					postArgs));
+					postArgs, files));
 		} catch (Exception e) {
 			Log.e(CourseManagerConnector.LOGTAG,
 					"Error in http connection" + e.toString());
@@ -58,9 +62,15 @@ public class HTTPSmartClient implements Serializable {
 		Log.d(CourseManagerConnector.LOGTAG, "Response: " + result);
 		return result;
 	}
+	
+	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs){
+		return getJSON(url, getArgs, postArgs,null);
+	}
 
 	public InputStream getInputStream(String url,
-			ArrayList<NameValuePair> getArgs, ArrayList<NameValuePair> postArgs)
+			ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files)
 			throws IllegalStateException, IOException {
 
 		InputStream is;
@@ -70,6 +80,9 @@ public class HTTPSmartClient implements Serializable {
 		}
 		if (postArgs == null) {
 			postArgs = new ArrayList<NameValuePair>();
+		}
+		if (files == null) {
+			files = new HashMap<String, File>();
 		}
 
 		// Creating a local HTTP context
@@ -87,7 +100,18 @@ public class HTTPSmartClient implements Serializable {
 		Log.d(TAG, "Request: " + url);
 		HttpPost httppost = new HttpPost(url);
 
-		httppost.setEntity(new UrlEncodedFormEntity(postArgs));
+		MultipartEntity mpEntity = new MultipartEntity();
+		for (NameValuePair nameValuePair : postArgs) {
+			mpEntity.addPart(nameValuePair.getName(), new StringBody(
+					nameValuePair.getValue()));
+		}
+		for (Entry<String, File> file : files.entrySet()) {
+			mpEntity.addPart(file.getKey(), new FileBody(file.getValue()));
+		}
+
+		httppost.setEntity(mpEntity);
+
+		// httppost.setEntity(new UrlEncodedFormEntity(postArgs));
 		HttpResponse response = httpclient.execute(httppost, localContext);
 
 		for (Cookie cookie : cookieStore.getCookies()) {
@@ -105,7 +129,7 @@ public class HTTPSmartClient implements Serializable {
 			ArrayList<NameValuePair> postArgs, String saveTo) {
 		File f = new File(saveTo);
 		try {
-			InputStream is = getInputStream(url, getArgs, postArgs);
+			InputStream is = getInputStream(url, getArgs, postArgs, null);
 			BufferedInputStream bis = new BufferedInputStream(is);
 
 			/*

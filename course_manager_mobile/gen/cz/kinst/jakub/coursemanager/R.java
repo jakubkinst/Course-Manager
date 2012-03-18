@@ -194,6 +194,7 @@ public final class R {
         public static final int student=0x7f05000d;
         public static final int studying=0x7f050011;
         public static final int subject=0x7f05002f;
+        public static final int submit=0x7f05003d;
         public static final int sum=0x7f050034;
         public static final int teacher=0x7f05000e;
         public static final int teaching=0x7f050010;
