@@ -100,6 +100,7 @@ class AssignmentPresenter extends BaseCoursePresenter {
 			$form = $this->getComponent('solveForm');
 			$anwsers = AssignmentModel::getAnwsers($aid);
 			$form->setDefaults($anwsers);
+			$this->template->currentAnswers = $anwsers;
 		}
 		else
 			AssignmentModel::startSolving($aid);
