@@ -1,10 +1,14 @@
 package cz.kinst.jakub.coursemanager;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,11 +17,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -28,12 +33,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.utils.QuestionTag;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class AssignmentSolve extends CMActivity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5079492776147483408L;
 	protected static final int SELECT_FILE = 0;
 	private int aid;
 	ArrayList<QuestionTag> tags = new ArrayList<QuestionTag>();
@@ -61,6 +69,47 @@ public class AssignmentSolve extends CMActivity {
 		Date realEndTime = Utils.getDateFromDBString(data
 				.getString("realEndTime"));
 
+		JSONObject assg = data.getJSONObject("assignment");
+		TextView name = (TextView) findViewById(R.id.name);
+		final TextView date = (TextView) findViewById(R.id.date);
+		TextView description = (TextView) findViewById(R.id.description);
+
+		name.setText(getText(R.string.solving) + " " + assg.getString("name"));
+		description.setText(assg.getString("description"));
+
+		Date now = new Date();
+		date.setText("");
+		new CountDownTimer(realEndTime.getTime() - now.getTime(), 1000) {
+			@Override
+			public void onTick(long millisUntilFinished) {
+				long time = millisUntilFinished / 1000;
+				String seconds = Integer.toString((int) (time % 60));
+				String minutes = Integer.toString((int) ((time % 3600) / 60));
+				String hours = Integer.toString((int) (time / 3600));
+				for (int i = 0; i < 2; i++) {
+					if (seconds.length() < 2) {
+						seconds = "0" + seconds;
+					}
+					if (minutes.length() < 2) {
+						minutes = "0" + minutes;
+					}
+					if (hours.length() < 2) {
+						hours = "0" + hours;
+					}
+				}
+
+				date.setText(getText(R.string.remaining_time) + ": " + hours
+						+ ":" + minutes + ":" + seconds);
+			}
+
+			@Override
+			public void onFinish() {
+				submitForm();
+			}
+		}.start();
+
+		JSONObject currentAnswers = data.getJSONObject("currentAnswers");
+
 		final LinearLayout assignment = (LinearLayout) findViewById(R.id.assignment);
 		assignment.removeAllViews();
 
@@ -74,6 +123,7 @@ public class AssignmentSolve extends CMActivity {
 				EditText edit = new EditText(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
+				edit.setText(currentAnswers.getString(id));
 				edit.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.WRAP_CONTENT));
 				edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -103,6 +153,7 @@ public class AssignmentSolve extends CMActivity {
 				EditText edit = new EditText(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
+				edit.setText(currentAnswers.getString(id));
 				edit.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.WRAP_CONTENT));
 				edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -132,21 +183,27 @@ public class AssignmentSolve extends CMActivity {
 				RadioGroup radioGroup = new RadioGroup(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
+				int currentPos = (currentAnswers.getInt(id));
 				final String[] choices = question.getString("choices").split(
 						"#");
+				int i = 0;
 				for (String choice : choices) {
 					RadioButton radio = new RadioButton(this);
 					radio.setText(choice);
+					radio.setTag(i + "");
+					if (i == currentPos)
+						radio.setChecked(true);
 					radioGroup.addView(radio);
+					i++;
 				}
 				radioGroup
 						.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 							@Override
 							public void onCheckedChanged(RadioGroup group,
 									int checkedId) {
-								tag.setValue(((RadioButton) group
-										.findViewById(checkedId)).getText()
-										.toString());
+								String t = (String) ((RadioButton) group
+										.findViewById(checkedId)).getTag();
+								tag.setValue(t);
 							}
 						});
 				assignment.addView(label);
@@ -157,11 +214,18 @@ public class AssignmentSolve extends CMActivity {
 						"#");
 				TextView label = new TextView(this);
 				label.setText(question.getString("label"));
+
 				final boolean[] selected = new boolean[choices.length];
+				JSONArray curAnswers = currentAnswers.getJSONArray(id);
 				for (boolean b : selected)
 					b = false;
+				for (int i = 0; i < curAnswers.length(); i++) {
+					selected[curAnswers.getInt(i)] = true;
+				}
 
 				final Button select = new Button(this);
+				select.setText(getText(R.string.selected) + ": "
+						+ String.valueOf(countSelected(selected)));
 				final QuestionTag tag = new QuestionTag(id, type, new String[0]);
 				tags.add(tag);
 
@@ -170,14 +234,11 @@ public class AssignmentSolve extends CMActivity {
 					public void onClick(DialogInterface dialog, int which,
 							boolean isChecked) {
 						selected[which] = isChecked;
-						tag.setValues(Utils.maskArray(choices, selected));
+						tag.setValues(Utils.getTruePositions(selected));
 						select.setText(getText(R.string.selected) + ": "
 								+ String.valueOf(countSelected(selected)));
 					}
 				};
-
-				select.setText(getText(R.string.selected) + ": "
-						+ getText(R.string.nothing));
 
 				select.setOnClickListener(new OnClickListener() {
 
@@ -224,24 +285,64 @@ public class AssignmentSolve extends CMActivity {
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				for (QuestionTag tag : tags) {
-					if (tag.getType().equals("text"))
-						Log.e("test", tag.getId() + ":" + tag.getValue());
-					if (tag.getType().equals("textarea"))
-						Log.e("test", tag.getId() + ":" + tag.getValue());
-					if (tag.getType().equals("radio"))
-						Log.e("test", tag.getId() + ":" + tag.getValue());
-					if (tag.getType().equals("file"))
-							Log.e("test", tag.getId() + ":" + tag.getValue());
-					if (tag.getType().equals("multi"))
-						Log.e("test",
-								tag.getId() + ":"
-										+ Utils.implode(tag.getValues(), "#"));
-				}
+				submitForm();
 			}
 		});
 		assignment.addView(submitButton);
 
+	}
+
+	private void submitForm() {
+		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
+		final ArrayList<NameValuePair> getArgs = new ArrayList<NameValuePair>();
+		getArgs.add(new BasicNameValuePair("aid", String.valueOf(aid)));
+		final HashMap<String, File> files = new HashMap<String, File>();
+
+		for (QuestionTag tag : tags) {
+			if (tag.getType().equals("text")
+					|| tag.getType().equals("textarea")
+					|| tag.getType().equals("radio")) {
+				postArgs.add(new BasicNameValuePair(tag.getId() + "_", tag
+						.getValue()));
+			}
+			if (tag.getType().equals("file"))
+				if (!tag.getValue().equals(""))
+					files.put(tag.getId() + "_", new File(tag.getValue()));
+				else
+					try {
+						files.put(tag.getId() + "_",
+								File.createTempFile("no-file", "file"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			if (tag.getType().equals("multi")) {
+				int i = 0;
+				for (String val : tag.getValues()) {
+					postArgs.add(new BasicNameValuePair(tag.getId() + "_[" + i
+							+ "]", val));
+					i++;
+				}
+			}
+		}
+
+		new AsyncTask<Void, Void, Void>() {
+			protected void onPreExecute() {
+				setProgressBarIndeterminateVisibility(true);
+			};
+
+			protected Void doInBackground(Void... params) {
+				courseManagerCon.sendForm("assignment", "solve", "solveForm",
+						getArgs, postArgs, files);
+				return null;
+			}
+
+			protected void onPostExecute(Void result) {
+				setProgressBarIndeterminateVisibility(false);
+				courseManagerCon.toastFlashes();
+				finish();
+			};
+		}.execute();
 	}
 
 	public String getSelectedRadioValue(RadioGroup g) {
@@ -262,10 +363,10 @@ public class AssignmentSolve extends CMActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			String filePath = data.getData().getPath();
-			Log.e("test", filePath);
 			for (QuestionTag tag : tags) {
-				if (tag.getId().equals(String.valueOf(requestCode)))
+				if (tag.getId().equals(String.valueOf(requestCode))) {
 					tag.setValue(filePath);
+				}
 			}
 		}
 	}
@@ -277,4 +378,5 @@ public class AssignmentSolve extends CMActivity {
 				n++;
 		return n;
 	}
+
 }

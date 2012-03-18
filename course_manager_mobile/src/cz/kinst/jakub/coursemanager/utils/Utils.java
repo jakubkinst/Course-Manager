@@ -61,4 +61,15 @@ public class Utils {
 		return AsImplodedString;
 	}
 
+	public static String[] getTruePositions(boolean[] selected) {
+		ArrayList<String> list = new ArrayList<String>();
+		int i = 0;
+		for (boolean s : selected) {
+			if (s)
+				list.add(String.valueOf(i));
+			i++;
+		}
+		return list.toArray(new String[list.size()]);
+	}
+
 }

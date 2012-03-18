@@ -37,7 +37,6 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.ByteArrayBuffer;
 
 import android.util.Log;
-import cz.kinst.jakub.coursemanager.CourseManagerConnector;
 
 public class HTTPSmartClient implements Serializable {
 
@@ -55,17 +54,16 @@ public class HTTPSmartClient implements Serializable {
 			result = convertStreamToString(getInputStream(url, getArgs,
 					postArgs, files));
 		} catch (Exception e) {
-			Log.e(CourseManagerConnector.LOGTAG,
-					"Error in http connection" + e.toString());
+			Log.e(TAG, "Error in http connection" + e.toString());
 			result = "";
 		}
-		Log.d(CourseManagerConnector.LOGTAG, "Response: " + result);
+		Log.d(TAG, "Response: " + result);
 		return result;
 	}
-	
+
 	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs){
-		return getJSON(url, getArgs, postArgs,null);
+			ArrayList<NameValuePair> postArgs) {
+		return getJSON(url, getArgs, postArgs, null);
 	}
 
 	public InputStream getInputStream(String url,
@@ -105,6 +103,7 @@ public class HTTPSmartClient implements Serializable {
 			mpEntity.addPart(nameValuePair.getName(), new StringBody(
 					nameValuePair.getValue()));
 		}
+
 		for (Entry<String, File> file : files.entrySet()) {
 			mpEntity.addPart(file.getKey(), new FileBody(file.getValue()));
 		}
