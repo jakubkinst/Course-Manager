@@ -68,5 +68,6 @@
     <string name="minutes">minutes</string>
     <string name="time_limit">Time limit</string>
     <string name="remaining_time">Remaining time</string>
+    <string name="no_file_manager">No File Manager Application Installed</string>
 
 </resources>

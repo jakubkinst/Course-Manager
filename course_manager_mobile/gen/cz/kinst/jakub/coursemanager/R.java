@@ -175,6 +175,7 @@ public final class R {
         public static final int new_message=0x7f05002a;
         public static final int new_topic=0x7f050021;
         public static final int next_page=0x7f050019;
+        public static final int no_file_manager=0x7f050043;
         public static final int nothing=0x7f05003b;
         public static final int of=0x7f05001f;
         public static final int outbox=0x7f05002b;

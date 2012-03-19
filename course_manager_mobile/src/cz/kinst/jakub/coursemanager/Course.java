@@ -195,7 +195,6 @@ public class Course extends CMActivity implements Serializable {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean result = super.onCreateOptionsMenu(menu);
 
 		MenuItem forum = menu.add(0, MENU_FORUM, 0, R.string.forum);
 		forum.setIcon(R.drawable.ic_action_forum);
@@ -222,6 +221,7 @@ public class Course extends CMActivity implements Serializable {
 			assignments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
 
+		boolean result = super.onCreateOptionsMenu(menu);
 		return result;
 	}
 

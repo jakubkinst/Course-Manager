@@ -2,6 +2,8 @@ package cz.kinst.jakub.coursemanager;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,12 +19,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -33,6 +37,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.utils.QuestionTag;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
@@ -276,7 +281,11 @@ public class AssignmentSolve extends CMActivity {
 					public void onClick(View v) {
 						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 						intent.setType("file/*");
-						startActivityForResult(intent, Integer.parseInt(id));
+						try {
+							startActivityForResult(intent, Integer.parseInt(id));							
+						} catch (Exception e) {
+							Toast.makeText(AssignmentSolve.this, R.string.no_file_manager, Toast.LENGTH_LONG).show();
+						}
 					}
 				});
 				assignment.addView(label);
@@ -369,10 +378,11 @@ public class AssignmentSolve extends CMActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
-			String filePath = data.getData().getPath();
+			Uri filePath = data.getData();
+			Log.e("test",Utils.getRealPathFromURI(filePath, this));
 			for (QuestionTag tag : tags) {
 				if (tag.getId().equals(String.valueOf(requestCode))) {
-					tag.setValue(filePath);
+					tag.setValue(Utils.getRealPathFromURI(filePath, this));
 				}
 			}
 		}
