@@ -124,7 +124,7 @@ public class ForumReplies extends CMActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		MenuItem newComment = menu.add(R.string.new_topic);
+		MenuItem newComment = menu.add(R.string.reply);
 		this.MENU_REPLY = newComment.getItemId();
 		newComment.setIcon(android.R.drawable.ic_menu_edit);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
