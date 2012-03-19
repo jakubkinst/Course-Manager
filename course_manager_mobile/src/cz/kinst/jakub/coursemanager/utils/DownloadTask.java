@@ -14,7 +14,7 @@ import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.CourseManagerConnector;
 
 public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
-	
+
 	private Activity context;
 	private CourseManagerConnector cm;
 
@@ -42,8 +42,8 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 	}
 
 	protected void onPostExecute(File file) {
-		Toast.makeText(context,
-				"File saved to " + file.getAbsolutePath(), 2000).show();
+		Toast.makeText(context, "File saved to " + file.getAbsolutePath(), 2000)
+				.show();
 		try {
 			Intent intent = new Intent();
 			intent.setAction(android.content.Intent.ACTION_VIEW);
@@ -58,6 +58,7 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 		context.setProgressBarIndeterminateVisibility(false);
 
 	}
+
 	public String getMIMEType(File f) {
 		String filenameArray[] = f.getName().split("\\.");
 		String e = filenameArray[filenameArray.length - 1];

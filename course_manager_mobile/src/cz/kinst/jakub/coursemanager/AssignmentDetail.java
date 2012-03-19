@@ -19,6 +19,10 @@ import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class AssignmentDetail extends CMActivity {
 
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = -9168204116934753181L;
 	private int aid;
 
 	@Override

@@ -73,7 +73,6 @@ public class TabbedActivity extends Activity {
 		activeTab = name;
 		Tab t = getTabByName(name);
 		t.getButton().setBackgroundColor(COLOR_ACTIVE);
-		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		tabContent.removeAllViews();
 		tabContent.addView(getTab(name), new LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -119,7 +118,7 @@ public class TabbedActivity extends Activity {
 		public Tab(final String name, View view, CharSequence title) {
 			this.name = name;
 			this.view = view;
-			this.title = title;
+			this.setTitle(title);
 			this.button = new Button(TabbedActivity.this);
 			this.button.setText(title);
 			this.button.setBackgroundColor(COLOR_NORMAL);
@@ -133,7 +132,7 @@ public class TabbedActivity extends Activity {
 
 		public Tab(final String name, CharSequence title, final Intent intent) {
 			this.name = name;
-			this.title = title;
+			this.setTitle(title);
 			this.button = new Button(TabbedActivity.this);
 			this.button.setText(title);
 			this.button.setBackgroundColor(COLOR_NORMAL);
@@ -155,6 +154,14 @@ public class TabbedActivity extends Activity {
 
 		public Button getButton() {
 			return button;
+		}
+
+		public CharSequence getTitle() {
+			return title;
+		}
+
+		public void setTitle(CharSequence title) {
+			this.title = title;
 		}
 	}
 }

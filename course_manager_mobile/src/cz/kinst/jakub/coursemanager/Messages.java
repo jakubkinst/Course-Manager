@@ -29,6 +29,10 @@ import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class Messages extends CMActivity {
 
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = -5260322349563369526L;
 	private static final int MENU_NEW_MESSAGE = 0;
 	private static final String TAB_INBOX = "inbox";
 	private static final String TAB_OUTBOX = "outbox";
@@ -86,7 +90,6 @@ public class Messages extends CMActivity {
 									android.R.layout.simple_list_item_1,
 									messages));
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				setProgressBarIndeterminateVisibility(false);
@@ -124,7 +127,6 @@ public class Messages extends CMActivity {
 									android.R.layout.simple_list_item_1,
 									messages));
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				setProgressBarIndeterminateVisibility(false);

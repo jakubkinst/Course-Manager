@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.kinst.jakub.netteconnector;
 
 import java.io.BufferedInputStream;
@@ -41,129 +37,19 @@ import android.util.Log;
 public class HTTPSmartClient implements Serializable {
 
 	/**
-	 * 
+	 * UID for serialization
 	 */
-	private static final String TAG = "HTTPSmartClient";
 	private static final long serialVersionUID = -1500477031448176559L;
+	private static final String LOG_TAG = "Androidette_HTTPSmartClient";
+
+	/**
+	 * List of saved cookies Theese are collected from server responses and
+	 * packed in following requests
+	 */
 	private List<SerializableCookie> cookies = new ArrayList<SerializableCookie>();
 
-	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
-		String result;
-		try {
-			result = convertStreamToString(getInputStream(url, getArgs,
-					postArgs, files));
-		} catch (Exception e) {
-			Log.e(TAG, "Error in http connection" + e.toString());
-			result = "";
-		}
-		Log.d(TAG, "Response: " + result);
-		return result;
-	}
-
-	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs) {
-		return getJSON(url, getArgs, postArgs, null);
-	}
-
-	public InputStream getInputStream(String url,
-			ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs, HashMap<String, File> files)
-			throws IllegalStateException, IOException {
-
-		InputStream is;
-
-		if (getArgs == null) {
-			getArgs = new ArrayList<NameValuePair>();
-		}
-		if (postArgs == null) {
-			postArgs = new ArrayList<NameValuePair>();
-		}
-		if (files == null) {
-			files = new HashMap<String, File>();
-		}
-
-		// Creating a local HTTP context
-		HttpContext localContext = new BasicHttpContext();
-
-		BasicCookieStore cookieStore = new BasicCookieStore();
-		for (Cookie cookie : cookies) {
-			cookieStore.addCookie(cookie);
-		}
-		// Bind custom cookie store to the local context
-		localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-
-		HttpClient httpclient = new DefaultHttpClient();
-		url = packGetParams(url, getArgs);
-		Log.d(TAG, "Request: " + url);
-		HttpPost httppost = new HttpPost(url);
-
-		MultipartEntity mpEntity = new MultipartEntity();
-		for (NameValuePair nameValuePair : postArgs) {
-			mpEntity.addPart(nameValuePair.getName(), new StringBody(
-					nameValuePair.getValue()));
-		}
-
-		for (Entry<String, File> file : files.entrySet()) {
-			mpEntity.addPart(file.getKey(), new FileBody(file.getValue()));
-		}
-
-		httppost.setEntity(mpEntity);
-
-		// httppost.setEntity(new UrlEncodedFormEntity(postArgs));
-		HttpResponse response = httpclient.execute(httppost, localContext);
-
-		for (Cookie cookie : cookieStore.getCookies()) {
-			this.cookies.add(new SerializableCookie(cookie));
-		}
-		HttpEntity entity = response.getEntity();
-		if (entity != null) {
-			is = entity.getContent();
-			return is;
-		} else
-			return null;
-	}
-
-	public File downloadFile(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs, String saveTo) {
-		File f = new File(saveTo);
-		try {
-			InputStream is = getInputStream(url, getArgs, postArgs, null);
-			BufferedInputStream bis = new BufferedInputStream(is);
-
-			/*
-			 * Read bytes to the Buffer until there is nothing more to read(-1).
-			 */
-			ByteArrayBuffer baf = new ByteArrayBuffer(50);
-			int current = 0;
-			while ((current = bis.read()) != -1) {
-				baf.append((byte) current);
-			}
-
-			/* Convert the Bytes read to a String. */
-			FileOutputStream fos = new FileOutputStream(f);
-			fos.write(baf.toByteArray());
-			fos.close();
-		} catch (IOException e) {
-		}
-		return f;
-	}
-
-	private String packGetParams(String url, ArrayList<NameValuePair> getArgs) {
-		url = url + "?";
-		for (NameValuePair par : getArgs) {
-			url = url + par.getName() + '=' + par.getValue() + "&";
-		}
-		return url;
-	}
-
 	public String convertStreamToString(InputStream is) throws IOException {
-		/*
-		 * To convert the InputStream to String we use the Reader.read(char[]
-		 * buffer) method. We iterate until the Reader return -1 which means
-		 * there's no more data to read. We use the StringWriter class to
-		 * produce the string.
-		 */
+
 		if (is != null) {
 			Writer writer = new StringWriter();
 
@@ -182,5 +68,148 @@ public class HTTPSmartClient implements Serializable {
 		} else {
 			return "";
 		}
+	}
+
+	public File downloadFile(String url, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, String pathToSave) {
+		File file = new File(pathToSave);
+		try {
+			InputStream inputStream = getInputStream(url, getArgs, postArgs,
+					null);
+			BufferedInputStream bufferedInputStream = new BufferedInputStream(
+					inputStream);
+
+			/*
+			 * Read bytes to the Buffer until there is nothing more to read(-1).
+			 */
+			ByteArrayBuffer baf = new ByteArrayBuffer(50);
+			int current = 0;
+			while ((current = bufferedInputStream.read()) != -1) {
+				baf.append((byte) current);
+			}
+
+			/* Convert the Bytes read to a String. */
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+			fileOutputStream.write(baf.toByteArray());
+			fileOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return file;
+	}
+
+	public List<SerializableCookie> getCookies() {
+		return cookies;
+	}
+
+	public InputStream getInputStream(String url,
+			ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> fileArgs)
+			throws IllegalStateException, IOException {
+
+		InputStream inputStream;
+
+		if (getArgs == null) {
+			getArgs = new ArrayList<NameValuePair>();
+		}
+		if (postArgs == null) {
+			postArgs = new ArrayList<NameValuePair>();
+		}
+		if (fileArgs == null) {
+			fileArgs = new HashMap<String, File>();
+		}
+
+		// Creating a local HTTP context
+		HttpContext localContext = new BasicHttpContext();
+
+		// Create cookie store and fill it with already saved cookies
+		BasicCookieStore cookieStore = new BasicCookieStore();
+		for (Cookie cookie : cookies) {
+			cookieStore.addCookie(cookie);
+		}
+
+		// Bind custom cookie store to the local context
+		localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
+		HttpClient httpclient = new DefaultHttpClient();
+
+		// add GET parameters to URL
+		url = packGetParams(url, getArgs);
+
+		// uncomment to log URL of HTTP request
+		// Log.d(LOG_TAG, "Request: " + url);
+
+		HttpPost httppost = new HttpPost(url);
+
+		// MultipartEntity is an Entity which supports both string params
+		// and File params
+		MultipartEntity mpEntity = new MultipartEntity();
+
+		// fill with POST params
+		for (NameValuePair nameValuePair : postArgs) {
+			mpEntity.addPart(nameValuePair.getName(), new StringBody(
+					nameValuePair.getValue()));
+		}
+
+		// fill with file params
+		for (Entry<String, File> file : fileArgs.entrySet()) {
+			mpEntity.addPart(file.getKey(), new FileBody(file.getValue()));
+		}
+
+		httppost.setEntity(mpEntity);
+
+		// execute http request and retrieve response
+		HttpResponse response = httpclient.execute(httppost, localContext);
+
+		// save retrieved cookies
+		for (Cookie cookie : cookieStore.getCookies()) {
+			this.cookies.add(new SerializableCookie(cookie));
+		}
+
+		// get body from response
+		HttpEntity responseEntity = response.getEntity();
+		if (responseEntity != null) {
+			inputStream = responseEntity.getContent();
+			return inputStream;
+		} else
+			return null;
+	}
+
+	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs) {
+		return getJSON(url, getArgs, postArgs, null);
+	}
+
+	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
+		String result;
+		try {
+			result = convertStreamToString(getInputStream(url, getArgs,
+					postArgs, files));
+		} catch (Exception e) {
+			Log.e(LOG_TAG, "Error in http connection: " + e.toString());
+			result = "";
+		}
+		// uncomment this to log content of http response
+		// Log.d(LOG_TAG, "Response: " + result);
+		return result;
+	}
+
+	private String packGetParams(String url, ArrayList<NameValuePair> getArgs) {
+		if (!getArgs.isEmpty()) {
+			url = url.concat("?");
+			String prefix = "";
+			for (NameValuePair arg : getArgs) {
+
+				url = url.concat(prefix);
+				prefix = "&";
+				url = url.concat(arg.getName() + '=' + arg.getValue());
+			}
+		}
+		return url;
+	}
+
+	public void setCookies(List<SerializableCookie> cookies) {
+		this.cookies = cookies;
 	}
 }

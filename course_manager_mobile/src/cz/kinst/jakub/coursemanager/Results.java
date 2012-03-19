@@ -1,44 +1,27 @@
 package cz.kinst.jakub.coursemanager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class Results extends CMActivity {
 
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = -6087997793622768354L;
 	private int cid;
 
 	@Override
@@ -141,7 +124,7 @@ public class Results extends CMActivity {
 	}
 
 	private void drawGradesTable(JSONObject data) throws JSONException {
-		
+
 		ArrayList<JSONObject> students = Utils.getJSONObjectArray(data
 				.getJSONArray("students"));
 		ArrayList<JSONObject> grades = Utils.getJSONObjectArray(data

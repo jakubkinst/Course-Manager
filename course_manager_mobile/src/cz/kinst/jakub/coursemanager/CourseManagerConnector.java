@@ -16,18 +16,19 @@ import org.json.JSONObject;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
-import cz.kinst.jakub.netteconnector.FlashMessage;
-import cz.kinst.jakub.netteconnector.NetteConnector;
 
-public class CourseManagerConnector extends NetteConnector implements
+import cz.kinst.jakub.netteconnector.FlashMessage;
+import cz.kinst.jakub.netteconnector.AndroidetteConnector;
+
+public class CourseManagerConnector extends AndroidetteConnector implements
 		OnSharedPreferenceChangeListener {
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3276276628414868331L;
+	private static final long serialVersionUID = -7545595093935513854L;
 
 	public static String LOGTAG = "coursemanager";
 
@@ -120,7 +121,7 @@ public class CourseManagerConnector extends NetteConnector implements
 	public File getResource(int rid, String filename) {
 		ArrayList<NameValuePair> get = new ArrayList<NameValuePair>();
 		get.add(new BasicNameValuePair("rid", String.valueOf(rid)));
-		return parser.downloadFile(getUrl() + "/resource/download", get,
+		return httpClient.downloadFile(getUrl() + "/resource/download", get,
 				new ArrayList<NameValuePair>(), filename);
 	}
 

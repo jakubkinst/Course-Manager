@@ -18,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ import android.widget.TextView;
 public class CourseList extends CMActivity implements Serializable {
 
 	/**
-	 * 
+	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 6232480315437451355L;
 	private static final int MENU_MESSAGES = 0;
@@ -36,7 +35,7 @@ public class CourseList extends CMActivity implements Serializable {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addTab("list",R.layout.courselist,"");
+		addTab("list", R.layout.courselist, "");
 		switchTab("list");
 		reload();
 	}
@@ -63,20 +62,21 @@ public class CourseList extends CMActivity implements Serializable {
 			sCourses.add(courses.getJSONObject(i));
 		}
 
-		final CourseListAdapter adapter = new CourseListAdapter(tCourses,sCourses);
+		final CourseListAdapter adapter = new CourseListAdapter(tCourses,
+				sCourses);
 		ExpandableListView listView = (ExpandableListView) findViewById(R.id.list);
 		registerForContextMenu(listView);
 		listView.setAdapter(adapter);
 		listView.expandGroup(0);
 		listView.expandGroup(1);
-		listView.setOnChildClickListener(new OnChildClickListener() {			
+		listView.setOnChildClickListener(new OnChildClickListener() {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {				
+					int groupPosition, int childPosition, long id) {
 				try {
-					Intent i = new Intent(CourseList.this, Course.class);					
+					Intent i = new Intent(CourseList.this, Course.class);
 					int cid;
-					if (groupPosition==0)
+					if (groupPosition == 0)
 						cid = adapter.tCourses.get(childPosition).getInt("id");
 					else
 						cid = adapter.sCourses.get(childPosition).getInt("id");
@@ -89,32 +89,32 @@ public class CourseList extends CMActivity implements Serializable {
 			}
 		});
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-	                                ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.course_context_menu, menu);
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.course_context_menu, menu);
 	}
-	
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		ExpandableListView.ExpandableListContextMenuInfo info =
-				(ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
-	    String cid = (String)info.targetView.getTag();
-	    switch (item.getItemId()) {
-	        case R.id.edit:
-	            Toast.makeText(this, "Editting "+cid, 1000).show();
-	            return true;
-	        case R.id.delete:
-	            Toast.makeText(this, "Deleting "+cid, 1000).show();
-	            return true;
-	        default:
-	            return super.onContextItemSelected(item);
-	    }
+		ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) item
+				.getMenuInfo();
+		String cid = (String) info.targetView.getTag();
+		switch (item.getItemId()) {
+		case R.id.edit:
+			Toast.makeText(this, "Editting " + cid, 1000).show();
+			return true;
+		case R.id.delete:
+			Toast.makeText(this, "Deleting " + cid, 1000).show();
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
 	}
-	
+
 	public class CourseListAdapter extends BaseExpandableListAdapter {
 
 		public ArrayList<JSONObject> tCourses, sCourses;
@@ -127,14 +127,14 @@ public class CourseList extends CMActivity implements Serializable {
 
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
-			if (groupPosition==0)
+			if (groupPosition == 0)
 				return tCourses.get(childPosition);
-			else return sCourses.get(childPosition);
+			else
+				return sCourses.get(childPosition);
 		}
 
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -150,9 +150,9 @@ public class CourseList extends CMActivity implements Serializable {
 			TextView name = (TextView) v.findViewById(R.id.course_name);
 			TextView desc = (TextView) v.findViewById(R.id.course_desc);
 			final JSONObject course;
-			if (groupPosition==0)
+			if (groupPosition == 0)
 				course = tCourses.get(childPosition);
-			else 
+			else
 				course = sCourses.get(childPosition);
 			try {
 				name.setText(course.getString("name"));
@@ -163,10 +163,9 @@ public class CourseList extends CMActivity implements Serializable {
 			return v;
 		}
 
-		
 		@Override
 		public int getChildrenCount(int groupPosition) {
-			if (groupPosition==0)
+			if (groupPosition == 0)
 				return tCourses.size();
 			else
 				return sCourses.size();
@@ -174,7 +173,6 @@ public class CourseList extends CMActivity implements Serializable {
 
 		@Override
 		public Object getGroup(int groupPosition) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
@@ -185,7 +183,6 @@ public class CourseList extends CMActivity implements Serializable {
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -197,33 +194,31 @@ public class CourseList extends CMActivity implements Serializable {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.group_row, null);
 			}
-			TextView textView = (TextView)v.findViewById(R.id.group_title);
-            if (groupPosition==0)
-            	textView.setText(getText(R.string.teaching));
-            else
-            	textView.setText(getText(R.string.studying));
-            return v;
+			TextView textView = (TextView) v.findViewById(R.id.group_title);
+			if (groupPosition == 0)
+				textView.setText(getText(R.string.teaching));
+			else
+				textView.setText(getText(R.string.studying));
+			return v;
 		}
 
 		@Override
 		public boolean hasStableIds() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 
-		MenuItem messages = menu.add(0,MENU_MESSAGES, 0, R.string.inbox);
+		MenuItem messages = menu.add(0, MENU_MESSAGES, 0, R.string.inbox);
 		messages.setIcon(R.drawable.ic_action_messages);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			messages.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -233,7 +228,8 @@ public class CourseList extends CMActivity implements Serializable {
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		if (item.getItemId() == MENU_MESSAGES) {
-			startActivity(new Intent(this, Messages.class).putExtra("cm", courseManagerCon));
+			startActivity(new Intent(this, Messages.class).putExtra("cm",
+					courseManagerCon));
 			return true;
 		} else {
 			return super.onMenuItemSelected(featureId, item);

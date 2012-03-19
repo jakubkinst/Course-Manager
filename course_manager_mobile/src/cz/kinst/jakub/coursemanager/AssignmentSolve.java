@@ -39,7 +39,7 @@ import cz.kinst.jakub.coursemanager.utils.Utils;
 public class AssignmentSolve extends CMActivity {
 
 	/**
-	 * 
+	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -5079492776147483408L;
 	protected static final int SELECT_FILE = 0;
@@ -217,8 +217,10 @@ public class AssignmentSolve extends CMActivity {
 
 				final boolean[] selected = new boolean[choices.length];
 				JSONArray curAnswers = currentAnswers.getJSONArray(id);
-				for (boolean b : selected)
+				for (@SuppressWarnings("unused")
+				boolean b : selected) {
 					b = false;
+				}
 				for (int i = 0; i < curAnswers.length(); i++) {
 					selected[curAnswers.getInt(i)] = true;
 				}
@@ -313,7 +315,6 @@ public class AssignmentSolve extends CMActivity {
 						files.put(tag.getId() + "_",
 								File.createTempFile("no-file", "file"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			if (tag.getType().equals("multi")) {

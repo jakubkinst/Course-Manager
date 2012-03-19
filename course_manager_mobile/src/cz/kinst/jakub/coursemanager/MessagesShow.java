@@ -14,6 +14,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MessagesShow extends CMActivity {
+
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = -7729764807510013237L;
 	private static final int MENU_REPLY = 0;
 	private String message;
 
@@ -59,7 +64,6 @@ public class MessagesShow extends CMActivity {
 			t.start();
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setProgressBarIndeterminateVisibility(false);
@@ -92,7 +96,6 @@ public class MessagesShow extends CMActivity {
 						.putExtra("content",
 								wrapReply(message.getString("content"))));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return true;

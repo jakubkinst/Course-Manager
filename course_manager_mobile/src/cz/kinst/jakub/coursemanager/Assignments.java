@@ -24,7 +24,10 @@ import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class Assignments extends CMActivity {
 
-	private static final int DIALOG_NEW_TOPIC = 0;
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = 6875506048845321547L;
 	private int cid;
 	public int MENU_NEW_TOPIC;
 

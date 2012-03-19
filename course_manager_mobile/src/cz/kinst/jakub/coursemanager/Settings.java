@@ -52,10 +52,14 @@ public class Settings extends PreferenceActivity {
 										.findViewById(R.id.login_password);
 								SharedPreferences prefs = PreferenceManager
 										.getDefaultSharedPreferences(Settings.this);
-								prefs.edit().putString("email",
-										email.getText().toString()).commit();
-								prefs.edit().putString("password",
-										password.getText().toString()).commit();
+								prefs.edit()
+										.putString("email",
+												email.getText().toString())
+										.commit();
+								prefs.edit()
+										.putString("password",
+												password.getText().toString())
+										.commit();
 							}
 						})
 				.setNegativeButton(R.string.login_dialog_cancel,

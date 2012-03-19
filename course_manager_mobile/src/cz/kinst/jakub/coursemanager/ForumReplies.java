@@ -15,25 +15,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 
 public class ForumReplies extends CMActivity {
 
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = 3605505635167753669L;
 	private static final int DIALOG_REPLY = 0;
 	private int tid;
 	public int MENU_REPLY;

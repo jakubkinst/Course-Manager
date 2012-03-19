@@ -16,28 +16,32 @@ import cz.kinst.jakub.coursemanager.CourseManagerConnector;
  * 
  * @author Jakub Kinst
  */
-public class NetteConnector implements Serializable {
+public class AndroidetteConnector implements Serializable {
 
+	private static final String LOG_TAG = "Androidette_Connector";
+	private static final String NETTE_MOBILE_PARAM = "mobile";
+	private static final String NETTE_FORM_SIGNAL_APENDIX = "-submit";
+	private static final String NETTE_SIGNAL_PREFIX = "do";
 	/**
-	 * 
+	 * UID for serialization
 	 */
-	private static final long serialVersionUID = 1L;
-	private String URL;
-	protected HTTPSmartClient parser;
-	private NetteJSONClient jsonClient;
+	private static final long serialVersionUID = -4933359977995094289L;
+	private String url;
+	protected HTTPSmartClient httpClient;
+	private AndroidetteJSONClient jsonClient;
+
+	public AndroidetteConnector(String url) {
+		this.url = url;
+		httpClient = new HTTPSmartClient();
+		jsonClient = new AndroidetteJSONClient();
+	}
 
 	public String getUrl() {
-		return URL;
+		return url;
 	}
 
 	public void setUrl(String url) {
-		this.URL = url;
-	}
-
-	public NetteConnector(String url) {
-		URL = url;
-		parser = new HTTPSmartClient();
-		jsonClient = new NetteJSONClient();
+		this.url = url;
 	}
 
 	public JSONObject sendSignal(String presenter, String signal,
@@ -45,28 +49,33 @@ public class NetteConnector implements Serializable {
 		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
 		}
-		getArgs.add(new BasicNameValuePair("do", signal));
+
+		getArgs.add(new BasicNameValuePair(NETTE_SIGNAL_PREFIX, signal));
 		return getAction(presenter, null, getArgs, postArgs);
 	}
 
 	public JSONObject sendForm(String presenter, String action,
 			String formName, ArrayList<NameValuePair> postArgs) {
-		return sendForm(presenter, action, formName, null, postArgs);
+		return sendForm(presenter, action, formName, null, postArgs, null);
 	}
 
 	public JSONObject sendForm(String presenter, String action,
 			String formName, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs){
-		return sendForm(presenter, action, formName, getArgs, postArgs,null);
+			ArrayList<NameValuePair> postArgs) {
+		return sendForm(presenter, action, formName, getArgs, postArgs, null);
 	}
-	
+
 	public JSONObject sendForm(String presenter, String action,
 			String formName, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs,HashMap<String, File> files) {
-		if (getArgs == null)
+			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
+		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
-		getArgs.add(new BasicNameValuePair("do", formName + "-submit"));
-		return getAction(presenter, action, getArgs, postArgs,files);
+		}
+
+		getArgs.add(new BasicNameValuePair(NETTE_SIGNAL_PREFIX, formName
+				+ NETTE_FORM_SIGNAL_APENDIX));
+
+		return getAction(presenter, action, getArgs, postArgs, files);
 	}
 
 	public JSONObject getAction(String presenter, String action,
@@ -81,18 +90,22 @@ public class NetteConnector implements Serializable {
 		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
 		}
-		String path = presenter;
-		if (action != null)
-			path = path + "/" + action;
 
-		getArgs.add(new BasicNameValuePair("mobile", "1"));
+		// build url
+		String path = presenter;
+		if (action != null) {
+			path = path + "/" + action;
+		}
+
+		// add mobile parameter
+		getArgs.add(new BasicNameValuePair(NETTE_MOBILE_PARAM, "1"));
 
 		JSONObject result = new JSONObject();
 		try {
-			result = jsonClient.getJSONObject(parser.getJSON(URL + "/" + path,
-					getArgs, postArgs, files));
+			result = jsonClient.processStringToJSON(httpClient.getJSON(url
+					+ "/" + path, getArgs, postArgs, files));
 		} catch (Exception e) {
-			Log.e(CourseManagerConnector.LOGTAG, "++++" + e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 		}
 		return result;
 

@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +31,10 @@ import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 
 public class Lesson extends CMActivity {
 
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = 5959554373918072957L;
 	private static final int DIALOG_NEW_COMMENT = 0;
 	private int lid;
 	public int MENU_NEW_COMMENT;

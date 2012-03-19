@@ -26,21 +26,21 @@ import android.widget.TextView;
 
 public class Course extends CMActivity implements Serializable {
 
-	private static final String TAB_LESSONS = "lessons";
-	private static final String TAB_FORUM = "forum";
-	private static final String TAB_EVENTS = "events";
+	/**
+	 * UID for serialization
+	 */
+	private static final long serialVersionUID = 7674696421084736294L;
 	private int cid;
-	private final int MENU_FORUM = 0;
-	private final int MENU_EVENTS = 1;
-	private final int MENU_RESULTS = 2;
-	private final int MENU_ASSIGNMENTS = 3;
+	private final int MENU_FORUM 		= 		0;
+	private final int MENU_EVENTS 		= 		1;
+	private final int MENU_RESULTS 		= 		2;
+	private final int MENU_ASSIGNMENTS 	= 		3;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.cid = getIntent().getExtras().getInt("cid");
-		addTab(TAB_LESSONS, R.layout.course, getText(R.string.lesson));
-		switchTab(TAB_LESSONS);
+		setContentView(R.layout.course);
 		reload();
 	}
 
@@ -121,7 +121,6 @@ public class Course extends CMActivity implements Serializable {
 					try {
 						i.putExtra("lid", lesson.getInt("id"));
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					i.putExtra("cm", courseManagerCon);
@@ -183,13 +182,11 @@ public class Course extends CMActivity implements Serializable {
 
 		@Override
 		public boolean hasStableIds() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
@@ -213,8 +210,9 @@ public class Course extends CMActivity implements Serializable {
 		results.setIcon(R.drawable.ic_action_results);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			results.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
-		MenuItem assignments = menu.add(0, MENU_ASSIGNMENTS, 0, R.string.assignments);
+
+		MenuItem assignments = menu.add(0, MENU_ASSIGNMENTS, 0,
+				R.string.assignments);
 		assignments.setIcon(R.drawable.ic_action_assignments);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
 			assignments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
