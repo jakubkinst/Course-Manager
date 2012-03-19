@@ -40,7 +40,8 @@ Environment::setVariable('mailer', Environment::getConfig('mailer'));
 $router = $application->getRouter();
 $router[] = new Route('index.php', 'Courselist:homepage', Route::ONE_WAY);
 $router[] = new Route('[<lang [a-z]{2}>]', 'Courselist:homepage');
-$router[] = new Route('<presenter>/<action>/?mobile=1', 'courselist:homepage',Route::ONE_WAY);
+// Androidette Router
+$router[] = new AndroidetteRoute('courselist:homepage');
 $router[] = new Route('[<lang [a-z]{2}>/]<presenter>/<action>[/<cid [0-9]+>]', array(
 	    'action' => 'homepage'
 	));
