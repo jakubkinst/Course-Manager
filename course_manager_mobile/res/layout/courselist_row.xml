@@ -40,7 +40,6 @@
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
         </TableRow>
 
         <TableRow
@@ -54,7 +53,6 @@
                 android:layout_height="fill_parent"
                 android:text="Description"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </TableRow>
     </TableLayout>
 

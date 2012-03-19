@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas commodo massa et ullamcorper. Pellentesque vitae imperdiet ipsum. Duis purus lectus, volutpat mattis pellentesque sed, suscipit sit amet odio. Aliquam ullamcorper tristique urna et viverra. Nulla non venenatis lectus. Vivamus turpis purus, viverra vitae interdum non, convallis id odio. Morbi ac volutpat erat."
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
     <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_marginRight="10dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TextView
         android:id="@+id/added"
         android:layout_width="wrap_content"
