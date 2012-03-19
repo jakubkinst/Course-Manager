@@ -149,7 +149,7 @@ class CoursePresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		if (CourseModel::editCourse($this->cid, $values)) {
 			$this->flashMessage('Course edited.', $type = 'success');
-			$this->redirect('homepage');
+			$this->redirect('homepage',$this->cid);
 		}
 		else
 			$this->flashMessage('There was an error editting the Course.', $type = 'error');
