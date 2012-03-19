@@ -2,8 +2,6 @@ package cz.kinst.jakub.coursemanager;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +24,6 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -282,9 +279,11 @@ public class AssignmentSolve extends CMActivity {
 						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 						intent.setType("file/*");
 						try {
-							startActivityForResult(intent, Integer.parseInt(id));							
+							startActivityForResult(intent, Integer.parseInt(id));
 						} catch (Exception e) {
-							Toast.makeText(AssignmentSolve.this, R.string.no_file_manager, Toast.LENGTH_LONG).show();
+							Toast.makeText(AssignmentSolve.this,
+									R.string.no_file_manager, Toast.LENGTH_LONG)
+									.show();
 						}
 					}
 				});
@@ -379,7 +378,6 @@ public class AssignmentSolve extends CMActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			Uri filePath = data.getData();
-			Log.e("test",Utils.getRealPathFromURI(filePath, this));
 			for (QuestionTag tag : tags) {
 				if (tag.getId().equals(String.valueOf(requestCode))) {
 					tag.setValue(Utils.getRealPathFromURI(filePath, this));
