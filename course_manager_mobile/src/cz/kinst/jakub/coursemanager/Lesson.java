@@ -60,6 +60,7 @@ public class Lesson extends CMActivity {
 		reload();
 	}
 
+	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
 		switch (id) {
@@ -73,6 +74,7 @@ public class Lesson extends CMActivity {
 					.setCancelable(false)
 					.setPositiveButton(R.string.post,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									addComment(input.getText());
@@ -81,6 +83,7 @@ public class Lesson extends CMActivity {
 							})
 					.setNegativeButton(R.string.cancel,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									dialog.cancel();
@@ -103,16 +106,19 @@ public class Lesson extends CMActivity {
 
 		// post comment in safe thread
 		new AsyncTask<Void, Void, Void>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected Void doInBackground(Void... params) {
 				courseManagerCon.sendForm("lesson", "homepage", "commentForm",
 						getArgs, postArgs);
 				return null;
 			}
 
+			@Override
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
 				courseManagerCon.toastFlashes();
@@ -138,8 +144,9 @@ public class Lesson extends CMActivity {
 		MenuItem newComment = menu.add(R.string.new_comment);
 		this.MENU_NEW_COMMENT = newComment.getItemId();
 		newComment.setIcon(R.drawable.ic_action_edit);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 

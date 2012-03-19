@@ -191,8 +191,9 @@ public class AssignmentSolve extends CMActivity {
 					RadioButton radio = new RadioButton(this);
 					radio.setText(choice);
 					radio.setTag(i + "");
-					if (i == currentPos)
+					if (i == currentPos) {
 						radio.setChecked(true);
+					}
 					radioGroup.addView(radio);
 					i++;
 				}
@@ -307,16 +308,18 @@ public class AssignmentSolve extends CMActivity {
 				postArgs.add(new BasicNameValuePair(tag.getId() + "_", tag
 						.getValue()));
 			}
-			if (tag.getType().equals("file"))
-				if (!tag.getValue().equals(""))
+			if (tag.getType().equals("file")) {
+				if (!tag.getValue().equals("")) {
 					files.put(tag.getId() + "_", new File(tag.getValue()));
-				else
+				} else {
 					try {
 						files.put(tag.getId() + "_",
 								File.createTempFile("no-file", "file"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
+			}
 			if (tag.getType().equals("multi")) {
 				int i = 0;
 				for (String val : tag.getValues()) {
@@ -328,16 +331,19 @@ public class AssignmentSolve extends CMActivity {
 		}
 
 		new AsyncTask<Void, Void, Void>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected Void doInBackground(Void... params) {
 				courseManagerCon.sendForm("assignment", "solve", "solveForm",
 						getArgs, postArgs, files);
 				return null;
 			}
 
+			@Override
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
 				courseManagerCon.toastFlashes();
@@ -374,9 +380,11 @@ public class AssignmentSolve extends CMActivity {
 
 	public int countSelected(boolean[] array) {
 		int n = 0;
-		for (boolean b : array)
-			if (b)
+		for (boolean b : array) {
+			if (b) {
 				n++;
+			}
+		}
 		return n;
 	}
 

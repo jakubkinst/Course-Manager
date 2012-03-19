@@ -44,6 +44,7 @@ public class Settings extends PreferenceActivity {
 				.setView(textEntryView)
 				.setPositiveButton(R.string.login_dialog_ok,
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								EditText email = (EditText) textEntryView
@@ -64,6 +65,7 @@ public class Settings extends PreferenceActivity {
 						})
 				.setNegativeButton(R.string.login_dialog_cancel,
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 

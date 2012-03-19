@@ -49,7 +49,8 @@ public class AssignmentDetail extends CMActivity {
 		TextView timelimit = (TextView) findViewById(R.id.timelimit);
 		TextView description = (TextView) findViewById(R.id.description);
 		int limit = assignment.getInt("timelimit");
-		timelimit.setText(getText(R.string.time_limit)+": "+limit+" "+getText(R.string.minutes));
+		timelimit.setText(getText(R.string.time_limit) + ": " + limit + " "
+				+ getText(R.string.minutes));
 		name.setText(assignment.getString("name"));
 		description.setText(assignment.getString("description"));
 
@@ -61,7 +62,7 @@ public class AssignmentDetail extends CMActivity {
 		date.setText(df.format(assignDate) + " - " + df.format(dueDate));
 
 		Button solveButton = (Button) findViewById(R.id.solveButton);
-		if (data.getBoolean("canSolve"))
+		if (data.getBoolean("canSolve")) {
 			solveButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -70,8 +71,9 @@ public class AssignmentDetail extends CMActivity {
 							courseManagerCon).putExtra("aid", aid));
 				}
 			});
-		else
+		} else {
 			solveButton.setVisibility(View.GONE);
+		}
 
 	}
 }

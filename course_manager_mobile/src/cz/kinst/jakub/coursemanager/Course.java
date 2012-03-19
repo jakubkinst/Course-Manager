@@ -31,10 +31,10 @@ public class Course extends CMActivity implements Serializable {
 	 */
 	private static final long serialVersionUID = 7674696421084736294L;
 	private int cid;
-	private final int MENU_FORUM 		= 		0;
-	private final int MENU_EVENTS 		= 		1;
-	private final int MENU_RESULTS 		= 		2;
-	private final int MENU_ASSIGNMENTS 	= 		3;
+	private final int MENU_FORUM = 0;
+	private final int MENU_EVENTS = 1;
+	private final int MENU_RESULTS = 2;
+	private final int MENU_ASSIGNMENTS = 3;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,9 @@ public class Course extends CMActivity implements Serializable {
 		}
 		ExpandableListView lessonView = (ExpandableListView) findViewById(R.id.lessons);
 		lessonView.setAdapter(new LessonListAdapter(list));
-		if (list.size() > 0)
+		if (list.size() > 0) {
 			lessonView.expandGroup(0);
+		}
 	}
 
 	public class LessonListAdapter extends BaseExpandableListAdapter {
@@ -198,24 +199,28 @@ public class Course extends CMActivity implements Serializable {
 
 		MenuItem forum = menu.add(0, MENU_FORUM, 0, R.string.forum);
 		forum.setIcon(R.drawable.ic_action_forum);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			forum.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 
 		MenuItem events = menu.add(0, MENU_EVENTS, 0, R.string.events);
 		events.setIcon(R.drawable.ic_action_events);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			events.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 
 		MenuItem results = menu.add(0, MENU_RESULTS, 0, R.string.results);
 		results.setIcon(R.drawable.ic_action_results);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			results.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 
 		MenuItem assignments = menu.add(0, MENU_ASSIGNMENTS, 0,
 				R.string.assignments);
 		assignments.setIcon(R.drawable.ic_action_assignments);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			assignments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 
 		return result;
 	}

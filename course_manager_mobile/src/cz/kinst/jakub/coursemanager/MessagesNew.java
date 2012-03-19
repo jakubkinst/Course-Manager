@@ -27,12 +27,15 @@ public class MessagesNew extends CMActivity {
 		final EditText subject = (EditText) findViewById(R.id.subject);
 		final EditText to = (EditText) findViewById(R.id.to);
 		final EditText content = (EditText) findViewById(R.id.content);
-		if (getIntent().getExtras().containsKey("subject"))
+		if (getIntent().getExtras().containsKey("subject")) {
 			subject.setText(getIntent().getExtras().getString("subject"));
-		if (getIntent().getExtras().containsKey("to"))
+		}
+		if (getIntent().getExtras().containsKey("to")) {
 			to.setText(getIntent().getExtras().getString("to"));
-		if (getIntent().getExtras().containsKey("content"))
+		}
+		if (getIntent().getExtras().containsKey("content")) {
 			content.setText(getIntent().getExtras().getString("content"));
+		}
 		Button sendButton = (Button) findViewById(R.id.sendButton);
 		sendButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -52,16 +55,19 @@ public class MessagesNew extends CMActivity {
 
 		// post topic in safe thread
 		new AsyncTask<Void, Void, Void>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected Void doInBackground(Void... params) {
 				courseManagerCon.sendForm("message", "new", "newMessage",
 						getArgs, postArgs);
 				return null;
 			}
 
+			@Override
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
 				courseManagerCon.toastFlashes();

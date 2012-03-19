@@ -74,8 +74,9 @@ public class MessagesShow extends CMActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuItem newComment = menu.add(0, MENU_REPLY, 0, R.string.reply);
 		newComment.setIcon(R.drawable.ic_action_reply);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 

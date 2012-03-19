@@ -45,6 +45,7 @@ public class Forum extends CMActivity {
 		reload();
 	}
 
+	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
 		switch (id) {
@@ -60,6 +61,7 @@ public class Forum extends CMActivity {
 					.setCancelable(false)
 					.setPositiveButton(R.string.post,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									addTopic(inputLabel.getText().toString(),
@@ -70,6 +72,7 @@ public class Forum extends CMActivity {
 							})
 					.setNegativeButton(R.string.cancel,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									dialog.cancel();
@@ -92,16 +95,19 @@ public class Forum extends CMActivity {
 
 		// post topic in safe thread
 		new AsyncTask<Void, Void, Void>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected Void doInBackground(Void... params) {
 				courseManagerCon.sendForm("forum", "homepage", "addTopic",
 						getArgs, postArgs);
 				return null;
 			}
 
+			@Override
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
 				courseManagerCon.toastFlashes();
@@ -127,8 +133,9 @@ public class Forum extends CMActivity {
 		MenuItem newComment = menu.add(R.string.new_topic);
 		this.MENU_NEW_TOPIC = newComment.getItemId();
 		newComment.setIcon(android.R.drawable.ic_menu_edit);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 
@@ -172,11 +179,12 @@ public class Forum extends CMActivity {
 			final JSONObject topic = getItem(position);
 			try {
 				String lastReply = topic.getString("lastreply");
-				if (lastReply.equals("false"))
+				if (lastReply.equals("false")) {
 					lastReply = topic.getString("created");
-				else
+				} else {
 					lastReply = topic.getJSONObject("lastreply").getString(
 							"created");
+				}
 
 				((TextView) (v.findViewById(R.id.label))).setText(topic
 						.getString("label"));

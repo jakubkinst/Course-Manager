@@ -70,7 +70,7 @@ public class Assignments extends CMActivity {
 				v = vi.inflate(R.layout.assignment_row, null);
 			}
 			final JSONObject assignment = getItem(position);
-			try {				
+			try {
 				TextView name = (TextView) v.findViewById(R.id.name);
 				TextView date = (TextView) v.findViewById(R.id.date);
 				name.setText(assignment.getString("name"));
@@ -79,7 +79,7 @@ public class Assignments extends CMActivity {
 				Date dueDate = Utils.getDateFromDBString(assignment
 						.getString("duedate"));
 				DateFormat df = DateFormat.getInstance();
-				date.setText(df.format(assignDate)+" - "+df.format(dueDate));
+				date.setText(df.format(assignDate) + " - " + df.format(dueDate));
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -88,7 +88,8 @@ public class Assignments extends CMActivity {
 			v.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Assignments.this, AssignmentDetail.class);
+					Intent i = new Intent(Assignments.this,
+							AssignmentDetail.class);
 					try {
 						i.putExtra("aid", assignment.getInt("id"));
 					} catch (JSONException e) {

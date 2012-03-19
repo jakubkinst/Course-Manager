@@ -39,8 +39,9 @@ public class Utils {
 	public static String[] maskArray(String[] array, boolean[] mask) {
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 0; i < mask.length; i++) {
-			if (mask[i])
+			if (mask[i]) {
 				list.add(array[i]);
+			}
 		}
 		return list.toArray(new String[list.size()]);
 	}
@@ -65,8 +66,9 @@ public class Utils {
 		ArrayList<String> list = new ArrayList<String>();
 		int i = 0;
 		for (boolean s : selected) {
-			if (s)
+			if (s) {
 				list.add(String.valueOf(i));
+			}
 			i++;
 		}
 		return list.toArray(new String[list.size()]);

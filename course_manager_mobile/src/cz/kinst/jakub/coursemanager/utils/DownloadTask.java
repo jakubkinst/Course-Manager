@@ -23,11 +23,13 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 		this.cm = cm;
 	}
 
+	@Override
 	protected void onPreExecute() {
 		context.setProgressBarIndeterminateVisibility(true);
 		Toast.makeText(context, "Download started", 2000).show();
 	}
 
+	@Override
 	protected File doInBackground(JSONObject... resource) {
 		File myFolder = new File(Environment.getExternalStorageDirectory()
 				+ "/CourseManager_downloads");
@@ -41,6 +43,7 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 		return file;
 	}
 
+	@Override
 	protected void onPostExecute(File file) {
 		Toast.makeText(context, "File saved to " + file.getAbsolutePath(), 2000)
 				.show();
@@ -65,26 +68,36 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 		String mime = "";
 		e = e.toLowerCase();
 
-		if (e.equals("jpg"))
+		if (e.equals("jpg")) {
 			mime = "image/jpg";
-		if (e.equals("jpeg"))
+		}
+		if (e.equals("jpeg")) {
 			mime = "image/jpeg";
-		if (e.equals("png"))
+		}
+		if (e.equals("png")) {
 			mime = "image/png";
-		if (e.equals("gif"))
+		}
+		if (e.equals("gif")) {
 			mime = "image/gif";
-		if (e.equals("mp3"))
+		}
+		if (e.equals("mp3")) {
 			mime = "audio/mp3";
-		if (e.equals("html"))
+		}
+		if (e.equals("html")) {
 			mime = "text/html";
-		if (e.equals("pdf"))
+		}
+		if (e.equals("pdf")) {
 			mime = "application/pdf";
-		if (e.equals("doc"))
+		}
+		if (e.equals("doc")) {
 			mime = "application/doc";
-		if (e.equals("apk"))
+		}
+		if (e.equals("apk")) {
 			mime = "application/vnd.android.package-archive";
-		if (e.equals("txt"))
+		}
+		if (e.equals("txt")) {
 			mime = "text/plain";
+		}
 
 		return mime;
 	}

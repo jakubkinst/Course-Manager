@@ -20,9 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CourseList extends CMActivity implements Serializable {
 
@@ -76,10 +76,11 @@ public class CourseList extends CMActivity implements Serializable {
 				try {
 					Intent i = new Intent(CourseList.this, Course.class);
 					int cid;
-					if (groupPosition == 0)
+					if (groupPosition == 0) {
 						cid = adapter.tCourses.get(childPosition).getInt("id");
-					else
+					} else {
 						cid = adapter.sCourses.get(childPosition).getInt("id");
+					}
 					i.putExtra("cid", cid);
 					i.putExtra("cm", courseManagerCon);
 					startActivity(i);
@@ -127,10 +128,11 @@ public class CourseList extends CMActivity implements Serializable {
 
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
-			if (groupPosition == 0)
+			if (groupPosition == 0) {
 				return tCourses.get(childPosition);
-			else
+			} else {
 				return sCourses.get(childPosition);
+			}
 		}
 
 		@Override
@@ -150,10 +152,11 @@ public class CourseList extends CMActivity implements Serializable {
 			TextView name = (TextView) v.findViewById(R.id.course_name);
 			TextView desc = (TextView) v.findViewById(R.id.course_desc);
 			final JSONObject course;
-			if (groupPosition == 0)
+			if (groupPosition == 0) {
 				course = tCourses.get(childPosition);
-			else
+			} else {
 				course = sCourses.get(childPosition);
+			}
 			try {
 				name.setText(course.getString("name"));
 				desc.setText(course.getString("description"));
@@ -165,10 +168,11 @@ public class CourseList extends CMActivity implements Serializable {
 
 		@Override
 		public int getChildrenCount(int groupPosition) {
-			if (groupPosition == 0)
+			if (groupPosition == 0) {
 				return tCourses.size();
-			else
+			} else {
 				return sCourses.size();
+			}
 		}
 
 		@Override
@@ -195,10 +199,11 @@ public class CourseList extends CMActivity implements Serializable {
 				v = vi.inflate(R.layout.group_row, null);
 			}
 			TextView textView = (TextView) v.findViewById(R.id.group_title);
-			if (groupPosition == 0)
+			if (groupPosition == 0) {
 				textView.setText(getText(R.string.teaching));
-			else
+			} else {
 				textView.setText(getText(R.string.studying));
+			}
 			return v;
 		}
 
@@ -220,8 +225,9 @@ public class CourseList extends CMActivity implements Serializable {
 
 		MenuItem messages = menu.add(0, MENU_MESSAGES, 0, R.string.inbox);
 		messages.setIcon(R.drawable.ic_action_messages);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			messages.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 

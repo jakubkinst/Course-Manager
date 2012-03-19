@@ -41,10 +41,11 @@ public class TabbedActivity extends Activity {
 		tabs.add(t);
 
 		tabsPanel.addView(t.getButton());
-		if (tabs.size() <= 1)
+		if (tabs.size() <= 1) {
 			tabsPanel.setVisibility(View.GONE);
-		else
+		} else {
 			tabsPanel.setVisibility(View.VISIBLE);
+		}
 	}
 
 	public void addRedirectTab(final String name, CharSequence title,
@@ -53,10 +54,11 @@ public class TabbedActivity extends Activity {
 		tabs.add(t);
 
 		tabsPanel.addView(t.getButton());
-		if (tabs.size() <= 1)
+		if (tabs.size() <= 1) {
 			tabsPanel.setVisibility(View.GONE);
-		else
+		} else {
 			tabsPanel.setVisibility(View.VISIBLE);
+		}
 	}
 
 	public void addTab(String name, int resourceId, CharSequence title) {
@@ -83,8 +85,9 @@ public class TabbedActivity extends Activity {
 	}
 
 	private void leaveTab(String name) {
-		if (getTabByName(name) != null)
+		if (getTabByName(name) != null) {
 			getTabByName(name).getButton().setBackgroundColor(COLOR_NORMAL);
+		}
 	}
 
 	public String getActiveTab() {
@@ -93,8 +96,9 @@ public class TabbedActivity extends Activity {
 
 	private Tab getTabByName(String name) {
 		for (Tab tab : tabs) {
-			if (tab.getName().equals(name))
+			if (tab.getName().equals(name)) {
 				return tab;
+			}
 		}
 		return null;
 	}

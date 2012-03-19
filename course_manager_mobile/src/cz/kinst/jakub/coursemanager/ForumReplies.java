@@ -43,6 +43,7 @@ public class ForumReplies extends CMActivity {
 		reload();
 	}
 
+	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
 		switch (id) {
@@ -57,6 +58,7 @@ public class ForumReplies extends CMActivity {
 					.setCancelable(false)
 					.setPositiveButton(R.string.post,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									addReply(inputContent.getText().toString());
@@ -65,6 +67,7 @@ public class ForumReplies extends CMActivity {
 							})
 					.setNegativeButton(R.string.cancel,
 							new DialogInterface.OnClickListener() {
+								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
 									dialog.cancel();
@@ -86,16 +89,19 @@ public class ForumReplies extends CMActivity {
 
 		// post topic in safe thread
 		new AsyncTask<Void, Void, Void>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected Void doInBackground(Void... params) {
 				courseManagerCon.sendForm("forum", "show-topic", "addReply",
 						getArgs, postArgs);
 				return null;
 			}
 
+			@Override
 			protected void onPostExecute(Void result) {
 				setProgressBarIndeterminateVisibility(false);
 				courseManagerCon.toastFlashes();
@@ -121,8 +127,9 @@ public class ForumReplies extends CMActivity {
 		MenuItem newComment = menu.add(R.string.new_topic);
 		this.MENU_REPLY = newComment.getItemId();
 		newComment.setIcon(android.R.drawable.ic_menu_edit);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 

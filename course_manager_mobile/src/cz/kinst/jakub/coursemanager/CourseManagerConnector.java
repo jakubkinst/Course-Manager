@@ -17,13 +17,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-
-import cz.kinst.jakub.netteconnector.FlashMessage;
-import cz.kinst.jakub.netteconnector.AndroidetteConnector;
+import cz.kinst.jakub.androidette.AndroidetteConnector;
+import cz.kinst.jakub.androidette.FlashMessage;
 
 public class CourseManagerConnector extends AndroidetteConnector implements
 		OnSharedPreferenceChangeListener {
-
 
 	/**
 	 * 
@@ -55,25 +53,29 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
 		if (!logged && !loggingIn) {
 			login();
-			if (!logged)
+			if (!logged) {
 				return new JSONObject();
+			}
 		}
 
-		if (getArgs == null)
+		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
+		}
 
 		// add api-key to url
-		if (apiKey != null)
+		if (apiKey != null) {
 			getArgs.add(new BasicNameValuePair("apiKey", apiKey));
+		}
 
 		JSONObject data = super.getAction(presenter, action, getArgs, postArgs,
 				files);
 
 		// if empty - toast error
-		if (data.length() < 1)
+		if (data.length() < 1) {
 			this.getFlashMessages()
 					.add(new FlashMessage(
 							"Server Error - No Response (bad server?)", "error"));
+		}
 		return data;
 	}
 

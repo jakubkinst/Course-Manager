@@ -62,10 +62,12 @@ public class Messages extends CMActivity {
 
 	protected void reloadInbox() {
 		new AsyncTask<Void, Void, JSONObject>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected JSONObject doInBackground(Void... params) {
 				JSONObject forum = new JSONObject();
 				ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
@@ -76,6 +78,7 @@ public class Messages extends CMActivity {
 				return forum;
 			}
 
+			@Override
 			protected void onPostExecute(JSONObject result) {
 				ArrayList<JSONObject> messages = new ArrayList<JSONObject>();
 				JSONArray messagesJSON;
@@ -99,10 +102,12 @@ public class Messages extends CMActivity {
 
 	protected void reloadOutbox() {
 		new AsyncTask<Void, Void, JSONObject>() {
+			@Override
 			protected void onPreExecute() {
 				setProgressBarIndeterminateVisibility(true);
 			};
 
+			@Override
 			protected JSONObject doInBackground(Void... params) {
 				JSONObject forum = new JSONObject();
 				ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
@@ -113,6 +118,7 @@ public class Messages extends CMActivity {
 				return forum;
 			}
 
+			@Override
 			protected void onPostExecute(JSONObject result) {
 				ArrayList<JSONObject> messages = new ArrayList<JSONObject>();
 				JSONArray messagesJSON;
@@ -140,8 +146,9 @@ public class Messages extends CMActivity {
 		MenuItem newComment = menu.add(0, MENU_NEW_MESSAGE, 0,
 				R.string.new_message);
 		newComment.setIcon(R.drawable.ic_action_edit);
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11)
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			newComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return result;
 	}
 
@@ -182,12 +189,13 @@ public class Messages extends CMActivity {
 
 				((TextView) (v.findViewById(R.id.subject))).setText(message
 						.getString("subject"));
-				if (!read)
+				if (!read) {
 					((TextView) (v.findViewById(R.id.subject))).setTypeface(
 							null, Typeface.BOLD);
-				else
+				} else {
 					((TextView) (v.findViewById(R.id.subject))).setTypeface(
 							null, Typeface.NORMAL);
+				}
 				((TextView) (v.findViewById(R.id.from))).setText(message
 						.getJSONObject("from").getString("firstname")
 						+ " "

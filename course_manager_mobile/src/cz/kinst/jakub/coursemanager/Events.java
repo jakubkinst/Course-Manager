@@ -72,7 +72,7 @@ public class Events extends CMActivity {
 		((ListView) (findViewById(R.id.events))).setAdapter(new EventsAdapter(
 				this, android.R.layout.simple_list_item_1, topics));
 
-		registerForContextMenu(((ListView) (findViewById(R.id.events))));
+		registerForContextMenu((findViewById(R.id.events)));
 	}
 
 	public class EventsAdapter extends ArrayAdapter<JSONObject> {
@@ -188,8 +188,9 @@ public class Events extends CMActivity {
 			String displayName = null;
 			calID = cur.getLong(PROJECTION_ID_INDEX);
 			displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-			if (displayName.equals(Events.CALENDAR_NAME))
+			if (displayName.equals(Events.CALENDAR_NAME)) {
 				return calID;
+			}
 		}
 		return -1;
 	}

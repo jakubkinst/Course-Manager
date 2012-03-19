@@ -48,16 +48,18 @@ public class CMActivity extends TabbedActivity implements Serializable {
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		if (!prefs.contains("server"))
+		if (!prefs.contains("server")) {
 			prefs.edit().putString("server", "").commit();
+		}
 		Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey("cm")) {
 			courseManagerCon = (CourseManagerConnector) extras
 					.getSerializable("cm");
 			courseManagerCon.setContext(this);
-		} else
+		} else {
 			courseManagerCon = new CourseManagerConnector(prefs.getString(
 					"server", ""), this);
+		}
 
 	}
 
@@ -107,11 +109,13 @@ public class CMActivity extends TabbedActivity implements Serializable {
 	class ReloadTask extends AsyncTask<Void, Void, JSONObject> {
 		ProgressDialog dialog;
 
+		@Override
 		protected void onPreExecute() {
 			setProgressBarIndeterminateVisibility(true);
 			courseManagerCon.getFlashMessages().clear();
 		}
 
+		@Override
 		protected JSONObject doInBackground(Void... unused) {
 			try {
 				return reloadWork();
@@ -120,6 +124,7 @@ public class CMActivity extends TabbedActivity implements Serializable {
 			}
 		}
 
+		@Override
 		protected void onPostExecute(JSONObject list) {
 			try {
 				courseManagerCon.toastFlashes();
@@ -161,14 +166,16 @@ public class CMActivity extends TabbedActivity implements Serializable {
 			pageLabel.setText(getText(R.string.page) + " "
 					+ String.valueOf(page) + " " + getText(R.string.of) + " "
 					+ pages);
-			if (page < 2)
+			if (page < 2) {
 				prev.setVisibility(View.INVISIBLE);
-			else
+			} else {
 				prev.setVisibility(View.VISIBLE);
-			if (page >= pages)
+			}
+			if (page >= pages) {
 				next.setVisibility(View.INVISIBLE);
-			else
+			} else {
 				next.setVisibility(View.VISIBLE);
+			}
 
 			pageLabel.setVisibility(View.VISIBLE);
 

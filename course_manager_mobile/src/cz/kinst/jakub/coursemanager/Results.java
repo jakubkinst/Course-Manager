@@ -98,10 +98,11 @@ public class Results extends CMActivity {
 			for (JSONObject task : points) {
 				TextView pts = new TextView(this);
 				String res;
-				if (task.has(student.getString("id")))
+				if (task.has(student.getString("id"))) {
 					res = task.getString(student.getString("id"));
-				else
+				} else {
 					res = "null";
+				}
 				pts.setText(!res.equals("null") ? res : "");
 				pts.setPadding(3, 3, 3, 3);
 				pts.setGravity(Gravity.CENTER);
@@ -173,10 +174,11 @@ public class Results extends CMActivity {
 			for (JSONObject task : grades) {
 				TextView pts = new TextView(this);
 				String res;
-				if (task.has(student.getString("id")))
+				if (task.has(student.getString("id"))) {
 					res = task.getString(student.getString("id"));
-				else
+				} else {
 					res = "null";
+				}
 				pts.setText(!res.equals("null") ? res : "");
 				pts.setPadding(3, 3, 3, 3);
 				pts.setGravity(Gravity.CENTER);
