@@ -41,6 +41,7 @@ public class HTTPSmartClient implements Serializable {
 	 */
 	private static final long serialVersionUID = -1500477031448176559L;
 	private static final String LOG_TAG = "Androidette_HTTPSmartClient";
+	private boolean debugMode = false;
 
 	/**
 	 * List of saved cookies Theese are collected from server responses and
@@ -136,8 +137,8 @@ public class HTTPSmartClient implements Serializable {
 		// add GET parameters to URL
 		url = packGetParams(url, getArgs);
 
-		// uncomment to log URL of HTTP request
-		// Log.d(LOG_TAG, "Request: " + url);
+		if (debugMode)
+			Log.d(LOG_TAG, "Request: " + url);
 
 		HttpPost httppost = new HttpPost(url);
 
@@ -190,8 +191,8 @@ public class HTTPSmartClient implements Serializable {
 			Log.e(LOG_TAG, "Error in http connection: " + e.toString());
 			result = "";
 		}
-		// uncomment this to log content of http response
-		// Log.d(LOG_TAG, "Response: " + result);
+		if (debugMode)
+			Log.d(LOG_TAG, "Response: " + result);
 		return result;
 	}
 

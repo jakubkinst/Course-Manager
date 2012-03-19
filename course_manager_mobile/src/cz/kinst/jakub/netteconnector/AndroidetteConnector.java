@@ -74,7 +74,7 @@ public class AndroidetteConnector implements Serializable {
 
 		getArgs.add(new BasicNameValuePair(NETTE_SIGNAL_PREFIX, formName
 				+ NETTE_FORM_SIGNAL_APENDIX));
-
+		
 		return getAction(presenter, action, getArgs, postArgs, files);
 	}
 
@@ -90,7 +90,7 @@ public class AndroidetteConnector implements Serializable {
 		if (getArgs == null) {
 			getArgs = new ArrayList<NameValuePair>();
 		}
-
+		
 		// build url
 		String path = presenter;
 		if (action != null) {
@@ -102,8 +102,8 @@ public class AndroidetteConnector implements Serializable {
 
 		JSONObject result = new JSONObject();
 		try {
-			result = jsonClient.processStringToJSON(httpClient.getJSON(url
-					+ "/" + path, getArgs, postArgs, files));
+			result = jsonClient.processStringToJSON(httpClient.getJSON(
+					url	+ "/" + path, getArgs, postArgs, files));
 		} catch (Exception e) {
 			Log.e(LOG_TAG, e.getMessage());
 		}
