@@ -289,7 +289,7 @@ class AssignmentPresenter extends BaseCoursePresenter {
 				$result = AssignmentModel::getCorrected($values, $this->aid);
 				if ($result >= 0) {
 					$this->flashMessage('Submission submitted successfully. You have scored ' . $result . ' points !', $type = 'success');
-					$this->redirect('result:homepage');
+					$this->redirect('result:homepage',$this->cid);
 				}
 				else
 					$this->flashMessage('There was an error submitting your submission', $type = 'error');

@@ -20,7 +20,7 @@ class ResultPresenter extends BaseCoursePresenter {
 		$this->template->offlinePoints = ResultModel::getOfflinePointAssignmentsResults($cid);
 		$this->template->onlinePoints = ResultModel::getOnlinePointAssignmentsResults($cid);
 		$this->template->offlineGrades = ResultModel::getOfflineGradeAssignmentsResults($cid);
-		$this->template->sums = ResultModel::getOfflinePointsSums($cid);
+		$this->template->sums = ResultModel::getOfflinePointsSums($cid)+ResultModel::getOnlinePointsSums($cid);
 		$this->template->avgs = ResultModel::getOfflineGradesAvgs($cid);
 	}
 

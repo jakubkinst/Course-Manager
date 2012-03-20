@@ -73,6 +73,18 @@ class ResultModel extends Object {
 	 * @param int $cid Course ID
 	 * @return array
 	 */
+	public static function getOnlinePointsSums($cid) {
+		$result = dibi::fetchPairs('
+			SELECT * FROM
+				(SELECT user.id AS User_id,SUM(points) AS sum FROM user LEFT JOIN (SELECT User_id,name,points FROM onlinesubmission JOIN assignment ON onlinesubmission.Assignment_id=assignment.id WHERE assignment.Course_id=%i) as result ON user.id=result.User_id  GROUP BY user.id) AS tbl WHERE sum IS NOT NULL', $cid);
+		return $result;
+	}
+
+	/**
+	 * Returns the sum of all offline assignment results (only points) for each student
+	 * @param int $cid Course ID
+	 * @return array
+	 */
 	public static function getOfflinePointsSums($cid) {
 		$result = dibi::fetchPairs('SELECT * FROM (SELECT user.id AS User_id,SUM(points) AS sum FROM user LEFT JOIN (SELECT User_id,name,points FROM result JOIN offlinetask ON result.OfflineTask_id=offlinetask.id WHERE offlinetask.Course_id=%i AND offlinetask.grade=0) as result ON user.id=result.User_id  GROUP BY user.id) AS tbl WHERE sum IS NOT NULL', $cid);
 		return $result;
