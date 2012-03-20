@@ -25,6 +25,7 @@ class AssignmentModel extends Object {
 			'duedate' => CommonModel::convertFormDate($values['duedate']),
 			'maxpoints' => $values['maxpoints'],
 			'timelimit' => $values['timelimit'],
+			'autocorrect' => $values['autocorrect'],
 			'created' => new DateTime,
 			'Course_id' => $cid
 		);
