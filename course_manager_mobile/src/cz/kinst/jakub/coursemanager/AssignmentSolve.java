@@ -109,8 +109,11 @@ public class AssignmentSolve extends CMActivity {
 				submitForm();
 			}
 		}.start();
-
-		JSONObject currentAnswers = data.getJSONObject("currentAnswers");
+		JSONObject currentAnswers = new JSONObject();
+		try {
+			currentAnswers = data.getJSONObject("currentAnswers");
+		} catch (Exception e) {
+		}
 
 		final LinearLayout assignment = (LinearLayout) findViewById(R.id.assignment);
 		assignment.removeAllViews();
@@ -125,7 +128,9 @@ public class AssignmentSolve extends CMActivity {
 				EditText edit = new EditText(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
-				edit.setText(currentAnswers.getString(id));
+				if (currentAnswers.has(id)) {
+					edit.setText(currentAnswers.getString(id));
+				}
 				edit.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.WRAP_CONTENT));
 				edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -155,7 +160,9 @@ public class AssignmentSolve extends CMActivity {
 				EditText edit = new EditText(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
-				edit.setText(currentAnswers.getString(id));
+				if (currentAnswers.has(id)) {
+					edit.setText(currentAnswers.getString(id));
+				}
 				edit.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.WRAP_CONTENT));
 				edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -185,7 +192,6 @@ public class AssignmentSolve extends CMActivity {
 				RadioGroup radioGroup = new RadioGroup(this);
 				final QuestionTag tag = new QuestionTag(id, type, "");
 				tags.add(tag);
-				int currentPos = (currentAnswers.getInt(id));
 				final String[] choices = question.getString("choices").split(
 						"#");
 				int i = 0;
@@ -193,11 +199,12 @@ public class AssignmentSolve extends CMActivity {
 					RadioButton radio = new RadioButton(this);
 					radio.setText(choice);
 					radio.setTag(i + "");
-					if (i == currentPos) {
-						radio.setChecked(true);
-					}
 					radioGroup.addView(radio);
 					i++;
+				}
+
+				if (currentAnswers.has(id)) {
+					radioGroup.check(currentAnswers.getInt(id));
 				}
 				radioGroup
 						.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -219,13 +226,16 @@ public class AssignmentSolve extends CMActivity {
 				label.setText(question.getString("label"));
 
 				final boolean[] selected = new boolean[choices.length];
-				JSONArray curAnswers = currentAnswers.getJSONArray(id);
 				for (@SuppressWarnings("unused")
 				boolean b : selected) {
 					b = false;
 				}
-				for (int i = 0; i < curAnswers.length(); i++) {
-					selected[curAnswers.getInt(i)] = true;
+
+				if (currentAnswers.has(id)) {
+					JSONArray curAnswers = currentAnswers.getJSONArray(id);
+					for (int i = 0; i < curAnswers.length(); i++) {
+						selected[curAnswers.getInt(i)] = true;
+					}
 				}
 
 				final Button select = new Button(this);
