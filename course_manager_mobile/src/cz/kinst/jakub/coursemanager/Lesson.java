@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.DownloadTask;
+import cz.kinst.jakub.coursemanager.utils.Utils;
 
 public class Lesson extends CMActivity {
 
@@ -163,28 +163,22 @@ public class Lesson extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
-		
+
 		setPaginator(data, getTab(TAB_COMMENTS));
 		JSONObject course = data.getJSONObject("activeCourse");
 		JSONObject lesson = data.getJSONObject("lesson");
-		setTitle(course.getString("name")+" > "+lesson.getString("topic"));
-		
+		setTitle(course.getString("name") + " > " + lesson.getString("topic"));
+
 		((TextView) (getHeader().findViewById(R.id.topic))).setText(lesson
 				.getString("topic"));
 		((TextView) (getHeader().findViewById(R.id.date))).setText(lesson
 				.getString("date"));
 
-		ArrayList<JSONObject> resources = new ArrayList<JSONObject>();
-		JSONArray resourcesJSON = data.getJSONArray("resources");
-		for (int i = 0; i < resourcesJSON.length(); i++) {
-			resources.add(resourcesJSON.getJSONObject(i));
-		}
-		ArrayList<JSONObject> comments = new ArrayList<JSONObject>();
-		JSONArray commentsJSON = data.getJSONArray("comments");
-		for (int i = 0; i < commentsJSON.length(); i++) {
-			comments.add(commentsJSON.getJSONObject(i));
-		}
-		// ListView list = new ListView(this);
+		ArrayList<JSONObject> resources = Utils.getJSONObjectArray(data
+				.getJSONArray("resources"));
+		ArrayList<JSONObject> comments = Utils.getJSONObjectArray(data
+				.getJSONArray("comments"));
+
 		((ListView) (getTab(TAB_RESOURCES).findViewById(R.id.resources)))
 				.setAdapter(new ResourceAdapter(this,
 						android.R.layout.simple_list_item_1, resources));
@@ -211,6 +205,8 @@ public class Lesson extends CMActivity {
 			try {
 				((TextView) (v.findViewById(R.id.filename))).setText(resource
 						.getString("name"));
+				int size = resource.getInt("size") / 1024;
+				((TextView) (v.findViewById(R.id.size))).setText(size + " KB");
 
 			} catch (JSONException e) {
 				e.printStackTrace();

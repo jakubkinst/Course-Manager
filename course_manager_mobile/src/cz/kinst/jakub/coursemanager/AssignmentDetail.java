@@ -47,7 +47,8 @@ public class AssignmentDetail extends CMActivity {
 		TextView name = (TextView) findViewById(R.id.name);
 		TextView date = (TextView) findViewById(R.id.date);
 		JSONObject course = data.getJSONObject("activeCourse");
-		setTitle(course.getString("name")+" > "+getText(R.string.assignment));
+		setTitle(course.getString("name") + " > "
+				+ getText(R.string.assignment));
 		TextView timelimit = (TextView) findViewById(R.id.timelimit);
 		TextView description = (TextView) findViewById(R.id.description);
 		int limit = assignment.getInt("timelimit");

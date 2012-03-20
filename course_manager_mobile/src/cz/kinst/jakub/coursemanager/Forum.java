@@ -154,7 +154,7 @@ public class Forum extends CMActivity {
 	public void gotData(JSONObject data) throws JSONException {
 		setPaginator(data);
 		JSONObject course = data.getJSONObject("activeCourse");
-		setTitle(course.getString("name")+" > "+getText(R.string.forum));
+		setTitle(course.getString("name") + " > " + getText(R.string.forum));
 		ArrayList<JSONObject> topics = new ArrayList<JSONObject>();
 		JSONArray resourcesJSON = data.getJSONArray("topics");
 		for (int i = 0; i < resourcesJSON.length(); i++) {

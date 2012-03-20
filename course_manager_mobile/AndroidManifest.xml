@@ -78,6 +78,10 @@
             android:name=".AssignmentSolve"
             android:label="@string/assignments" >
         </activity>
+        <activity
+            android:name=".Resources"
+            android:label="@string/resources" >
+        </activity>
     </application>
 
 </manifest>

@@ -30,11 +30,12 @@ public class Course extends CMActivity implements Serializable {
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 7674696421084736294L;
+	private static final int MENU_FORUM = 0;
+	private static final int MENU_EVENTS = 1;
+	private static final int MENU_RESULTS = 2;
+	private static final int MENU_ASSIGNMENTS = 3;
+	private static final int MENU_RESOURCES = 4;
 	private int cid;
-	private final int MENU_FORUM = 0;
-	private final int MENU_EVENTS = 1;
-	private final int MENU_RESULTS = 2;
-	private final int MENU_ASSIGNMENTS = 3;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -221,6 +222,11 @@ public class Course extends CMActivity implements Serializable {
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
 			assignments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
+		MenuItem resources = menu.add(0, MENU_RESOURCES, 0, R.string.resources);
+		resources.setIcon(R.drawable.ic_action_resources);
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
+			resources.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 
 		boolean result = super.onCreateOptionsMenu(menu);
 		return result;
@@ -242,6 +248,10 @@ public class Course extends CMActivity implements Serializable {
 			return true;
 		} else if (item.getItemId() == MENU_ASSIGNMENTS) {
 			startActivity(new Intent(this, Assignments.class).putExtra("cm",
+					courseManagerCon).putExtra("cid", cid));
+			return true;
+		} else if (item.getItemId() == MENU_RESOURCES) {
+			startActivity(new Intent(this, Resources.class).putExtra("cm",
 					courseManagerCon).putExtra("cid", cid));
 			return true;
 		} else {
