@@ -41,7 +41,9 @@ public class CMActivity extends TabbedActivity implements Serializable {
 			ActionBar actionBar = getActionBar();
 			// actionBar.setDisplayShowTitleEnabled(false);
 			actionBar.setLogo(R.drawable.ic_launcher);
-			actionBar.setDisplayUseLogoEnabled(true);
+			//actionBar.setDisplayUseLogoEnabled(true);
+			if (!this.getClass().equals(CourseList.class))
+				actionBar.setDisplayHomeAsUpEnabled(true);
 
 		}
 
@@ -89,10 +91,8 @@ public class CMActivity extends TabbedActivity implements Serializable {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// app icon in action bar clicked; go home
-			Intent intent = new Intent(this, CourseList.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
+			if (!this.getClass().equals(CourseList.class))
+				finish();
 			return true;
 		case R.id.menu_reload:
 			reload();

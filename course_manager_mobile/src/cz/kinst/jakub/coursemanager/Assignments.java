@@ -49,6 +49,9 @@ public class Assignments extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
+
+		JSONObject course = data.getJSONObject("activeCourse");
+		setTitle(course.getString("name")+" > "+getText(R.string.assignments));
 		((ListView) (findViewById(R.id.assignments)))
 				.setAdapter(new AssignmentsAdapter(this,
 						R.layout.assignment_row, Utils.getJSONObjectArray(data

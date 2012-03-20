@@ -66,6 +66,9 @@ public class AssignmentSolve extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
+
+		JSONObject course = data.getJSONObject("activeCourse");
+		setTitle(course.getString("name")+" > "+getText(R.string.assignment));
 		ArrayList<JSONObject> questions = Utils.getJSONObjectArray(data
 				.getJSONArray("questions"));
 		Date realEndTime = Utils.getDateFromDBString(data

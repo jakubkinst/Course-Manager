@@ -163,10 +163,12 @@ public class Lesson extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
-
+		
 		setPaginator(data, getTab(TAB_COMMENTS));
-
+		JSONObject course = data.getJSONObject("activeCourse");
 		JSONObject lesson = data.getJSONObject("lesson");
+		setTitle(course.getString("name")+" > "+lesson.getString("topic"));
+		
 		((TextView) (getHeader().findViewById(R.id.topic))).setText(lesson
 				.getString("topic"));
 		((TextView) (getHeader().findViewById(R.id.date))).setText(lesson

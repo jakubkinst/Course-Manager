@@ -43,6 +43,8 @@ public class Results extends CMActivity {
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
 
+		JSONObject course = data.getJSONObject("activeCourse");
+		setTitle(course.getString("name")+" > "+getText(R.string.results));
 		drawPointsTable(data);
 		drawGradesTable(data);
 	}

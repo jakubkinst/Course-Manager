@@ -58,6 +58,7 @@ public class Course extends CMActivity implements Serializable {
 	public void gotData(JSONObject data) throws JSONException {
 		JSONObject course = data.getJSONObject("activeCourse");
 		String name = course.getString("name");
+		setTitle(name);
 		String description = course.getString("description");
 		((TextView) findViewById(R.id.name)).setText(name);
 		((TextView) findViewById(R.id.description)).setText(description);
