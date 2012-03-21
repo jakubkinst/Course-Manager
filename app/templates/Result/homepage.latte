@@ -6,7 +6,7 @@
     <h3>{!_'Results'}</h3>
             <div class="separator"><!----></div>
 <h4>{!_'Offline and Online tasks'} - {!_'Points'}</h4>
-<div class="floatcontainer">    
+<div class="floatcontainer">
 <table>
             <tr>
                 <th>{!_'Name'}</th>
@@ -32,15 +32,20 @@
                         <td class="online">{if isset($oA[$student->id]) && $oA[$student->id]!=NULL}{$oA[$student->id]}{/if}</td>
                     {/foreach}
                         <td>
-                            {if array_key_exists(strval($student->id),$sums)} <?php echo round($sums[$student->id],2) ?> {/if}
+                            {if array_key_exists(strval($student->id),$offlineSums) || array_key_exists(strval($student->id),$onlineSums)}
+							<?php echo round(
+							(array_key_exists($student->id,$offlineSums)?$offlineSums[$student->id]:0)
+							+
+							(array_key_exists($student->id,$onlineSums)?$onlineSums[$student->id]:0)
+							,2) ?> {/if}
                         </td>
-                            
+
                 </tr>
             {/foreach}
     </table>
 </div>
 <h4>{!_'Offline tasks'} - {!_'Grades'}</h4>
-<div class="floatcontainer"> 
+<div class="floatcontainer">
     <table>
             <tr>
                 <th>{!_'Name'}</th>
@@ -62,7 +67,7 @@
                         <td>
                             {if array_key_exists(strval($student->id),$avgs)} <?php echo round($avgs[$student->id],2) ?> {/if}
                         </td>
-                            
+
                 </tr>
             {/foreach}
     </table>
