@@ -225,7 +225,9 @@ class AssignmentPresenter extends BaseCoursePresenter {
 			$uid = $submission['user']->id;
 			$form->addText($uid)
 					->addRule(Form::INTEGER, 'Point value must be a number')
-					->addRule(Form::RANGE, 'Points must be between 0 and max. points', array(0, $this->template->assignment->maxpoints));
+					->setDefaultValue($submission['points']);
+			if ($this->template->assignment->maxpoints > 0)
+				$form[$uid]->addRule(Form::RANGE, 'Points must be between 0 and max. points', array(0, $this->template->assignment->maxpoints));
 		}
 		$form->addSubmit('submit', 'Save');
 		$form->onSubmit[] = callback($this, 'submitCorrectForm');
@@ -289,7 +291,7 @@ class AssignmentPresenter extends BaseCoursePresenter {
 				$result = AssignmentModel::getCorrected($values, $this->aid);
 				if ($result >= 0) {
 					$this->flashMessage('Submission submitted successfully. You have scored ' . $result . ' points !', $type = 'success');
-					$this->redirect('result:homepage',$this->cid);
+					$this->redirect('result:homepage', $this->cid);
 				}
 				else
 					$this->flashMessage('There was an error submitting your submission', $type = 'error');

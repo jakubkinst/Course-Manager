@@ -169,8 +169,8 @@ class AssignmentModel extends Object {
 	 * @param int $aid Assignment ID
 	 * @return array
 	 */
-	public static function getStudentsWithSubmissionWithoutResult($aid) {
-		return dibi::fetchAll('SELECT User_id FROM onlinesubmission WHERE Assignment_id=%i AND points IS NULL', $aid);
+	public static function getStudentsWithSubmission($aid) {
+		return dibi::fetchAll('SELECT User_id FROM onlinesubmission WHERE Assignment_id=%i', $aid);
 	}
 
 	/**
@@ -179,14 +179,26 @@ class AssignmentModel extends Object {
 	 * @return array
 	 */
 	public static function getSubmissions($aid) {
-		$students = self::getStudentsWithSubmissionWithoutResult($aid);
+		$students = self::getStudentsWithSubmission($aid);
 		$submissions = array();
 		foreach ($students as $student) {
 			$userSubmission = self::getUserSubmission($aid, $student);
 			$userSubmission['user'] = UserModel::getUser($student);
+			$userSubmission['points'] = self::getUserSubmissionPoints($student,$aid);
 			array_push($submissions, $userSubmission);
 		}
 		return $submissions;
+	}
+
+	/**
+	 * Gets point result of user's submission to an assignment
+	 * @param int $uid User ID
+	 * @param int $aid Assignment ID
+	 * @return array
+	 */
+	public static function getUserSubmissionPoints($uid,$aid) {
+		return dibi::fetchSingle("SELECT points FROM onlinesubmission JOIN assignment ON Assignment_id = assignment.id
+			WHERE User_id=%i AND assignment.id=%i",$uid,$aid);
 	}
 
 	/**
