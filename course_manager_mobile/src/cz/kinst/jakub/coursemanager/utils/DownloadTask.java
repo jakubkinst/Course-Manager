@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.CourseManagerConnector;
+import cz.kinst.jakub.coursemanager.R;
 
 public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 
@@ -26,7 +27,7 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 	@Override
 	protected void onPreExecute() {
 		context.setProgressBarIndeterminateVisibility(true);
-		Toast.makeText(context, "Download started", 2000).show();
+		Toast.makeText(context, R.string.download_started, 2000).show();
 	}
 
 	@Override
@@ -45,24 +46,21 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 
 	@Override
 	protected void onPostExecute(File file) {
-		Toast.makeText(context, "File saved to " + file.getAbsolutePath(), 2000)
-				.show();
+		Toast.makeText(context,
+				R.string.file_saved_to + file.getAbsolutePath(), 2000).show();
 		try {
 			Intent intent = new Intent();
 			intent.setAction(android.content.Intent.ACTION_VIEW);
 			intent.setDataAndType(Uri.fromFile(file), getMIMEType(file));
 			context.startActivity(intent);
 		} catch (Exception e) {
-			Toast.makeText(
-					context,
-					"No application found to open this file. File was just saved.",
-					2000).show();
+			Toast.makeText(context, R.string.no_application_found, 2000).show();
 		}
 		context.setProgressBarIndeterminateVisibility(false);
 
 	}
 
-	public String getMIMEType(File f) {
+	public static String getMIMEType(File f) {
 		String filenameArray[] = f.getName().split("\\.");
 		String e = filenameArray[filenameArray.length - 1];
 		String mime = "";

@@ -127,6 +127,14 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 				new ArrayList<NameValuePair>(), filename);
 	}
 
+	public File getAssignmentResource(int afid, String filename, String cid) {
+		ArrayList<NameValuePair> get = new ArrayList<NameValuePair>();
+		get.add(new BasicNameValuePair("cid", String.valueOf(cid)));
+		get.add(new BasicNameValuePair("afid", String.valueOf(afid)));
+		return httpClient.downloadFile(getUrl() + "/assignment/download-file",
+				get, new ArrayList<NameValuePair>(), filename);
+	}
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {

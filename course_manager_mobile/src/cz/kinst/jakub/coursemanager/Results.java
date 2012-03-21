@@ -57,7 +57,8 @@ public class Results extends CMActivity {
 		points.addAll(Utils.getJSONObjectArray(data
 				.getJSONArray("onlinePoints")));
 
-		JSONObject sums = data.getJSONObject("sums");
+		JSONObject offlineSums = data.getJSONObject("offlineSums");
+		JSONObject onlineSums = data.getJSONObject("onlineSums");
 
 		TableLayout pointResults = (TableLayout) findViewById(R.id.pointResults);
 		pointResults.removeAllViews();
@@ -112,11 +113,12 @@ public class Results extends CMActivity {
 			}
 
 			TextView pts = new TextView(this);
-			if (sums.has(student.getString("id"))) {
-				double sum = Double.parseDouble(sums.getString(student
-						.getString("id")));
-				pts.setText(String.valueOf(Utils.round(sum, 3)));
-			}
+			String uid = student.getString("id");
+			double sum = Utils.round(
+					(offlineSums.has(uid) ? offlineSums.getDouble(uid) : 0)
+							+ (onlineSums.has(uid) ? onlineSums.getDouble(uid)
+									: 0), 3);
+			pts.setText(String.valueOf(sum));
 			pts.setPadding(3, 3, 3, 3);
 			pts.setGravity(Gravity.CENTER);
 			tr.addView(pts);

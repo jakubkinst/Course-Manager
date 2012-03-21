@@ -34,6 +34,12 @@ public class AssignmentDetail extends CMActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		reload();
+		super.onResume();
+	}
+
+	@Override
 	protected JSONObject reloadWork() throws JSONException {
 		ArrayList<NameValuePair> args = new ArrayList<NameValuePair>();
 		args.add(new BasicNameValuePair("aid", String.valueOf(this.aid)));
@@ -76,6 +82,21 @@ public class AssignmentDetail extends CMActivity {
 			});
 		} else {
 			solveButton.setVisibility(View.GONE);
+		}
+
+		Button correctButton = (Button) findViewById(R.id.correctButton);
+		if (data.getBoolean("isTeacher")
+				&& 1 != assignment.getInt("autocorrect")) {
+			correctButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					startActivity(new Intent(AssignmentDetail.this,
+							AssignmentCorrect.class).putExtra("cm",
+							courseManagerCon).putExtra("aid", aid));
+				}
+			});
+		} else {
+			correctButton.setVisibility(View.GONE);
 		}
 
 	}

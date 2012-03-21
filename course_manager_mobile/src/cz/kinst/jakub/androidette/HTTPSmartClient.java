@@ -65,7 +65,7 @@ public class HTTPSmartClient implements Serializable {
 	 */
 	private static final long serialVersionUID = -1500477031448176559L;
 	private static final String LOG_TAG = "Androidette_HTTPSmartClient";
-	private boolean debugMode = false;
+	private boolean debugMode = true;
 
 	/**
 	 * List of saved cookies Theese are collected from server responses and

@@ -70,5 +70,11 @@
     <string name="remaining_time">Remaining time</string>
     <string name="no_file_manager">No File Manager Application Installed</string>
     <string name="assignment">Assignment</string>
+    <string name="correct">Correct</string>
+    <string name="points">Points</string>
+    <string name="download">Download</string>
+    <string name="download_started">Download started</string>
+    <string name="file_saved_to">File saved to</string>
+    <string name="no_application_found">No application found. File was just saved.</string>
 
 </resources>
