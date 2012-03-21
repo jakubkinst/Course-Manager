@@ -165,6 +165,17 @@ class AssignmentPresenter extends BaseCoursePresenter {
 		$this->template->assignment = $assignment;
 		$this->template->questions = AssignmentModel::getQuestions($aid);
 		$this->template->submissions = AssignmentModel::getSubmissions($aid);
+		$extensions = array();
+		foreach ($this->template->submissions as $submission) {
+			foreach ($this->template->questions as $question) {
+				if ($question->type=="file" && isset($submission[$question->id])){
+					$file = AssignmentModel::getAnwserFile($submission[$question->id]);
+					$ext = pathinfo($file->filename, PATHINFO_EXTENSION);
+					$extensions[$submission[$question->id]] = $ext;
+				}
+			}
+		}
+		$this->template->extensions = $extensions;
 	}
 
 	/**
