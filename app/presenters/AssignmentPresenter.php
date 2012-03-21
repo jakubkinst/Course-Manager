@@ -224,7 +224,6 @@ class AssignmentPresenter extends BaseCoursePresenter {
 		foreach ($this->template->submissions as $submission) {
 			$uid = $submission['user']->id;
 			$form->addText($uid)
-					->addRule(Form::INTEGER, 'Point value must be a number')
 					->setDefaultValue($submission['points']);
 			if ($this->template->assignment->maxpoints > 0)
 				$form[$uid]->addRule(Form::RANGE, 'Points must be between 0 and max. points', array(0, $this->template->assignment->maxpoints));

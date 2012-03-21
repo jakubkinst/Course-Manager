@@ -395,12 +395,18 @@ input.button{
 }
 .unauthorized {
     background-image: url('../images/flashicons/unauthorized.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
 }
 .success {
     background-image: url('../images/flashicons/success.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
 }
 .error {
     background-image: url('../images/flashicons/error.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
 }
 
 /* CourseList Presenter */
