@@ -36,9 +36,10 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 
 	private String apiKey;
 
-	public CourseManagerConnector(String url, CMActivity context) {
+	public CourseManagerConnector(String url,String apiKey, CMActivity context) {
 		super(url);
 		this.context = context;
+		this.apiKey = apiKey;
 		PreferenceManager.getDefaultSharedPreferences(context)
 				.registerOnSharedPreferenceChangeListener(this);
 	}
@@ -98,21 +99,12 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 			logged = false;
 		}
 
-		getAndSetApiKey();
 
 		this.loggingIn = false;
 		return logged;
 	}
 
-	private void getAndSetApiKey() {
-		JSONObject result = this.getAction("apiKey", "homepage");
-		try {
-			this.apiKey = result.getString("myApiKey");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	public void toastFlashes() {
 		for (FlashMessage flash : this.getFlashMessages()) {
 			Toast.makeText(this.context, flash.getMessage(), Toast.LENGTH_SHORT)

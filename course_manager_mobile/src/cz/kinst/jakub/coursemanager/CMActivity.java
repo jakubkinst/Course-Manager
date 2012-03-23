@@ -26,6 +26,7 @@ import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
 public class CMActivity extends TabbedActivity implements Serializable {
 
 	private static final long serialVersionUID = 1494642907274259339L;
+	private static final String API_KEY = "h7orro8492873y984ycojhjfkhsalfhu3y4riu23p31p2osad";
 	CourseManagerConnector courseManagerCon;
 	boolean isLoading = false;
 	public int pages;
@@ -61,7 +62,7 @@ public class CMActivity extends TabbedActivity implements Serializable {
 			courseManagerCon.setContext(this);
 		} else {
 			courseManagerCon = new CourseManagerConnector(prefs.getString(
-					"server", ""), this);
+					"server", ""),API_KEY, this);
 		}
 
 	}

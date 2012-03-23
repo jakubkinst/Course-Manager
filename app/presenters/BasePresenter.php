@@ -10,6 +10,12 @@
  */
 abstract class BasePresenter extends AndroidettePresenter {
 
+	/**
+	 * Appliecation API Key
+	 * @var string
+	 */
+	public static $API_KEY = "h7orro8492873y984ycojhjfkhsalfhu3y4riu23p31p2osad";
+
 	/** Teachered courses */
 	public $tCourses;
 
@@ -82,9 +88,8 @@ abstract class BasePresenter extends AndroidettePresenter {
 		$this->logged = $user->isLoggedIn();
 		$this->template->logged = $this->logged;
 		if ($this->logged) {
-
 			// If mobile-connection, check api-key
-			if ($this->mobile && !UserModel::checkApiKey($user->id, $this->apiKey) && $this->name != 'ApiKey' && $this->name != 'CourseList') {
+			if ($this->mobile && ($this->apiKey!=self::$API_KEY)) {
 				$this->flashMessage('Bad api-key', $type = 'unauthorized');
 				$this->user->logout(true);
 				$this->redirect('courselist:homepage');
