@@ -87,6 +87,7 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 		String password = prefs.getString("password", "");
 		ArrayList<NameValuePair> loginCred = new ArrayList<NameValuePair>();
 		loginCred.add(new BasicNameValuePair("email", email));
+		loginCred.add(new BasicNameValuePair("remember", "1"));
 		loginCred.add(new BasicNameValuePair("password", password));
 		// login
 		this.loggingIn = true;
