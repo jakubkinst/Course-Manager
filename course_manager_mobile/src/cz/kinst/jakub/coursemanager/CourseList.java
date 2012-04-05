@@ -10,11 +10,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +19,22 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
+/**
+ * Activity showing list of user's courses divided into Teacher's courses and
+ * Student's courses depending on user's role in the course
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class CourseList extends CMActivity implements Serializable {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 6232480315437451355L;
+
+	// MENU Constants
 	private static final int MENU_MESSAGES = 0;
 
 	@Override
@@ -91,31 +96,12 @@ public class CourseList extends CMActivity implements Serializable {
 		});
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.course_context_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) item
-				.getMenuInfo();
-		String cid = (String) info.targetView.getTag();
-		switch (item.getItemId()) {
-		case R.id.edit:
-			Toast.makeText(this, "Editting " + cid, 1000).show();
-			return true;
-		case R.id.delete:
-			Toast.makeText(this, "Deleting " + cid, 1000).show();
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
-
+	/**
+	 * ExpandableListAdapter for Courses ExpandableListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class CourseListAdapter extends BaseExpandableListAdapter {
 
 		public ArrayList<JSONObject> tCourses, sCourses;
@@ -222,7 +208,7 @@ public class CourseList extends CMActivity implements Serializable {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-
+		// add Messages button to menu
 		MenuItem messages = menu.add(0, MENU_MESSAGES, 0, R.string.inbox);
 		messages.setIcon(R.drawable.ic_action_messages);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {

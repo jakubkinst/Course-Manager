@@ -17,12 +17,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing detail of an assignment. Provides buttons for solving or
+ * correcting
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class AssignmentDetail extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -9168204116934753181L;
+
+	/**
+	 * Assignment Id
+	 */
 	private int aid;
 
 	@Override

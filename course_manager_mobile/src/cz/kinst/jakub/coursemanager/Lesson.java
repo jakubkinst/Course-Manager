@@ -1,6 +1,8 @@
 package cz.kinst.jakub.coursemanager;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -29,29 +31,53 @@ import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing detail page of a Lesson Uses tab interface: Tab 1: Lesson
+ * Comments Tab 2: Lesson Resources
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Lesson extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 5959554373918072957L;
-	private static final int DIALOG_NEW_COMMENT = 0;
+
+	/**
+	 * Lesson ID
+	 */
 	private int lid;
+
 	public int MENU_NEW_COMMENT;
+	private static final int DIALOG_NEW_COMMENT = 0;
+
+	/**
+	 * Comments tab name
+	 */
 	public static final String TAB_COMMENTS = "comments";
+
+	/**
+	 * Resources tab name
+	 */
 	public static final String TAB_RESOURCES = "resources";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// create tab structure
 		setHeader(R.layout.lesson_header);
 		addTab(TAB_COMMENTS, R.layout.lesson_comments,
 				getText(R.string.comments));
 		addTab(TAB_RESOURCES, R.layout.lesson_resources,
 				getText(R.string.resources));
-		switchTab("comments");
 
+		// default tab
+		switchTab(TAB_COMMENTS);
+
+		// get Lesson ID from intent
 		this.lid = getIntent().getExtras().getInt("lid");
 		((TextView) (getTab(TAB_COMMENTS).findViewById(R.id.category)
 				.findViewById(R.id.name))).setText(R.string.comments);
@@ -97,6 +123,12 @@ public class Lesson extends CMActivity {
 		return dialog;
 	}
 
+	/**
+	 * Posts Web form to add comment to a current lesson
+	 * 
+	 * @param text
+	 *            Comment content
+	 */
 	protected void addComment(Editable text) {
 		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
 		postArgs.add(new BasicNameValuePair("content", text.toString()));
@@ -141,6 +173,8 @@ public class Lesson extends CMActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
+
+		// add New Comment button
 		MenuItem newComment = menu.add(R.string.new_comment);
 		this.MENU_NEW_COMMENT = newComment.getItemId();
 		newComment.setIcon(R.drawable.ic_action_edit);
@@ -171,8 +205,9 @@ public class Lesson extends CMActivity {
 
 		((TextView) (getHeader().findViewById(R.id.topic))).setText(lesson
 				.getString("topic"));
-		((TextView) (getHeader().findViewById(R.id.date))).setText(lesson
-				.getString("date"));
+		Date dDate = Utils.getDateFromDBString(lesson.getString("date"));
+		((TextView) (getHeader().findViewById(R.id.date))).setText(DateFormat
+				.getDateInstance().format(dDate));
 
 		ArrayList<JSONObject> resources = Utils.getJSONObjectArray(data
 				.getJSONArray("resources"));
@@ -187,6 +222,12 @@ public class Lesson extends CMActivity {
 						android.R.layout.simple_list_item_1, comments));
 	}
 
+	/**
+	 * ArrayAdapter for Resources ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class ResourceAdapter extends ArrayAdapter<JSONObject> {
 
 		public ResourceAdapter(Context context, int textViewResourceId,
@@ -224,14 +265,17 @@ public class Lesson extends CMActivity {
 		}
 	}
 
+	/**
+	 * ArrayAdapter for comments ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class CommentsAdapter extends ArrayAdapter<JSONObject> {
-
-		public List<JSONObject> comments;
 
 		public CommentsAdapter(Context context, int textViewResourceId,
 				List<JSONObject> objects) {
 			super(context, textViewResourceId, objects);
-			this.comments = objects;
 		}
 
 		@Override
@@ -241,7 +285,7 @@ public class Lesson extends CMActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.comment_row, null);
 			}
-			JSONObject comment = comments.get(position);
+			JSONObject comment = getItem(position);
 			try {
 
 				((TextView) (v.findViewById(R.id.content))).setText(comment

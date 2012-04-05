@@ -16,12 +16,22 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity offering a table of Student's results in a course
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Results extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -6087997793622768354L;
+
+	/**
+	 * Course ID
+	 */
 	private int cid;
 
 	@Override
@@ -49,6 +59,13 @@ public class Results extends CMActivity {
 		drawGradesTable(data);
 	}
 
+	/**
+	 * Draws table of Point Result to UI
+	 * 
+	 * @param data
+	 *            Data from JSON response
+	 * @throws JSONException
+	 */
 	private void drawPointsTable(JSONObject data) throws JSONException {
 		ArrayList<JSONObject> students = Utils.getJSONObjectArray(data
 				.getJSONArray("students"));
@@ -128,6 +145,13 @@ public class Results extends CMActivity {
 
 	}
 
+	/**
+	 * Draws Grade Results table to UI
+	 * 
+	 * @param data
+	 *            Data from JSON response
+	 * @throws JSONException
+	 */
 	private void drawGradesTable(JSONObject data) throws JSONException {
 
 		ArrayList<JSONObject> students = Utils.getJSONObjectArray(data

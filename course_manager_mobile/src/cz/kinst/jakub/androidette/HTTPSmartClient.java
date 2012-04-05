@@ -58,13 +58,32 @@ import org.apache.http.util.ByteArrayBuffer;
 
 import android.util.Log;
 
+/**
+ * This class is responsible for posting HTTP requests with supplied arguments
+ * (POST and/or GET) to a given server and retrieving provided data.
+ * 
+ * Client is also responsible for cookie managing. It stores cookies recieved
+ * from server and uses them in following requests. This is essential for
+ * logging purposes.
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class HTTPSmartClient implements Serializable {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -1500477031448176559L;
+
+	/**
+	 * LOG tag for LogCat
+	 */
 	private static final String LOG_TAG = "Androidette_HTTPSmartClient";
+
+	/**
+	 * Boolean indicating Debug Mode - Verbose mode
+	 */
 	private boolean debugMode = true;
 
 	/**
@@ -73,6 +92,13 @@ public class HTTPSmartClient implements Serializable {
 	 */
 	private List<SerializableCookie> cookies = new ArrayList<SerializableCookie>();
 
+	/**
+	 * Converts InputStream to a String
+	 * 
+	 * @param is
+	 * @return
+	 * @throws IOException
+	 */
 	public String convertStreamToString(InputStream is) throws IOException {
 
 		if (is != null) {
@@ -95,6 +121,16 @@ public class HTTPSmartClient implements Serializable {
 		}
 	}
 
+	/**
+	 * Makes HTTP request expecting a file given in response After recieving
+	 * file is saved to a given location
+	 * 
+	 * @param url
+	 * @param getArgs
+	 * @param postArgs
+	 * @param pathToSave
+	 * @return
+	 */
 	public File downloadFile(String url, ArrayList<NameValuePair> getArgs,
 			ArrayList<NameValuePair> postArgs, String pathToSave) {
 		File file = new File(pathToSave);
@@ -123,10 +159,29 @@ public class HTTPSmartClient implements Serializable {
 		return file;
 	}
 
+	/**
+	 * Getter for cookies
+	 * 
+	 * @return
+	 */
 	public List<SerializableCookie> getCookies() {
 		return cookies;
 	}
 
+	/**
+	 * Makes actual HTTP request and returns response as InputStream
+	 * 
+	 * @param url
+	 * @param getArgs
+	 *            GET parameters
+	 * @param postArgs
+	 *            POST parameters
+	 * @param fileArgs
+	 *            uploaded files in request
+	 * @return InputStream
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public InputStream getInputStream(String url,
 			ArrayList<NameValuePair> getArgs,
 			ArrayList<NameValuePair> postArgs, HashMap<String, File> fileArgs)
@@ -202,11 +257,19 @@ public class HTTPSmartClient implements Serializable {
 		}
 	}
 
-	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
-			ArrayList<NameValuePair> postArgs) {
-		return getJSON(url, getArgs, postArgs, null);
-	}
-
+	/**
+	 * Makes HTTP request expecting JSON-formatted response returns JSON as
+	 * String
+	 * 
+	 * @param url
+	 * @param getArgs
+	 *            GET parameters
+	 * @param postArgs
+	 *            POST parameters
+	 * @param files
+	 *            File parameters uploaded
+	 * @return
+	 */
 	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
 			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
 		String result;
@@ -223,6 +286,19 @@ public class HTTPSmartClient implements Serializable {
 		return result;
 	}
 
+	public String getJSON(String url, ArrayList<NameValuePair> getArgs,
+			ArrayList<NameValuePair> postArgs) {
+		return getJSON(url, getArgs, postArgs, null);
+	}
+
+	/**
+	 * Packs GET parameters to an URL given. For example: a=1; b=2; c=3;
+	 * http://example.com?a=1&b=2&c=3
+	 * 
+	 * @param url
+	 * @param getArgs
+	 * @return
+	 */
 	private String packGetParams(String url, ArrayList<NameValuePair> getArgs) {
 		if (!getArgs.isEmpty()) {
 			url = url.concat("?");
@@ -237,10 +313,21 @@ public class HTTPSmartClient implements Serializable {
 		return url;
 	}
 
+	/**
+	 * Setter for cookies
+	 * 
+	 * @param cookies
+	 */
 	public void setCookies(List<SerializableCookie> cookies) {
 		this.cookies = cookies;
 	}
 
+	/**
+	 * Helper class for accepting SSL Certificates to enable HTTPS connections
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class MySSLSocketFactory extends SSLSocketFactory {
 		SSLContext sslContext = SSLContext.getInstance("TLS");
 
@@ -282,6 +369,11 @@ public class HTTPSmartClient implements Serializable {
 		}
 	}
 
+	/**
+	 * Returns new HTTPClient with HTTPS capabilities
+	 * 
+	 * @return
+	 */
 	public HttpClient getNewHttpSecureClient() {
 		try {
 			KeyStore trustStore = KeyStore.getInstance(KeyStore

@@ -20,23 +20,57 @@ import android.widget.Toast;
 import cz.kinst.jakub.androidette.AndroidetteConnector;
 import cz.kinst.jakub.androidette.FlashMessage;
 
+/**
+ * Class extending AndroidetteConnector, which implements CourseManager-specific
+ * requirements. Handles logging in.
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class CourseManagerConnector extends AndroidetteConnector implements
 		OnSharedPreferenceChangeListener {
 
 	/**
-	 * 
+	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -7545595093935513854L;
 
+	/**
+	 * LOG Tag for Logcat
+	 */
 	public static String LOGTAG = "coursemanager";
 
+	/**
+	 * Instance of CMActivity used as context
+	 */
 	CMActivity context;
+
+	/**
+	 * Boolean indicating login status
+	 */
 	public boolean logged = false;
+
+	/**
+	 * Boolean indicating login procedure in progress
+	 */
 	private boolean loggingIn = false;
 
+	/**
+	 * Current API key
+	 */
 	private String apiKey;
 
-	public CourseManagerConnector(String url,String apiKey, CMActivity context) {
+	/**
+	 * Default constructor
+	 * 
+	 * @param url
+	 *            URL of CourseManager application
+	 * @param apiKey
+	 *            CourseManager API key
+	 * @param context
+	 *            Context in form of CMActivity instance
+	 */
+	public CourseManagerConnector(String url, String apiKey, CMActivity context) {
 		super(url);
 		this.context = context;
 		this.apiKey = apiKey;
@@ -49,6 +83,10 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 	}
 
 	@Override
+	/**
+	 * Override getAction to engage login procedure before getting original action.
+	 * Login is performed only if user is not logged already
+	 */
 	public JSONObject getAction(String presenter, String action,
 			ArrayList<NameValuePair> getArgs,
 			ArrayList<NameValuePair> postArgs, HashMap<String, File> files) {
@@ -80,7 +118,15 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 		return data;
 	}
 
+	/**
+	 * Login procedure Submits login form on Web application title page with
+	 * credentials from Settings
+	 * 
+	 * @return
+	 */
 	public boolean login() {
+
+		// get creds from settings
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		String email = prefs.getString("email", "");
@@ -89,23 +135,23 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 		loginCred.add(new BasicNameValuePair("email", email));
 		loginCred.add(new BasicNameValuePair("remember", "1"));
 		loginCred.add(new BasicNameValuePair("password", password));
+
 		// login
 		this.loggingIn = true;
 		JSONObject result = this.sendForm("courselist", "homepage",
 				"signInForm", loginCred);
-
 		try {
 			logged = result.getBoolean("logged");
 		} catch (JSONException e) {
 			logged = false;
 		}
-
-
 		this.loggingIn = false;
 		return logged;
 	}
 
-	
+	/**
+	 * Show Nette flash messages to the user via Toast messages
+	 */
 	public void toastFlashes() {
 		for (FlashMessage flash : this.getFlashMessages()) {
 			Toast.makeText(this.context, flash.getMessage(), Toast.LENGTH_SHORT)
@@ -113,6 +159,15 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 		}
 	}
 
+	/**
+	 * Returns resource file
+	 * 
+	 * @param rid
+	 *            Resource ID
+	 * @param filename
+	 *            target filename
+	 * @return
+	 */
 	public File getResource(int rid, String filename) {
 		ArrayList<NameValuePair> get = new ArrayList<NameValuePair>();
 		get.add(new BasicNameValuePair("rid", String.valueOf(rid)));
@@ -120,6 +175,17 @@ public class CourseManagerConnector extends AndroidetteConnector implements
 				new ArrayList<NameValuePair>(), filename);
 	}
 
+	/**
+	 * Returns assignment resource file
+	 * 
+	 * @param afid
+	 *            Assignment file id
+	 * @param filename
+	 *            target filename
+	 * @param cid
+	 *            Course ID
+	 * @return
+	 */
 	public File getAssignmentResource(int afid, String filename, String cid) {
 		ArrayList<NameValuePair> get = new ArrayList<NameValuePair>();
 		get.add(new BasicNameValuePair("cid", String.valueOf(cid)));

@@ -20,13 +20,26 @@ import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing course-related resources user can download file to device by
+ * clicking on it in the list
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Resources extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 5108528581652454927L;
+
+	/**
+	 * Course ID
+	 */
 	private int cid;
+
+	// MENU
 	public int MENU_NEW_TOPIC;
 
 	@Override
@@ -60,6 +73,12 @@ public class Resources extends CMActivity {
 						Utils.getJSONObjectArray(data.getJSONArray("resources"))));
 	}
 
+	/**
+	 * ArrayAdapter for Resources ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class ResourcesAdapter extends ArrayAdapter<JSONObject> {
 
 		public ResourcesAdapter(Context context, int textViewResourceId,

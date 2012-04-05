@@ -23,22 +23,70 @@ import android.widget.Button;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.TabbedActivity;
 
+/**
+ * Base CourseManager Activity Extends TabbedActivity - provides tab
+ * functionality if needed Provides simple AsyncTask which should do the main
+ * Activity work. This work is refreshable by clicking on provided refresh
+ * button.
+ * 
+ * Also, when it is needed, activity provides paging functionality with
+ * navigation
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class CMActivity extends TabbedActivity implements Serializable {
 
+	/**
+	 * Android 3.0 (Honeycomb) SDK level
+	 */
+	private static final int ANDROID_3_0_SDK_LEVEL = 11;
+
+	/**
+	 * Serialization UID
+	 */
 	private static final long serialVersionUID = 1494642907274259339L;
+
+	/**
+	 * CourseManager Web Application API key (**** SECRET ****)
+	 */
 	private static final String API_KEY = "h7orro8492873y984ycojhjfkhsalfhu3y4riu23p31p2osad";
+
+	/**
+	 * Implementation of CourseManagerConnector is responsible for getting data
+	 * from server
+	 */
 	CourseManagerConnector courseManagerCon;
+
+	/**
+	 * Boolean indicating reload in progress
+	 */
 	boolean isLoading = false;
+
+	/**
+	 * Number of pages in paging system
+	 */
 	public int pages;
+
+	/**
+	 * Currently active page
+	 */
 	public int page = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+		/*
+		 * We need default loading spinner in title bar to indicate reload in
+		 * progress
+		 */
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-		// Android 3.0+
-		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
+		/*
+		 * Android 3.0+ Action Bar is available since Android 3.0 If device OS
+		 * is higher, use some Action Bar features
+		 */
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= ANDROID_3_0_SDK_LEVEL) {
 			ActionBar actionBar = getActionBar();
 			// actionBar.setDisplayShowTitleEnabled(false);
 			actionBar.setLogo(R.drawable.ic_launcher);
@@ -50,30 +98,41 @@ public class CMActivity extends TabbedActivity implements Serializable {
 		}
 
 		super.onCreate(savedInstanceState);
+
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
+
+		// set default server
 		if (!prefs.contains("server")) {
 			prefs.edit().putString("server", "").commit();
 		}
+
+		// get CourseManagerConnector instance from Intent if it is available
+		// Instance must be passed in order to preserve Cookies etc.
 		Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey("cm")) {
 			courseManagerCon = (CourseManagerConnector) extras
 					.getSerializable("cm");
 			courseManagerCon.setContext(this);
-		} else {
+		}
+		// if not available, create new instance
+		else {
 			courseManagerCon = new CourseManagerConnector(prefs.getString(
-					"server", ""),API_KEY, this);
+					"server", ""), API_KEY, this);
 		}
 
 	}
 
+	/**
+	 * This method is called when activity is shown and when user hits reload
+	 * button
+	 */
 	public void reload() {
 		new ReloadTask().execute();
-		// updateList(reloadWork());
 	}
 
 	/**
-	 * Non-UI Thread
+	 * Main work of the activity (done in Non-UI Thread)
 	 * 
 	 * @return
 	 */
@@ -84,6 +143,7 @@ public class CMActivity extends TabbedActivity implements Serializable {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
+		// get mainmenu skeleton from xml
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
@@ -92,6 +152,7 @@ public class CMActivity extends TabbedActivity implements Serializable {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
+		// click on logo in action bar - go back in android activity stack
 		case android.R.id.home:
 			if (!this.getClass().equals(CourseList.class)) {
 				finish();
@@ -109,6 +170,14 @@ public class CMActivity extends TabbedActivity implements Serializable {
 		}
 	}
 
+	/**
+	 * Main Activity reload task. By default, it is called when activity is
+	 * shown and when user clicks on reload button. Used because we don't want
+	 * UI thread to be busy (frozen) when making HTTP requests
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	class ReloadTask extends AsyncTask<Void, Void, JSONObject> {
 		ProgressDialog dialog;
 
@@ -141,7 +210,8 @@ public class CMActivity extends TabbedActivity implements Serializable {
 	}
 
 	/**
-	 * UI Thread
+	 * In this method the resulting data from Http request should be consumed.
+	 * (done in UI Thread)
 	 * 
 	 * @param data
 	 */
@@ -149,10 +219,26 @@ public class CMActivity extends TabbedActivity implements Serializable {
 
 	}
 
-	protected void setPaginator(JSONObject data) throws JSONException {
+	/**
+	 * Initializes Paging system
+	 * 
+	 * @param data
+	 *            Data from JSON response
+	 * @throws JSONException
+	 */
+	protected void initPaginator(JSONObject data) throws JSONException {
 		setPaginator(data, null);
 	}
 
+	/**
+	 * Initializes Paging system
+	 * 
+	 * @param data
+	 *            Data from JSON response
+	 * @param view
+	 *            paging panel view
+	 * @throws JSONException
+	 */
 	protected void setPaginator(JSONObject data, View view)
 			throws JSONException {
 		boolean act = view == null;

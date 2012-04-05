@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,21 +26,37 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import cz.kinst.jakub.coursemanager.utils.DownloadTask;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * 
+ * Activity providing interface for course assignment correction. This activity
+ * will be available only for teachers of the course.
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class AssignmentCorrect extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -6087997793622768354L;
+
+	/**
+	 * Assignment ID
+	 */
 	private int aid;
+
+	/**
+	 * Array structure for storing new results from input
+	 */
 	private ArrayList<UserResult> results = new ArrayList<UserResult>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// get Assignment ID from the intent
 		this.aid = getIntent().getExtras().getInt("aid");
 		setContentView(R.layout.assignment_correct);
 		reload();
@@ -57,11 +72,14 @@ public class AssignmentCorrect extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
+		// get data from JSON
 		JSONObject course = data.getJSONObject("activeCourse");
 		setTitle(course.getString("name") + " > "
 				+ getText(R.string.assignment) + " > "
 				+ getText(R.string.correct));
 		drawCorrectTable(data);
+
+		// correction save button stuff
 		Button correctButton = (Button) findViewById(R.id.correctButton);
 		correctButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -70,11 +88,11 @@ public class AssignmentCorrect extends CMActivity {
 				final ArrayList<NameValuePair> getArgs = new ArrayList<NameValuePair>();
 				getArgs.add(new BasicNameValuePair("aid", String.valueOf(aid)));
 				for (UserResult result : results) {
-					Log.e("test", result.getId() + ":" + result.getResult());
 					postArgs.add(new BasicNameValuePair(result.getId() + "_",
 							result.getResult()));
 				}
 
+				// Do http request in AsyncTask
 				new AsyncTask<Void, Void, Void>() {
 					@Override
 					protected void onPreExecute() {
@@ -83,6 +101,7 @@ public class AssignmentCorrect extends CMActivity {
 
 					@Override
 					protected Void doInBackground(Void... params) {
+						// send the form with data
 						courseManagerCon.sendForm("assignment", "correct",
 								"correctForm", getArgs, postArgs);
 						return null;
@@ -99,6 +118,13 @@ public class AssignmentCorrect extends CMActivity {
 		});
 	}
 
+	/**
+	 * Draws result to UI in form of a table
+	 * 
+	 * @param data
+	 *            JSON data from HTTP response
+	 * @throws JSONException
+	 */
 	private void drawCorrectTable(JSONObject data) throws JSONException {
 		ArrayList<JSONObject> submissions = Utils.getJSONObjectArray(data
 				.getJSONArray("submissions"));
@@ -107,6 +133,7 @@ public class AssignmentCorrect extends CMActivity {
 
 		TableLayout table = (TableLayout) findViewById(R.id.answers);
 		table.removeAllViews();
+
 		// table head
 		TableRow th = new TableRow(this);
 		TextView nameTitle = new TextView(this);
@@ -200,7 +227,7 @@ public class AssignmentCorrect extends CMActivity {
 										intent.setAction(android.content.Intent.ACTION_VIEW);
 										intent.setDataAndType(
 												Uri.fromFile(file),
-												DownloadTask.getMIMEType(file));
+												Utils.getMIMEType(file));
 										startActivity(intent);
 									} catch (Exception e) {
 										Toast.makeText(AssignmentCorrect.this,
@@ -265,10 +292,32 @@ public class AssignmentCorrect extends CMActivity {
 
 	}
 
+	/**
+	 * Utility Class for storing result of particular assignment
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class UserResult {
+
+		/**
+		 * User id
+		 */
 		String id;
+
+		/**
+		 * Result (pts)
+		 */
 		String result;
 
+		/**
+		 * New user result
+		 * 
+		 * @param id
+		 *            User ID
+		 * @param result
+		 *            Result
+		 */
 		public UserResult(String id, String result) {
 			this.id = id;
 			this.result = result;

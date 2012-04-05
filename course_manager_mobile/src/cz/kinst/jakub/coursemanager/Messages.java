@@ -27,21 +27,41 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Messages Activity shows Incoming and Outgoing messages for logged user
+ * Activity uses tabs Tab 1: Inbox Tab 2: Outbox
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Messages extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -5260322349563369526L;
+
 	private static final int MENU_NEW_MESSAGE = 0;
+
+	/**
+	 * Inbox tab name
+	 */
 	private static final String TAB_INBOX = "inbox";
+
+	/**
+	 * Outbox tab name
+	 */
 	private static final String TAB_OUTBOX = "outbox";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Create tab structure
 		addTab(TAB_INBOX, R.layout.messages, getText(R.string.inbox));
 		addTab(TAB_OUTBOX, R.layout.messages, getText(R.string.outbox));
+
+		// Default tab
 		switchTab(TAB_INBOX);
 	}
 
@@ -51,6 +71,9 @@ public class Messages extends CMActivity {
 	}
 
 	@Override
+	/**
+	 * Override onTabSwitched to reload specific part after tab is switched
+	 */
 	protected void onTabSwitched(Tab t) {
 		super.onTabSwitched(t);
 		if (t.getName().equals(TAB_INBOX)) {
@@ -60,6 +83,9 @@ public class Messages extends CMActivity {
 		}
 	}
 
+	/**
+	 * Redownloads Inbox from server
+	 */
 	protected void reloadInbox() {
 		new AsyncTask<Void, Void, JSONObject>() {
 			@Override
@@ -100,6 +126,9 @@ public class Messages extends CMActivity {
 		}.execute();
 	}
 
+	/**
+	 * Redownloads Outbox from server
+	 */
 	protected void reloadOutbox() {
 		new AsyncTask<Void, Void, JSONObject>() {
 			@Override
@@ -142,6 +171,8 @@ public class Messages extends CMActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Add New Message button to menu
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuItem newComment = menu.add(0, MENU_NEW_MESSAGE, 0,
 				R.string.new_message);
@@ -169,6 +200,12 @@ public class Messages extends CMActivity {
 		super.onResume();
 	}
 
+	/**
+	 * ArrayAdapter for Inbox Messages ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class InboxAdapter extends ArrayAdapter<JSONObject> {
 
 		public InboxAdapter(Context context, int textViewResourceId,
@@ -220,6 +257,12 @@ public class Messages extends CMActivity {
 		}
 	}
 
+	/**
+	 * ArrayAdapter for Outbox messages ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class OutboxAdapter extends ArrayAdapter<JSONObject> {
 
 		public List<JSONObject> messages;

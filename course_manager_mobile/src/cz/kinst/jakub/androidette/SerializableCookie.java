@@ -9,6 +9,11 @@ import java.util.Date;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
 
+/**
+ * Helper class. Original Cookie class from apache is not serializable. This
+ * class provides same functionality and is Serializable
+ * 
+ */
 public class SerializableCookie implements Cookie, Externalizable {
 
 	private static final int NAME = 0x01;

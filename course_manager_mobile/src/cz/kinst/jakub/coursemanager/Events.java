@@ -32,14 +32,32 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * 
+ * Activity showing list of course events. User is able to copy event to device
+ * calendar by long-tapping the event list item
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Events extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 5108528581652454927L;
+
+	/**
+	 * NOT USED Custom Calendar Name
+	 */
 	private static final String CALENDAR_NAME = "Course Manager";
+
+	/**
+	 * Course ID
+	 */
 	private int cid;
+
+	// MENU constants
 	public int MENU_NEW_TOPIC;
 
 	@Override
@@ -63,7 +81,7 @@ public class Events extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
-		setPaginator(data);
+		initPaginator(data);
 		JSONObject course = data.getJSONObject("activeCourse");
 		setTitle(course.getString("name") + " > " + getText(R.string.events));
 		ArrayList<JSONObject> topics = new ArrayList<JSONObject>();
@@ -77,6 +95,12 @@ public class Events extends CMActivity {
 		registerForContextMenu((findViewById(R.id.events)));
 	}
 
+	/**
+	 * ArrayAdapter for Events ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class EventsAdapter extends ArrayAdapter<JSONObject> {
 
 		public EventsAdapter(Context context, int textViewResourceId,
@@ -111,6 +135,9 @@ public class Events extends CMActivity {
 	}
 
 	@Override
+	/**
+	 * Context menu on long-press on Event
+	 */
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
@@ -119,6 +146,9 @@ public class Events extends CMActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+
+		// SAVE Event to Device calendar via Intent
+
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
 				.getMenuInfo();
 		JSONObject event = (JSONObject) info.targetView.getTag();

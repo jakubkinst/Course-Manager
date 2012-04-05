@@ -22,14 +22,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing list of assignments time-ordered
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Assignments extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 6875506048845321547L;
+
+	/**
+	 * Course ID
+	 */
 	private int cid;
-	public int MENU_NEW_TOPIC;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,12 @@ public class Assignments extends CMActivity {
 								.getJSONArray("assignments"))));
 	}
 
+	/**
+	 * ArrayAdapter for Assignment ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class AssignmentsAdapter extends ArrayAdapter<JSONObject> {
 
 		public AssignmentsAdapter(Context context, int textViewResourceId,

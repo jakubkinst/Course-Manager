@@ -12,6 +12,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Activity with a form for composing and sending new Message
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class MessagesNew extends CMActivity {
 
 	/**
@@ -46,6 +52,16 @@ public class MessagesNew extends CMActivity {
 		});
 	}
 
+	/**
+	 * Submits web-form for sending a new message
+	 * 
+	 * @param subject
+	 *            Message Subject
+	 * @param to
+	 *            Message Recipient
+	 * @param content
+	 *            Message Content
+	 */
 	protected void sendMessage(String subject, String to, String content) {
 		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
 		postArgs.add(new BasicNameValuePair("subject", subject));
@@ -53,7 +69,7 @@ public class MessagesNew extends CMActivity {
 		postArgs.add(new BasicNameValuePair("content", content));
 		final ArrayList<NameValuePair> getArgs = new ArrayList<NameValuePair>();
 
-		// post topic in safe thread
+		// send message in safe thread
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected void onPreExecute() {

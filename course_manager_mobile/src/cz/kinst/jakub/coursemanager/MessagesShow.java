@@ -13,13 +13,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+/**
+ * Activity shows message detail - content
+ * 
+ * Provides option to reply to the message
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class MessagesShow extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -7729764807510013237L;
+	// Menu constants
 	private static final int MENU_REPLY = 0;
+
+	/**
+	 * Pre-filled Message coming in intent - used for reply purposes JSON
+	 * format, but String type because of easy Serialization
+	 */
 	private String message;
 
 	@Override
@@ -72,6 +86,8 @@ public class MessagesShow extends CMActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
+
+		// Add reply button to menu
 		MenuItem newComment = menu.add(0, MENU_REPLY, 0, R.string.reply);
 		newComment.setIcon(R.drawable.ic_action_reply);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
@@ -105,6 +121,13 @@ public class MessagesShow extends CMActivity {
 		}
 	}
 
+	/**
+	 * Inserts > char in front of each line of passed string
+	 * 
+	 * @param msg
+	 *            String to modify
+	 * @return
+	 */
 	public static String wrapReply(String msg) {
 		return ">" + msg.replace("\n", "\n" + ">");
 	}

@@ -14,11 +14,37 @@ import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.CourseManagerConnector;
 import cz.kinst.jakub.coursemanager.R;
 
+/**
+ * Async Task Providing HTTP file download takes resource JSON Object and
+ * downloads the file from server
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 
+	/**
+	 * Location of files saved to device
+	 */
+	private static final String FILE_DIRECTORY = "CourseManager_downloads";
+
+	/**
+	 * Context of an application
+	 */
 	private Activity context;
+
+	/**
+	 * CourseManagerConnector instance
+	 */
 	private CourseManagerConnector cm;
 
+	/**
+	 * Default constructor Takes any activity as context and
+	 * CourseManagerConnector instance
+	 * 
+	 * @param context
+	 * @param cm
+	 */
 	public DownloadTask(Activity context, CourseManagerConnector cm) {
 		this.context = context;
 		this.cm = cm;
@@ -33,10 +59,11 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 	@Override
 	protected File doInBackground(JSONObject... resource) {
 		File myFolder = new File(Environment.getExternalStorageDirectory()
-				+ "/CourseManager_downloads");
+				+ "/" + FILE_DIRECTORY);
 		myFolder.mkdirs();
 		File file = new File("");
 		try {
+			// get HTTP response
 			file = cm.getResource(resource[0].getInt("id"), myFolder + "/"
 					+ resource[0].getString("name"));
 		} catch (JSONException e) {
@@ -45,59 +72,24 @@ public class DownloadTask extends AsyncTask<JSONObject, Void, File> {
 	}
 
 	@Override
+	/**
+	 * After file is downloaded, try to open the file by default application installed
+	 */
 	protected void onPostExecute(File file) {
 		Toast.makeText(context,
 				R.string.file_saved_to + file.getAbsolutePath(), 2000).show();
 		try {
 			Intent intent = new Intent();
 			intent.setAction(android.content.Intent.ACTION_VIEW);
-			intent.setDataAndType(Uri.fromFile(file), getMIMEType(file));
+			// we need to know file MIME type
+			// let's get it from file extension (only well-known extensions)
+			intent.setDataAndType(Uri.fromFile(file), Utils.getMIMEType(file));
 			context.startActivity(intent);
 		} catch (Exception e) {
 			Toast.makeText(context, R.string.no_application_found, 2000).show();
 		}
 		context.setProgressBarIndeterminateVisibility(false);
 
-	}
-
-	public static String getMIMEType(File f) {
-		String filenameArray[] = f.getName().split("\\.");
-		String e = filenameArray[filenameArray.length - 1];
-		String mime = "";
-		e = e.toLowerCase();
-
-		if (e.equals("jpg")) {
-			mime = "image/jpg";
-		}
-		if (e.equals("jpeg")) {
-			mime = "image/jpeg";
-		}
-		if (e.equals("png")) {
-			mime = "image/png";
-		}
-		if (e.equals("gif")) {
-			mime = "image/gif";
-		}
-		if (e.equals("mp3")) {
-			mime = "audio/mp3";
-		}
-		if (e.equals("html")) {
-			mime = "text/html";
-		}
-		if (e.equals("pdf")) {
-			mime = "application/pdf";
-		}
-		if (e.equals("doc")) {
-			mime = "application/doc";
-		}
-		if (e.equals("apk")) {
-			mime = "application/vnd.android.package-archive";
-		}
-		if (e.equals("txt")) {
-			mime = "text/plain";
-		}
-
-		return mime;
 	}
 
 }

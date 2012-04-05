@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Themes for Android 3.0+ only - use Holo theme and design Action Bar -->
 <resources>
 
     <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">

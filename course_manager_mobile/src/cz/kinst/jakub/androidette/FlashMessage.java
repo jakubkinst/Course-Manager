@@ -1,6 +1,7 @@
 package cz.kinst.jakub.androidette;
 
 /**
+ * Class representing Nette flash message.
  * 
  * @author Jakub Kinst
  */

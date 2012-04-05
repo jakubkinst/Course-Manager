@@ -25,6 +25,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Activity showing forum thread - topic with related replies
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class ForumReplies extends CMActivity {
 
 	/**
@@ -32,7 +38,12 @@ public class ForumReplies extends CMActivity {
 	 */
 	private static final long serialVersionUID = 3605505635167753669L;
 	private static final int DIALOG_REPLY = 0;
+
+	/**
+	 * Topic ID
+	 */
 	private int tid;
+
 	public int MENU_REPLY;
 
 	@Override
@@ -81,6 +92,12 @@ public class ForumReplies extends CMActivity {
 		return dialog;
 	}
 
+	/**
+	 * Submits a form with a reply to a topic
+	 * 
+	 * @param content
+	 *            Reply content
+	 */
 	protected void addReply(String content) {
 		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
 		postArgs.add(new BasicNameValuePair("content", content));
@@ -124,6 +141,8 @@ public class ForumReplies extends CMActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
+
+		// Add reply button to menu
 		MenuItem newComment = menu.add(R.string.reply);
 		this.MENU_REPLY = newComment.getItemId();
 		newComment.setIcon(android.R.drawable.ic_menu_edit);
@@ -146,7 +165,7 @@ public class ForumReplies extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
-		setPaginator(data);
+		initPaginator(data);
 		JSONObject course = data.getJSONObject("activeCourse");
 		setTitle(course.getString("name") + " > " + getText(R.string.forum));
 		ArrayList<JSONObject> replies = new ArrayList<JSONObject>();
@@ -167,6 +186,12 @@ public class ForumReplies extends CMActivity {
 						android.R.layout.simple_list_item_1, replies));
 	}
 
+	/**
+	 * ArrayAdapter for replies ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class RepliesAdapter extends ArrayAdapter<JSONObject> {
 
 		public RepliesAdapter(Context context, int textViewResourceId,

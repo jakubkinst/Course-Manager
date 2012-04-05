@@ -1,7 +1,9 @@
 package cz.kinst.jakub.coursemanager;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,18 +25,32 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing course homepage provides menu buttons for redirection to
+ * course-related activities
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Course extends CMActivity implements Serializable {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 7674696421084736294L;
+
+	// MENU Constants
 	private static final int MENU_FORUM = 0;
 	private static final int MENU_EVENTS = 1;
 	private static final int MENU_RESULTS = 2;
 	private static final int MENU_ASSIGNMENTS = 3;
 	private static final int MENU_RESOURCES = 4;
+
+	/**
+	 * Course ID
+	 */
 	private int cid;
 
 	@Override
@@ -76,6 +92,12 @@ public class Course extends CMActivity implements Serializable {
 		}
 	}
 
+	/**
+	 * ExpandableListAdapter for Lessons ListView
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class LessonListAdapter extends BaseExpandableListAdapter {
 
 		public ArrayList<JSONObject> lessons;
@@ -173,11 +195,14 @@ public class Course extends CMActivity implements Serializable {
 			TextView topic = (TextView) v.findViewById(R.id.topic);
 			TextView date = (TextView) v.findViewById(R.id.date);
 
-			final JSONObject lesson;
-			lesson = lessons.get(groupPosition);
+			final JSONObject lesson = lessons.get(groupPosition);
+
 			try {
+
+				Date dDate = Utils
+						.getDateFromDBString(lesson.getString("date"));
 				topic.setText(lesson.getString("topic"));
-				date.setText(lesson.getString("date"));
+				date.setText(DateFormat.getDateInstance().format(dDate));
 			} catch (JSONException e) {
 			}
 			return v;
@@ -198,6 +223,7 @@ public class Course extends CMActivity implements Serializable {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
+		// build Course Menu
 		MenuItem forum = menu.add(0, MENU_FORUM, 0, R.string.forum);
 		forum.setIcon(R.drawable.ic_action_forum);
 		if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 11) {
@@ -228,8 +254,7 @@ public class Course extends CMActivity implements Serializable {
 			resources.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
 
-		boolean result = super.onCreateOptionsMenu(menu);
-		return result;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override

@@ -27,15 +27,27 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Activity showing list of forum topics of the course
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class Forum extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = 630392073135159872L;
+
 	private static final int DIALOG_NEW_TOPIC = 0;
-	private int cid;
+
 	public int MENU_NEW_TOPIC;
+
+	/**
+	 * Course ID
+	 */
+	private int cid;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +98,14 @@ public class Forum extends CMActivity {
 		return dialog;
 	}
 
+	/**
+	 * Submit Add topic form
+	 * 
+	 * @param label
+	 *            Topic label
+	 * @param content
+	 *            Topic content
+	 */
 	protected void addTopic(String label, String content) {
 		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
 		postArgs.add(new BasicNameValuePair("label", label));
@@ -152,7 +172,7 @@ public class Forum extends CMActivity {
 
 	@Override
 	public void gotData(JSONObject data) throws JSONException {
-		setPaginator(data);
+		initPaginator(data);
 		JSONObject course = data.getJSONObject("activeCourse");
 		setTitle(course.getString("name") + " > " + getText(R.string.forum));
 		ArrayList<JSONObject> topics = new ArrayList<JSONObject>();
@@ -164,6 +184,12 @@ public class Forum extends CMActivity {
 				this, android.R.layout.simple_list_item_1, topics));
 	}
 
+	/**
+	 * ArrayAdapter for topics Listview
+	 * 
+	 * @author Jakub Kinst
+	 * 
+	 */
 	public class TopicsAdapter extends ArrayAdapter<JSONObject> {
 
 		public TopicsAdapter(Context context, int textViewResourceId,
@@ -199,6 +225,7 @@ public class Forum extends CMActivity {
 				e.printStackTrace();
 			}
 
+			// click to open topic page
 			v.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

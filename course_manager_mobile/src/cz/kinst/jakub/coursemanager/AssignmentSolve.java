@@ -38,14 +38,27 @@ import android.widget.Toast;
 import cz.kinst.jakub.coursemanager.utils.QuestionTag;
 import cz.kinst.jakub.coursemanager.utils.Utils;
 
+/**
+ * Activity showing Assignment solve form
+ * 
+ * @author Jakub Kinst
+ * 
+ */
 public class AssignmentSolve extends CMActivity {
 
 	/**
 	 * UID for serialization
 	 */
 	private static final long serialVersionUID = -5079492776147483408L;
-	protected static final int SELECT_FILE = 0;
+
+	/**
+	 * Assignment ID
+	 */
 	private int aid;
+
+	/**
+	 * list of temporary anwsers stored as QuestionTag instances
+	 */
 	ArrayList<QuestionTag> tags = new ArrayList<QuestionTag>();
 
 	@Override
@@ -83,6 +96,9 @@ public class AssignmentSolve extends CMActivity {
 		name.setText(getText(R.string.solving) + " " + assg.getString("name"));
 		description.setText(assg.getString("description"));
 
+		/*
+		 * We need a countdown to display remaining time to solve the assignment
+		 */
 		Date now = new Date();
 		date.setText("");
 		new CountDownTimer(realEndTime.getTime() - now.getTime(), 1000) {
@@ -113,6 +129,7 @@ public class AssignmentSolve extends CMActivity {
 				submitForm();
 			}
 		}.start();
+
 		JSONObject currentAnswers = new JSONObject();
 		try {
 			currentAnswers = data.getJSONObject("currentAnswers");
@@ -122,10 +139,13 @@ public class AssignmentSolve extends CMActivity {
 		final LinearLayout assignment = (LinearLayout) findViewById(R.id.assignment);
 		assignment.removeAllViews();
 
+		// Build Assignment form
+
 		for (final JSONObject question : questions) {
 			String type = question.getString("type");
 			final String id = question.getString("id");
 
+			// TEXT input
 			if (type.equals("text")) {
 				TextView label = new TextView(this);
 				label.setText(question.getString("label"));
@@ -158,6 +178,8 @@ public class AssignmentSolve extends CMActivity {
 				assignment.addView(label);
 				assignment.addView(edit);
 			}
+
+			// TEXTAREA input
 			if (type.equals("textarea")) {
 				TextView label = new TextView(this);
 				label.setText(question.getString("label"));
@@ -190,6 +212,8 @@ public class AssignmentSolve extends CMActivity {
 				assignment.addView(label);
 				assignment.addView(edit);
 			}
+
+			// RADIO input
 			if (type.equals("radio")) {
 				TextView label = new TextView(this);
 				label.setText(question.getString("label"));
@@ -223,6 +247,8 @@ public class AssignmentSolve extends CMActivity {
 				assignment.addView(label);
 				assignment.addView(radioGroup);
 			}
+
+			// MULTISELECT input
 			if (type.equals("multi")) {
 				final String[] choices = question.getString("choices").split(
 						"#");
@@ -280,6 +306,8 @@ public class AssignmentSolve extends CMActivity {
 				assignment.addView(label);
 				assignment.addView(select);
 			}
+
+			// FILE input
 			if (type.equals("file")) {
 				TextView label = new TextView(this);
 				label.setText(question.getString("label"));
@@ -305,6 +333,8 @@ public class AssignmentSolve extends CMActivity {
 				assignment.addView(pickButton);
 			}
 		}
+
+		// SUBMIT button
 		Button submitButton = new Button(this);
 		submitButton.setText(R.string.submit);
 		submitButton.setOnClickListener(new OnClickListener() {
@@ -317,6 +347,9 @@ public class AssignmentSolve extends CMActivity {
 
 	}
 
+	/**
+	 * Submit form with user's anwsers
+	 */
 	private void submitForm() {
 		final ArrayList<NameValuePair> postArgs = new ArrayList<NameValuePair>();
 		final ArrayList<NameValuePair> getArgs = new ArrayList<NameValuePair>();
@@ -352,6 +385,7 @@ public class AssignmentSolve extends CMActivity {
 			}
 		}
 
+		// do it in a non-ui thread
 		new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected void onPreExecute() {
@@ -374,6 +408,13 @@ public class AssignmentSolve extends CMActivity {
 		}.execute();
 	}
 
+	/**
+	 * Returns value currently selected in radiogroup
+	 * 
+	 * @param g
+	 *            RadioGroup
+	 * @return
+	 */
 	public String getSelectedRadioValue(RadioGroup g) {
 
 		// Returns an integer which represents the selected radio button's ID
@@ -389,6 +430,8 @@ public class AssignmentSolve extends CMActivity {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// Called by Android when user selects a file in external application
+		// File is included in intent
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			Uri filePath = data.getData();
@@ -400,6 +443,13 @@ public class AssignmentSolve extends CMActivity {
 		}
 	}
 
+	/**
+	 * 
+	 * Counts true values in a boolean array
+	 * 
+	 * @param array
+	 * @return
+	 */
 	public int countSelected(boolean[] array) {
 		int n = 0;
 		for (boolean b : array) {
