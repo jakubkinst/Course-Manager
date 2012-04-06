@@ -141,7 +141,7 @@ class LessonPresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		CourseModel::editLesson($this->lid, $values);
 		$this->flashMessage('Lesson edited', $type = 'success');
-		$this->redirect('homepage');
+		$this->redirect('this');
 	}
 
 }
