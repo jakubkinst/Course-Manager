@@ -11,11 +11,6 @@
 class MailModel extends Object {
 
 	/**
-	 * @var string Host url used in mail bodies as a link to CourseManager website
-	 */
-	public static $hostUrl = 'http://localhost/CourseMan/www/';
-
-	/**
 	 * Sends an e-mail to a current (logged) user
 	 * @param string $subject
 	 * @param string $msg
@@ -82,9 +77,9 @@ class MailModel extends Object {
 	 * Sends a hash code to a user to confirm his e-mail address
 	 * @param int $uid User ID
 	 */
-	public static function sendRegisterHash($uid) {
+	public static function sendRegisterHash($uid,$baseUri) {
 		$hash = dibi::fetchSingle('SELECT seclink FROM user WHERE id=%i', $uid);
-		$link = self::$hostUrl . 'user/check?hash=' . $hash;
+		$link = $baseUri . 'user/check?hash=' . $hash;
 		$msg = 'Welcome to CourseManager. Your registration is almost complete. To cemplete the
 		registration process, click to this link: <a href="' . $link . '">' . $link . '</a>.';
 		self::sendMailToUser($uid, 'Complete your registration at CourseManager', $msg);

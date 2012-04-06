@@ -33,7 +33,7 @@ $application->catchExceptions = FALSE;
  * Mailer Configuration
  * SMTP host, username, password settings
  */
-Environment::setVariable('mailer', Environment::getConfig('mailer'));
+Environment::setVariable('mailer', new SmtpMailer( (array)	Environment::getConfig('mailer')));
 
 
 // Setup router

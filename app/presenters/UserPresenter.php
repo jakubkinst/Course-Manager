@@ -48,8 +48,10 @@ class UserPresenter extends BasePresenter {
 	public function actionCheck($hash) {
 		if (!UserModel::checkUser($hash))
 			throw new BadRequestException;
-		else
+		else {
+			$this->flashMessage('User confirmed. Now you can login.','success');
 			$this->redirect('Courselist:homepage');
+		}
 	}
 
 	/**
@@ -106,8 +108,9 @@ class UserPresenter extends BasePresenter {
 	public function registerFormSubmitted(AppForm $form) {
 		$values = $form->getValues();
 		unset($values['password2']);
-		if (UserModel::addUser($values)) {
-			$this->flashMessage('User ' . $values['email'] . ' registered. Please login.', $type = 'success');
+		$baseUri = $this->getHttpRequest()->getUri()->getBaseUri();
+		if (UserModel::addUser($values, $baseUri)) {
+			$this->flashMessage('User ' . $values['email'] . ' registered. Email with next steps was sent to your e-mail address.', $type = 'success');
 			$this->redirect('courselist:homepage');
 		}
 		else

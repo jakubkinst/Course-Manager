@@ -46,7 +46,7 @@ class UserModel extends Object implements IAuthenticator {
 	 * @param type $values
 	 * @return boolean
 	 */
-	static public function addUser($values) {
+	static public function addUser($values,$baseUri) {
 		dibi::begin();
 		$array = array(
 			'email' => $values['email'],
@@ -61,7 +61,7 @@ class UserModel extends Object implements IAuthenticator {
 		$id = dibi::getInsertId();
 		//create settings record
 		dibi::query('INSERT INTO settings', array('User_id' => $id));
-		MailModel::sendRegisterHash($id);
+		MailModel::sendRegisterHash($id,$baseUri);
 		dibi::commit();
 		return $result;
 	}

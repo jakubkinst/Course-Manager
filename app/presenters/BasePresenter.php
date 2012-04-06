@@ -71,7 +71,6 @@ abstract class BasePresenter extends AndroidettePresenter {
 	 */
 	protected function startup() {
 		parent::startup();
-
 		if ($this->apiKey==null)
 			$this->apiKey = $this->getParam('apiKey');
 
