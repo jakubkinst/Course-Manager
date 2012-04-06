@@ -237,7 +237,7 @@ class CourseModel extends Object {
 	 */
 	public static function inviteStudent($values, $cid) {
 		$values2['email'] = $values['email'];
-		$values2['Course_id'] = $values['Course_id'];
+		$values2['Course_id'] = $cid;
 		$values2['invitedBy'] = UserModel::getLoggedUser()->id;
 		$uid = UserModel::getUserIDByEmail($values2['email']);
 		if (self::isStudent($uid, $values2['Course_id']) || self::isTeacher($uid, $values2['Course_id']) || CourseListModel::isInvited($values2['email'], $values2['Course_id']))

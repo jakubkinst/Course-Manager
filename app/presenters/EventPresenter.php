@@ -110,6 +110,7 @@ class EventPresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		if (EventModel::addEvent($values, $this->cid)) {
 			$this->flashMessage('Event added.', $type = 'success');
+			$this->redirect('this');
 		}
 		else
 			$this->flashMessage('There was an error adding the Event.', $type = 'error');

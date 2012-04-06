@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Presenter dedicated for testing purposes
+ * Presenter dedicated for debugging purposes
  *
  * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
  * @package    Course-Manager/Presenters/Tools

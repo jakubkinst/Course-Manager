@@ -57,6 +57,7 @@ class SettingsPresenter extends BasePresenter {
 		$values = $form->getValues();
 		if (SettingsModel::setSettings($values)) {
 			$this->flashMessage('Settings saved.', $type = 'success');
+			$this->redirect('this');
 		}
 		else
 			$this->flashMessage('There was an error saving the settings.', $type = 'error');

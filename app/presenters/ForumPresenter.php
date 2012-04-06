@@ -92,6 +92,7 @@ class ForumPresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		if (ForumModel::addTopic($values, $this->cid)) {
 			$this->flashMessage('Topic added.', $type = 'success');
+			$this->redirect('this');
 		}
 		else
 			$this->flashMessage('There was an error adding the Topic.', $type = 'error');
@@ -119,6 +120,7 @@ class ForumPresenter extends BaseCoursePresenter {
 		$values = $form->getValues();
 		if (ForumModel::addReply($values, $this->getParam('tid'))) {
 			$this->flashMessage('Reply added.', $type = 'success');
+			$this->redirect('this');
 		}
 		else
 			$this->flashMessage('There was an error adding the Reply.', $type = 'error');
