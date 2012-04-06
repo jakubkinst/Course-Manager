@@ -531,7 +531,7 @@ class AssignmentModel extends Object {
 	/**
 	 * Sends e-mail notifications to all students some time before deadline (depending on user settings)
 	 */
-	public static function sendAssignmentNotifications() {
+	public static function sendAssignmentNotifications($link) {
 		$assignments = dibi::fetchAll('SELECT * FROM assignment WHERE duedate>NOW()');
 		foreach ($assignments as $assignment) {
 			$course = CourseModel::getCourse($assignment->Course_id);
@@ -544,7 +544,7 @@ class AssignmentModel extends Object {
 				$tmp2 = date_add(new DateTime, date_interval_create_from_date_string(($dayInterval + 1) . ' days'));
 				if ($tmp < $due && $tmp2 > $due) {
 					$subject = 'Notification of upcoming assignment duedate';
-					$msg = 'Assignment <b>' . $assignment->name . '</b> duedate is on <b>' . $assignment->duedate . '</b>. You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
+					$msg = 'Assignment <b>' . $assignment->name . '</b> duedate is on <b>' . $assignment->duedate . '</b>. You can check it at <a href="' . $link . '">' . $link . '</a>.';
 					MailModel::addMail($student->email, $subject, $msg);
 				}
 			}

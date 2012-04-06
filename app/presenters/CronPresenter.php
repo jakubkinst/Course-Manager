@@ -30,7 +30,8 @@ class CronPresenter extends Presenter {
 	 * Send Assignment notifications
 	 */
 	public function actionSendAssignmentNotificationsEW5q3n825mL6BM2bTZ81() {
-		AssignmentModel::sendAssignmentNotifications();
+		$link = $this->getHttpRequest()->getUri()->getBaseUri();
+		AssignmentModel::sendAssignmentNotifications($link);
 		$this->terminate();
 	}
 

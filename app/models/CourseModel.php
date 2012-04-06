@@ -235,7 +235,7 @@ class CourseModel extends Object {
 	 * @param int $cid Course ID
 	 * @return boolean
 	 */
-	public static function inviteStudent($values, $cid) {
+	public static function inviteStudent($values, $cid,$link) {
 		$values2['email'] = $values['email'];
 		$values2['Course_id'] = $cid;
 		$values2['invitedBy'] = UserModel::getLoggedUser()->id;
@@ -244,7 +244,7 @@ class CourseModel extends Object {
 			return false;
 		dibi::begin();
 		$result = dibi::query('INSERT INTO invite', $values2);
-		MailModel::sendInvite($values2['email'], $values2['Course_id'], $values2['invitedBy']);
+		MailModel::sendInvite($values2['email'], $values2['Course_id'], $values2['invitedBy'],$link);
 		dibi::commit();
 		return $result;
 	}

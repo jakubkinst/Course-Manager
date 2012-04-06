@@ -205,7 +205,8 @@ class CoursePresenter extends BaseCoursePresenter {
 	public function inviteStudentFormSubmitted($form) {
 		$values = $form->getValues();
 		$values['date'] = new DateTime;
-		if (CourseModel::inviteStudent($values, $this->cid)){
+		$link = $this->getHttpRequest()->getUri()->getBaseUri();
+		if (CourseModel::inviteStudent($values, $this->cid,$link)){
 			$this->flashMessage('Student invited', $type = 'success');
 			$this->redirect('this');
 		}
