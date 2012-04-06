@@ -65,6 +65,7 @@ class CoursePresenter extends BaseCoursePresenter {
 	public function handleMakeTeacher($uid) {
 		$this->checkTeacherAuthority();
 		CourseModel::makeTeacher($this->cid, $uid);
+		$this->redirect('this');
 	}
 
 	/**

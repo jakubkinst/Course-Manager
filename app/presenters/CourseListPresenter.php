@@ -41,6 +41,7 @@ class CourseListPresenter extends BasePresenter {
 	 */
 	public function handleAcceptInvite($iid) {
 		CourseListModel::acceptInvite($iid);
+		$this->redirect('this');
 	}
 
 	/**
@@ -48,6 +49,7 @@ class CourseListPresenter extends BasePresenter {
 	 */
 	public function handleDeclineInvite($iid) {
 		CourseListModel::declineInvite($iid);
+		$this->redirect('this');
 	}
 
 }
