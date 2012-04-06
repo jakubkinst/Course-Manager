@@ -40,11 +40,12 @@ Environment::setVariable('mailer', new SmtpMailer( (array)	Environment::getConfi
 $router = $application->getRouter();
 $router[] = new Route('index.php', 'Courselist:homepage', Route::ONE_WAY);
 $router[] = new Route('[<lang [a-z]{2}>]', 'Courselist:homepage');
-// Androidette Router
-$router[] = new AndroidetteRoute('courselist:homepage');
 $router[] = new Route('[<lang [a-z]{2}>/]<presenter>/<action>[/<cid [0-9]+>]', array(
 	    'action' => 'homepage'
 	));
+
+// Androidette Router
+$router[] = new AndroidetteRoute('courselist:homepage');
 
 
 // Run the application!
