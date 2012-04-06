@@ -16,7 +16,7 @@ require LIBS_DIR . '/dibi/dibi.php';
 
 // Enable Debug for error visualisation & logging
 Debug::$strictMode = TRUE;
-Debug::enable();
+Debug::enable(FALSE);
 
 // Load configuration from config.neon file
 Environment::loadConfig();
