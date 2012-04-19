@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdftex 2012.4.19)  19 APR 2012 18:19
+entering extended mode
+**E:/Dropbox/Dropbox/Skola/MFF/RP/Course-Manager/text/bib.bib
+(E:/Dropbox/Dropbox/Skola/MFF/RP/Course-Manager/text/bib.bib
+! Undefined control sequence.
+l.4    note = {\url
+                   {http://nette.org}}
+? 
+! Emergency stop.
+l.4    note = {\url
+                   {http://nette.org}}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!
