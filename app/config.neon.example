@@ -20,9 +20,14 @@ common:
 	database:
 		driver: mysql
 		username: rp_jakub_cz
-		password: JDfgIFFNhF1L3x4c
+		password: xxxxxxxxxxxxxxx
 		database: rp_jakub_cz
 		charset: utf8
+	mailer:
+		host: smtp.gmail.com
+		username: cm@kinst.cz
+		password: xxxxxxxxxxxxx
+		secure: ssl
 
 production < common:
 
