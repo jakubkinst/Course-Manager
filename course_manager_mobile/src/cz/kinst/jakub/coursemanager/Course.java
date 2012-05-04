@@ -153,8 +153,7 @@ public class Course extends CMActivity implements Serializable {
 
 				}
 			});
-
-			content.loadData(html, "text/html", null);
+			content.loadDataWithBaseURL("fake://not/needed", html, "text/html", "utf-8", "");
 			return v;
 		}
 

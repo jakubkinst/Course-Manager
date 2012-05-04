@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package cz.kinst.jakub.coursemanager;
+package cz.kinst.jakub.androidette;
 
 public final class R {
     public static final class attr {

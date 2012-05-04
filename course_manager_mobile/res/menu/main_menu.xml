@@ -13,11 +13,5 @@
         android:showAsAction="collapseActionView"
         android:title="@string/menu_settings">
     </item>
-    <item
-        android:id="@+id/menu_help"
-        android:icon="@drawable/ic_action_help"
-        android:showAsAction="collapseActionView"
-        android:title="@string/menu_help">
-    </item>
 
 </menu>
