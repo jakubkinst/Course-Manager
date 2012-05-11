@@ -3,9 +3,9 @@
 {block content}
     <div id="forum_showTopic">
         {if $logged}
-            <h3>{$topic['label']}</h3>            
+            <h3>{$topic['label']}</h3>
             <span>{!_'by'} <a href="{link user:homepage, $topic->author->id}">{$topic->author['firstname']} {$topic->author['lastname']}</a></span>
-            
+
             <div class="separator"><!----></div>
             <div class="forum_thread_head">
                 {$topic['content']}
@@ -19,11 +19,8 @@
                 </div>
             {/foreach}
             {control pages}
-            {if $isTeacher}
-            
                 <div class="separator"><!----></div>
                 {widget addReply}
-            {/if}
         {/if}
     </div>
 {/block}
