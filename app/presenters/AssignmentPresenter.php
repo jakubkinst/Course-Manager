@@ -387,6 +387,11 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	 */
 	public function addAssignment(AppForm $form) {
 		$values = $form->getValues();
+		if (new DateTime($values['assigndate'])>new DateTime($values['duedate'])){
+			$this->flashMessage('Close date must be after Open date', $type = 'error');
+			return;
+		}
+
 		$newaid = AssignmentModel::addAssignment($values, $this->cid);
 		if ($newaid != -1) {
 			$this->redirect('edit', $newaid);
