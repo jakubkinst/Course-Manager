@@ -11,10 +11,10 @@
         events: [
 	    {foreach $events as $event}
 				{ title: '{!$event->name}',
-				  start: new Date('{!$event->date}'),
+				  start: new Date('{!$event->date|date:'%m/%d/%Y'}'),
 				  allDay: false,
 				  url: '<? echo $presenter->link('event:showEvent',$event->id); ?>'
-				}{if !$iterator->isLast()},{/if}
+				},
 	    {/foreach}
 		],
 	eventClick: function(event) {
