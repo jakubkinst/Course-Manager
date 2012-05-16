@@ -168,7 +168,7 @@ class AssignmentPresenter extends BaseCoursePresenter {
 		$extensions = array();
 		foreach ($this->template->submissions as $submission) {
 			foreach ($this->template->questions as $question) {
-				if ($question->type=="file" && isset($submission[$question->id])){
+				if ($question->type == "file" && isset($submission[$question->id])) {
 					$file = AssignmentModel::getAnwserFile($submission[$question->id]);
 					$ext = pathinfo($file->filename, PATHINFO_EXTENSION);
 					$extensions[$submission[$question->id]] = $ext;
@@ -387,12 +387,12 @@ class AssignmentPresenter extends BaseCoursePresenter {
 	 */
 	public function addAssignment(AppForm $form) {
 		$values = $form->getValues();
-		if (new DateTime($values['assigndate'])>new DateTime($values['duedate'])){
+		if (new DateTime($values['assigndate']) > new DateTime($values['duedate'])) {
 			$this->flashMessage('Close date must be after Open date', $type = 'error');
 			return;
 		}
-
-		$newaid = AssignmentModel::addAssignment($values, $this->cid);
+		$link = $this->getHttpRequest()->getUri()->getBaseUri();
+		$newaid = AssignmentModel::addAssignment($values, $this->cid, $link);
 		if ($newaid != -1) {
 			$this->redirect('edit', $newaid);
 		}

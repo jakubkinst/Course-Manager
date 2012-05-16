@@ -17,7 +17,7 @@ class AssignmentModel extends Object {
 	 * @param int $cid Course ID
 	 * @return int ID of an added assignment or -1 if adding fails
 	 */
-	public static function addAssignment($values, $cid) {
+	public static function addAssignment($values, $cid,$link) {
 		$array = array(
 			'name' => $values['name'],
 			'description' => $values['description'],
@@ -31,7 +31,7 @@ class AssignmentModel extends Object {
 		);
 		if (dibi::query('INSERT INTO assignment', $array)) {
 			$id = dibi::getInsertId();
-			self::sendNewAssignmentNotif($id);
+			self::sendNewAssignmentNotif($id,$link);
 			return $id;
 		}
 		else
@@ -518,12 +518,12 @@ class AssignmentModel extends Object {
 	 * Sends e-mail notifications to all students about a new assignment
 	 * @param int $aid Assignment ID
 	 */
-	public static function sendNewAssignmentNotif($aid) {
+	public static function sendNewAssignmentNotif($aid,$link) {
 		$assignment = self::getAssignment($aid);
 		$course = CourseModel::getCourse($assignment->Course_id);
 		$subject = 'New Assignment added to ' . $course->name;
 		$msg = 'There is a new assignment called ' . $assignment->name . ' in your course <b>' . $course->name . '</b><br />
-	    You can check it at <a href="' . MailModel::$hostUrl . '">' . MailModel::$hostUrl . '</a>.';
+	    You can check it at <a href="' . $link . '">' . $link . '</a>.';
 
 		MailModel::sendMailToStudents($course->id, $subject, $msg);
 	}
