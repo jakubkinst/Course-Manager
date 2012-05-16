@@ -14,7 +14,7 @@
 				  start: new Date('{!$event->date}'),
 				  allDay: false,
 				  url: '<? echo $presenter->link('event:showEvent',$event->id); ?>'
-				},
+				}{if !$iterator->isLast()},{/if}
 	    {/foreach}
 		],
 	eventClick: function(event) {
@@ -26,7 +26,7 @@
     })
 
 });
-	
+
 	$(function() {
 		$( "#frmaddEvent-date" ).datetimepicker();
 	});
@@ -38,8 +38,8 @@
         {if $logged}
             <h3>{!_'Events'}</h3>
             <div class="separator"><!----></div>
-              
-		<div id="calendar"></div>            
+
+		<div id="calendar"></div>
             {if $isTeacher}
             <div class="separator"><!----></div>
 
@@ -48,5 +48,5 @@
             {/if}
         {/if}
     </div>
-    
+
 {/block}
