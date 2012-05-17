@@ -82,7 +82,7 @@ public class AssignmentDetail extends CMActivity {
 		date.setText(df.format(assignDate) + " - " + df.format(dueDate));
 
 		Button solveButton = (Button) findViewById(R.id.solveButton);
-		if (data.getBoolean("canSolve")) {
+		if (data.getBoolean("canSolve") && !data.getBoolean("isTeacher")) {
 			solveButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
