@@ -1,0 +1,12 @@
+{block title}{!_'New Message'}{/block}
+{block head}{/block}
+{block content}
+<h3>{!_'New Message'}</h3>
+            <div class="separator"><!----></div>
+            <div class="buttonline">
+                <a class="abutton" href="{link outbox}">{!_'Outbox'}</a>
+                <a class="abutton" href="{link inbox}">{!_'Inbox'}</a>
+                <a class="abutton" href="{link new}">{!_'New Message'}</a>
+            </div>
+    {widget newMessage}
+{/block}

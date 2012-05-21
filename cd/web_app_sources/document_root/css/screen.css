@@ -1,0 +1,778 @@
+/*
+ * Cascade style sheet for CourseManager Application
+ *
+ * @author     Jakub Kinst <jakub@kinst.cz> (@link http://jakub.kinst.cz)
+ * @package    Course-Manager/Presenters
+ */
+
+
+*{
+    margin:0;padding:0;
+    color:#555555;
+}
+
+p a{
+    text-decoration: underline;
+}
+form label{
+    color:#555555;
+}
+
+.shadow {
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
+}
+
+.floatcontainer{
+    overflow: auto;
+}
+.ui-icon{
+    float:left;
+}
+body {
+    font-family: "Cambria","Trebuchet MS",Verdana,Arial,sans-serif;
+    font-size: 12px;
+    color: #222222;
+    background-color: #fff;
+}
+
+tbody tr:nth-child(even) td, tbody tr.even td {
+    background: #dde8ed;
+}
+h3 span.date{
+	font-size:14px;
+	color:#888888;
+}
+/* Disable even row coloring in forms */
+form tbody tr:nth-child(even) td, form tbody tr.even td {
+    background-color:transparent;
+}
+a {
+    text-decoration: none;
+    color:#555555;
+}
+a:hover {
+    text-decoration: none;
+    color:#111111;
+}
+#content{
+    padding:5px;
+    height:100%;
+    min-height:500px;
+    background:#fdfdfd;
+}
+#content h3{
+    color:#555555;
+    margin:8px;
+    font-size: 18px;
+}
+#content div.separator {
+    height: 1px;
+    width: 98%;
+    display: block;
+    background-color: #dddddd ;
+    margin:8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content table{
+    border: 1px solid #dddddd;
+}
+#content table th{
+    background:#c7cdcf;
+}
+#naviHead {
+    padding:1px;
+    padding-left:10px;
+    background:#f1f1f1;
+    font-size: 17px;
+    color:#555555;
+    text-transform: uppercase;
+    border-bottom:1px solid #dddddd;
+}
+#main .container{
+    border-left:1px solid #dddddd;
+    border-right:1px solid #dddddd;
+}
+#leftcontent{
+    float:left;
+    border-right:1px solid #dddddd;
+}
+#sidebar{
+    width:189px;
+    float:right;
+}
+.notActive {
+    text-decoration: line-through;
+}
+/* Required form input */
+form tr.required {
+    font-weight: bold;
+    color:#9e0c0c;
+}
+div.buttonline{
+    width:100%;
+    height:32px;
+}
+a.nbutton {
+    font-weight: bold;
+    text-transform: uppercase;
+    display:block;
+    width:8px;
+    text-align: center;
+    padding:3px;
+    margin:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    background: #c7cdcf;
+    border:1px solid #dddddd;
+}
+
+
+a.abutton {
+    font-weight: bold;
+    text-transform: uppercase;
+    display:block;
+    float:right;
+    padding:3px;
+    margin:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    background: #c7cdcf;
+    border:1px solid #dddddd;
+}
+a.abutton:hover{
+    background:#dde8ed;
+    color:black;
+}
+a.adminbutton{
+    background:#62b1da;
+}
+a.redbutton{
+    background:#fe896e;
+}
+#content form table{
+    border:none;
+}
+#content form table th{
+    background:transparent;
+}
+form tr{
+    margin:0px;
+    padding:0px;
+}
+
+form td{
+    padding:3px;
+}
+input{
+    font-size:11px;
+    margin:0px;
+}
+input.text{
+    padding:2px;
+    background:#dde8ed;
+    width:200px;
+}
+input.button{
+    padding:2px;
+    background:#dde8ed;
+}
+
+
+#header {
+    width:100%;
+    height:60px;
+    background:#f7f7f7;
+    border-bottom:1px solid #dddddd;
+}
+#header .container {
+    height:100%;
+    border-left:1px solid #dddddd;
+    border-right:1px solid #dddddd;
+}
+#header .container #innerheader{
+    overflow: auto;
+    height:100%;
+    background:#f2f2f2;
+}
+#footer .container{
+
+    border-left:1px solid #dddddd;
+    border-right:1px solid #dddddd;
+}
+#footer{
+    width:100%;
+    height:112px;
+    font-size:11px;
+    color:#dddddd;
+    border-top:1px solid #dddddd;
+    overflow:auto;
+    background:#f7f7f7;
+    border-bottom:1px solid #dddddd;
+}
+#footer #poweredlogos{
+    width:295px;
+    height:104px;
+    background:#f2f2f2;
+    padding:4px;
+    float:left;
+    border-right:1px solid #dddddd;
+}
+
+#footer #poweredlogos a{
+    display:block;
+    float:left;
+    margin:20px;
+    margin-top:30px;
+}
+#footer #cminfo{
+    width:620px;
+    background: #f9f9f9;
+    float:left;
+    text-align: right;
+    padding:12px;
+
+}
+
+#footer span {
+    color:#aaaaaa;
+    font-weight:bolder;
+    font-size:16px;
+
+}
+#logo{
+    width:498px;
+    height:45px;
+    float:left;
+    margin-top:3px;
+    background: url('../images/logo.png');
+}
+#logo h1{
+    display:none;
+}
+#mainmenu{
+    float:right;
+}
+#mainmenu .ui-icon{
+    margin-right:0px;
+    display:block;
+}
+#mainmenu #home .ui-icon{
+    margin-left:10px;
+    margin-right:10px;
+}
+#mainmenu ul{
+    list-style-type: none;
+}
+#mainmenu ul li{
+    float:left;
+}
+#mainmenu ul li a.mainMenuButton{
+
+    height:18px;
+    padding:4px;
+    padding-left: 6px;
+    padding-right: 7px;
+    font-size:12px;
+    background: #88beda;
+    border: 1px solid #666666;
+    cursor:pointer;
+    border-left:none;
+    border-top:none;
+    display:block;
+    overflow: auto;
+
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -khtml-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -khtml-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+
+}
+#mainmenu ul li a.leftborder{
+    border-left:1px solid #666666;
+}
+#mainmenu ul li a.mainMenuButton:hover{
+    background: #c7cdcf;
+    color: black;
+}
+#loginBox {
+    position:absolute;
+    top:26px;
+	min-width:180px;
+	margin-left:-96px;
+    padding:5px;
+    background: #88beda;
+    border: 1px solid #666666;
+}
+#loginBox input.text{
+    width:120px;
+}
+#loginBox #loggedMenu{
+    width:160px;
+    min-height:70px;
+}
+
+#loginBox .loggedUser {
+    display:block;
+    color:#9e0c0c;
+    text-align: right;
+    font-size:20px;
+}
+#loginBox a{
+    display:block;
+    text-align: right;
+}
+#courseBox{
+    padding:5px;
+}
+#courseBox h3{
+    font-size:14px;
+    font-weight: bold;
+    color:#555555;
+
+}
+#courseBox .course ul {
+    padding:0;
+    margin:0;
+    list-style-type: none;
+    margin:5px;
+    padding-left:10px;
+}
+#courseBox .course ul li {
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+#courseBox .course {
+    margin:10px;
+    border:1px solid #dddddd;
+    background:white;
+
+}
+.ui-icon{
+    margin-right:6px;
+}
+#courseBox .course .title{
+    display:block;
+    color:black;
+    padding:4px;
+    font-size:12px;
+    cursor:pointer;
+}
+#courseBox .asTeacher .title{
+    background-color: #88beda;
+}
+#courseBox .asStudent .title{
+    background-color: #c7cdcf;
+}
+#flashMessages {
+    position:absolute;
+    top:50%;
+    left:35%;
+    width:400px;
+}
+.flash{
+    border:1px solid #62B1DA;
+    background-color: #eeeeee;
+    vertical-align: middle;
+    padding:5px;
+    padding-left:50px;
+    background-repeat: no-repeat;
+    background-position: center left;
+    font-size:15px;
+    font-weight: bold;
+    color:#666666;
+    min-height: 40px;
+
+    -moz-box-shadow: 0px 0px 8px #ccc;
+    -webkit-box-shadow: 0px 0px 8px #ccc;
+    box-shadow: 0px 0px 8px #ccc;
+}
+.unauthorized {
+    background-image: url('../images/flashicons/unauthorized.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
+}
+.success {
+    background-image: url('../images/flashicons/success.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
+}
+.error {
+    background-image: url('../images/flashicons/error.png');
+    background-repeat: no-repeat;
+	padding-left: 50px;
+}
+
+/* CourseList Presenter */
+
+#courseList_homepage .invite{
+    border:1px solid #dddddd;
+    background: wheat;
+    padding:5px;
+}
+#courseList_homepage .invite a{
+    float:right;
+    margin-left:3px;
+    margin-right:3px;
+    background:#e5ecf9;
+    padding-left:2px;
+    padding-right:2px;
+    border:1px solid #dddddd;
+}
+#courseList_homepage .invite a:hover{
+    background:#dddddd;
+}
+#courseList_homepage h4{
+    font-size:16px;
+    font-weight: bold;
+    color: #555555;
+    border-bottom:1px solid #dddddd;
+    padding:4px;
+}
+
+#courseList_homepage .teachercourses{
+    width:50%;
+    float:left;
+}
+#courseList_homepage .studentcourses{
+    width:50%;
+    float:left;
+}
+#courseList_homepage .course {
+    margin:8px;
+    border: 1px solid #dddddd;
+}
+#courseList_homepage .course:hover {
+    background:#dde8ed;
+}
+#courseList_homepage .course .head{
+    display:block;
+    padding:5px;
+    border-bottom:1px solid #dddddd;
+}
+#courseList_homepage .asTeacher .head {
+    background-color: #88beda;
+}
+
+#courseList_homepage .asStudent  .head{
+    background-color: #c7cdcf;
+}
+#courseList_homepage .course .title{
+    font-size: large;
+    color: black;
+}
+#courseList_homepage .course .description{
+    font-size: small;
+    color: black;
+    padding:5px;
+}
+
+
+/* Course Presenter */
+#course_homepage .lesson{
+    background: #eeeeee;
+    border:1px solid #dddddd;
+    padding:10px;
+    margin:10px;
+	overflow: auto;
+}
+#course_homepage .lesson h5{
+    font-size:16px;
+    color:#333333;
+    margin:0px;
+}
+#course_homepage .lesson h5 a:hover{
+    color:black;
+    text-decoration: underline;
+}
+#course_homepage .lesson .description{
+    margin-left:20px;
+    overflow:auto;
+}
+#studentList, #lectorList, #lessonList, #eventList{
+    margin-top:10px;
+    padding:10px;
+}
+
+a.upcomingEvent{
+	display:block;
+	margin:5px;
+	padding:4px;
+	border: 1px solid #dddddd;
+}
+a.upcomingEvent:hover{
+	background: #eeeeee;
+}
+a.upcomingEvent .title{
+	color:#222222;
+	font-weight: bold;
+}
+
+div.lesson a.more{
+	font-size:14px;
+	color:#222222;
+	display:block;
+	margin:0;
+	width:30%;
+	background:#ffffff;
+	text-align:center;
+	border:1px solid #dddddd;
+	padding:4px;
+	float:right;
+}
+div.lesson a.more:hover{
+	background:#dddddd;
+}
+/* Lesson Presenter */
+#lesson_homepage #date {
+    margin-left: 10px;
+    font-style: italic;
+}
+#lesson_homepage #description {
+    margin-left: 10px;
+    overflow: auto;
+}
+
+#lesson_homepage #comments .comment {
+    border:1px solid #dddddd;
+    background: #eeeeee;
+    padding:5px;
+    width:60%;
+    min-height: 70px;
+    margin:5px;
+    margin-left:20px;
+}
+#lesson_homepage #comments .comment .author {
+    font-weight:bold;
+    color:black;
+}
+#lesson_homepage #comments .comment .time {
+    font-style: italic;
+    color:#333;
+}
+#lesson_homepage #comments .comment .content {
+    border-top:1px solid #dddddd;
+    padding:3px;
+    padding-left: 5px;
+    color:black;
+}
+#lesson_homepage #commentForm {
+}
+#lesson_homepage #commentForm textarea{
+    border:1px solid #dddddd;
+    background: #e5ecf9;
+    padding:5px;
+    width:300px;
+    height:80px;
+}
+#course_addlesson textarea{
+    width:600px;
+}
+
+/* Forum presenter */
+#forum_showTopic h4{
+    font-size: 20px;
+    font-weight: bold;
+    margin:0px;
+    padding:4px;
+
+}
+.forum_thread_head{
+    border:1px solid #dddddd;
+    margin:auto;
+    background-color: #88beda;
+    padding:20px;
+}
+.forum_thread_reply{
+    border:1px solid #dddddd;
+    margin:auto;
+    margin-left:20px;
+    background-color: #dde8ed;
+    padding:20px;
+}
+
+/* Event presenter */
+.event_event{
+    margin:10px;
+    background: #88beda;
+    border:1px solid #dddddd;
+}
+
+#event_homepage h4 {
+	font-size:15px;
+	font-weight:bold;
+	margin-top:20px;
+	margin-left:15px;
+}
+
+#event_homepage h4 span{
+	font-style: italic;
+	font-weight: normal;
+}
+
+#event_homepage div.description{
+	margin:20px;
+	font-size: 14px;
+	min-height:100px;
+	padding:10px;
+	border-left:1px solid #dddddd;
+}
+
+/* Message presenter */
+#message_inbox tr.notRead td{
+    font-weight: bold;
+}
+
+#message_showMessage #message{
+	border:1px solid #dddddd;
+	padding:10px;
+	margin:10px;
+}
+#message h3{
+
+}
+#message span.from{
+	margin-left:30px;
+}
+#message span.date{
+	font-style:italic;
+}
+#message div.content{
+	margin:10px;
+	padding:10px;
+	width:90%;
+	border-top:1px solid #dddddd;
+}
+
+/* Assignment presenter */
+#assignment_edit #formcreator{
+    overflow: auto;
+}
+#assignment_edit #formcreator div.scroll{
+    width:3000px;
+}
+
+#assignment_edit #formcreator div div{
+    float:left;
+    width:260px;
+    margin:5px;
+}
+#assignment_edit #formcreator input[type=text]{
+    width:150px;
+    margin:0;
+}
+#assignment_edit #formcreator textarea{
+    width:150px;
+    height:80px;
+}
+#assignment_homepage .assignment{
+    background: #88beda;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .description{
+
+    background: #88beda;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .generalinfo{
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .timelimitinfo{
+    background:#fe896e;
+    margin:5px;
+    border:1px solid #dddddd;
+    padding:5px;
+}
+#assignment_show .timelimitinfo strong{
+    color:black;
+}
+#assignment_solve h4#remainingtime{
+    font-size:20px;
+    color:red;
+    font-weight:bold;
+    display:block;
+    padding:5px;
+    margin:5px;
+    visibility: hidden;
+    border:1px solid #dddddd;
+}
+
+.online{
+    font-weight:bold;
+}
+
+/* User presenter */
+
+#user_homepage h3{
+	font-size:25px;
+}
+#user_homepage span{
+    display:block;
+    font-size:14px;
+}
+#user_homepage #profile{
+
+	margin:20px;
+}
+
+#user_homepage img {
+	float:left;
+	margin-right: 20px;
+	padding-right:20px;
+	border-right:1px solid #dddddd;
+}
+
+
+/* Calendar */
+.fc-event-time{
+    color:#eeeeee;
+    font-size:11px;
+}
+.fc-event-title{
+    color:white;
+    font-size:11px;
+}
+#calendar table{
+    border:none;
+}
+
+/* Visual Paginator */
+.paginator{
+    margin:2px;
+}
+.paginator .button{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
+}
+.paginator .current{
+    border:1px solid #cccccc;
+    background:#dddddd;
+    padding:3px;
+}
+.paginator a{
+    border:1px solid #dddddd;
+    background:#eeeeee;
+    padding:3px;
+}
+
+/* Help Presenter */
+
+iframe#helpDoc{
+	width:100%;
+	margin:auto;
+	height:700px;
+	border:1px solid #dddddd;
+}

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.3.0">
+
+	<title>Class CourseModel | CourseManager 1.0</title>
+
+	<script type="text/javascript" src="resources/combined.js?1841058525"></script>
+	<script type="text/javascript" src="elementlist.js?3900795361"></script>
+	<script type="text/javascript">
+		var ApiGen = ApiGen || {};
+		ApiGen.options = {"elementDetailsCollapsed":true,"elementsOrder":"natural"};
+	</script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1298244258">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Course.Manager.Controls.html">Course-Manager/Controls</a>
+						</li>
+				<li><a href="package-Course.Manager.Controls.Models.html">Course-Manager/Controls/Models</a>
+						</li>
+				<li class="active"><a href="package-Course.Manager.Models.html">Course-Manager/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.Tools.html">Course-Manager/Models/Tools</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.html">Course-Manager/Presenters</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.Tools.html">Course-Manager/Presenters/Tools</a>
+						</li>
+				<li><a href="package-Nette.html">Nette</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.html">Extras</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.GettextTranslator.html">Extras\GettextTranslator</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li><a href="package-Texy.html">Texy</a>
+						</li>
+			</ul>
+
+		</div>
+
+		<hr>
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-AssignmentModel.html">AssignmentModel</a></li>
+				<li><a href="class-CourseListModel.html">CourseListModel</a></li>
+				<li class="active"><a href="class-CourseModel.html">CourseModel</a></li>
+				<li><a href="class-EventModel.html">EventModel</a></li>
+				<li><a href="class-ForumModel.html">ForumModel</a></li>
+				<li><a href="class-MessageModel.html">MessageModel</a></li>
+				<li><a href="class-ResourceModel.html">ResourceModel</a></li>
+				<li><a href="class-ResultModel.html">ResultModel</a></li>
+				<li><a href="class-SettingsModel.html">SettingsModel</a></li>
+				<li><a href="class-UserModel.html">UserModel</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-Course.Manager.Models.html" title="Summary of Course-Manager/Models"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CourseModel</h1>
+
+	<div class="description">
+	
+<p>Model class with static methods dedicated to Course-related db methods</p>
+
+<p>Responsible mostly for communication with database via dibi.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Object
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b>CourseModel</b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+
+				<b>Package:</b>
+				<a href="package-Course.Manager.Models.html">Course-Manager/Models</a> <br>
+				<b>Author:</b>
+				Jakub Kinst &lt;<a
+href="mailto:jakub&#64;kinst.cz">jakub&#64;<!---->kinst.cz</a>&gt; (@link <a
+href="http://jakub.kinst.cz">http://jakub.kinst.cz</a>)<br>
+		<b>Located at</b> <a href="source-class-CourseModel.html#3" title="Go to source code">models/CourseModel.php</a><br>
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="addCourse" id="_addCourse">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addCourse">#</a>
+		<code><a href="source-class-CourseModel.html#13" title="Go to source code">addCourse</a>( <span>type <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds Course to DB and connects this Course with actual user as teacher.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds Course to DB and connects this Course with actual user as teacher.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>type</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="editCourse" id="_editCourse">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_editCourse">#</a>
+		<code><a href="source-class-CourseModel.html#32" title="Go to source code">editCourse</a>( <span>integer <var>$cid</var></span>, <span>array <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Edits course in database</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Edits course in database</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteCourse" id="_deleteCourse">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteCourse">#</a>
+		<code><a href="source-class-CourseModel.html#46" title="Go to source code">deleteCourse</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes course from db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes course from db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addLesson" id="_addLesson">
+
+		<td class="attributes"><code>
+			
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addLesson">#</a>
+		<code><a href="source-class-CourseModel.html#55" title="Go to source code">addLesson</a>( <span>array <var>$values</var></span>, <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds lesson to a given course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds lesson to a given course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="editLesson" id="_editLesson">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_editLesson">#</a>
+		<code><a href="source-class-CourseModel.html#70" title="Go to source code">editLesson</a>( <span>integer <var>$lid</var></span>, <span>values <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Edits lesson in a db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Edits lesson in a db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+					<dt><var>$values</var></dt>
+					<dd><code>values</code></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteLesson" id="_deleteLesson">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteLesson">#</a>
+		<code><a href="source-class-CourseModel.html#84" title="Go to source code">deleteLesson</a>( <span>integer <var>$lid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes lesson from a db</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes lesson from a db</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addComment" id="_addComment">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addComment">#</a>
+		<code><a href="source-class-CourseModel.html#94" title="Go to source code">addComment</a>( <span>array <var>$values</var></span>, <span>integer <var>$lid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds comment to a lesson</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds comment to a lesson</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCourse" id="_getCourse">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCourse">#</a>
+		<code><a href="source-class-CourseModel.html#107" title="Go to source code">getCourse</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns Course info in array according to the $id</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns Course info in array according to the $id</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isTeacher" id="_isTeacher">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isTeacher">#</a>
+		<code><a href="source-class-CourseModel.html#116" title="Go to source code">isTeacher</a>( <span>integer <var>$uid</var></span>, <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Security check - returns true if user is registered as teacher for course.
+False otherwise.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Security check - returns true if user is registered as teacher for course.
+False otherwise.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uid</var></dt>
+					<dd><code>integer</code><br> User ID</dd>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isStudent" id="_isStudent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isStudent">#</a>
+		<code><a href="source-class-CourseModel.html#131" title="Go to source code">isStudent</a>( <span>integer <var>$uid</var></span>, <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Security check - returns true if user is registered as student in course.
+False otherwise.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Security check - returns true if user is registered as student in course.
+False otherwise.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uid</var></dt>
+					<dd><code>integer</code><br> User ID</dd>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTeachers" id="_getTeachers">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTeachers">#</a>
+		<code><a href="source-class-CourseModel.html#146" title="Go to source code">getTeachers</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns list of teachers of a course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns list of teachers of a course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStudents" id="_getStudents">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStudents">#</a>
+		<code><a href="source-class-CourseModel.html#155" title="Go to source code">getStudents</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns list of students of a course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns list of students of a course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLessons" id="_getLessons">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLessons">#</a>
+		<code><a href="source-class-CourseModel.html#164" title="Go to source code">getLessons</a>( <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns list of lessons of specific course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns list of lessons of specific course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCourseIDByLessonID" id="_getCourseIDByLessonID">
+
+		<td class="attributes"><code>
+			
+			 public static
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCourseIDByLessonID">#</a>
+		<code><a href="source-class-CourseModel.html#173" title="Go to source code">getCourseIDByLessonID</a>( <span>integer <var>$lid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns Course id to specific lesson</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns Course id to specific lesson</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLessonByID" id="_getLessonByID">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLessonByID">#</a>
+		<code><a href="source-class-CourseModel.html#182" title="Go to source code">getLessonByID</a>( <span>integer <var>$lid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns lesson info according to lesson id</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns lesson info according to lesson id</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getComments" id="_getComments">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getComments">#</a>
+		<code><a href="source-class-CourseModel.html#191" title="Go to source code">getComments</a>( <span>integer <var>$lid</var></span>, <span> <var>$offset</var></span>, <span> <var>$limit</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns list of comments for specific lesson</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns list of comments for specific lesson</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+					<dt><var>$offset</var></dt>
+					<dd></dd>
+					<dt><var>$limit</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="countComments" id="_countComments">
+
+		<td class="attributes"><code>
+			
+			 public static
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_countComments">#</a>
+		<code><a href="source-class-CourseModel.html#204" title="Go to source code">countComments</a>( <span>integer <var>$lid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Counts all comments of a lesson</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Counts all comments of a lesson</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$lid</var></dt>
+					<dd><code>integer</code><br> Lesson ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="inviteStudent" id="_inviteStudent">
+
+		<td class="attributes"><code>
+			
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_inviteStudent">#</a>
+		<code><a href="source-class-CourseModel.html#213" title="Go to source code">inviteStudent</a>( <span>array <var>$values</var></span>, <span>integer <var>$cid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Invite student to a course</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Invite student to a course</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$values</var></dt>
+					<dd><code>array</code></dd>
+					<dt><var>$cid</var></dt>
+					<dd><code>integer</code><br> Course ID</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CourseManager 1.0 API documentation generated by <a href="http://apigen.org">ApiGen 2.3.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

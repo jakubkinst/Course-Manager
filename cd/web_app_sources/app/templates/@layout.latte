@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>{include #title} - {if isset($activeCourse)}{$activeCourse->name} -{/if} CourseManager</title>
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+
+	{* Variables passed from PHP to JavaScript *}
+	<script type="text/javascript">
+		texylaHome = "{!$basePath}/texyla";
+		<? echo $presenter->getJSVariables(); ?>
+	</script>
+	{control css
+	    'blueprint/screen.css',
+	    'smoothness/jquery-ui-1.8.16.custom.css',
+	    'screen.css',
+	    'fullcalendar.css',
+	    '../texyla/css/style.css',
+	    'texy.css'
+	}
+        {control js
+	    'jquery-1.6.2.min.js',
+	    'jquery-ui-1.8.16.custom.min.js',
+	    'jquery.nette.js',
+	    'jquery.ajaxform.js',
+	    'jquery-ui-timepicker-addon.js',
+	    'fullcalendar.min.js',
+	    'jquery.multiselect.min.js'
+	}
+	{control js
+	    "../texyla/js/texyla.js",
+	    "../texyla/js/selection.js",
+	    "../texyla/js/texy.js",
+	    "../texyla/js/buttons.js",
+	    "../texyla/js/dom.js",
+	    "../texyla/js/view.js",
+	    "../texyla/js/ajaxupload.js",
+
+	    "../texyla/plugins/keys/keys.js",
+	    "../texyla/plugins/resizableTextarea/resizableTextarea.js",
+	    "../texyla/plugins/img/img.js",
+	    "../texyla/plugins/table/table.js",
+	    "../texyla/plugins/link/link.js",
+	    "../texyla/plugins/emoticon/emoticon.js",
+	    "../texyla/plugins/symbol/symbol.js",
+	    "../texyla/plugins/color/color.js"
+	}
+		{control js
+	    "../texyla/js/window.js",
+	    "../texyla/languages/en.js"}
+
+	{control js 'CourseManager.js'}
+
+	<!-- head -->
+	{include #head}
+	<!-- /head -->
+
+    </head>
+
+    <body>
+	<div id="header" class="span-24 last">
+	    <div class="container shadow">
+		<div id="innerheader">
+		    <a href="{link courselist:homepage}">
+			<div id="logo">
+			    <h1>Course Manager</h1>
+			</div>
+		    </a>
+
+		    <div id="mainmenu">
+			<ul>
+			    {if $logged}<li><a id="home" class="mainMenuButton leftborder" href="{link courselist:homepage}"><span class="ui-icon ui-icon-home"></span></a></li>{/if}
+			    {if $logged}<li><a class="mainMenuButton" href="{link message:homepage}"> <span class="ui-icon ui-icon-mail-open"></span>{if $countUnread>0}&nbsp;{$countUnread}{/if}</a></li>{/if}
+			    {if $logged}<li><a class="mainMenuButton" href="{link settings:homepage}"> <span class="ui-icon ui-icon-gear"></span></a></li>{/if}
+			    <li><a class="mainMenuButton{if !$logged} leftborder{/if}" href="{link help:homepage}"> <span class="ui-icon ui-icon-help"></span></a></li>
+			    <li><a class="mainMenuButton" id="userButton"><span class="ui-icon ui-icon-person"></span>&nbsp;
+				    {if !$logged}
+				    {!_'Login'}
+				    {else}
+				    {$user->firstname} {$user->lastname}
+				    {/if}
+				</a>
+				<div id="loginBox" class="hide">
+				    {if $logged}
+				    <div id="loggedMenu">
+					<span class="loggedUser">{$user->firstname} {$user->lastname}</span>
+					<a href="{link user:homepage}">{!_'My profile'}</a>
+					<a href="{link user:edit}">{!_'Edit profile'}</a>
+					<a href="{link user:logout}">{!_'Log out'}</a>
+				    </div>
+				    {else}
+				    {widget signInForm}
+				    <a class="abutton" href="{link user:register}">{!_'REGISTER'}</a>
+				    {/if}
+				</div>
+			    </li>
+
+			</ul>
+
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<div id="main">
+	    <div class="container shadow">
+		<div class="span-19" id="leftcontent">
+		    {if isset($activeCourse->name)}
+		    <div id="naviHead">>> <a href="{link course:homepage,$activeCourse->id }">{$activeCourse->name}</a></div>
+		    {/if}
+		    <div id="content">
+			<!-- content -->
+			{include #content}
+			<!-- /content -->
+		    </div>
+		</div>
+		<div class="span-5 last" id="sidebar">
+		    {if $logged}
+		    <div id="courseBox">
+			{if sizeof($tCourses)>0}<h3>{!_'Teaching'}</h3>{/if}
+			{foreach $tCourses as $course}
+			<div class="course asTeacher">
+			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
+			    <ul id="ul_{$course->id}" class="hide">
+				<li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Home'}/{!_'Lessons'}</a></li>
+				<li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
+				<li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
+				<li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
+				<li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
+				<li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
+			    </ul>
+			</div>
+			{/foreach}
+			{if sizeof($sCourses)>0}<h3>{!_'Studying'}</h3>{/if}
+			{foreach $sCourses as $course}
+			<div class="course asStudent">
+			    <a href="" id="{$course->id}" class="title dropdown"><span class="ui-icon ui-icon-suitcase"></span>{$course['name']}</a>
+			    <ul id="ul_{$course->id}" class="courseminimenu hide" >
+				<li><a href="{link course:homepage, $course->id}"><span class="ui-icon ui-icon-clock"></span>{!_'Home'}/{!_'Lessons'}</a></li>
+				<li><a href="{link result:homepage, $course->id}"><span class="ui-icon ui-icon-tag"></span>{!_'Results'}</a></li>
+				<li><a href="{link assignment:homepage, $course->id}"><span class="ui-icon ui-icon-check"></span><b>{!_'Assignments'}</b></a></li>
+				<li><a href="{link resource:homepage, $course->id}"><span class="ui-icon ui-icon-folder-open"></span>{!_'Resources'}</a></li>
+				<li><a href="{link forum:homepage, $course->id}"><span class="ui-icon ui-icon-comment"></span>{!_'Forum'}</a></li>
+				<li><a href="{link event:homepage, $course->id}"><span class="ui-icon ui-icon-calculator"></span>{!_'Events'}</a></li>
+			    </ul>
+			</div>
+			{/foreach}
+		    </div>
+		    {/if}
+		</div>
+	    </div>
+	</div>
+
+	<div id="footer">
+	    <div class="container shadow">
+		<div id="poweredlogos">
+		    <a href="http://nette.org"><img src="{$basePath}/images/nette.png" /></a>
+		    <a href="http://jquery.com/"><img src="{$basePath}/images/jquery.png" /></a>
+		</div>
+		<div id="cminfo">
+		    <span>Course Manager (© 2011)</span>
+		    <br /> by Jakub Kinst
+		    <br /><a href="mailto:jakub@kinst.cz">jakub@kinst.cz</a>
+		    <br /><a href="http://jakub.kinst.cz">http://jakub.kinst.cz</a>
+		    <br /><a href="{link this,'lang'=>'en'}"><img width="15" height="9" src="{$basePath}/images/flags/en.gif" /></a> <a href="{link this,'lang'=>'cs'}"><img width="15" height="9" src="{$basePath}/images/flags/cs.gif" /></a>
+		</div>
+	    </div>
+        </div>
+
+
+	<!-- Flash messages -->
+        <div id="flashMessages">
+            {foreach $flashes as $flash}
+            <div class="flash {$flash->type}">
+		{$flash->message}
+            </div>
+            {/foreach}
+        </div>
+
+    </body>
+</html>

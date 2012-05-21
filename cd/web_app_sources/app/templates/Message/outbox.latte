@@ -1,0 +1,31 @@
+{block title}{!_'Outbox'}{/block}
+{block head}{/block}
+{block content}
+    <div id="message_outbox">
+        {if $logged}
+            <h3>{!_'My Outbox'}</h3>
+            <div class="separator"><!----></div>
+            <div class="buttonline">
+                <a class="abutton" href="{link inbox}">{!_'Inbox'}</a>
+                <a class="abutton" href="{link new}">{!_'New Message'}</a>
+            </div>
+            <table>
+                <thead>
+                    <td>{!_'Subject'}</td> 
+                    <td>{!_'To'}</td>              
+                    <td>{!_'Sent'}</td>
+                </thead>
+                {foreach $outbox as $message}    
+                    
+                        <tr> 
+                            
+                        <td><a href="{link showMessage, $message['id']}">{$message['subject']}</a></td>  
+                        <td>{$message['to']['email']}</td>                                          
+                        <td>{$message['sent']}</td>
+                    
+                    </tr>
+                {/foreach}
+            </table>  
+        {/if}
+    </div>
+{/block}

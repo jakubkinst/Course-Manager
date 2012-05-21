@@ -1,0 +1,22 @@
+{block title}{!_'Assignments'}{/block}
+{block head}
+{/block}
+{block content}
+<div id="assignment_homepage">
+<h3>{!_'Assignments'}</h3>
+            <div class="separator"><!----></div>
+	<div class="buttonline">
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add,'cid'=>$activeCourse->id,'ac'=> false}">{!_'Add Normal'}</a>{/if}
+	    {if $isTeacher}<a class="adminbutton abutton" href="{link add,'cid'=>$activeCourse->id,'ac'=> true}">{!_'Add Auto-Correct'}</a>{/if}
+	</div>
+    {foreach $assignments as $assignment}
+	<div class="assignment">
+	    <a href="{link show, $assignment->id}"><h5>{$assignment->name}{if $assignment->autocorrect} ({!_'Auto-Correct'}){/if}</h5></a>                        
+	    <div class="assignment_description">{$assignment->description}</div>
+	    <div>{!_'Open'}: {$assignment->assigndate} - {$assignment->duedate}</div>
+	    <div>{!_'Max points'}: {$assignment->maxpoints}</div>
+	    <div>{!_'Time Limit'}: {if $assignment->timelimit==0}{!_'no limit'} {else}{$assignment->timelimit} {!_'min'}{/if}</div>
+	</div>
+    {/foreach}
+</div>
+{/block}

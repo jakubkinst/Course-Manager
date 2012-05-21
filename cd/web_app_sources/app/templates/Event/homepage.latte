@@ -1,0 +1,52 @@
+{block title}{!_'Events'}{/block}
+{block head}
+    <script>
+	$(document).ready(function() {
+    $('#calendar').fullCalendar({
+	header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+        events: [
+	    {foreach $events as $event}
+				{ title: '{!$event->name}',
+				  start: new Date('{!$event->date|date:'%m/%d/%Y'}'),
+				  allDay: false,
+				  url: '<? echo $presenter->link('event:showEvent',$event->id); ?>'
+				},
+	    {/foreach}
+		],
+	eventClick: function(event) {
+	    if (event.url) {
+		window.location(event.url);
+		return false;
+	    }
+	}
+    })
+
+});
+
+	$(function() {
+		$( "#frmaddEvent-date" ).datetimepicker();
+	});
+    </script>
+{/block}
+
+{block content}
+    <div id="event_homepage">
+        {if $logged}
+            <h3>{!_'Events'}</h3>
+            <div class="separator"><!----></div>
+
+		<div id="calendar"></div>
+            {if $isTeacher}
+            <div class="separator"><!----></div>
+
+            <h4>{!_'ADD EVENT'}</h4>
+                {widget addEvent}
+            {/if}
+        {/if}
+    </div>
+
+{/block}

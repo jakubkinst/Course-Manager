@@ -1,0 +1,69 @@
+{block title}{!_'My Courses'}{/block}
+{block head}{/block}
+{block content}
+    <div id="courseList_homepage">
+        {if $logged}
+        <h3>{!_'My Courses'}</h3>
+            <div class="separator"><!----></div>
+        <div class="buttonline">
+            <a class="adminbutton abutton" href="{link course:add}"><span class="ui-icon ui-icon-circle-plus"></span>{!_'Add Course'}</a>
+        </div>
+	<div id="invites">
+	    {foreach $invites as $invite}
+	    <div class="invite"><span class="ui-icon ui-icon-info"></span>
+		{!_'You have been invited to'} <b>{$invite->course->name}</b> {!_'by'} <b>{$invite->invitedBy->firstname} {$invite->invitedBy->lastname}</b> <a href="{link acceptInvite!,$invite->id}">{!_'Accept'}</a><a href="{link declineInvite!,$invite->id}">{!_'Decline'}</a>
+	    </div>
+	    {/foreach}
+	</div>
+
+        <div class="floatcontainer">
+            {if sizeof($tCourses)>0}
+                <div class="teachercourses">
+                    <h4>{!_'Teaching'}</h4>
+                {foreach $tCourses as $course}
+                    <a href="{link course:homepage, $course['id']}">
+                        <div class="course asTeacher">
+                            <span class="head">
+                                <span class="title">{$course['name']}</span>
+                            </span>
+                            <p class="description">{$course['description']}</span>
+                        </div>
+                    </a>
+                {/foreach}
+                </div>
+            {/if}
+
+            {if sizeof($sCourses)>0}
+                <div class="studentcourses">
+                    <h4>{!_'Studying'}</h4>
+                {foreach $sCourses as $course}
+                    <a href="{link course:homepage, $course['id']}">
+                        <div class="course asStudent">
+                            <span class="head">
+                                <span class="title">{$course['name']}</span>
+                            </span>
+                            <p class="description">{$course['description']}</span>
+                        </div>
+                    </a>
+                {/foreach}
+                </div>
+            {/if}
+            {if (sizeof($tCourses)==0) && (sizeof($sCourses)==0)}
+            <h5>{!_'No courses'}</h5>
+            {/if}
+        </div>
+        {else}
+        <p id="welcome">
+            {!_'Welcome to Course Manager. Please sign in.'}<br/>
+            {!_'You can register'} <a href="{link user:register}">{!_'here'}
+			</a>
+        </p>
+		<h5>Test Accounts (username:password)</h5>
+		<ul>
+			<li>milena@kinst.cz:milena</li>
+			<li>josef@kinst.cz:josef</li>
+			<li>jirka@kinst.cz:jirka</li>
+		</ul>
+{/if}
+    </div>
+{/block}

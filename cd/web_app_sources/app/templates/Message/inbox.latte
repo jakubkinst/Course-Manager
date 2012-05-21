@@ -1,0 +1,32 @@
+{block title}{!_'Inbox'}{if $countUnread>0}({$countUnread}){/if}{/block}
+{block head}{/block}
+{block content}
+    <div id="message_inbox">
+        {if $logged}
+            <h3>{!_'My Inbox'}</h3>
+            <div class="separator"><!----></div>
+            <div class="buttonline">
+                <a class="abutton" href="{link outbox}">{!_'Outbox'}</a>
+                <a class="abutton" href="{link new}">{!_'New Message'}</a>
+            </div>
+            
+            <table>
+                <thead>
+                    <td>{!_'Subject'}</td> 
+                    <td>{!_'From'}</td>              
+                    <td>{!_'Recieved'}</td>
+                </thead>
+                {foreach $inbox as $message}    
+                    
+                        <tr {if $message['read']=="0"}class="notRead"{/if}> 
+                            
+                        <td><a href="{link showMessage, $message['id']}">{$message['subject']}</a></td>  
+                        <td>{$message['from']['email']}</td>                                          
+                        <td>{$message['sent']}</td>
+                    
+                    </tr>
+                {/foreach}
+            </table>  
+        {/if}
+    </div>
+{/block}

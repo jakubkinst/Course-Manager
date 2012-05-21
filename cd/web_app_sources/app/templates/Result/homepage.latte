@@ -1,0 +1,82 @@
+{block title}{!_'Results'}{/block}
+{block head}{/block}
+
+{block content}
+<div id="results_homepage">
+    <h3>{!_'Results'}</h3>
+            <div class="separator"><!----></div>
+<h4>{!_'Offline and Online tasks'} - {!_'Points'}</h4>
+<div class="floatcontainer">
+<table>
+            <tr>
+                <th>{!_'Name'}</th>
+                {foreach $offlinePoints as $oA}
+                <th>{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
+                {/foreach}
+		{foreach $onlinePoints as $oA}
+                <th class="online">{$oA->name}{if $oA->maxpoints!=0} ({$oA->maxpoints}){/if}</th>
+                {/foreach}
+                <th>{!_'SUM'}</th>
+            </tr>
+            {foreach $students as $student}
+                <tr>
+                    <td>
+                    {if $user->id==$student->id}<b>{/if}
+                        <a href="{link user:homepage, $student->id}">{$student->firstname} {$student->lastname}</a>
+                    {if $user->id==$student->id}</b>{/if}
+                    </td>
+                    {foreach $offlinePoints as $oA}
+                        <td>{$oA[$student->id]}</td>
+                    {/foreach}
+		    {foreach $onlinePoints as $oA}
+                        <td class="online">{if isset($oA[$student->id]) && $oA[$student->id]!=NULL}{$oA[$student->id]}{/if}</td>
+                    {/foreach}
+                        <td>
+                            {if array_key_exists(strval($student->id),$offlineSums) || array_key_exists(strval($student->id),$onlineSums)}
+							<?php echo round(
+							(array_key_exists($student->id,$offlineSums)?$offlineSums[$student->id]:0)
+							+
+							(array_key_exists($student->id,$onlineSums)?$onlineSums[$student->id]:0)
+							,2) ?> {/if}
+                        </td>
+
+                </tr>
+            {/foreach}
+    </table>
+</div>
+<h4>{!_'Offline tasks'} - {!_'Grades'}</h4>
+<div class="floatcontainer">
+    <table>
+            <tr>
+                <th>{!_'Name'}</th>
+                {foreach $offlineGrades as $oA}
+                <th>{$oA->name}</th>
+                {/foreach}
+                <th>{!_'AVG'}</th>
+            </tr>
+            {foreach $students as $student}
+                <tr>
+                    <td>
+                        {if $user->id==$student->id}<b>{/if}
+                            <a href="{link user:homepage, $student->id}">{$student->firstname} {$student->lastname}</a>
+                        {if $user->id==$student->id}</b>{/if}
+                    </td>
+                    {foreach $offlineGrades as $oA}
+                        <td>{$oA[$student->id]}</td>
+                    {/foreach}
+                        <td>
+                            {if array_key_exists(strval($student->id),$avgs)} <?php echo round($avgs[$student->id],2) ?> {/if}
+                        </td>
+
+                </tr>
+            {/foreach}
+    </table>
+</div>
+    {if $isTeacher}
+            <div class="separator"><!----></div>
+                <div class="buttonline">
+                    <a class="adminbutton abutton" href="{link result:add, $activeCourse->id}">{!_'Add Results'}</a>
+                </div>
+    {/if}
+</div>
+{/block}

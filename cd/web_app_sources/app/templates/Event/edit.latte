@@ -1,0 +1,13 @@
+{block title}{!_'Edit Event'}{/block}
+{block head}{/block}
+
+{block content}
+    <div id="event_homepage">
+        {if $logged}
+            <h3>{!_'Edit Event'}</h3>
+            <div class="separator"><!----></div>
+              {control editEvent}
+        {/if}
+    </div>
+    
+{/block}

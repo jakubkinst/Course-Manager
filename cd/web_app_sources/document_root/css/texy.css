@@ -1,0 +1,50 @@
+/* 
+    Document   : texy.css
+    Created on : 2.12.2011, 11:17:53
+    Author     : Jakub Kinst
+    Description:
+        Stylesheet for formatting text created with texy
+*/
+
+.texy{
+    font-size:12px;
+}
+
+.texy h1{
+    font-size:15px;
+    font-weight:bold;
+}
+.texy h2{
+    font-size:14px;
+    font-weight:bold;
+}
+.texy h3{
+    font-size:13px;
+    font-weight:bold;
+}
+.texy h4{
+    font-size:12px;
+    font-weight:bold;
+}
+.texy h5{
+    font-size:11px;
+    font-weight:bold;
+}
+
+.texy a{
+    color:black;
+    text-decoration: underline;
+}
+.texy a:hover{
+    color:#328ADC;
+    text-decoration: none;
+}
+
+.texy code{
+    display:block;
+    background:#eeeeee;
+    padding:5px;
+    border: 1px solid #dddddd;
+    font-size:11px;
+    color:black;
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cz.kinst.jakub.coursemanager"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <supports-screens android:resizeable="true" />
+
+    <application
+        android:allowClearUserData="true"
+        android:debuggable="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:uiOptions="splitActionBarWhenNarrow" >
+        <activity
+            android:name=".CourseList"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Lesson"
+            android:label="@string/lesson" >
+        </activity>
+        <activity
+            android:name=".Forum"
+            android:label="@string/forum" >
+        </activity>
+        <activity
+            android:name=".ForumReplies"
+            android:label="@string/forum" >
+        </activity>
+        <activity
+            android:name=".Events"
+            android:label="@string/events" >
+        </activity>
+        <activity
+            android:name=".Course"
+            android:label="@string/course" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/menu_settings" >
+        </activity>
+        <activity
+            android:name=".Messages"
+            android:label="@string/messages" >
+        </activity>
+        <activity
+            android:name=".MessagesShow"
+            android:label="@string/message" >
+        </activity>
+        <activity
+            android:name=".MessagesNew"
+            android:label="@string/new_message" >
+        </activity>
+        <activity
+            android:name=".Results"
+            android:label="@string/results" >
+        </activity>
+        <activity
+            android:name=".Assignments"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".AssignmentDetail"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".AssignmentSolve"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".AssignmentCorrect"
+            android:label="@string/assignments" >
+        </activity>
+        <activity
+            android:name=".Resources"
+            android:label="@string/resources" >
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,44 @@
+{block title}{!_'Correcting'} {$assignment->name} - {!_'Assignments'}{/block}
+{block head}
+{/block}
+{block content}
+<h3>{!_'Correcting'} {$assignment->name}</h3>
+            <div class="separator"><!----></div>
+    <div id="assignment_correct">
+	{control correctForm begin}
+	{control correctForm errors}
+	{var correctForm => $control['correctForm']}
+	 <table>
+	    <thead>	
+		    <td>{!_'Student Name'}</td>
+		    {foreach $questions as $question}
+			<td>{$question->label}</td>
+		    {/foreach}			
+		    <td>{!_'Points'}{if $assignment->maxpoints>0} ({!_'Max:'}{$assignment->maxpoints}){/if}</td>
+	    </thead>
+	    {foreach $submissions as $submission}    
+		<tr>
+		    <td>{$submission['user']->firstname} {$submission['user']->lastname}</td>
+		    {foreach $questions as $question}
+			<td>
+			    {if isset($submission[$question->id])}
+				{if $question->type == 'multi'}
+				<? echo str_replace('#','<br>',$submission[$question->id]) ?>
+				
+				{elseif $question->type == 'file'}
+				    <a href="{link downloadFile, $submission[$question->id]}">{!_'Download'}</a>
+				{else}
+				    {$submission[$question->id]}
+				{/if}
+				
+			    {/if}
+			</td>
+		    {/foreach}
+			<td>{$correctForm[$submission['user']->id]->control}</td>
+		</tr>
+	    {/foreach}
+	</table>  
+	{$correctForm['submit']->control}
+	{control correctForm end}
+    </div>
+{/block}

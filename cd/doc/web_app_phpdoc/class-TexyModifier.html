@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.3.0">
+
+	<title>Class TexyModifier | CourseManager 1.0</title>
+
+	<script type="text/javascript" src="resources/combined.js?1841058525"></script>
+	<script type="text/javascript" src="elementlist.js?3900795361"></script>
+	<script type="text/javascript">
+		var ApiGen = ApiGen || {};
+		ApiGen.options = {"elementDetailsCollapsed":true,"elementsOrder":"natural"};
+	</script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1298244258">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Course.Manager.Controls.html">Course-Manager/Controls</a>
+						</li>
+				<li><a href="package-Course.Manager.Controls.Models.html">Course-Manager/Controls/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.html">Course-Manager/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.Tools.html">Course-Manager/Models/Tools</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.html">Course-Manager/Presenters</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.Tools.html">Course-Manager/Presenters/Tools</a>
+						</li>
+				<li><a href="package-Nette.html">Nette</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.html">Extras</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.GettextTranslator.html">Extras\GettextTranslator</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="package-Texy.html">Texy</a>
+						</li>
+			</ul>
+
+		</div>
+
+		<hr>
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Texy.html">Texy</a></li>
+				<li><a href="class-TexyBlockModule.html">TexyBlockModule</a></li>
+				<li><a href="class-TexyBlockQuoteModule.html">TexyBlockQuoteModule</a></li>
+				<li><a href="class-TexyConfigurator.html">TexyConfigurator</a></li>
+				<li><a href="class-TexyEmoticonModule.html">TexyEmoticonModule</a></li>
+				<li><a href="class-TexyFigureModule.html">TexyFigureModule</a></li>
+				<li><a href="class-TexyHandlerInvocation.html">TexyHandlerInvocation</a></li>
+				<li><a href="class-TexyHeadingModule.html">TexyHeadingModule</a></li>
+				<li><a href="class-TexyHorizLineModule.html">TexyHorizLineModule</a></li>
+				<li><a href="class-TexyHtml.html">TexyHtml</a></li>
+				<li><a href="class-TexyHtmlModule.html">TexyHtmlModule</a></li>
+				<li><a href="class-TexyHtmlOutputModule.html">TexyHtmlOutputModule</a></li>
+				<li><a href="class-TexyImage.html">TexyImage</a></li>
+				<li><a href="class-TexyImageModule.html">TexyImageModule</a></li>
+				<li><a href="class-TexyLink.html">TexyLink</a></li>
+				<li><a href="class-TexyLinkModule.html">TexyLinkModule</a></li>
+				<li><a href="class-TexyListModule.html">TexyListModule</a></li>
+				<li><a href="class-TexyLongWordsModule.html">TexyLongWordsModule</a></li>
+				<li class="active"><a href="class-TexyModifier.html">TexyModifier</a></li>
+				<li><a href="class-TexyModule.html">TexyModule</a></li>
+				<li><a href="class-TexyObject.html">TexyObject</a></li>
+				<li><a href="class-TexyParagraphModule.html">TexyParagraphModule</a></li>
+				<li><a href="class-TexyParser.html">TexyParser</a></li>
+				<li><a href="class-TexyPhraseModule.html">TexyPhraseModule</a></li>
+				<li><a href="class-TexyScriptModule.html">TexyScriptModule</a></li>
+				<li><a href="class-TexyTableCellElement.html">TexyTableCellElement</a></li>
+				<li><a href="class-TexyTableModule.html">TexyTableModule</a></li>
+				<li><a href="class-TexyTypographyModule.html">TexyTypographyModule</a></li>
+				<li><a href="class-TexyUtf.html">TexyUtf</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-Texy.html" title="Summary of Texy"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class TexyModifier</h1>
+
+	<div class="description">
+	
+<p>Modifier processor.</p>
+
+<p>Modifiers are texts like .(title)[class1 class2 #id]{color: red}&gt;^ .
+starts with dot (...) title or alt modifier [...] classes or ID modifier {...}
+inner style modifier &lt; &gt; &lt;&gt; = horizontal align modifier ^ - _
+vertical align modifier</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-TexyObject.html">TexyObject</a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b>TexyModifier</b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+	<div class="info">
+		<b>Final</b><br>
+		
+		
+
+				<b>Package:</b>
+				<a href="package-Texy.html">Texy</a> <br>
+				<b>Copyright:</b>
+				Copyright (c) 2004, 2010 David Grudl<br>
+		<b>Located at</b> <a href="source-class-TexyModifier.html#14" title="Go to source code">ExternalPlugins/texy/libs/TexyModifier.php</a><br>
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-TexyModifier.html#69" title="Go to source code">__construct</a>( <span>string <var>$mod</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mod</var></dt>
+					<dd><code>string</code><br>modifier to parse</dd>
+				</dl></div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setProperties" id="_setProperties">
+
+		<td class="attributes"><code>
+			
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setProperties">#</a>
+		<code><a href="source-class-TexyModifier.html#79" title="Go to source code">setProperties</a>( <span> <var>$mod</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="decorate" id="_decorate">
+
+		<td class="attributes"><code>
+			
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_decorate">#</a>
+		<code><a href="source-class-TexyModifier.html#137" title="Go to source code">decorate</a>( <span><code><a href="class-Texy.html">Texy</a></code> <var>$texy</var></span>, <span><code><a href="class-TexyHtml.html">TexyHtml</a></code> <var>$el</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Decorates TexyHtml element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Decorates TexyHtml element.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$texy</var></dt>
+					<dd><code><code><a href="class-Texy.html">Texy</a></code></code><br>base Texy object</dd>
+					<dt><var>$el</var></dt>
+					<dd><code><code><a href="class-TexyHtml.html">TexyHtml</a></code></code><br>element to decorate</dd>
+				</dl></div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-TexyObject.html#methods">TexyObject</a></caption>
+	<tr>
+		<td><code>
+<a href="class-TexyObject.html#___call">__call()</a>, 
+<a href="class-TexyObject.html#___callStatic">__callStatic()</a>, 
+<a href="class-TexyObject.html#___get">__get()</a>, 
+<a href="class-TexyObject.html#___isset">__isset()</a>, 
+<a href="class-TexyObject.html#___set">__set()</a>, 
+<a href="class-TexyObject.html#___unset">__unset()</a>, 
+<a href="class-TexyObject.html#_extensionMethod">extensionMethod()</a>, 
+<a href="class-TexyObject.html#_getClass">getClass()</a>, 
+<a href="class-TexyObject.html#_getReflection">getReflection()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="id" id="$id">
+
+		<td class="attributes"><code>
+			
+			public 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#30" title="Go to source code"><var>$id</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$id" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="classes" id="$classes">
+
+		<td class="attributes"><code>
+			
+			public 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#33" title="Go to source code"><var>$classes</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$classes" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>of classes (as keys)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>of classes (as keys)</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="styles" id="$styles">
+
+		<td class="attributes"><code>
+			
+			public 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#36" title="Go to source code"><var>$styles</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$styles" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>of CSS styles</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>of CSS styles</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="attrs" id="$attrs">
+
+		<td class="attributes"><code>
+			
+			public 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#39" title="Go to source code"><var>$attrs</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$attrs" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>of HTML element attributes</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>of HTML element attributes</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="hAlign" id="$hAlign">
+
+		<td class="attributes"><code>
+			
+			public 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#42" title="Go to source code"><var>$hAlign</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$hAlign" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="vAlign" id="$vAlign">
+
+		<td class="attributes"><code>
+			
+			public 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#45" title="Go to source code"><var>$vAlign</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$vAlign" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="title" id="$title">
+
+		<td class="attributes"><code>
+			
+			public 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#48" title="Go to source code"><var>$title</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$title" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="cite" id="$cite">
+
+		<td class="attributes"><code>
+			
+			public 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#51" title="Go to source code"><var>$cite</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$cite" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="elAttrs" id="$elAttrs">
+
+		<td class="attributes"><code>
+			
+			public static
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-TexyModifier.html#54" title="Go to source code"><var>$elAttrs</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+	<span class="php-quote">'abbr'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'accesskey'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'align'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'alt'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'archive'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'axis'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'bgcolor'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'cellpadding'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'cellspacing'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'char'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'charoff'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'charset'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'cite'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'classid'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'codebase'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'codetype'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'colspan'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'compact'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'coords'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'data'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'datetime'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'declare'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'dir'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'face'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'frame'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'headers'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'href'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'hreflang'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'hspace'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'ismap'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'lang'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'longdesc'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'name'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'noshade'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'nowrap'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onblur'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onclick'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'ondblclick'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onkeydown'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onkeypress'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'onkeyup'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onmousedown'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onmousemove'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onmouseout'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onmouseover'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'onmouseup'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'rel'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'rev'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'rowspan'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'rules'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'scope'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'shape'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'size'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'span'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'src'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'standby'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'start'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'summary'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'tabindex'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'target'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'title'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'type'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'usemap'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'valign'</span>=&gt;<span class="php-num">1</span>,
+	<span class="php-quote">'value'</span>=&gt;<span class="php-num">1</span>,<span class="php-quote">'vspace'</span>=&gt;<span class="php-num">1</span>,
+)</code></td>
+		<td class="description"><div>
+			<a href="#$elAttrs" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>list of properties which are regarded as HTML element attributes</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>list of properties which are regarded as HTML element attributes</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		CourseManager 1.0 API documentation generated by <a href="http://apigen.org">ApiGen 2.3.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{block title}{$showuser->firstname} {$showuser->lastname}{/block}
+{block head}
+
+{/block}
+
+{block content}
+    <div id="user_homepage">
+        {if $logged}
+			<div id="profile">
+				<img src="{$basePath}/images/defaultUser.png" width="200" height="200" />
+				<h3>{$showuser->firstname} {$showuser->lastname}</h3>
+				<span><strong>{!_'First Name'}</strong> {$showuser->firstname}</span>
+				<span><strong>{!_'Last Name'}</strong> {$showuser->lastname}</span>
+				{if $settings->showEmail}
+					<span><strong>{!_'E-mail'}</strong> {$showuser->email}</span>
+				{/if}
+				<span><strong><a href="{link message:new, $showuser->email}">{!_'Send Message'}</strong></a></span>
+			</div>
+        {/if}
+    </div>
+{/block}

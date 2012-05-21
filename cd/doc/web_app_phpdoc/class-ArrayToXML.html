@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.3.0">
+
+	<title>Class ArrayToXML | CourseManager 1.0</title>
+
+	<script type="text/javascript" src="resources/combined.js?1841058525"></script>
+	<script type="text/javascript" src="elementlist.js?3900795361"></script>
+	<script type="text/javascript">
+		var ApiGen = ApiGen || {};
+		ApiGen.options = {"elementDetailsCollapsed":true,"elementsOrder":"natural"};
+	</script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1298244258">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-Course.Manager.Controls.html">Course-Manager/Controls</a>
+						</li>
+				<li><a href="package-Course.Manager.Controls.Models.html">Course-Manager/Controls/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.html">Course-Manager/Models</a>
+						</li>
+				<li><a href="package-Course.Manager.Models.Tools.html">Course-Manager/Models/Tools</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.html">Course-Manager/Presenters</a>
+						</li>
+				<li><a href="package-Course.Manager.Presenters.Tools.html">Course-Manager/Presenters/Tools</a>
+						</li>
+				<li><a href="package-Nette.html">Nette</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.html">Extras</a>
+						<span></span>
+						<ul>
+				<li><a href="package-Nette.Extras.GettextTranslator.html">Extras\GettextTranslator</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="active"><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li><a href="package-Texy.html">Texy</a>
+						</li>
+			</ul>
+
+		</div>
+
+		<hr>
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-ArrayToXML.html">ArrayToXML</a></li>
+				<li><a href="class-CssLoader.html">CssLoader</a></li>
+				<li><a href="class-JavaScriptLoader.html">JavaScriptLoader</a></li>
+				<li><a href="class-NetteLatteFilter.html">NetteLatteFilter</a></li>
+				<li><a href="class-PHPFilter.html">PHPFilter</a></li>
+				<li><a href="class-TexyBlockParser.html">TexyBlockParser</a></li>
+				<li><a href="class-TexyLineParser.html">TexyLineParser</a></li>
+				<li><a href="class-VariablesFilter.html">VariablesFilter</a></li>
+				<li><a href="class-WebLoader.html">WebLoader</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-iFilter.html">iFilter</a></li>
+			</ul>
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-inFunction.html">inFunction</a></li>
+				<li><a href="function-outFunction.html">outFunction</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-None.html" title="Summary of None"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ArrayToXML</h1>
+
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Object
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b>ArrayToXML</b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+
+		<b>Located at</b> <a href="source-class-ArrayToXML.html#3" title="Go to source code">models/External/ArrayToXML.php</a><br>
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="toXML" id="_toXML">
+
+		<td class="attributes"><code>
+			
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toXML">#</a>
+		<code><a href="source-class-ArrayToXML.html#5" title="Go to source code">toXML</a>( <span>array <var>$data</var></span>, <span>string <var>$rootNodeName</var> = <span class="php-quote">'ResultSet'</span></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>&amp; $xml</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>The main function for converting to an XML document. Pass in a multi
+dimensional array and this recrusively loops through and builds up an XML
+document.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>The main function for converting to an XML document. Pass in a multi
+dimensional array and this recrusively loops through and builds up an XML
+document.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code>array</code></dd>
+					<dt><var>$rootNodeName</var></dt>
+					<dd><code>string</code><br> - what you want the root node to be - defaultsto data.</dd>
+					<dt><var>$xml</var></dt>
+					<dd><code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br> - should only be used recursively</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>XML<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toArray" id="_toArray">
+
+		<td class="attributes"><code>
+			
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toArray">#</a>
+		<code><a href="source-class-ArrayToXML.html#62" title="Go to source code">toArray</a>( <span>string <var>$xml</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Convert an XML document to a multi dimensional array Pass in an XML document
+(or SimpleXMLElement object) and this recrusively loops through and builds a
+representative array</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Convert an XML document to a multi dimensional array Pass in an XML document
+(or SimpleXMLElement object) and this recrusively loops through and builds a
+representative array</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xml</var></dt>
+					<dd><code>string</code><br> - XML document - can optionally be a SimpleXMLElement object</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>ARRAY<br>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isAssoc" id="_isAssoc">
+
+		<td class="attributes"><code>
+			
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isAssoc">#</a>
+		<code><a href="source-class-ArrayToXML.html#92" title="Go to source code">isAssoc</a>( <span> <var>$array</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		CourseManager 1.0 API documentation generated by <a href="http://apigen.org">ApiGen 2.3.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

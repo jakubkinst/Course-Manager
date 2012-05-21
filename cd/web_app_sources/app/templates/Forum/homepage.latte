@@ -1,0 +1,31 @@
+{block title}{!_'Forum'}{/block}
+{block head}{/block}
+{block content}
+    <div id="forum_homepage">
+        {if $logged}
+            <h3>{!_'Course Forum'}</h3>
+            <div class="separator"><!----></div>
+            {control pages}
+            <table>
+                <thead>
+                    <td>{!_'Topic Name'}</td>
+                    <td>{!_'Author'}</td>
+                    <td>{!_'Replies'}</td>
+                    <td>{!_'Last reply'}</td>
+                </thead>
+                {foreach $topics as $topic}
+                    <tr>
+                        <td><a href="{link forum:showTopic, $topic['id']}">{$topic['label']}</a></td>
+                        <td>{$topic->author->firstname} {$topic->author->lastname}</td>
+                        <td>{$topic['replies']}</td>
+                        <td>{$topic['lastreply']!=null ? $topic['lastreply']['created'] : $topic['created'] }</td>
+
+                    </tr></a>
+                {/foreach}
+            </table>
+            {control pages}
+            <div class="separator"><!----></div>
+                {widget addTopic}
+        {/if}
+    </div>
+{/block}

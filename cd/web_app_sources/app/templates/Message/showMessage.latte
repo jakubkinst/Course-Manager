@@ -1,0 +1,21 @@
+{block title}{$message->subject} - {!_'Messages'}{/block}
+{block head}
+
+{/block}
+
+{block content}
+    <div id="message_showMessage">
+        {if $logged}
+			<div id="message">
+				<h3>{$message->subject}</h3>
+				<span class="from">{!_'From'} <strong>{$message->from->email}</strong></h4>
+				<span class="date">({$message->sent|myDateTime})</span>
+				<div class="content"><p>{!$message->content|nl2br}</p></div>
+				<div class="buttonline">
+					<a class="abutton" href="{link new,'email'=>$message->from->email,'subject'=> 'Re: '.$message->subject,'content'=>MessageModel::wrapReply($message->content)}"> {!_'Reply'}</a>
+				</div>
+			</div>
+        {/if}
+    </div>
+
+{/block}

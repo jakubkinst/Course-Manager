@@ -1,0 +1,7 @@
+/temp/*
+/uploads
+/document_root/webtemp/*
+mailpwd.txt
+/log/*
+nbproject/*
+/app/config.neon

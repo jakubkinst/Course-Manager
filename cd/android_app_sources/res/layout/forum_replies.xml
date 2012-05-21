@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#dddddd"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/topicContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas commodo massa et ullamcorper. Pellentesque vitae imperdiet ipsum. Duis purus lectus, volutpat mattis pellentesque sed, suscipit sit amet odio. Aliquam ullamcorper tristique urna et viverra. Nulla non venenatis lectus. Vivamus turpis purus, viverra vitae interdum non, convallis id odio. Morbi ac volutpat erat."
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/topicAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/topicDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/linearLayout1_ref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/paginator" />
+
+    <ListView
+        android:id="@+id/replies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

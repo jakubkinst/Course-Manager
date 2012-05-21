@@ -1,0 +1,909 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jakub Kinst <jakub@kinst.cz>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# MessagePresenter.php:50
+# UserPresenter.php:64
+msgid "@"
+msgstr ""
+
+# TexyTableModule.php:283
+msgid "Â "
+msgstr " XC2  xA0"
+
+# homepage.latte:13
+msgid "Accept"
+msgstr "Přijmout"
+
+# AssignmentPresenter.php:191
+# AssignmentPresenter.php:245
+# AssignmentPresenter.php:264
+# AssignmentPresenter.php:281
+# AssignmentPresenter.php:309
+# AssignmentPresenter.php:349
+# EventPresenter.php:39
+msgid "Add"
+msgstr "Přidat"
+
+# ResultPresenter.php:61
+# add.latte:0
+# add.latte:10
+msgid "Add Assignment"
+msgstr "Přidání přiřazení"
+
+# homepage.latte:9
+msgid "Add Auto-Correct"
+msgstr "Přidání Auto-Upravit"
+
+# add.latte:0
+# add.latte:3
+# homepage.latte:8
+msgid "Add Course"
+msgstr "Přidat kurz"
+
+# homepage.latte:45
+msgid "ADD EVENT"
+msgstr "Přidat událost"
+
+# CoursePresenter.php:75
+msgid "Add lesson"
+msgstr "Přidat lekce"
+
+# addLesson.latte:0
+# addLesson.latte:4
+# homepage.latte:13
+msgid "Add Lesson"
+msgstr "Přidat lekce"
+
+# homepage.latte:8
+msgid "Add Normal"
+msgstr "Přidání Normální"
+
+# addResource.latte:0
+msgid "Add resource"
+msgstr "Přidání zdrojů"
+
+# homepage.latte:6
+msgid "Add Resource"
+msgstr "Přidání zdrojů"
+
+# add.latte:0
+# add.latte:3
+# homepage.latte:72
+msgid "Add Results"
+msgstr "Přidat Výsledky"
+
+# @layout.latte:177
+# @layout.latte:191
+# add.latte:0
+# correct.latte:0
+# homepage.latte:0
+# homepage.latte:5
+# show.latte:0
+# solve.latte:0
+msgid "Assignments"
+msgstr "Úkoly"
+
+# homepage.latte:11
+# showTopic.latte:15
+msgid "Author"
+msgstr "Autor"
+
+# homepage.latte:13
+# show.latte:4
+msgid "Auto-Correct"
+msgstr "Auto-Upravit"
+
+# homepage.latte:49
+msgid "AVG"
+msgstr "AVG"
+
+# homepage.latte:13
+# showTopic.latte:6
+msgid "by"
+msgstr "od"
+
+# testfile.php:13
+msgid "Cancel"
+msgstr "Zrušit"
+
+# AssignmentPresenter.php:183
+msgid "Close Date:"
+msgstr "Datum ukončení:"
+
+# LessonPresenter.php:43
+msgid "Comment:"
+msgstr "Komentář:"
+
+# homepage.latte:26
+msgid "Comments"
+msgstr "Komentáře"
+
+# inviteStudent.latte:12
+msgid "Confirmed students"
+msgstr "Potvrzeno studenty"
+
+# showMessage.latte:12
+msgid "Content"
+msgstr "Obsah"
+
+# MessagePresenter.php:54
+msgid "Content:"
+msgstr "Obsah:"
+
+# ForumPresenter.php:53
+msgid "Content:*"
+msgstr "Obsah: *"
+
+# show.latte:16
+msgid "Correct"
+msgstr "Správný"
+
+# correct.latte:0
+# correct.latte:4
+msgid "Correcting"
+msgstr "Oprava"
+
+# CoursePresenter.php:45
+msgid "Course description:"
+msgstr "Popis kurzu:"
+
+# showEvent.latte:8
+msgid "Course Event Detail"
+msgstr "Kurz Událost Detail"
+
+# homepage.latte:5
+msgid "Course Forum"
+msgstr "Samozřejmě Forum"
+
+# homepage.latte:0
+msgid "Course Home"
+msgstr "Kurz Úvod"
+
+# CoursePresenter.php:43
+msgid "Course name:*"
+msgstr "Název kurzu: *"
+
+# homepage.latte:5
+msgid "Course Resources"
+msgstr "Kurz zdroje"
+
+# CoursePresenter.php:47
+msgid "Create course"
+msgstr "Můžete si samozřejmě"
+
+# EventPresenter.php:34
+msgid "Date:*"
+msgstr "Datum: *"
+
+# homepage.latte:13
+msgid "Decline"
+msgstr "Pokles"
+
+# homepage.latte:15
+msgid "Delete Course"
+msgstr "Odstranit kurzu"
+
+# showEvent.latte:12
+msgid "Description"
+msgstr "Popis"
+
+# AssignmentPresenter.php:181
+msgid "Description:"
+msgstr "Popis:"
+
+# EventPresenter.php:36
+msgid "Description:*"
+msgstr "Popis: *"
+
+# edit.latte:25
+msgid "Done"
+msgstr "Hotovo"
+
+# correct.latte:28
+msgid "Download"
+msgstr "Ke stažení"
+
+# show.latte:15
+msgid "Edit"
+msgstr "Upravit"
+
+# edit.latte:0
+# edit.latte:4
+msgid "Edit Assignment"
+msgstr "Upravit přiřazení"
+
+# @layout.latte:138
+msgid "Edit profile"
+msgstr "Upravit profil"
+
+# show.latte:14
+msgid "Edit Submission"
+msgstr "Upravit podání"
+
+# edit.latte:0
+# edit.latte:3
+msgid "Edit User"
+msgstr "Upravit uživatele"
+
+# homepage.latte:13
+msgid "E-mail"
+msgstr "E-mail"
+
+# UserPresenter.php:66
+msgid "E-mail is already registered."
+msgstr "E-mail je již registrován."
+
+# MasterPresenter.php:76
+msgid "E-Mail:"
+msgstr "E-mail:"
+
+# CoursePresenter.php:100
+# UserPresenter.php:62
+msgid "E-mail:*"
+msgstr "E-mail: *"
+
+# MessagePresenter.php:51
+# UserPresenter.php:65
+msgid "Enter valid e-mail"
+msgstr "Zadejte platný e-mail"
+
+# testfile.php:5
+msgid "Escaping some \\\"fancy\\\" text"
+msgstr "Unikat některé   fantazie   &quot;text&quot;"
+
+# showEvent.latte:0
+msgid "Event"
+msgstr "Událost"
+
+# @layout.latte:180
+# @layout.latte:194
+# homepage.latte:0
+# homepage.latte:38
+msgid "Events"
+msgstr "Události"
+
+# AssignmentPresenter.php:238
+# AssignmentPresenter.php:260
+# AssignmentPresenter.php:277
+# AssignmentPresenter.php:294
+# AssignmentPresenter.php:334
+msgid "Example"
+msgstr "Příklad"
+
+# Uploader.php:32
+msgid "File "
+msgstr "Soubor"
+
+# edit.latte:11
+msgid "File upload"
+msgstr "Upload souboru"
+
+# LessonPresenter.php:44
+msgid "Fill comment."
+msgstr "Vyplňte komentář."
+
+# ForumPresenter.php:54
+# ForumPresenter.php:81
+msgid "Fill content."
+msgstr "Vyplnit obsah."
+
+# EventPresenter.php:35
+msgid "Fill date."
+msgstr "Vyplňte data."
+
+# EventPresenter.php:37
+msgid "Fill description."
+msgstr "Vyplnit popis."
+
+# CoursePresenter.php:101
+msgid "Fill email."
+msgstr "Vyplňte e-mail."
+
+# UserPresenter.php:68
+msgid "Fill in the password"
+msgstr "Vyplňte heslo"
+
+# UserPresenter.php:71
+msgid "Fill in the password again."
+msgstr "Zadejte heslo znovu."
+
+# EventPresenter.php:33
+msgid "Fill name."
+msgstr "Vyplňte jméno."
+
+# UserPresenter.php:59
+# UserPresenter.php:98
+msgid "Fill the firstname."
+msgstr "Vyplňte jméno."
+
+# UserPresenter.php:61
+# UserPresenter.php:100
+msgid "Fill the lastname."
+msgstr "Vyplňte příjmení."
+
+# ForumPresenter.php:52
+msgid "Fill topic."
+msgstr "Vyplňte téma."
+
+# homepage.latte:10
+msgid "First Name"
+msgstr "Křestní jméno"
+
+# UserPresenter.php:58
+# UserPresenter.php:97
+msgid "First name:*"
+msgstr "Jméno: *"
+
+# @layout.latte:179
+# @layout.latte:193
+# homepage.latte:0
+msgid "Forum"
+msgstr "Forum"
+
+# showTopic.latte:0
+msgid "Forum Topic"
+msgstr "Fórum"
+
+# showMessage.latte:10
+msgid "from"
+msgstr "z"
+
+# inbox.latte:15
+msgid "From"
+msgstr "Z"
+
+# homepage.latte:41
+msgid "Grades"
+msgstr "Stupně"
+
+# homepage.latte:0
+msgid "Help"
+msgstr "Pomoc"
+
+# homepage.latte:57
+msgid "here"
+msgstr "zde"
+
+# testfile.php:3
+msgid "I see %d little indians!"
+msgstr "Vidím% d Little Indians!"
+
+# inbox.latte:0
+# new.latte:7
+# outbox.latte:8
+msgid "Inbox"
+msgstr "Doručená pošta"
+
+# CoursePresenter.php:104
+msgid "Invite"
+msgstr "Pozvat"
+
+# homepage.latte:14
+# inviteStudent.latte:0
+# inviteStudent.latte:4
+msgid "Invite Student"
+msgstr "Pozvat Student"
+
+# inviteStudent.latte:8
+msgid "Invited students"
+msgstr "Pozvaní studenty"
+
+# homepage.latte:11
+msgid "Last Name"
+msgstr "Příjmení"
+
+# UserPresenter.php:60
+# UserPresenter.php:99
+msgid "Last name:*"
+msgstr "Příjmení: *"
+
+# homepage.latte:13
+msgid "Last reply"
+msgstr "Poslední odpověď"
+
+# homepage.latte:17
+msgid "Leave Course"
+msgstr "Nechte kurzu"
+
+# homepage.latte:22
+msgid "Lectors"
+msgstr "Lektoři"
+
+# addResource.latte:0
+# homepage.latte:0
+msgid "Lesson"
+msgstr "Lekce"
+
+# CoursePresenter.php:73
+msgid "Lesson description:"
+msgstr "Lekce Popis:"
+
+# @layout.latte:175
+# @layout.latte:189
+msgid "Lessons"
+msgstr "Vyučování"
+
+# @layout.latte:139
+msgid "Log out"
+msgstr "Odhlásit"
+
+# @layout.latte:128
+msgid "Login"
+msgstr "Přihlášení"
+
+# homepage.latte:16
+msgid "Max points"
+msgstr "Max bodů"
+
+# ResultPresenter.php:47
+msgid "Max points/grade must be a number"
+msgstr "Max bodů / třídy musí být číslo"
+
+# ResultPresenter.php:46
+msgid "Max points:"
+msgstr "Max bodů:"
+
+# AssignmentPresenter.php:184
+msgid "Max. Points (0=no max points):"
+msgstr "Max. Body (0 = ne max bodů):"
+
+# AssignmentPresenter.php:186
+# AssignmentPresenter.php:190
+msgid "Max. points must be a number"
+msgstr "Max. body musí být číslo"
+
+# correct.latte:16
+msgid "Max:"
+msgstr "Max:"
+
+# homepage.latte:26
+# homepage.latte:43
+msgid "Message"
+msgstr "Zpráva"
+
+# showMessage.latte:0
+msgid "Messages"
+msgstr "Zprávy"
+
+# homepage.latte:17
+msgid "min"
+msgstr "Já"
+
+# UserPresenter.php:69
+msgid "Minimal password length is %d."
+msgstr "Minimální délka hesla je% d."
+
+# show.latte:11
+msgid "minutes"
+msgstr "minut"
+
+# homepage.latte:63
+msgid "More"
+msgstr "Více"
+
+# edit.latte:13
+msgid "Multi choices"
+msgstr "Více možností"
+
+# homepage.latte:0
+# homepage.latte:5
+msgid "My Courses"
+msgstr "My kurzy"
+
+# inbox.latte:5
+msgid "My Inbox"
+msgstr "My doručené"
+
+# AssignmentPresenter.php:239
+# AssignmentPresenter.php:278
+# AssignmentPresenter.php:295
+msgid "My Label"
+msgstr "Můj label"
+
+# AssignmentPresenter.php:261
+msgid "My Label:"
+msgstr "My Label:"
+
+# outbox.latte:5
+msgid "My Outbox"
+msgstr "My odeslání"
+
+# @layout.latte:137
+msgid "My profile"
+msgstr "Můj profil"
+
+# homepage.latte:25
+# homepage.latte:42
+# homepage.latte:11
+# homepage.latte:45
+msgid "Name"
+msgstr "Jméno"
+
+# AssignmentPresenter.php:179
+msgid "Name*"
+msgstr "Jméno *"
+
+# EventPresenter.php:32
+msgid "Name:*"
+msgstr "Jméno: *"
+
+# inbox.latte:9
+# new.latte:0
+# new.latte:3
+# new.latte:8
+# outbox.latte:9
+msgid "New Message"
+msgstr "Nová zpráva"
+
+# homepage.latte:51
+msgid "No courses"
+msgstr "Žádný kurz"
+
+# homepage.latte:17
+msgid "no limit"
+msgstr "bez omezení"
+
+# homepage.latte:7
+msgid "Offline and Online tasks"
+msgstr "Offline a online úkolů"
+
+# ResultPresenter.php:44
+msgid "Offline assignment name:*"
+msgstr "Offline úkol jméno: *"
+
+# homepage.latte:41
+msgid "Offline tasks"
+msgstr "Offline úkoly"
+
+# showEvent.latte:11
+# showMessage.latte:11
+msgid "on"
+msgstr "na"
+
+# homepage.latte:15
+msgid "Open"
+msgstr "Otevřeno"
+
+# AssignmentPresenter.php:182
+msgid "Open Date:"
+msgstr "Otevřené Datum:"
+
+# inbox.latte:8
+# new.latte:6
+# outbox.latte:0
+msgid "Outbox"
+msgstr "Pošta k odeslání"
+
+# MasterPresenter.php:79
+msgid "Password:"
+msgstr "Heslo:"
+
+# UserPresenter.php:67
+msgid "Password:*"
+msgstr "Heslo: *"
+
+# UserPresenter.php:72
+msgid "Passwords don't match."
+msgstr "Hesla Don  &#39;t zápas."
+
+# AssignmentPresenter.php:110
+msgid "Point value must be a number"
+msgstr "Bodová hodnota musí být číslo"
+
+# correct.latte:16
+# homepage.latte:7
+msgid "Points"
+msgstr "Body"
+
+# AssignmentPresenter.php:111
+msgid "Points must be between 0 and max. points"
+msgstr "Body musí být mezi 0 a Max. body"
+
+# ResultPresenter.php:58
+msgid "Points/grade must be a number"
+msgstr "Body / třídy musí být číslo"
+
+# ResultPresenter.php:53
+msgid "Points/Grade:"
+msgstr "Body / funkce:"
+
+# ForumPresenter.php:56
+# ForumPresenter.php:83
+# LessonPresenter.php:45
+msgid "Post"
+msgstr "Místo"
+
+# showTopic.latte:16
+msgid "Posted"
+msgstr "Publikováno"
+
+# edit.latte:16
+msgid "Preview"
+msgstr "Preview"
+
+# edit.latte:12
+msgid "Radio choices"
+msgstr "Rádio volby"
+
+# inbox.latte:16
+msgid "Recieved"
+msgstr "Přijaté"
+
+# UserPresenter.php:75
+# UserPresenter.php:103
+msgid "Register"
+msgstr "Registrovat"
+
+# @layout.latte:143
+msgid "REGISTER"
+msgstr "REGISTRACE"
+
+# register.latte:0
+# register.latte:3
+msgid "Register User"
+msgstr "Registrace uživatele"
+
+# solve.latte:19
+msgid "Remaining time:"
+msgstr "Zbývající čas:"
+
+# MasterPresenter.php:82
+msgid "Remember"
+msgstr "Zapamatovat si"
+
+# homepage.latte:12
+msgid "Replies"
+msgstr "Odpovědi"
+
+# ForumPresenter.php:80
+msgid "Reply:*"
+msgstr "Odpověď: *"
+
+# @layout.latte:178
+# @layout.latte:192
+# homepage.latte:17
+# homepage.latte:0
+msgid "Resources"
+msgstr "Zdroje"
+
+# @layout.latte:176
+# @layout.latte:190
+# homepage.latte:0
+# homepage.latte:5
+msgid "Results"
+msgstr "Výsledky"
+
+# AssignmentPresenter.php:244
+# AssignmentPresenter.php:308
+# AssignmentPresenter.php:348
+msgid "Right anwser must be filled"
+msgstr "Anwser právo musí být vyplněny"
+
+# AssignmentPresenter.php:243
+# AssignmentPresenter.php:307
+msgid "Right Anwser:*"
+msgstr "Právo Anwser: *"
+
+# AssignmentPresenter.php:347
+msgid "Right Anwsers delim. by \";\" :*"
+msgstr "Právo Anwsers oddělovač. o ,  &quot;*&quot;"
+
+# AssignmentPresenter.php:113
+# SettingsPresenter.php:27
+msgid "Save"
+msgstr "Uložit"
+
+# Uploader.php:33
+msgid "Select file."
+msgstr "Vyberte soubor."
+
+# testfile.php:11
+# MessagePresenter.php:55
+msgid "Send"
+msgstr "Odeslat"
+
+# homepage.latte:31
+# homepage.latte:48
+# homepage.latte:15
+msgid "Send Message"
+msgstr "Poslat zprávu"
+
+# outbox.latte:15
+msgid "Sent"
+msgstr "Odeslané"
+
+# ResultPresenter.php:45
+msgid "Set assignment name."
+msgstr "Set zadání jména."
+
+# CoursePresenter.php:44
+msgid "Set course name."
+msgstr "Set název předmětu."
+
+# AssignmentPresenter.php:240
+# AssignmentPresenter.php:262
+# AssignmentPresenter.php:279
+msgid "Set Label"
+msgstr "Set štítek"
+
+# AssignmentPresenter.php:296
+# AssignmentPresenter.php:336
+msgid "Set Label and choices"
+msgstr "Set Label a volby"
+
+# CoursePresenter.php:72
+msgid "Set lesson topic."
+msgstr "Set lekce téma."
+
+# homepage.latte:0
+# homepage.latte:3
+msgid "Settings"
+msgstr "Nastavení"
+
+# SettingsPresenter.php:26
+msgid "Show my e-mail address to my coursemates"
+msgstr "Zobrazit můj e-mailovou adresu, na mé coursemates"
+
+# MasterPresenter.php:84
+msgid "Sign in"
+msgstr "Přihlásit se"
+
+# show.latte:14
+msgid "Solve Now"
+msgstr "Řešení Kč"
+
+# solve.latte:0
+# solve.latte:35
+msgid "Solving"
+msgstr "Řešení"
+
+# @layout.latte:184
+# homepage.latte:37
+msgid "Student courses"
+msgstr "Student kurzy"
+
+# correct.latte:12
+msgid "Student Name"
+msgstr "Student Název"
+
+# homepage.latte:39
+msgid "Students"
+msgstr "Studenti"
+
+# inbox.latte:14
+# outbox.latte:13
+# showMessage.latte:8
+msgid "Subject"
+msgstr "Předmět"
+
+# MessagePresenter.php:53
+msgid "Subject:"
+msgstr "Předmět:"
+
+# AssignmentPresenter.php:144
+msgid "Submit"
+msgstr "Předložit"
+
+# homepage.latte:18
+msgid "SUM"
+msgstr "SUM"
+
+# @layout.latte:170
+msgid "Teachered courses"
+msgstr "Teachered kurzy"
+
+# homepage.latte:21
+msgid "Teaching courses"
+msgstr "Výuka kurzů"
+
+# edit.latte:10
+msgid "Text area"
+msgstr "Text oblasti"
+
+# edit.latte:9
+msgid "Text input"
+msgstr "Zadávání textu"
+
+# show.latte:11
+msgid "This assignment is time limited. You have"
+msgstr "Tento úkol je časově omezena. Jste"
+
+# MessagePresenter.php:52
+msgid "This e-mail address is not registered."
+msgstr "Tato e-mailová adresa není registrována."
+
+# homepage.latte:17
+msgid "Time Limit"
+msgstr "Časový limit"
+
+# AssignmentPresenter.php:187
+msgid "Time limit in minutes (0=no limit):"
+msgstr "Časový limit v minutách (0 = bez omezení):"
+
+# AssignmentPresenter.php:188
+msgid "Time limit must be a number"
+msgstr "Lhůta musí být číslo"
+
+# outbox.latte:14
+msgid "To"
+msgstr "Na"
+
+# show.latte:11
+msgid "to solve it once you click the Solve Now button."
+msgstr "to vyřešit, jakmile kliknete na tlačítko Řešení nyní."
+
+# MessagePresenter.php:49
+msgid "To:*"
+msgstr "Chcete-li: *"
+
+# homepage.latte:10
+msgid "Topic Name"
+msgstr "Název tématu"
+
+# CoursePresenter.php:71
+# ForumPresenter.php:51
+msgid "Topic:*"
+msgstr "Téma: *"
+
+# homepage.latte:40
+msgid "Unauthorized access !"
+msgstr "Neoprávněný přístup!"
+
+# Uploader.php:35
+msgid "Upload"
+msgstr "Nahrát"
+
+# homepage.latte:16
+msgid "Upload Resource"
+msgstr "Přidat zdroj"
+
+# check.latte:0
+msgid "User confirmation"
+msgstr "Potvrzení od uživatele"
+
+# UserPresenter.php:70
+msgid "Verify password:*"
+msgstr "Heslo znovu: *"
+
+# UserPresenter.php:73
+# UserPresenter.php:101
+msgid "Webpage:"
+msgstr "Webová stránka:"
+
+# homepage.latte:56
+msgid "Welcome to Course Manager. Please sign in."
+msgstr "Vítejte v kurzu Manager. Prosím, přihlaste se"
+
+# CoursePresenter.php:102
+msgid "Wrong e-mail format"
+msgstr "Špatné formát e-mailu"
+
+# homepage.latte:57
+msgid "You can register"
+msgstr "Můžete se zaregistrovat"
+
+# show.latte:9
+msgid "You can start solving this assignment by clicking the Solve Now button."
+msgstr "Můžete začít řešit tento úkol kliknutím na tlačítko Řešení Kč."
+
+# homepage.latte:13
+msgid "You have been invited to"
+msgstr "Ty byly vyzvány, aby"
+
+# testfile.php:10
+msgid "Your name:"
+msgstr "Vaše jméno:"
+
+# check.latte:7
+msgid "Your registration is complete. Log in now."
+msgstr "Vaše registrace dokončena. Přihlásit se nyní."
+

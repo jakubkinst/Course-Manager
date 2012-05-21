@@ -1,0 +1,17 @@
+{snippet form}
+    {control uploadResource begin}
+    {control uploadResource errors}
+    {var uploadResource => $control['uploadResource']}
+    {for $i=0;$i<$f;$i++}
+	{$uploadResource[$i]->control}
+    {/for}
+    <div>
+	{if $f>1}
+	    <a class="ajax nbutton" href="{link Set!, $f - 1}">-</a>
+	{/if}
+	    <a class="ajax nbutton" href="{link Set!, $f + 1}">+</a>
+    </div>
+    {$uploadResource['upload']->control}
+    {control uploadResource end}
+{/snippet}
+
